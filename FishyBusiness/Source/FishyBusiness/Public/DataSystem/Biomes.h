@@ -7,9 +7,8 @@
 /**
  * 
  */
-class FISHYBUSINESS_API ItemStorage
+UENUM()
+enum Biomes
 {
-public:
-	ItemStorage();
-	~ItemStorage();
+	STANDARD_BIOME,
 };
