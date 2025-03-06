@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 
-
 class FISHYBUSINESS_API Sentence
 {
 private:
@@ -38,6 +37,6 @@ private:
 	TArray<Monologue> _xDialogueParts;
 	
 public:
-	Dialogue(TArray<Monologue> dialogueParts);
+	Dialogue();
 };
 

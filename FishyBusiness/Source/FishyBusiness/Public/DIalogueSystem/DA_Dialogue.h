@@ -15,10 +15,7 @@ class FISHYBUSINESS_API UDA_Dialogue : public UDataAsset
 {
 	GENERATED_BODY()
 private:
-	UPROPERTY(EditAnywhere)
-	int Value;
-	UPROPERTY(EditAnywhere)
-	FString Name;
+	//Dialogue Dialogue;
 
 public:
 	UDA_Dialogue();
