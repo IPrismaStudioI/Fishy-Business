@@ -24,36 +24,41 @@ def create_data_assets_from_csv(csv_file, asset_class, package_path):
         asset_full_path = f"{package_path}/{asset_name}"
 
         if unreal.EditorAssetLibrary.does_asset_exist(asset_full_path):
-            print(f"L'asset '{asset_full_path}' esiste già, salto...")
+            asset = unreal.EditorAssetLibrary.load_asset(asset_full_path)
+            fill_asset(asset, row, df)
             continue
-
-        # Crea il Data Asset
-        factory = unreal.DataAssetFactory()
-        asset = unreal.AssetToolsHelpers.get_asset_tools().create_asset(
-            asset_name,
-            package_path,
-            asset_class,
-            factory
-        )
+            #print(f"L'asset '{asset_full_path}' esiste già, salto...")
+        else:
+            # Crea il Data Asset
+            factory = unreal.DataAssetFactory()
+            asset = unreal.AssetToolsHelpers.get_asset_tools().create_asset(
+                asset_name,
+                package_path,
+                asset_class,
+                factory
+            )
 
         if not asset:
             print(f"Errore nella creazione del Data Asset: {asset_name}")
             continue
 
-        # Inserisce i dati nei campi del Data Asset
-        for col_name, value in row.items():
-            if col_name == df.columns[0]:  # Ignora la colonna del nome
-                continue
-            
-            property_name = camel_to_snake(col_name.strip())  # Normalizza il nome
-            try:
-                asset.set_editor_property(property_name, value)
-            except Exception as e:
-                print(f"Errore nell'impostare {property_name} per {asset_name}: {e}")
+        fill_asset(asset, row, df)
 
         # Salva l'asset
         unreal.EditorAssetLibrary.save_asset(asset_full_path)
         print(f"✅ Data Asset creato: {asset_full_path}")
+
+def fill_asset(asset, row, df):
+    # Inserisce i dati nei campi del Data Asset
+    for col_name, value in row.items():
+        if col_name == df.columns[0]:  # Ignora la colonna del nome
+            continue
+
+        property_name = camel_to_snake(col_name.strip())  # Normalizza il nome
+        try:
+            asset.set_editor_property(property_name, value)
+        except Exception as e:
+            print(f"Errore nell'impostare {property_name} per {asset_name}: {e}")
 
 # Esempio di utilizzo
 if __name__ == "__main__":
