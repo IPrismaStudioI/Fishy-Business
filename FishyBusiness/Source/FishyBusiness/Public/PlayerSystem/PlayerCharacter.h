@@ -26,4 +26,13 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UCameraComponent* xCamera;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USpringArmComponent* xSpringArm;
+
+	void MoveForward(float inputVector);
+	void MoveRight(float inputVector);
 };
