@@ -14,8 +14,13 @@ UCLASS(BlueprintType)
 class FISHYBUSINESS_API UDA_Dialogue : public UDataAsset
 {
 	GENERATED_BODY()
-private:
-	//Dialogue Dialogue;
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FDialogue Dialogue;
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	// int Value;
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	// FString Name;
 
 public:
 	UDA_Dialogue();

@@ -18,10 +18,60 @@ def create_data_assets_from_csv(csv_file, asset_class, package_path):
     """
     
     df = pd.read_csv(csv_file)
+    
+    dialogueIndexList = []
+    dialogueIndexList.append(0)
 
+    for i in range(df.shape[0]):
+        if pd.isnull(df.iloc[i].iloc[0]):
+            dialogueIndexList.append(i + 1)
+            
+    print(dialogueIndexList)
+        
+    for dialoguePtr in dialogueIndexList:
+        row = df.iloc[dialoguePtr]
+        asset_name = str(row.iloc[0]).strip()
+        asset_full_path = f"{package_path}/{asset_name}"
+
+        if unreal.EditorAssetLibrary.does_asset_exist(asset_full_path):
+            asset = unreal.EditorAssetLibrary.load_asset(asset_full_path)
+        else:
+            factory = unreal.DataAssetFactory()
+            asset = unreal.AssetToolsHelpers.get_asset_tools().create_asset(
+                asset_name,
+                package_path,
+                asset_class,
+                factory
+            )
+        
+
+    
+
+def testing():
+    #testing unreal.py
+    test = unreal.Monologue()
+    test.s_name = "x"
+    test3 = []
+    for i in range(2):
+        test1 = unreal.Sentence()
+        test1.s_sentence = "ciao"
+        test3.append(test1)
+    
+    
+    test.s_sentences = test3
+    print(test)
+
+    #testing sorting dialogue ptrs
+    print(df.iloc[ptr])
+
+def old_creation(df):
     for _, row in df.iterrows():
         asset_name = str(row.iloc[0]).strip()  # Primo valore della riga = nome del Data Asset
         asset_full_path = f"{package_path}/{asset_name}"
+
+        # Controllo per saltare le righe con la prima colonna nulla o vuota
+        if not asset_name:
+            continue
 
         if unreal.EditorAssetLibrary.does_asset_exist(asset_full_path):
             asset = unreal.EditorAssetLibrary.load_asset(asset_full_path)
@@ -70,4 +120,4 @@ if __name__ == "__main__":
         "Name": "My Example Data"
     }
 
-    #create_data_asset(asset_class, package_path, asset_name, properties)
+    #create_data_assets_from_csv(csv_file, asset_class, package_path)

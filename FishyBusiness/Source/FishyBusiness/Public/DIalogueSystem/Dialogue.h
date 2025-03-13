@@ -3,40 +3,50 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Dialogue.generated.h"
 
-class FISHYBUSINESS_API Sentence
+USTRUCT(BlueprintType)
+struct FISHYBUSINESS_API FSentence
 {
-private:
-	UPROPERTY(EditAnywhere)
-	FString _sSentence;
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString sSentence;
 	
-	UPROPERTY(EditAnywhere)
-	USoundWave _xAudioClip;
+	// UPROPERTY(EditAnywhere)
+	// USoundWave* xAudioClip;
 	
 public:
-	Sentence(FString sentence);
+	FSentence();
+	FSentence(FString sentence);
 };
 
-class FISHYBUSINESS_API Monologue
+USTRUCT(BlueprintType)
+struct FISHYBUSINESS_API FMonologue
 {
-private:
-	UPROPERTY(EditAnywhere)
-	FString _sName;
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString sName;
 
-	UPROPERTY(EditAnywhere)
-	TArray<Sentence*> _xSentences;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FSentence> sSentences;
 	
 public:
-	Monologue(FString name, TArray<Sentence*> sentences);
+	FMonologue();
+	FMonologue(FString sName, TArray<FSentence> sentences);
 };
 
-class FISHYBUSINESS_API Dialogue
+USTRUCT(BlueprintType)
+struct FISHYBUSINESS_API FDialogue
 {
-private:
-	UPROPERTY(EditAnywhere)
-	TArray<Monologue> _xDialogueParts;
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FMonologue> xDialogueParts;
 	
 public:
-	Dialogue();
+	FDialogue();
+	FDialogue(TArray<FMonologue> monologues);
 };
 
