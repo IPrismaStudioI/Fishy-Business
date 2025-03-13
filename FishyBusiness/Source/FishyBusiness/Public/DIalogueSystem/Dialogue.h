@@ -50,3 +50,24 @@ public:
 	FDialogue(TArray<FMonologue> monologues);
 };
 
+USTRUCT(BlueprintType)
+struct FISHYBUSINESS_API FLine
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString sPGName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString sSentence;
+
+public:
+	FLine();
+	FLine(FString sPGName, FString sSentence);
+};
+
+UENUM(BlueprintType)
+enum UDialogueField
+{
+	PGName,
+	Sentence
+};

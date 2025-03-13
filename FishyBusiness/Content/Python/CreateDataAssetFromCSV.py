@@ -20,7 +20,7 @@ def create_data_assets_from_csv(csv_file, asset_class, package_path):
     df = pd.read_csv(csv_file)
     
     dialogueIndexList = []
-    dialogueIndexList.append(0)
+    dialogueIndexList.append(1)
 
     for i in range(df.shape[0]):
         if pd.isnull(df.iloc[i].iloc[0]):
@@ -28,11 +28,12 @@ def create_data_assets_from_csv(csv_file, asset_class, package_path):
             
     print(dialogueIndexList)
         
-    for dialoguePtr in dialogueIndexList:
-        row = df.iloc[dialoguePtr]
+    for startDialoguePtr in dialogueIndexList:
+        bIsLastDialogue = False
+        row = df.iloc[startDialoguePtr]
         asset_name = str(row.iloc[0]).strip()
         asset_full_path = f"{package_path}/{asset_name}"
-
+        #print(asset_full_path)
         if unreal.EditorAssetLibrary.does_asset_exist(asset_full_path):
             asset = unreal.EditorAssetLibrary.load_asset(asset_full_path)
         else:
@@ -43,6 +44,62 @@ def create_data_assets_from_csv(csv_file, asset_class, package_path):
                 asset_class,
                 factory
             )
+            
+        try:
+            actualIndex = dialogueIndexList.index(startDialoguePtr)
+            actualValue = dialogueIndexList[actualIndex]
+            nextValue = dialogueIndexList[actualIndex + 1]
+            endDialoguePtr = nextValue - 2
+        except:
+            endDialoguePtr = df.shape[0] - 1
+            bIsLastDialogue = True
+            
+        # print(startDialoguePtr)
+        # print(endDialoguePtr)
+
+        lenghtDialogue = endDialoguePtr - startDialoguePtr + 1
+        
+        ListLines = []
+        for i in range(lenghtDialogue):
+            listTmp = unreal.Line()
+            listTmp.s_pg_name = str(df.iloc[startDialoguePtr + i].iloc[1]).strip()
+            listTmp.s_sentence = str(df.iloc[startDialoguePtr + i].iloc[2]).strip()
+            ListLines.append(listTmp)
+        
+        #print(ListLines)
+        
+        i = 0
+        while i <= len(ListLines):
+            name = ListLines[i].s_pg_name
+            j = i + 1
+            
+            sentencesList = []
+            sentence = unreal.Sentence()
+            sentence.s_sentence = ListLines[i].s_sentence
+            sentencesList.append(sentence)
+            
+            while j < len(ListLines):
+                if ListLines[j].s_pg_name != "nan" : continue
+                sentenceNoName = unreal.Sentence()
+                sentenceNoName.s_sentence = ListLines[j].s_sentence
+                sentencesList.append(sentenceNoName)
+                j = j + 1
+                
+            if j - 1 != i: 
+                j = j - 1
+                i = j
+                
+            
+            monologueTmp = unreal.Monologue()
+            monologueTmp.s_name = name
+            monologueTmp.s_sentences = sentencesList
+            
+            asset.dialogue.x_dialogue_parts.append(monologueTmp)
+
+            i = i + 1
+            
+
+            #print(ListLines[i])
         
 
     

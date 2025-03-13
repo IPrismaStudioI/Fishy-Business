@@ -27,3 +27,11 @@ FDialogue::FDialogue(TArray<FMonologue> monologues)
 {
 }
 
+FLine::FLine()
+{
+}
+
+FLine::FLine(FString sPGName, FString sSentence)
+{
+}
+
