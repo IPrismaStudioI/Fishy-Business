@@ -64,10 +64,3 @@ public:
 	FLine();
 	FLine(FString sPGName, FString sSentence);
 };
-
-UENUM(BlueprintType)
-enum UDialogueField
-{
-	PGName,
-	Sentence
-};

@@ -66,38 +66,39 @@ def create_data_assets_from_csv(csv_file, asset_class, package_path):
             listTmp.s_sentence = str(df.iloc[startDialoguePtr + i].iloc[2]).strip()
             ListLines.append(listTmp)
         
-        #print(ListLines)
+        print(ListLines)
         
         i = 0
-        while i <= len(ListLines):
+        while i < len(ListLines):
             name = ListLines[i].s_pg_name
             j = i + 1
-            
+
             sentencesList = []
             sentence = unreal.Sentence()
             sentence.s_sentence = ListLines[i].s_sentence
             sentencesList.append(sentence)
-            
+
             while j < len(ListLines):
-                if ListLines[j].s_pg_name != "nan" : continue
+                if ListLines[j].s_pg_name != "nan" : 
+                    break
                 sentenceNoName = unreal.Sentence()
                 sentenceNoName.s_sentence = ListLines[j].s_sentence
                 sentencesList.append(sentenceNoName)
                 j = j + 1
-                
+
             if j - 1 != i: 
                 j = j - 1
                 i = j
-                
-            
+
+
             monologueTmp = unreal.Monologue()
             monologueTmp.s_name = name
             monologueTmp.s_sentences = sentencesList
-            
+
             asset.dialogue.x_dialogue_parts.append(monologueTmp)
 
             i = i + 1
-            
+
 
             #print(ListLines[i])
         
