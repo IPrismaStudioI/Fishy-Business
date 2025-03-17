@@ -1,8 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PaperFlipbook.h"
 #include "Components/ActorComponent.h"
 #include "Movement.generated.h"
 
@@ -24,5 +23,21 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+protected:
+	UPROPERTY(EditAnywhere)
+	UPaperFlipbook* p_xCockPit;
+	UPROPERTY(EditAnywhere)
+	UPaperFlipbook* p_xHull;
+	UPROPERTY(EditAnywhere)
+	UPaperFlipbook* p_xEngine;
+	
+	UPROPERTY(EditAnywhere)
+	TMap<FString, UPaperFlipbook*> p_xCockPitFlipBook;
+	UPROPERTY(EditAnywhere)
+	TMap<FString, UPaperFlipbook*> p_xHullFlipBook;
+	UPROPERTY(EditAnywhere)
+	TMap<FString, UPaperFlipbook*> p_xEngineFlipBook;
+
+	void SetFlipbook(FString direction);
+	void ChangeSprite(FVector vector);
 };
