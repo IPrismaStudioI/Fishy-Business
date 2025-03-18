@@ -3,3 +3,8 @@
 
 #include "FishyBusinessGameModeBase.h"
 
+AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
+{
+	DialogueElaborator = CreateDefaultSubobject<UDialogueElaborator>("Dialogue Elaboratore");
+	this->AddInstanceComponent(DialogueElaborator);
+}

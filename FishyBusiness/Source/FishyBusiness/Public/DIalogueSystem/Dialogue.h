@@ -44,6 +44,12 @@ struct FISHYBUSINESS_API FDialogue
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FMonologue> xDialogueParts;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bHasChoices;
+	UPROPERTY(EditAnywhere, meta=(EditCondition = "bHasChoices"))
+	TArray<FString> _sDialogueIDChoices;
+	UPROPERTY(EditAnywhere, meta=(EditCondition = "bHasChoices"))
+	TArray<FString> _sDialogueAnswers;
 	
 public:
 	FDialogue();
