@@ -19,25 +19,29 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-protected:
+private:
 	UPROPERTY(EditAnywhere)
-	UPaperFlipbook* p_xCockPit;
+	UPaperFlipbook* _xCockPit;
 	UPROPERTY(EditAnywhere)
-	UPaperFlipbook* p_xHull;
+	UPaperFlipbook* _xHull;
 	UPROPERTY(EditAnywhere)
-	UPaperFlipbook* p_xEngine;
+	UPaperFlipbook* _xEngine;
 	
 	UPROPERTY(EditAnywhere)
-	TMap<FString, UPaperFlipbook*> p_xCockPitFlipBook;
+	TMap<FString, UPaperFlipbook*> _xCockPitFlipBook;
 	UPROPERTY(EditAnywhere)
-	TMap<FString, UPaperFlipbook*> p_xHullFlipBook;
+	TMap<FString, UPaperFlipbook*> _xHullFlipBook;
 	UPROPERTY(EditAnywhere)
-	TMap<FString, UPaperFlipbook*> p_xEngineFlipBook;
+	TMap<FString, UPaperFlipbook*> _xEngineFlipBook;
 
+	float _fxDirection;
+	float _fyDirection;
+	
 	void SetFlipbook(FString direction);
-	void ChangeSprite(FVector vector);
+	void OnMovingVertical(float vector);
+	void OnMovingHorizontal(float vector);
+	void CheckDirection();
+
+public:    
+	virtual void SetupInputBindings();
 };

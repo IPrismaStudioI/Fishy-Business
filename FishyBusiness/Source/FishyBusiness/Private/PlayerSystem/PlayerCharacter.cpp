@@ -5,6 +5,11 @@
 
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "PlayerSystem/MaterialInventory.h"
+#include "PlayerSystem/Movement.h"
+#include "PlayerSystem/PlayerCameraController.h"
+#include "PlayerSystem/UniqueInventory.h"
+#include "PlayerSystem/Wallet.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -13,10 +18,21 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 	xSpringArm = CreateDefaultSubobject<USpringArmComponent>("Spring Arm");
 	xSpringArm->SetupAttachment(RootComponent);
+	
 	xCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
 	xCamera->SetupAttachment(xSpringArm);
 
-	//xSpringArm->AddRelativeRotation(FRotator(0, -90, 0));
+	xMovement = CreateDefaultSubobject<UMovement>(TEXT("Movement"));
+	
+	xUniqueInventory = CreateDefaultSubobject<UUniqueInventory>("UniqueInventory");
+	//xUniqueInventory->SetupAttachment(RootComponent);
+
+	xMaterialInventory = CreateDefaultSubobject<UMaterialInventory>("MaterialInventory");
+
+	xCameraController = CreateDefaultSubobject<UPlayerCameraController>("CameraController");
+
+	xWallet = CreateDefaultSubobject<UWallet>("Wallet");
+	
 	xCamera->SetProjectionMode(ECameraProjectionMode::Orthographic);
 }
 
