@@ -5,6 +5,6 @@
 
 AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 {
-	DialogueElaborator = CreateDefaultSubobject<UDialogueElaborator>("Dialogue Elaboratore");
-	this->AddInstanceComponent(DialogueElaborator);
+	xDialogueElaborator = CreateDefaultSubobject<UDialogueElaborator>("Dialogue Elaboratore");
+	this->AddInstanceComponent(xDialogueElaborator);
 }

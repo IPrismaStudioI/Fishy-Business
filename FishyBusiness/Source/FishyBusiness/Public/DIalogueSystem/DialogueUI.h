@@ -3,12 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ObserverManager.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "Components/CanvasPanel.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
+#include "EventManager/FunctionWrapper.h"
+#include "EventManager/ObserverManager.h"
 #include "DialogueUI.generated.h"
 
 /**

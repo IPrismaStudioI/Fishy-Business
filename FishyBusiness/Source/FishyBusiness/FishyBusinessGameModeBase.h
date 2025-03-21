@@ -4,12 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "../Public/DIalogueSystem/DialogueElaborator.h"
+#include "EventManager/ObserverManager.h"
 #include "GameFramework/GameModeBase.h"
 #include "FishyBusinessGameModeBase.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class FISHYBUSINESS_API AFishyBusinessGameModeBase : public AGameModeBase
 {
@@ -17,7 +16,9 @@ class FISHYBUSINESS_API AFishyBusinessGameModeBase : public AGameModeBase
 
 public:
 	UPROPERTY(VisibleAnywhere)
-	UDialogueElaborator* DialogueElaborator;
+	UDialogueElaborator* xDialogueElaborator;
+
+	UObserverManager* xDialogueEventManager;
 	
 public:
 	AFishyBusinessGameModeBase();

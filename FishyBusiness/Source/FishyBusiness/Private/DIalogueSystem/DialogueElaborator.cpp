@@ -3,6 +3,10 @@
 
 #include "DIalogueSystem/DialogueElaborator.h"
 
+#include "EventManager/EventList.h"
+#include "EventManager/FunctionWrapper.h"
+#include "FishyBusiness/FishyBusinessGameModeBase.h"
+
 // Sets default values for this component's properties
 UDialogueElaborator::UDialogueElaborator()
 {
@@ -90,6 +94,14 @@ void UDialogueElaborator::DisplayNextSentence()
 void UDialogueElaborator::TypeSentence()
 {
 	//TODO: aggiungere la parte UI
+
+	UParameterWrapper* parameter = nullptr;
+	EventParameters eventParameters;
+	parameter->Setter<FString>(_sCurrentText[0]);
+	eventParameters.Add(parameter);
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::CHANGE_SENTENCE, eventParameters);
 }
 
 void UDialogueElaborator::EndDialogue()

@@ -1,17 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "ObserverManager.h"
+#include "EventManager/ObserverManager.h"
 
-ObserverManager::ObserverManager()
+UObserverManager::UObserverManager()
 {
 }
 
-ObserverManager::~ObserverManager()
-{
-}
-
-void ObserverManager::Register(FString eventName, Function functionEvent)
+void UObserverManager::Register(FString eventName, UFunctionWrapper* functionEvent)
 {
 	if (!CheckPrecondition(eventName, functionEvent)) return;
 	if (_xEventMap.Contains(eventName))
@@ -23,28 +19,29 @@ void ObserverManager::Register(FString eventName, Function functionEvent)
 	}
 }
 
-void ObserverManager::Unregister(FString eventName, Function functionEvent)
+void UObserverManager::Unregister(FString eventName, UFunctionWrapper* functionEvent)
 {
 	if (!CheckPrecondition(eventName, functionEvent)) return;
 	if (_xEventMap.Contains(eventName))
 	{
-		_xEventMap[eventName].Remove(functionEvent);
+		int i = _xEventMap[eventName].Find(functionEvent);
+		_xEventMap[eventName].RemoveAt(i);
 	}
 }
 
-void ObserverManager::TriggerEvent(FString eventName, EventParameters parameters)
+void UObserverManager::TriggerEvent(FString eventName, EventParameters &parameters)
 {
 	if (_xEventMap.Contains(eventName))
 	{
 		for (auto Element : _xEventMap[eventName])
 		{
-			Element(parameters);
+			Element->function(parameters);
 		}
 	}
 }
 
 
-bool ObserverManager::CheckPrecondition(FString eventName, Function functionEvent)
+bool UObserverManager::CheckPrecondition(FString eventName, UFunctionWrapper* functionEvent)
 {
 	if (functionEvent == nullptr) return false;
 	if (eventName.IsEmpty()) return false;

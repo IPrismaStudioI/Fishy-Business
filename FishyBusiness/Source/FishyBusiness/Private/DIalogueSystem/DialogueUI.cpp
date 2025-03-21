@@ -3,20 +3,28 @@
 
 #include "DIalogueSystem/DialogueUI.h"
 
+#include "EventManager/EventList.h"
+#include "FishyBusiness/FishyBusinessGameModeBase.h"
+
 void UDialogueUI::NativeConstruct()
 {
 	Super::NativeConstruct();
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	UFunctionWrapper* wrapper = nullptr;
+	wrapper->function = [this](const EventParameters& parameters){return ChangeSentence(parameters);};
+	gamemode->xDialogueEventManager->Register(EventListDialogue::CHANGE_SENTENCE, wrapper);
 }
 
 void UDialogueUI::ChangeSentence(EventParameters parameters)
 {
-	FText text = FText::FromString(*std::any_cast<FString>(parameters[0]));
+	FText text = FText::FromString(parameters[0]->Getter<FString>());
 	_xSentence->SetText(text);
 }
 
 void UDialogueUI::ChangeName(EventParameters parameters)
 {
-	FText text = FText::FromString(*std::any_cast<FString>(parameters[0]));
+	FText text = FText::FromString(parameters[0]->Getter<FString>());
 	_xName->SetText(text);
 }
 
