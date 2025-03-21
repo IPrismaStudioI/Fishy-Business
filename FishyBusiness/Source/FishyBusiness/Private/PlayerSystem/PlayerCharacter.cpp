@@ -25,12 +25,12 @@ APlayerCharacter::APlayerCharacter()
 	xMovement = CreateDefaultSubobject<UMovement>(TEXT("Movement"));
 	
 	xUniqueInventory = CreateDefaultSubobject<UUniqueInventory>("UniqueInventory");
-	//xUniqueInventory->SetupAttachment(RootComponent);
 
 	xMaterialInventory = CreateDefaultSubobject<UMaterialInventory>("MaterialInventory");
 
 	xCameraController = CreateDefaultSubobject<UPlayerCameraController>("CameraController");
-
+	xCameraController->xCamera = xCamera;
+	
 	xWallet = CreateDefaultSubobject<UWallet>("Wallet");
 	
 	xCamera->SetProjectionMode(ECameraProjectionMode::Orthographic);
