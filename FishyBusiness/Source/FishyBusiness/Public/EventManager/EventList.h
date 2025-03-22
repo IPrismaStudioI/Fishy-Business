@@ -13,17 +13,9 @@ class FISHYBUSINESS_API EventListDialogue
 {
 public:
 	static const FString CHANGE_SENTENCE;
-	template <typename T>
-	static EventParameters trigger(T parameter);
+	static const FString CHANGE_NAME;
+	static const FString HIDE_DIALOGUE;
+	static const FString SHOW_DIALOGUE;
+	static const FString HIDE_CHOICES;
+	static const FString SHOW_CHOICES;
 };
-
-template <typename T>
-EventParameters EventListDialogue::trigger(T parameter)
-{
-	UParameterWrapper* parameter = nullptr;
-	EventParameters eventParameters;
-	parameter->Setter<T>(parameter);
-	eventParameters.Add(parameter);
-
-	return eventParameters;
-}

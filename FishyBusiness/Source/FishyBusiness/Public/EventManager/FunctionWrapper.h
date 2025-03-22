@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EventList.h"
 #include "FunctionWrapper.generated.h"
 
 
+class UObserverManager;
 class UParameterWrapper;
 using EventParameters = TArray<UParameterWrapper*>;
 using Function = TFunction<void(EventParameters)>;
@@ -16,6 +18,8 @@ class FISHYBUSINESS_API UFunctionWrapper : public UObject
 	GENERATED_BODY()
 public:
 	Function function;
+
+	static void RegisterEvent(UObserverManager* EventManager, FString EventType, const TFunction<void(EventParameters)>& Callback);
 };
 
 UCLASS()
@@ -39,11 +43,21 @@ public:
 	{
 		if (*TypeInfo != typeid(T))
 		{
-			
 			return T();
 		}
 		return _xData;
 	}
+
+	template <typename T>
+	static UParameterWrapper* CreateParameter(T &data);
 };
+
+template <typename T>
+UParameterWrapper* UParameterWrapper::CreateParameter(T &data)
+{
+	UParameterWrapper* parameter = nullptr;
+	parameter->Setter<T>(data);
+	return parameter;
+}
 
 

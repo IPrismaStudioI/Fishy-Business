@@ -94,13 +94,11 @@ void UDialogueElaborator::DisplayNextSentence()
 void UDialogueElaborator::TypeSentence()
 {
 	//TODO: aggiungere la parte UI
-
-	UParameterWrapper* parameter = nullptr;
-	EventParameters eventParameters;
-	parameter->Setter<FString>(_sCurrentText[0]);
-	eventParameters.Add(parameter);
-
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	EventParameters eventParameters;
+	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(_sCurrentText[0]));
+
 	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::CHANGE_SENTENCE, eventParameters);
 }
 

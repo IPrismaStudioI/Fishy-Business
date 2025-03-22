@@ -11,9 +11,15 @@ void UDialogueUI::NativeConstruct()
 	Super::NativeConstruct();
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	UFunctionWrapper* wrapper = nullptr;
-	wrapper->function = [this](const EventParameters& parameters){return ChangeSentence(parameters);};
-	gamemode->xDialogueEventManager->Register(EventListDialogue::CHANGE_SENTENCE, wrapper);
+
+	UObserverManager* EventManager = gamemode->xDialogueEventManager;
+
+	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_SENTENCE, [this](const EventParameters Params) { ChangeSentence(Params); });
+	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_NAME, [this](const EventParameters& Params) { ChangeName(Params); });
+	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::HIDE_DIALOGUE, [this](const EventParameters& Params) { HideDialogue(Params); });
+	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::SHOW_DIALOGUE, [this](const EventParameters& Params) { ShowDialogue(Params); });
+	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::SHOW_CHOICES, [this](const EventParameters& Params) { ShowChoices(Params); });
+	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::HIDE_CHOICES, [this](const EventParameters& Params) { HideChoices(Params); });
 }
 
 void UDialogueUI::ChangeSentence(EventParameters parameters)
