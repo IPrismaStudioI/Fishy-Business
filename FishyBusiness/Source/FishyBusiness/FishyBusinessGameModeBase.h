@@ -18,7 +18,11 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UDialogueElaborator* xDialogueElaborator;
 
+	UPROPERTY(VisibleAnywhere)
 	UObserverManager* xDialogueEventManager;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
+	UDataTable* xDataTableDialogues;
 	
 public:
 	AFishyBusinessGameModeBase();

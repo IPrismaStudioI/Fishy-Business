@@ -4,7 +4,7 @@
 #include "DIalogueSystem/DialogueElaborator.h"
 
 #include "EventManager/EventList.h"
-#include "EventManager/FunctionWrapper.h"
+#include "EventManager/EventWrapper.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
 
 // Sets default values for this component's properties

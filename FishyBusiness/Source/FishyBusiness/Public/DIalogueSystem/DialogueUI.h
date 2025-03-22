@@ -8,7 +8,7 @@
 #include "Components/CanvasPanel.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
-#include "EventManager/FunctionWrapper.h"
+#include "EventManager/EventWrapper.h"
 #include "EventManager/ObserverManager.h"
 #include "DialogueUI.generated.h"
 
@@ -35,6 +35,7 @@ private:
 	void ChangeSentence(EventParameters parameters);
 	void ChangeName(EventParameters parameters);
 	void HideDialogue(EventParameters parameters);
+	void HideDialogueStart();
 	void ShowDialogue(EventParameters parameters);
 	void ShowChoices(EventParameters parameters);
 	void HideChoices(EventParameters parameters);

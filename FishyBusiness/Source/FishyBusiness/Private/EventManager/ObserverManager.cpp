@@ -5,9 +5,28 @@
 
 UObserverManager::UObserverManager()
 {
+	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+	// off to improve performance if you don't need them.
+	PrimaryComponentTick.bCanEverTick = true;
+
+	// ...
 }
 
-void UObserverManager::Register(FString eventName, UFunctionWrapper* functionEvent)
+void UObserverManager::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
+
+// Called every frame
+void UObserverManager::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// ...
+}
+
+void UObserverManager::Register(FString eventName, UEventWrapper* functionEvent)
 {
 	if (!CheckPrecondition(eventName, functionEvent)) return;
 	if (_xEventMap.Contains(eventName))
@@ -19,7 +38,7 @@ void UObserverManager::Register(FString eventName, UFunctionWrapper* functionEve
 	}
 }
 
-void UObserverManager::Unregister(FString eventName, UFunctionWrapper* functionEvent)
+void UObserverManager::Unregister(FString eventName, UEventWrapper* functionEvent)
 {
 	if (!CheckPrecondition(eventName, functionEvent)) return;
 	if (_xEventMap.Contains(eventName))
@@ -41,7 +60,7 @@ void UObserverManager::TriggerEvent(FString eventName, EventParameters &paramete
 }
 
 
-bool UObserverManager::CheckPrecondition(FString eventName, UFunctionWrapper* functionEvent)
+bool UObserverManager::CheckPrecondition(FString eventName, UEventWrapper* functionEvent)
 {
 	if (functionEvent == nullptr) return false;
 	if (eventName.IsEmpty()) return false;

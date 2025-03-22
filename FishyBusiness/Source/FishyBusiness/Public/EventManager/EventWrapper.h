@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "EventList.h"
-#include "FunctionWrapper.generated.h"
+#include "EventWrapper.generated.h"
 
 
 class UObserverManager;
@@ -13,13 +13,13 @@ using EventParameters = TArray<UParameterWrapper*>;
 using Function = TFunction<void(EventParameters)>;
 
 UCLASS()
-class FISHYBUSINESS_API UFunctionWrapper : public UObject
+class FISHYBUSINESS_API UEventWrapper : public UObject
 {
 	GENERATED_BODY()
 public:
 	Function function;
 
-	static void RegisterEvent(UObserverManager* EventManager, FString EventType, const TFunction<void(EventParameters)>& Callback);
+	static void RegisterEvent(UObserverManager* EventManager, FString EventType, TFunction<void(EventParameters)> Callback);
 };
 
 UCLASS()

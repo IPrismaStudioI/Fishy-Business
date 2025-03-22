@@ -11,15 +11,17 @@ void UDialogueUI::NativeConstruct()
 	Super::NativeConstruct();
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-
+	
 	UObserverManager* EventManager = gamemode->xDialogueEventManager;
 
-	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_SENTENCE, [this](const EventParameters Params) { ChangeSentence(Params); });
-	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_NAME, [this](const EventParameters& Params) { ChangeName(Params); });
-	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::HIDE_DIALOGUE, [this](const EventParameters& Params) { HideDialogue(Params); });
-	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::SHOW_DIALOGUE, [this](const EventParameters& Params) { ShowDialogue(Params); });
-	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::SHOW_CHOICES, [this](const EventParameters& Params) { ShowChoices(Params); });
-	UFunctionWrapper::RegisterEvent(EventManager, EventListDialogue::HIDE_CHOICES, [this](const EventParameters& Params) { HideChoices(Params); });
+	HideDialogueStart();
+	
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_SENTENCE, [this](const EventParameters& Params) { ChangeSentence(Params); });
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_NAME, [this](const EventParameters& Params) { ChangeName(Params); });
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::HIDE_DIALOGUE, [this](const EventParameters& Params) { HideDialogue(Params); });
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::SHOW_DIALOGUE, [this](const EventParameters& Params) { ShowDialogue(Params); });
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::SHOW_CHOICES, [this](const EventParameters& Params) { ShowChoices(Params); });
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::HIDE_CHOICES, [this](const EventParameters& Params) { HideChoices(Params); });
 }
 
 void UDialogueUI::ChangeSentence(EventParameters parameters)
@@ -35,6 +37,11 @@ void UDialogueUI::ChangeName(EventParameters parameters)
 }
 
 void UDialogueUI::HideDialogue(EventParameters parameters)
+{
+	_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+void UDialogueUI::HideDialogueStart()
 {
 	_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
 }
