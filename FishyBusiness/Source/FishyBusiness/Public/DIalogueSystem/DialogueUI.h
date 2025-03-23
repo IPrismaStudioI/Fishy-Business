@@ -40,6 +40,8 @@ private:
 	void ShowChoices(EventParameters parameters);
 	void HideChoices(EventParameters parameters);
 	void FillChoiceContainer(EventParameters parameters);
+	UFUNCTION()
+	void OnContinueBtnClicked();
 
 public:
 	virtual void NativeConstruct() override;

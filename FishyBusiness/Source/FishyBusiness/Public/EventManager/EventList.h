@@ -14,8 +14,9 @@ class FISHYBUSINESS_API EventListDialogue
 public:
 	static const FString CHANGE_SENTENCE;
 	static const FString CHANGE_NAME;
-	static const FString HIDE_DIALOGUE;
-	static const FString SHOW_DIALOGUE;
+	static const FString START_DIALOGUE;
+	static const FString END_DIALOGUE;
+	static const FString START_CHOICES;
 	static const FString HIDE_CHOICES;
-	static const FString SHOW_CHOICES;
+	static const FString CONTINUE_DIALOGUE;
 };

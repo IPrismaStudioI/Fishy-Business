@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Dialogue.h"
 #include "Components/ActorComponent.h"
+#include "EventManager/EventWrapper.h"
 #include "DialogueElaborator.generated.h"
 
 
@@ -35,6 +36,7 @@ public:
 private:
 	void StartMonologue();
 	void DisplayNextSentence();
+	void DisplayNextSentenceEvent(EventParameters parameters);
 	void TypeSentence();
 	void EndDialogue();
 

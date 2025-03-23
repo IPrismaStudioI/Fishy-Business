@@ -27,5 +27,7 @@ private:
 	UDA_Dialogue* GetDialogueFromDT(FString id, AFishyBusinessGameModeBase* gamemode);
 	
 public:
+	UButtonDialogueTriggerBase();
+	UFUNCTION()
 	void StartDialogue();
 };

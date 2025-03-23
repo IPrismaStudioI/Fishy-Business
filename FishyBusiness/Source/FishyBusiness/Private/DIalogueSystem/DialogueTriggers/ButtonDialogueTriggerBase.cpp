@@ -16,6 +16,11 @@ UDA_Dialogue* UButtonDialogueTriggerBase::GetDialogueFromDT(FString id, AFishyBu
 	return row->xDialogue;
 }
 
+UButtonDialogueTriggerBase::UButtonDialogueTriggerBase()
+{
+	this->OnClicked.AddDynamic(this, &UButtonDialogueTriggerBase::StartDialogue);
+}
+
 void UButtonDialogueTriggerBase::StartDialogue()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();

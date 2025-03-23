@@ -26,4 +26,6 @@ public:
 	
 public:
 	AFishyBusinessGameModeBase();
+
+	static AFishyBusinessGameModeBase* GetInstance();
 };

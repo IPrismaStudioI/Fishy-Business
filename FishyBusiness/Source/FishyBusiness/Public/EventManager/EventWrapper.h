@@ -55,7 +55,7 @@ public:
 template <typename T>
 UParameterWrapper* UParameterWrapper::CreateParameter(T &data)
 {
-	UParameterWrapper* parameter = nullptr;
+	UParameterWrapper* parameter = NewObject<UParameterWrapper>();
 	parameter->Setter<T>(data);
 	return parameter;
 }

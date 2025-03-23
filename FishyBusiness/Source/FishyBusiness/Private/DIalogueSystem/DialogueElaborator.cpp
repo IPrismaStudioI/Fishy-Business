@@ -14,14 +14,19 @@ UDialogueElaborator::UDialogueElaborator()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
 }
-
 
 // Called when the game starts
 void UDialogueElaborator::BeginPlay()
 {
 	Super::BeginPlay();
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	UObserverManager* EventManager = gamemode->xDialogueEventManager;
+	
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CONTINUE_DIALOGUE, [this](const EventParameters& Params) { DisplayNextSentenceEvent(Params); });
+
 }
 
 
@@ -37,7 +42,11 @@ void UDialogueElaborator::StartDialogue(FDialogue dialogue)
 {
 	if (!_bIsRunning)
 	{
-		//TODO: aggiungere la parte UI
+		EventParameters eventParameters;
+		eventParameters.Add(nullptr);
+		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+		gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::START_DIALOGUE, eventParameters);
 		
 		_bIsRunning = true;
 
@@ -49,7 +58,11 @@ void UDialogueElaborator::StartDialogue(FDialogue dialogue)
 
 void UDialogueElaborator::StartMonologue()
 {
-	//TODO: aggiungere la parte UI
+	EventParameters eventParameters;
+	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(_xActualDialogue.xDialogueParts[_iCurrentMonologueIndex].sName));
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::CHANGE_NAME, eventParameters);
 	
 	ClearCurrent();
 	AddToCurrent("");
@@ -62,13 +75,18 @@ void UDialogueElaborator::StartMonologue()
 	DisplayNextSentence();
 }
 
+void UDialogueElaborator::DisplayNextSentenceEvent(EventParameters parameters)
+{
+	DisplayNextSentence();
+}
+
 void UDialogueElaborator::DisplayNextSentence()
 {
 	RemoveFromCurrent();
 
 	if (_sCurrentText.Num() == 0)
 	{
-		if (_iCurrentMonologueIndex < _xActualDialogue.xDialogueParts.Num())
+		if (_iCurrentMonologueIndex < _xActualDialogue.xDialogueParts.Num() - 1)
 		{
 			_iCurrentMonologueIndex++;
 			StartMonologue();
@@ -96,9 +114,14 @@ void UDialogueElaborator::TypeSentence()
 	//TODO: aggiungere la parte UI
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-	EventParameters eventParameters;
-	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(_sCurrentText[0]));
+	EventParameters eventParametersVoid;
+	FString sentenceVoid = "";
+	eventParametersVoid.Add(UParameterWrapper::CreateParameter<FString>(sentenceVoid));
+	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::CHANGE_SENTENCE, eventParametersVoid);
 
+	EventParameters eventParameters;
+	FString sentence = GetFromCurrent();
+	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(sentence));
 	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::CHANGE_SENTENCE, eventParameters);
 }
 
@@ -107,7 +130,11 @@ void UDialogueElaborator::EndDialogue()
 	_iCurrentMonologueIndex = 0;
 	_xActualDialogue = FDialogue();
 
-	//TODO: aggiungere la parte UI
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::END_DIALOGUE, eventParameters);
 
 	_bIsRunning = false;
 }

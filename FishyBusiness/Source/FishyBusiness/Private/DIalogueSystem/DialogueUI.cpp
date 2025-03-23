@@ -18,10 +18,21 @@ void UDialogueUI::NativeConstruct()
 	
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_SENTENCE, [this](const EventParameters& Params) { ChangeSentence(Params); });
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_NAME, [this](const EventParameters& Params) { ChangeName(Params); });
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::HIDE_DIALOGUE, [this](const EventParameters& Params) { HideDialogue(Params); });
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::SHOW_DIALOGUE, [this](const EventParameters& Params) { ShowDialogue(Params); });
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::SHOW_CHOICES, [this](const EventParameters& Params) { ShowChoices(Params); });
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::START_DIALOGUE, [this](const EventParameters& Params) { ShowDialogue(Params); });
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::END_DIALOGUE, [this](const EventParameters& Params) { HideDialogue(Params); });
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::START_CHOICES, [this](const EventParameters& Params) { ShowChoices(Params); });
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::HIDE_CHOICES, [this](const EventParameters& Params) { HideChoices(Params); });
+
+	_xContinueBtn->OnClicked.AddDynamic(this, &UDialogueUI::OnContinueBtnClicked);
+}
+
+void UDialogueUI::OnContinueBtnClicked()
+{
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::CONTINUE_DIALOGUE, eventParameters);
 }
 
 void UDialogueUI::ChangeSentence(EventParameters parameters)
