@@ -42,8 +42,11 @@ struct FISHYBUSINESS_API FDialogue
 {
 	GENERATED_BODY()
 public:
+	//List of monologues
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FMonologue> xDialogueParts;
+	
+	//Boolean needed to show multiple choices after the dialogue end
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bHasChoices;
 	UPROPERTY(EditAnywhere, meta=(EditCondition = "bHasChoices"))

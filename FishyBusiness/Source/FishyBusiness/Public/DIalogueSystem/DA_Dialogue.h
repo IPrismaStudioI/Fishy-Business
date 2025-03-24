@@ -17,11 +17,6 @@ class FISHYBUSINESS_API UDA_Dialogue : public UDataAsset
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FDialogue Dialogue;
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	// int Value;
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	// FString Name;
-
 public:
 	UDA_Dialogue();
 };

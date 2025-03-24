@@ -21,13 +21,13 @@ protected:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class USphereComponent* p_xSphereTrigger;
+	class USphereComponent* xSphereTrigger;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera")
-	float p_fNewCameraSize;
+	float fNewCameraSize;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera")
-	float p_fSpeed;
+	float fSpeed;
 
 private:
 	UFUNCTION()

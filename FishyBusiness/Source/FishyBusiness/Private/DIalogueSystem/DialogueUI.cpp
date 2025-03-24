@@ -9,12 +9,14 @@
 void UDialogueUI::NativeConstruct()
 {
 	Super::NativeConstruct();
+	
+	// Initial UI state: hidden
+	HideDialogueStart();
 
+	// Registering functions to EventManager
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	UObserverManager* EventManager = gamemode->xDialogueEventManager;
-
-	HideDialogueStart();
 	
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_SENTENCE, [this](const EventParameters& Params) { ChangeSentence(Params); });
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_NAME, [this](const EventParameters& Params) { ChangeName(Params); });

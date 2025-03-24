@@ -10,9 +10,9 @@
 // Sets default values
 ACameraChanger::ACameraChanger()
 {
-	p_xSphereTrigger = CreateDefaultSubobject<USphereComponent>(TEXT("SphereTrigger"));
-	p_xSphereTrigger->SetupAttachment(RootComponent);
-	p_xSphereTrigger->OnComponentBeginOverlap.AddDynamic(this, &ACameraChanger::OnBeginOverlap);
+	xSphereTrigger = CreateDefaultSubobject<USphereComponent>(TEXT("SphereTrigger"));
+	xSphereTrigger->SetupAttachment(RootComponent);
+	xSphereTrigger->OnComponentBeginOverlap.AddDynamic(this, &ACameraChanger::OnBeginOverlap);
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -37,7 +37,7 @@ void ACameraChanger::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 		//checks if the player has the camera controller
 		if (UPlayerCameraController* PlayerComponent = Player->FindComponentByClass<UPlayerCameraController>())
 		{
-			PlayerComponent->ResizeCamera(p_fNewCameraSize, p_fSpeed);
+			PlayerComponent->ResizeCamera(fNewCameraSize, fSpeed);
 		}
 	}
 }

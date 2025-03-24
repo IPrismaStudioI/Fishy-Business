@@ -11,7 +11,6 @@ struct FDialogueRow;
 
 UDA_Dialogue* UButtonDialogueTriggerBase::GetDialogueFromDT(FString id, AFishyBusinessGameModeBase* gamemode)
 {
-	UDA_Dialogue* test = (UDA_Dialogue*)malloc(sizeof(UDA_Dialogue));
 	FDialogueRow* row = gamemode->xDataTableDialogues->FindRow<FDialogueRow>(FName(id), "");
 	return row->xDialogue;
 }

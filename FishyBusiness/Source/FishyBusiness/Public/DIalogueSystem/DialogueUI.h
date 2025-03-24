@@ -32,14 +32,44 @@ private:
 	UVerticalBox* _xChoiceContainer;
 
 private:
+	/// <summary>
+	/// Changes the dialogue sentence displayed in the UI.
+	/// </summary>
+	/// <param name="param">Array where the first element is the sentence (string).</param>
 	void ChangeSentence(EventParameters parameters);
+
+	/// <summary>
+	/// Updates the character name displayed in the UI.
+	/// </summary>
+	/// <param name="param">Array where the first element is the name (string).</param>
 	void ChangeName(EventParameters parameters);
+
+	/// <summary>
+	/// Hides all dialogue-related UI elements.
+	/// </summary>
+	/// <param name="param">Optional parameter (not used).</param>
 	void HideDialogue(EventParameters parameters);
 	void HideDialogueStart();
+
+	/// <summary>
+	/// Displays all dialogue-related UI elements.
+	/// </summary>
+	/// <param name="param">Optional parameter (not used).</param>
 	void ShowDialogue(EventParameters parameters);
+
+	/// <summary>
+	/// Displays the choice box and fills it with options.
+	/// </summary>
+	/// <param name="param">Array containing dialogues and their labels.</param>
 	void ShowChoices(EventParameters parameters);
+
+	/// <summary>
+	/// Hides the choice box UI element.
+	/// </summary>
 	void HideChoices(EventParameters parameters);
+	
 	void FillChoiceContainer(EventParameters parameters);
+	
 	UFUNCTION()
 	void OnContinueBtnClicked();
 

@@ -24,10 +24,19 @@ public:
 	}
 
 private:
+	/// <summary>Return a UDA_Dialogue* from the dialogue DataTable using an ID.
+	/// <para>
+	/// @param id - The ID of the dialogue to look up.
+	/// @param gamemode - A reference to the GameMode to access the DataTable.
+	/// </para>
+	/// @return A pointer to UDA_Dialogue if the dialogue is found, otherwise nullptr.
+	/// </summary>
 	UDA_Dialogue* GetDialogueFromDT(FString id, AFishyBusinessGameModeBase* gamemode);
 	
 public:
 	UButtonDialogueTriggerBase();
+
+	///<summary>Initiates a dialogue using the dialogue ID stored in _sDialogueID.</summary>
 	UFUNCTION()
 	void StartDialogue();
 };
