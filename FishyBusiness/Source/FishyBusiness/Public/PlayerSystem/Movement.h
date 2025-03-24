@@ -20,13 +20,15 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	//actual sprite
 	UPROPERTY(EditAnywhere)
 	UPaperFlipbook* _xCockPit;
 	UPROPERTY(EditAnywhere)
 	UPaperFlipbook* _xHull;
 	UPROPERTY(EditAnywhere)
 	UPaperFlipbook* _xEngine;
-	
+
+	//sprite lists
 	UPROPERTY(EditAnywhere)
 	TMap<FString, UPaperFlipbook*> _xCockPitFlipBook;
 	UPROPERTY(EditAnywhere)
@@ -36,10 +38,17 @@ private:
 
 	float _fxDirection;
 	float _fyDirection;
-	
+
+	/// <summary>changes the flipbook with the correct one depending on the direction</summary>
 	void SetFlipbook(FString direction);
+
+	/// <summary>checks when the character is moving vertically</summary>
 	void OnMovingVertical(float vector);
+
+	/// <summary>checks when the character is moving horizontally</summary>
 	void OnMovingHorizontal(float vector);
+
+	/// <summary>checks the direction and calls SetFlipbook() depending on the direction</summary>
 	void CheckDirection();
 
 public:    

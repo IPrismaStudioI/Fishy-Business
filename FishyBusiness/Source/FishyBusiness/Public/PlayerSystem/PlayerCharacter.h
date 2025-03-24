@@ -48,6 +48,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class UWallet* xWallet;
 
+	/// <summary>moves the character on forward axis </summary>
 	void MoveForward(float inputVector);
+
+	/// <summary>moves the character on right axis</summary>
 	void MoveRight(float inputVector);
 };

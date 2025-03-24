@@ -27,5 +27,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UCameraComponent* xCamera;
 
+	/// <summary>Changes player camera orthographic size within specified seconds</summary>
 	void ResizeCamera(float nextValue, float speed);
 };

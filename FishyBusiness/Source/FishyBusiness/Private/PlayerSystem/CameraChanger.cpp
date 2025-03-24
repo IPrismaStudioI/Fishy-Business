@@ -31,8 +31,10 @@ void ACameraChanger::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 										bool bFromSweep, 
 										const FHitResult& SweepResult)
 {
+	//checks if the colliding actor is the player
 	if (APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor))
 	{
+		//checks if the player has the camera controller
 		if (UPlayerCameraController* PlayerComponent = Player->FindComponentByClass<UPlayerCameraController>())
 		{
 			PlayerComponent->ResizeCamera(p_fNewCameraSize, p_fSpeed);
