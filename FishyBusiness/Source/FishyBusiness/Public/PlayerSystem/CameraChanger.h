@@ -18,14 +18,15 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
+
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class USphereComponent* p_xSphereTrigger;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera")
 	float p_fNewCameraSize;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera")
 	float p_fSpeed;
 
 private:
