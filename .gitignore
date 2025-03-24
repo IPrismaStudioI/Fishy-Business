@@ -9,6 +9,7 @@ FishyBusiness/Plugins/*/Intermediate/
 FishyBusiness/Saved/
 FishyBusiness/Build/
 FishyBusiness/Builds/
+FishyBusiness/Content/Python/credentials.json
 
 # Wwise Project
 Wwise/IncrementalSoundBankData.xml

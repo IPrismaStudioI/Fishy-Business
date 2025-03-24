@@ -3,15 +3,29 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "../Public/DIalogueSystem/DialogueElaborator.h"
+#include "EventManager/ObserverManager.h"
 #include "GameFramework/GameModeBase.h"
 #include "FishyBusinessGameModeBase.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class FISHYBUSINESS_API AFishyBusinessGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+	UPROPERTY(VisibleAnywhere)
+	UDialogueElaborator* xDialogueElaborator;
+
+	UPROPERTY(VisibleAnywhere)
+	UObserverManager* xDialogueEventManager;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
+	UDataTable* xDataTableDialogues;
 	
+public:
+	AFishyBusinessGameModeBase();
+
+	static AFishyBusinessGameModeBase* GetInstance();
 };
