@@ -3,11 +3,11 @@
 
 #include "PlayerSystem/PlayerCameraController.h"
 
+#include "Camera/CameraComponent.h"
+
 // Sets default values for this component's properties
-UPlayerCameraController::UPlayerCameraController()
+UPlayerCameraController::UPlayerCameraController(): xCamera(nullptr)
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
@@ -30,5 +30,12 @@ void UPlayerCameraController::TickComponent(float DeltaTime, ELevelTick TickType
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UPlayerCameraController::ResizeCamera(float nextValue, float speed)
+{
+	float lastValue = xCamera->OrthoWidth;
+
+	xCamera->OrthoWidth = FMath::FInterpTo(lastValue, nextValue, GetWorld()->GetDeltaSeconds(), speed);
 }
 

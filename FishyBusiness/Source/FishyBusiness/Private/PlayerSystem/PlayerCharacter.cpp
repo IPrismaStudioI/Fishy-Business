@@ -3,12 +3,37 @@
 
 #include "PlayerSystem/PlayerCharacter.h"
 
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "PlayerSystem/MaterialInventory.h"
+#include "PlayerSystem/Movement.h"
+#include "PlayerSystem/PlayerCameraController.h"
+#include "PlayerSystem/UniqueInventory.h"
+#include "PlayerSystem/Wallet.h"
+
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	xSpringArm = CreateDefaultSubobject<USpringArmComponent>("Spring Arm");
+	xSpringArm->SetupAttachment(RootComponent);
+	
+	xCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
+	xCamera->SetupAttachment(xSpringArm);
 
+	xMovement = CreateDefaultSubobject<UMovement>(TEXT("Movement"));
+	
+	xUniqueInventory = CreateDefaultSubobject<UUniqueInventory>("UniqueInventory");
+
+	xMaterialInventory = CreateDefaultSubobject<UMaterialInventory>("MaterialInventory");
+
+	xCameraController = CreateDefaultSubobject<UPlayerCameraController>("CameraController");
+	xCameraController->xCamera = xCamera;
+	
+	xWallet = CreateDefaultSubobject<UWallet>("Wallet");
+	
+	xCamera->SetProjectionMode(ECameraProjectionMode::Orthographic);
 }
 
 // Called when the game starts or when spawned
@@ -30,5 +55,21 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis("MoveForward", this, &APlayerCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
 }
+
+void APlayerCharacter::MoveForward(float inputVector)
+{
+	FVector ForwardDirection = GetActorForwardVector();
+	AddMovementInput(ForwardDirection, inputVector * 0.6f);
+}
+
+void APlayerCharacter::MoveRight(float inputVector)
+{
+	FVector RightDirection = GetActorRightVector();
+	AddMovementInput(RightDirection, inputVector);
+}
+
+
 
