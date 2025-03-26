@@ -6,7 +6,7 @@
 #include "PlayerSystem/PlayerCharacter.h"
 
 // Sets default values for this component's properties
-UMovement::UMovement(): _xCockPit(nullptr), _xHull(nullptr), _xEngine(nullptr)
+UMovement::UMovement(): xCockPit(nullptr), Hull(nullptr), xEngine(nullptr), _fxDirection(0), _fyDirection(0)
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -46,9 +46,9 @@ void UMovement::SetupInputBindings()
 
 void UMovement::SetFlipbook(FString direction)
 {
-	_xCockPit = _xCockPitFlipBook[direction];
-	_xHull = _xHullFlipBook[direction];
-	_xEngine = _xEngineFlipBook[direction];
+	xCockPit = _xCockPitFlipBook[direction];
+	Hull = _xHullFlipBook[direction];
+	xEngine = _xEngineFlipBook[direction];
 }
 
 

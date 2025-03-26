@@ -19,15 +19,16 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-private:
+public:
 	//actual sprite
 	UPROPERTY(EditAnywhere)
-	UPaperFlipbook* _xCockPit;
+	UPaperFlipbook* xCockPit;
 	UPROPERTY(EditAnywhere)
-	UPaperFlipbook* _xHull;
+	UPaperFlipbook* Hull;
 	UPROPERTY(EditAnywhere)
-	UPaperFlipbook* _xEngine;
+	UPaperFlipbook* xEngine;
 
+private:
 	//sprite lists
 	UPROPERTY(EditAnywhere)
 	TMap<FString, UPaperFlipbook*> _xCockPitFlipBook;

@@ -32,8 +32,18 @@ APlayerCharacter::APlayerCharacter()
 	xCameraController->xCamera = xCamera;
 	
 	xWallet = CreateDefaultSubobject<UWallet>("Wallet");
+
+	xCockpit = CreateDefaultSubobject<UPaperFlipbookComponent>("Cockpit");
+	
+	xHull = CreateDefaultSubobject<UPaperFlipbookComponent>("Hull");
+
+	xEngine = CreateDefaultSubobject<UPaperFlipbookComponent>("Engine");
 	
 	xCamera->SetProjectionMode(ECameraProjectionMode::Orthographic);
+
+	xMovement->xCockPit = xCockpit->GetFlipbook();
+	xMovement->Hull = xHull->GetFlipbook();
+	xMovement->xEngine = xEngine->GetFlipbook();
 }
 
 // Called when the game starts or when spawned

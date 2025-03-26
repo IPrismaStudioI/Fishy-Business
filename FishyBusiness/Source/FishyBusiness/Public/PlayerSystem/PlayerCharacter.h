@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PaperFlipbookComponent.h"
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
 
@@ -25,8 +26,7 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-protected:
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UCameraComponent* xCamera;
 
@@ -48,6 +48,16 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class UWallet* xWallet;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperFlipbookComponent* xCockpit;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperFlipbookComponent* xHull;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperFlipbookComponent* xEngine;
+
+private:
 	/// <summary>moves the character on forward axis </summary>
 	void MoveForward(float inputVector);
 

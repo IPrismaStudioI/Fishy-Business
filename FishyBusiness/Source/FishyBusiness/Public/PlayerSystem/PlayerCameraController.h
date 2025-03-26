@@ -16,7 +16,7 @@ public:
 	// Sets default values for this component's properties
 	UPlayerCameraController();
 
-protected:
+private:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
