@@ -4,6 +4,7 @@
 #include "FishyBusinessGameModeBase.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "PlayerSystem/PlayerCharacter.h"
 
 AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 {
@@ -12,6 +13,8 @@ AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 	
 	xDialogueEventManager = CreateDefaultSubobject<UObserverManager>("Dialogue event");
 	this->AddInstanceComponent(xDialogueEventManager);
+
+	DefaultPawnClass = APlayerCharacter::StaticClass();
 }
 
 AFishyBusinessGameModeBase* AFishyBusinessGameModeBase::GetInstance()
