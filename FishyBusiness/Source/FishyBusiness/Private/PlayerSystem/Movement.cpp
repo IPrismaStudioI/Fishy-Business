@@ -44,7 +44,7 @@ void UMovement::SetupInputBindings()
 
 }
 
-void UMovement::SetFlipbook(FString direction)
+void UMovement::SetFlipbook(EDirections direction)
 {
 	//xCockPit = _xCockPitFlipBook[direction];
 	//Hull = _xHullFlipBook[direction];
@@ -75,28 +75,28 @@ void UMovement::CheckDirection()
 	switch (int Code = HashX * 10 + HashY)
 	{
 	case 1:    // (0, 1) N
-		SetFlipbook("N");
+		SetFlipbook(EDirections::E_NORTH);
 		break;
 	case 11:   // (1, 1) NE
-		SetFlipbook("NE");
+		SetFlipbook(EDirections::E_NORTH_EST);
 		break;
 	case 10:   // (1, 0) E
-		SetFlipbook("E");
+		SetFlipbook(EDirections::E_EST);
 		break;
 	case 9:    // (1, -1) SE
-		SetFlipbook("SE");
+		SetFlipbook(EDirections::E_SOUTH_EST);
 		break;
 	case -1:   // (0, -1) S
-		SetFlipbook("S");
+		SetFlipbook(EDirections::E_SOUTH);
 		break;
 	case -11:  // (-1, -1) SW
-		SetFlipbook("SW");
+		SetFlipbook(EDirections::E_SOUTH_WEST);
 		break; 
 	case -10:  // (-1, 0) W 
-		SetFlipbook("W");
+		SetFlipbook(EDirections::E_WEST);
 		break;
 	case -9:   // (-1, 1) NW
-		SetFlipbook("NW");
+		SetFlipbook(EDirections::E_NORTH_WEST);
 		break;
 	}
 }
