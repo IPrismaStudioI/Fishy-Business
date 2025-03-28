@@ -75,13 +75,13 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void APlayerCharacter::MoveForward(float inputVector)
 {
 	FVector ForwardDirection = GetActorForwardVector();
-	AddMovementInput(ForwardDirection, inputVector * 0.6f);
+	AddMovementInput(ForwardDirection, inputVector);
 }
 
 void APlayerCharacter::MoveRight(float inputVector)
 {
 	FVector RightDirection = GetActorRightVector();
-	AddMovementInput(RightDirection, inputVector);
+	AddMovementInput(RightDirection, inputVector * 0.66f);
 }
 
 
