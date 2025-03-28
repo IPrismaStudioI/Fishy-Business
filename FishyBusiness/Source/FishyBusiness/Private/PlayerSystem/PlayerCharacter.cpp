@@ -34,10 +34,13 @@ APlayerCharacter::APlayerCharacter()
 	xWallet = CreateDefaultSubobject<UWallet>("Wallet");
 
 	xCockpit = CreateDefaultSubobject<UPaperFlipbookComponent>("Cockpit");
+	xCockpit->SetupAttachment(RootComponent);
 	
 	xHull = CreateDefaultSubobject<UPaperFlipbookComponent>("Hull");
+	xHull->SetupAttachment(RootComponent);
 
 	xEngine = CreateDefaultSubobject<UPaperFlipbookComponent>("Engine");
+	xEngine->SetupAttachment(RootComponent);
 	
 	xCamera->SetProjectionMode(ECameraProjectionMode::Orthographic);
 
