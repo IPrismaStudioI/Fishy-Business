@@ -46,9 +46,9 @@ void UMovement::SetupInputBindings()
 
 void UMovement::SetFlipbook(FString direction)
 {
-	xCockPit = _xCockPitFlipBook[direction];
-	Hull = _xHullFlipBook[direction];
-	xEngine = _xEngineFlipBook[direction];
+	//xCockPit = _xCockPitFlipBook[direction];
+	//Hull = _xHullFlipBook[direction];
+	//xEngine = _xEngineFlipBook[direction];
 }
 
 
