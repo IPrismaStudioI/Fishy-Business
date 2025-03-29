@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FFishBunch.h"
 #include "Components/ActorComponent.h"
+#include "DataSystem/FishData/Fish.h"
 #include "FishInventory.generated.h"
 
 
@@ -24,5 +26,9 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+private:
+	TMap<FString, FFishBunch> _mFishes;
+	
+	void AddFish(UFish* fish);
+	void RemoveFish(UFish* fish);
 };

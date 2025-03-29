@@ -32,3 +32,27 @@ void UFishInventory::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	// ...
 }
 
+void UFishInventory::AddFish(UFish* fish)
+{
+	FFishInfo newFishInfo(fish->fBasePrice, fish->fBaseSize);
+
+	if (_mFishes.Contains(fish->sFishID))
+	{
+		_mFishes[fish->sFishID].aFishInfos.Add(newFishInfo);
+		return;
+	}
+	_mFishes.Add(fish->sFishID);
+	_mFishes[fish->sFishID].aFishInfos.Add(newFishInfo);
+}
+
+void UFishInventory::RemoveFish(UFish* fish)
+{
+	if (_mFishes.Contains(fish->sFishID))
+	{
+		_mFishes[fish->sFishID].aFishInfos.Pop();
+		return;
+	}
+	_mFishes.Add(fish->sFishID);
+	_mFishes[fish->sFishID].aFishInfos.Pop();
+}
+
