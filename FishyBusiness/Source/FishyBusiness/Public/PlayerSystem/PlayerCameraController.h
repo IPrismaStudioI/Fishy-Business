@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Camera/CameraComponent.h"
 #include "Components/ActorComponent.h"
 #include "PlayerCameraController.generated.h"
 
@@ -13,19 +14,19 @@ class FISHYBUSINESS_API UPlayerCameraController : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
-	UPlayerCameraController();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UCameraComponent* xCamera;
 
 private:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:	
+	// Sets default values for this component's properties
+	UPlayerCameraController();
+	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UCameraComponent* xCamera;
 
 	/// <summary>Changes player camera orthographic size within specified seconds</summary>
 	void ResizeCamera(float nextValue, float speed);

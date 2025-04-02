@@ -52,9 +52,9 @@ void UObserverManager::TriggerEvent(FString eventName, EventParameters &paramete
 {
 	if (_xEventMap.Contains(eventName))
 	{
-		for (auto Element : _xEventMap[eventName])
+		for (UEventWrapper* Element : _xEventMap[eventName])
 		{
-			Element->function(parameters);
+			(*Element->function)(parameters);
 		}
 	}
 }

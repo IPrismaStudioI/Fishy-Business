@@ -25,23 +25,6 @@ class FISHYBUSINESS_API UMovement : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
-	UMovement();
-
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
-public:
-	//actual sprite
-	UPROPERTY()
-	UPaperFlipbook* xCockPit;
-	UPROPERTY()
-	UPaperFlipbook* Hull;
-	UPROPERTY()
-	UPaperFlipbook* xEngine;
-
 private:
 	//sprite lists
 	UPROPERTY(EditAnywhere)
@@ -54,6 +37,24 @@ private:
 	float _fxDirection;
 	float _fyDirection;
 
+public:
+	//actual sprite
+	UPROPERTY()
+	UPaperFlipbook* xCockPit;
+	UPROPERTY()
+	UPaperFlipbook* Hull;
+	UPROPERTY()
+	UPaperFlipbook* xEngine;
+
+public:    
+	UMovement();
+	virtual void SetupInputBindings();
+
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
+
+private:
 	/// <summary>changes the flipbook with the correct one depending on the direction</summary>
 	void SetFlipbook(EDirections direction);
 
@@ -65,9 +66,6 @@ private:
 
 	/// <summary>checks the direction and calls SetFlipbook() depending on the direction</summary>
 	void CheckDirection();
-
-public:    
-	virtual void SetupInputBindings();
 };
 
 

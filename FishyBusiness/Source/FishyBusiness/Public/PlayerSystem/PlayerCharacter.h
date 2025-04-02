@@ -3,8 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MaterialInventory.h"
+#include "Movement.h"
 #include "PaperFlipbookComponent.h"
+#include "PlayerCameraController.h"
+#include "UniqueInventory.h"
+#include "Wallet.h"
+#include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -12,41 +19,30 @@ class FISHYBUSINESS_API APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-public:
-	// Sets default values for this character's properties
-	APlayerCharacter();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+private:
+	bool _bIsMovable;
 	
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UCameraComponent* xCamera;
+	UCameraComponent* xCamera;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class USpringArmComponent* xSpringArm;
+	USpringArmComponent* xSpringArm;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	class UMovement* xMovement;
+	UMovement* xMovement;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	class UUniqueInventory* xUniqueInventory;
+	UUniqueInventory* xUniqueInventory;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	class UMaterialInventory* xMaterialInventory;
+	UMaterialInventory* xMaterialInventory;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	class UPlayerCameraController* xCameraController;
+	UPlayerCameraController* xCameraController;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	class UWallet* xWallet;
+	UWallet* xWallet;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperFlipbookComponent* xCockpit;
@@ -56,7 +52,23 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperFlipbookComponent* xEngine;
+	
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
+public:	
+	// Sets default values for this character's properties
+	APlayerCharacter();
+	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	void SetMovable(bool option);
+	
 private:
 	/// <summary>moves the character on forward axis </summary>
 	void MoveForward(float inputVector);

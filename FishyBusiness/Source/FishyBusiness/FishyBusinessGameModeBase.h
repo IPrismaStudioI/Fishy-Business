@@ -17,8 +17,7 @@ class FISHYBUSINESS_API AFishyBusinessGameModeBase : public AGameModeBase
 public:
 	UPROPERTY(VisibleAnywhere)
 	UDialogueElaborator* xDialogueElaborator;
-
-	UPROPERTY(VisibleAnywhere)
+	
 	UObserverManager* xDialogueEventManager;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")

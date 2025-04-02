@@ -7,6 +7,6 @@
 void UEventWrapper::RegisterEvent(UObserverManager* EventManager, FString EventType, const TFunction<void(EventParameters)> Callback)
 {
 	UEventWrapper* Wrapper = NewObject<UEventWrapper>();
-	Wrapper->function = Callback;
+	Wrapper->function = MakeShared<TFunction<void(EventParameters)>>(Callback);
 	EventManager->Register(EventType, Wrapper);
 }

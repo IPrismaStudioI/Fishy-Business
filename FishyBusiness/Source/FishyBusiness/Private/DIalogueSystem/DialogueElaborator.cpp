@@ -105,8 +105,8 @@ void UDialogueElaborator::DisplayNextSentence()
 			}
 		}
 	}
-
-	TypeSentence();
+	else
+		TypeSentence();
 }
 
 void UDialogueElaborator::TypeSentence()

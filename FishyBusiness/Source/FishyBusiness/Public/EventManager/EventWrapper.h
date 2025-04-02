@@ -10,7 +10,7 @@
 class UObserverManager;
 class UParameterWrapper;
 using EventParameters = TArray<UParameterWrapper*>;
-using Function = TFunction<void(EventParameters)>;
+using Function = TSharedPtr<TFunction<void(EventParameters)>>;
 
 UCLASS()
 class FISHYBUSINESS_API UEventWrapper : public UObject
