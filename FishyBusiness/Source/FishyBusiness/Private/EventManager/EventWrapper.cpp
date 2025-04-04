@@ -4,9 +4,9 @@
 #include "EventManager/EventWrapper.h"
 #include "EventManager/ObserverManager.h"
 
-void UEventWrapper::RegisterEvent(UObserverManager* EventManager, FString EventType, const TFunction<void(EventParameters)> Callback)
+void UEventWrapper::RegisterEvent(UObserverManager* EventManager, FString EventType, const TSharedPtr<TFunction<void(const EventParameters&)>> Callback)
 {
 	UEventWrapper* Wrapper = NewObject<UEventWrapper>();
-	Wrapper->function = MakeShared<TFunction<void(EventParameters)>>(Callback);
+	Wrapper->function = Callback;
 	EventManager->Register(EventType, Wrapper);
 }

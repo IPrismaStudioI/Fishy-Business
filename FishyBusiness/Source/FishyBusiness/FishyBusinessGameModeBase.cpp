@@ -19,6 +19,8 @@ AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 
 AFishyBusinessGameModeBase* AFishyBusinessGameModeBase::GetInstance()
 {
-	AFishyBusinessGameModeBase* gamemode = GEngine->GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	UEngine* g = GEngine;
+	UWorld* w = GetWorld();
+	AFishyBusinessGameModeBase* gamemode = w->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	return gamemode;
 }

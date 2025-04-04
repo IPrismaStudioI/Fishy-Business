@@ -5,9 +5,11 @@
 #include "CoreMinimal.h"
 #include "BuildingBase.h"
 #include "Components/BoxComponent.h"
+#include "Components/TimelineComponent.h"
 #include "Enums/EBuildings.h"
 #include "GameFramework/Actor.h"
 #include "PlayerSystem/PlayerCharacter.h"
+#include "Widget/VillageUI.h"
 #include "VillageManager.generated.h"
 
 UCLASS()
@@ -16,12 +18,35 @@ class FISHYBUSINESS_API AVillageManager : public AActor
 	GENERATED_BODY()
 
 private:
-	UPROPERTY(EditAnywhere)
+	APlayerCharacter* player;
+	
+	UPROPERTY(EditAnywhere, Category = "Buildings")
 	TMap<EBuildings, ABuildingBase*> _xBuldingsMap;
+	
+#pragma region move player
 	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
-	FVector3d _xPosition;
+	FVector _xPosition;
+	FVector _xInitialPosition;
+	
 	UPROPERTY(EditAnywhere, Category="ArriveTrigger")
 	UBoxComponent* Trigger;
+#pragma endregion move player
+
+#pragma region timeline
+	UPROPERTY(EditAnywhere, Category = "Timeline")
+	UTimelineComponent* ArriveTimeline;
+	UPROPERTY(EditAnywhere, Category = "Timeline")
+	float ArriveTimeLineLenght;
+
+	UPROPERTY()
+	UCurveFloat* fCurve;
+
+	FOnTimelineFloat tickCallback{};
+	FOnTimelineEventStatic finishedCallback;
+#pragma endregion timeline
+	
+	UPROPERTY(EditAnywhere, Category = "UI")
+	TSubclassOf<UUserWidget> VillageUI;
 
 protected:
 	// Called when the game starts or when spawned
@@ -44,6 +69,8 @@ public:
 	virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
 
 private:
-	void ChangePlayerPosition(float lerp, APlayerCharacter* player);
+	UFUNCTION()
+	void ChangePlayerPosition(float val);
+	UFUNCTION()
 	void ApproachVillage();
 };

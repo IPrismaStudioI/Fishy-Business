@@ -20,7 +20,7 @@ class FISHYBUSINESS_API APlayerCharacter : public ACharacter
 	GENERATED_BODY()
 
 private:
-	bool _bIsMovable;
+	bool _bIsMovable = true;
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

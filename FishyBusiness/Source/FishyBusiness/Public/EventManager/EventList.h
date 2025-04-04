@@ -20,3 +20,13 @@ public:
 	static const FString HIDE_CHOICES;
 	static const FString CONTINUE_DIALOGUE;
 };
+
+class FISHYBUSINESS_API EventListVillage
+{
+public:
+	static const FString SHOW_LIGHTHOUSE;
+	static const FString SHOW_FISHSHOP;
+	static const FString SHOW_WORKSHOP;
+	static const FString SHOW_ARCHIVE;
+	static const FString SHOW_CARPENTRY;
+};

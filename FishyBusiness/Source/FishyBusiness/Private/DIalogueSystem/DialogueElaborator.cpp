@@ -25,7 +25,7 @@ void UDialogueElaborator::BeginPlay()
 	
 	UObserverManager* EventManager = gamemode->xDialogueEventManager;
 	
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CONTINUE_DIALOGUE, [this](const EventParameters& Params) { DisplayNextSentenceEvent(Params); });
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CONTINUE_DIALOGUE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { DisplayNextSentenceEvent(Params); }));
 
 }
 

@@ -10,7 +10,7 @@
 class UObserverManager;
 class UParameterWrapper;
 using EventParameters = TArray<UParameterWrapper*>;
-using Function = TSharedPtr<TFunction<void(EventParameters)>>;
+using Function = TSharedPtr<TFunction<void(const EventParameters&)>>;
 
 UCLASS()
 class FISHYBUSINESS_API UEventWrapper : public UObject
@@ -28,7 +28,7 @@ public:
 	/// </para>
 	/// @param Callback - The function to execute when the event is triggered.
 	/// </summary>
-	static void RegisterEvent(UObserverManager* EventManager, FString EventType, TFunction<void(EventParameters)> Callback);
+	static void RegisterEvent(UObserverManager* EventManager, FString EventType, TSharedPtr<TFunction<void(const EventParameters&)>> Callback);
 };
 
 UCLASS()

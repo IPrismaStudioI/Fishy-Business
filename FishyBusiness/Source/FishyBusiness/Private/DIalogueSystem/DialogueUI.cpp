@@ -18,12 +18,12 @@ void UDialogueUI::NativeConstruct()
 	
 	UObserverManager* EventManager = gamemode->xDialogueEventManager;
 	
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_SENTENCE, [this](const EventParameters& Params) { ChangeSentence(Params); });
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_NAME, [this](const EventParameters& Params) { ChangeName(Params); });
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::START_DIALOGUE, [this](const EventParameters& Params) { ShowDialogue(Params); });
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::END_DIALOGUE, [this](const EventParameters& Params) { HideDialogue(Params); });
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::START_CHOICES, [this](const EventParameters& Params) { ShowChoices(Params); });
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::HIDE_CHOICES, [this](const EventParameters& Params) { HideChoices(Params); });
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_SENTENCE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { ChangeSentence(Params) ;}));
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_NAME, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ChangeName(Params); }));
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::START_DIALOGUE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ShowDialogue(Params); }));
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::END_DIALOGUE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { HideDialogue(Params); }));
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::START_CHOICES, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ShowChoices(Params); }));
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::HIDE_CHOICES, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { HideChoices(Params); }));
 
 	_xContinueBtn->OnClicked.AddDynamic(this, &UDialogueUI::OnContinueBtnClicked);
 }
