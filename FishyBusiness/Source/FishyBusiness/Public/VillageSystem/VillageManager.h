@@ -46,7 +46,7 @@ private:
 #pragma endregion timeline
 	
 	UPROPERTY(EditAnywhere, Category = "UI")
-	TSubclassOf<UUserWidget> VillageUI;
+	TSubclassOf<UVillageUI> VillageUI;
 
 protected:
 	// Called when the game starts or when spawned

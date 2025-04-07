@@ -39,7 +39,7 @@ void AVillageManager::BeginPlay()
 	UEventBus* eventBus = gamemode->xVillageEventBus;
 	UEventWrapper::RegisterEvent(eventBus, EventListVillage::HIDE_VILLAGE_BASE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FreePlayer(Params); }));
 	
-	UUserWidget* villageUI = CreateWidget(GetWorld(), VillageUI);
+	UVillageUI* villageUI = CreateWidget<UVillageUI>(GetWorld(), VillageUI);
 	villageUI->AddToViewport(0);
 	
 	ArriveTimeline->AddInterpFloat(fCurve, tickCallback, FName{ TEXT("Floaty") });
