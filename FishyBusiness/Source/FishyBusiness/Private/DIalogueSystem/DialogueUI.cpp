@@ -16,7 +16,7 @@ void UDialogueUI::NativeConstruct()
 	// Registering functions to EventManager
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-	UObserverManager* EventManager = gamemode->xDialogueEventManager;
+	UEventBus* EventManager = gamemode->xDialogueEventBus;
 	
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_SENTENCE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { ChangeSentence(Params) ;}));
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_NAME, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ChangeName(Params); }));
@@ -34,7 +34,7 @@ void UDialogueUI::OnContinueBtnClicked()
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::CONTINUE_DIALOGUE, eventParameters);
+	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::CONTINUE_DIALOGUE, eventParameters);
 }
 
 void UDialogueUI::ChangeSentence(EventParameters parameters)

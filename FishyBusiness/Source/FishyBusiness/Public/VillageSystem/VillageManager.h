@@ -73,4 +73,6 @@ private:
 	void ChangePlayerPosition(float val);
 	UFUNCTION()
 	void ApproachVillage();
+	
+	void FreePlayer(EventParameters parameters);
 };

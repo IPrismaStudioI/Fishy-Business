@@ -4,7 +4,7 @@
 #include "EventManager/EventWrapper.h"
 #include "EventManager/ObserverManager.h"
 
-void UEventWrapper::RegisterEvent(UObserverManager* EventManager, FString EventType, const TSharedPtr<TFunction<void(const EventParameters&)>> Callback)
+void UEventWrapper::RegisterEvent(UEventBus* EventManager, FString EventType, TSharedPtr<TFunction<void(const EventParameters&)>> Callback)
 {
 	UEventWrapper* Wrapper = NewObject<UEventWrapper>();
 	Wrapper->function = Callback;

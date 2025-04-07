@@ -18,13 +18,19 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UDialogueElaborator* xDialogueElaborator;
 	
-	UObserverManager* xDialogueEventManager;
+	UPROPERTY(VisibleAnywhere)
+	UEventBus* xDialogueEventBus;
+	UPROPERTY(VisibleAnywhere)
+	UEventBus* xVillageEventBus;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	UDataTable* xDataTableDialogues;
 	
 public:
 	AFishyBusinessGameModeBase();
+
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 
 	static AFishyBusinessGameModeBase* GetInstance();
 };

@@ -16,3 +16,5 @@ const FString EventListVillage::SHOW_FISHSHOP = TEXT("SHOW_FISHSHOP");
 const FString EventListVillage::SHOW_WORKSHOP = TEXT("SHOW_WORKSHOP");
 const FString EventListVillage::SHOW_ARCHIVE = TEXT("SHOW_ARCHIVE");
 const FString EventListVillage::SHOW_CARPENTRY = TEXT("SHOW_CARPENTRY");
+const FString EventListVillage::SHOW_VILLAGE_BASE = TEXT("SHOW_VILLAGE_BASE");
+const FString EventListVillage::HIDE_VILLAGE_BASE = TEXT("HIDE_VILLAGE_BASE");

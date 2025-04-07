@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/CanvasPanel.h"
 #include "DIalogueSystem/DialogueTriggers/ButtonDialogueTriggerBase.h"
 #include "VillageUI.generated.h"
 
@@ -15,7 +16,7 @@ class FISHYBUSINESS_API UVillageUI : public UUserWidget
 {
 	GENERATED_BODY()
 	
-public:
+private:
 	UPROPERTY(meta = (BindWidget))
 	UButtonDialogueTriggerBase* _xFishShopBtn;
 	UPROPERTY(meta = (BindWidget))
@@ -26,6 +27,10 @@ public:
 	UButtonDialogueTriggerBase* _xArchiveBtn;
 	UPROPERTY(meta = (BindWidget))
 	UButtonDialogueTriggerBase* _xCarpentryBtn;
+	UPROPERTY(meta = (BindWidget))
+	UButton* _xExitVillageBtn;
+	UPROPERTY(meta = (BindWidget))
+	UCanvasPanel* _xCanvas;
 
 public:
 	virtual void NativeConstruct() override;
@@ -41,4 +46,8 @@ private:
 	void onArchiveBtnClicked();
 	UFUNCTION()
 	void onCarpentryBtnClicked();
+	
+	void ShowWidget(EventParameters parameters);
+	UFUNCTION()
+	void HideWidget();
 };

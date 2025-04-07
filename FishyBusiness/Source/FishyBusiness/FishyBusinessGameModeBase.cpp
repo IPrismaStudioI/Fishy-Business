@@ -11,16 +11,35 @@ AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 	xDialogueElaborator = CreateDefaultSubobject<UDialogueElaborator>("Dialogue Elaborator");
 	this->AddInstanceComponent(xDialogueElaborator);
 	
-	xDialogueEventManager = CreateDefaultSubobject<UObserverManager>("Dialogue event");
-	this->AddInstanceComponent(xDialogueEventManager);
+	xDialogueEventBus = CreateDefaultSubobject<UEventBus>("Dialogue Bus");
+	this->AddInstanceComponent(xDialogueEventBus);
+	xVillageEventBus = CreateDefaultSubobject<UEventBus>("Village Bus");
+	this->AddInstanceComponent(xVillageEventBus);
 
 	DefaultPawnClass = APlayerCharacter::StaticClass();
+}
+
+void AFishyBusinessGameModeBase::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	APlayerController* PC = GetWorld()->GetFirstPlayerController();
+	if (PC)
+	{
+		PC->bShowMouseCursor = true; 
+		PC->bEnableClickEvents = true; 
+		PC->bEnableMouseOverEvents = true;
+	}
+}
+
+void AFishyBusinessGameModeBase::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
 }
 
 AFishyBusinessGameModeBase* AFishyBusinessGameModeBase::GetInstance()
 {
 	UEngine* g = GEngine;
-	UWorld* w = GetWorld();
-	AFishyBusinessGameModeBase* gamemode = w->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	AFishyBusinessGameModeBase* gamemode = GEngine->GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	return gamemode;
 }

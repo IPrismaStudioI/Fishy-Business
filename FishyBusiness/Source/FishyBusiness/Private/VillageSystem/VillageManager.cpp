@@ -34,6 +34,10 @@ AVillageManager::AVillageManager()
 void AVillageManager::BeginPlay()
 {
 	Super::BeginPlay();
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	UEventBus* eventBus = gamemode->xVillageEventBus;
+	UEventWrapper::RegisterEvent(eventBus, EventListVillage::HIDE_VILLAGE_BASE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FreePlayer(Params); }));
 	
 	UUserWidget* villageUI = CreateWidget(GetWorld(), VillageUI);
 	villageUI->AddToViewport(0);
@@ -70,5 +74,15 @@ void AVillageManager::ChangePlayerPosition(float lerp)
 
 void AVillageManager::ApproachVillage()
 {
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_VILLAGE_BASE, eventParameters);
+
 	UE_LOG(LogTemp, Warning, TEXT("ApproachVillage!"));
+}
+
+void AVillageManager::FreePlayer(EventParameters parameters)
+{
+	player->SetMovable(true);
 }

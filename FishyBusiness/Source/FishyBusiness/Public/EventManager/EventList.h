@@ -29,4 +29,6 @@ public:
 	static const FString SHOW_WORKSHOP;
 	static const FString SHOW_ARCHIVE;
 	static const FString SHOW_CARPENTRY;
+	static const FString SHOW_VILLAGE_BASE;
+	static const FString HIDE_VILLAGE_BASE;
 };
