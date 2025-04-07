@@ -11,6 +11,7 @@ ALightChangableBase::ALightChangableBase()
 	
 	xSprite = CreateDefaultSubobject<UPaperSpriteComponent>("Sprite");
 	this->AddInstanceComponent(xSprite);
+	SetRootComponent(xSprite);
 }
 
 // Called when the game starts or when spawned

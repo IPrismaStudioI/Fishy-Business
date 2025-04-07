@@ -48,6 +48,7 @@ private:
 	void onCarpentryBtnClicked();
 	
 	void ShowWidget(EventParameters parameters);
-	UFUNCTION()
 	void HideWidget();
+	UFUNCTION()
+	void ExitWidget();
 };

@@ -14,4 +14,6 @@ class FISHYBUSINESS_API UUpgradeBuildingWidget : public UBuildingWidgetBase
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void NativeConstruct() override;
 };

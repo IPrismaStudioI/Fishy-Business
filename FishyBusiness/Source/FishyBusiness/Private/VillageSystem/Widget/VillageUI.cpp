@@ -7,14 +7,14 @@ void UVillageUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
+	HideWidget();
 	
 	_xFishShopBtn->OnClicked.AddDynamic(this, &UVillageUI::onFishShopBtnClicked);
 	_xLighthouseBtn->OnClicked.AddDynamic(this, &UVillageUI::onLighthouseBtnClicked);
 	_xWorkshopBtn->OnClicked.AddDynamic(this, &UVillageUI::onWorkshopBtnClicked);
 	_xArchiveBtn->OnClicked.AddDynamic(this, &UVillageUI::onArchiveBtnClicked);
 	_xCarpentryBtn->OnClicked.AddDynamic(this, &UVillageUI::onCarpentryBtnClicked);
-	_xExitVillageBtn->OnClicked.AddDynamic(this, &UVillageUI::HideWidget);
+	_xExitVillageBtn->OnClicked.AddDynamic(this, &UVillageUI::ExitWidget);
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	UEventBus* eventBus = gamemode->xVillageEventBus;
@@ -28,6 +28,8 @@ void UVillageUI::onFishShopBtnClicked()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_FISHSHOP, eventParameters);
+
+	HideWidget();
 }
 
 void UVillageUI::onLighthouseBtnClicked()
@@ -37,6 +39,8 @@ void UVillageUI::onLighthouseBtnClicked()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_LIGHTHOUSE, eventParameters);
+
+	HideWidget();
 }
 
 void UVillageUI::onWorkshopBtnClicked()
@@ -46,6 +50,8 @@ void UVillageUI::onWorkshopBtnClicked()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_WORKSHOP, eventParameters);
+
+	HideWidget();
 }
 
 void UVillageUI::onArchiveBtnClicked()
@@ -55,6 +61,8 @@ void UVillageUI::onArchiveBtnClicked()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_ARCHIVE, eventParameters);
+
+	HideWidget();
 }
 
 void UVillageUI::onCarpentryBtnClicked()
@@ -64,6 +72,8 @@ void UVillageUI::onCarpentryBtnClicked()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_CARPENTRY, eventParameters);
+
+	HideWidget();
 }
 
 void UVillageUI::ShowWidget(EventParameters parameters)
@@ -71,12 +81,17 @@ void UVillageUI::ShowWidget(EventParameters parameters)
 	_xCanvas->SetVisibility(ESlateVisibility::Visible);
 }
 
-void UVillageUI::HideWidget()
+void UVillageUI::ExitWidget()
 {
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::HIDE_VILLAGE_BASE, eventParameters);
 
+	_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+void UVillageUI::HideWidget()
+{
 	_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
 }

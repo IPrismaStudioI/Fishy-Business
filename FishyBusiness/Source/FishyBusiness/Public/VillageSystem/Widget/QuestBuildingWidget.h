@@ -14,4 +14,6 @@ class FISHYBUSINESS_API UQuestBuildingWidget : public UBuildingWidgetBase
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void NativeConstruct() override;
 };

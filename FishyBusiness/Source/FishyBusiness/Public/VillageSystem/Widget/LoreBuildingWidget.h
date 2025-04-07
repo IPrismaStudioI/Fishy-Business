@@ -13,5 +13,7 @@ UCLASS()
 class FISHYBUSINESS_API ULoreBuildingWidget : public UBuildingWidgetBase
 {
 	GENERATED_BODY()
-	
+
+public:
+	virtual void NativeConstruct() override;
 };

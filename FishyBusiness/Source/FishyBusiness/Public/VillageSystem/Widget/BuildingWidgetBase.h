@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Button.h"
 #include "Components/CanvasPanel.h"
 #include "Components/Image.h"
 #include "Components/VerticalBox.h"
+#include "EventManager/EventWrapper.h"
 #include "BuildingWidgetBase.generated.h"
 
 /**
@@ -24,10 +26,16 @@ protected:
 	UImage* _xNpcImage;
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* _xCanvas;
+	UPROPERTY(meta = (BindWidget))
+	UButton* _xExitBuildingBtn; 
 
 public:
 	virtual void NativeConstruct() override;
 
-private:
+protected:
 	void HideCanvas();
+	void ShowCanvas(EventParameters parameters);
+
+	UFUNCTION()
+	void ExitBuilding();
 };
