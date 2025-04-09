@@ -30,8 +30,8 @@ void AFishingGenerator::InitialGeneration()
 {
 	for (int i = 0; i < xFishingSpots.Num(); i++)
 	{
-		for (int j = 0; j < xFishingSpots[i]->iTotalFishes; j++)
-		xFishingSpots[i]->xFishes[j] = AllocateFish();
+		for (int j = 0; j < xFishingSpots[i]->iTotalFishes; j++){}
+		//xFishingSpots[i]->xFishes[j] = AllocateFish();
 	}
 
 	for (int i = 0; i < iSpotsAvailableAtSpawn; i++)
@@ -60,11 +60,10 @@ void AFishingGenerator::ShuffleSpots(AFishingSpot depletedSpot)
 	xFishingSpots[randomInt]->bIsActive = true;
 }
 
-UFish* AFishingGenerator::AllocateFish()
-{
-	UFish* fish;
-	return fish;
-}
+// UFish* AFishingGenerator::AllocateFish()
+// {
+// 	return ;
+// }
 
 void AFishingGenerator::ChooseFish()
 {
