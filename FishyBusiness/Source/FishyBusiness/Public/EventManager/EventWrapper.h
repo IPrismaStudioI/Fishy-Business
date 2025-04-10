@@ -41,7 +41,7 @@ private:
 	
 public:
 	template <typename T>
-	void Setter(T data)
+	void Setter(T &data)
 	{
 		_xData = data;
 		TypeInfo = &typeid(T);

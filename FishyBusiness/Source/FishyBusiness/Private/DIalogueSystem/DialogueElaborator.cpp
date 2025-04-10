@@ -98,8 +98,17 @@ void UDialogueElaborator::DisplayNextSentence()
 		{
 			if (_xActualDialogue.bHasChoices)
 			{
-				//TODO: aggiungere la parte UI
+				EventParameters eventParameters;
 				
+				FString allIDChoices = FString::Join(_xActualDialogue._sDialogueIDChoices, TEXT("|"));
+				eventParameters.Add(UParameterWrapper::CreateParameter<FString>(allIDChoices));
+				
+				FString allAnswers = FString::Join(_xActualDialogue._sDialogueAnswers, TEXT("|"));
+				eventParameters.Add(UParameterWrapper::CreateParameter<FString>(allAnswers));
+				
+				AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+				gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::START_CHOICES, eventParameters);
+
 				EndDialogue();
 			}
 			else
@@ -114,7 +123,6 @@ void UDialogueElaborator::DisplayNextSentence()
 
 void UDialogueElaborator::TypeSentence()
 {
-	//TODO: aggiungere la parte UI
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	EventParameters eventParametersVoid;

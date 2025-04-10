@@ -66,7 +66,41 @@ def create_data_assets_from_csv(csv_file, asset_class, package_path):
             listTmp.s_sentence = str(df.iloc[startDialoguePtr + i].iloc[2]).strip()
             ListLines.append(listTmp)
         
-        print(ListLines)
+
+        choice_str = str(df.iloc[startDialoguePtr].iloc[3]).strip()
+        if choice_str == "Yes":
+            asset.dialogue.has_choices = True
+        else:
+            asset.dialogue.has_choices = False
+
+        otherColumn = True
+        indexColumnAnswer = 4
+        indexColumnidChoice = 5
+        if asset.dialogue.has_choices:
+            while otherColumn:
+                try:
+                    print(indexColumnAnswer)
+                    print(indexColumnidChoice)
+                    print(str(df.iloc[startDialoguePtr].iloc[indexColumnAnswer]).strip())
+                    print(str(df.iloc[startDialoguePtr].iloc[indexColumnidChoice]).strip())
+                    
+                    answer = str(df.iloc[startDialoguePtr].iloc[indexColumnAnswer]).strip()
+                    idChoice = str(df.iloc[startDialoguePtr].iloc[indexColumnidChoice]).strip()
+                
+                    indexColumnAnswer = indexColumnAnswer + 2
+                    indexColumnidChoice = indexColumnidChoice + 2
+                    
+                    asset.dialogue.s_dialogue_answers.append(answer)
+                    asset.dialogue.s_dialogue_id_choices.append(idChoice)
+    
+                    print(answer)
+                    print(idChoice)
+    
+                except Exception as e:
+                    print("error: " + str(e))
+                    otherColumn = False
+    
+                
         
         i = 0
         while i < len(ListLines):

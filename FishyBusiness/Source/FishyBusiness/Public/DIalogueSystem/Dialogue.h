@@ -49,9 +49,9 @@ public:
 	//Boolean needed to show multiple choices after the dialogue end
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bHasChoices;
-	UPROPERTY(EditAnywhere, meta=(EditCondition = "bHasChoices"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(EditCondition = "bHasChoices"))
 	TArray<FString> _sDialogueIDChoices;
-	UPROPERTY(EditAnywhere, meta=(EditCondition = "bHasChoices"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(EditCondition = "bHasChoices"))
 	TArray<FString> _sDialogueAnswers;
 	
 public:
