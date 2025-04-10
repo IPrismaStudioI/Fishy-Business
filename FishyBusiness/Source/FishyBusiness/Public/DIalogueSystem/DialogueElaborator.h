@@ -63,6 +63,8 @@ private:
 	/// </summary>
 	void EndDialogue();
 
+	void CloseDialogue();
+
 	void ClearCurrent();
 	void AddToCurrent(FString sentence);
 	void RemoveFromCurrent();

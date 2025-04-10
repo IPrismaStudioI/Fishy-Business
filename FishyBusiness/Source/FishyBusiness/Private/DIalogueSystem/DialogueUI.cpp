@@ -25,7 +25,6 @@ void UDialogueUI::NativeConstruct()
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::START_DIALOGUE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ShowDialogue(Params); }));
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::END_DIALOGUE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { HideDialogue(Params); }));
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::START_CHOICES, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ShowChoices(Params); }));
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::HIDE_CHOICES, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { HideChoices(Params); }));
 
 	_xContinueBtn->OnClicked.AddDynamic(this, &UDialogueUI::OnContinueBtnClicked);
 }
@@ -53,28 +52,32 @@ void UDialogueUI::ChangeName(EventParameters parameters)
 
 void UDialogueUI::HideDialogue(EventParameters parameters)
 {
-	_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
+	_xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
 }
 
 void UDialogueUI::HideDialogueStart()
 {
-	_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
+	_xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
+	_xCanvasChoices->SetVisibility(ESlateVisibility::Collapsed);
 }
 
 void UDialogueUI::ShowDialogue(EventParameters parameters)
 {
-	_xCanvas->SetVisibility(ESlateVisibility::Visible);
+	_xCanvasDialogue->SetVisibility(ESlateVisibility::Visible);
+	//_xCanvasChoices->SetVisibility(ESlateVisibility::Visible);
 }
 
-void UDialogueUI::HideChoices(EventParameters parameters)
+void UDialogueUI::HideChoices()
 {
-	_xChoiceContainer->SetVisibility(ESlateVisibility::Collapsed);
+	_xCanvasChoices->SetVisibility(ESlateVisibility::Collapsed);
+
+	_xChoiceContainer->ClearChildren();
 }
 
 void UDialogueUI::ShowChoices(EventParameters parameters)
 {
 	FillChoiceContainer(parameters);
-	_xChoiceContainer->SetVisibility(ESlateVisibility::Visible);
+	_xCanvasChoices->SetVisibility(ESlateVisibility::Visible);
 }
 
 void UDialogueUI::FillChoiceContainer(EventParameters parameters)
@@ -82,7 +85,7 @@ void UDialogueUI::FillChoiceContainer(EventParameters parameters)
 	TArray<FString> allIDChoices;
 	parameters[0]->Getter<FString>().ParseIntoArray(allIDChoices, TEXT("|"));
 	TArray<FString> allAnswers;
-	parameters[0]->Getter<FString>().ParseIntoArray(allAnswers, TEXT("|"));
+	parameters[1]->Getter<FString>().ParseIntoArray(allAnswers, TEXT("|"));
 	
 	for (int i = 0; i < allIDChoices.Num(); i++) {
 		UButtonDialogueTriggerBase *choiceBtn1 = WidgetTree->ConstructWidget<UButtonDialogueTriggerBase>(UButtonDialogueTriggerBase::StaticClass());
@@ -90,6 +93,10 @@ void UDialogueUI::FillChoiceContainer(EventParameters parameters)
 
 		UTextBlock* labelChoice1 = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
 		labelChoice1->SetText(FText::FromString(allAnswers[i]));
+		choiceBtn1->AddChild(labelChoice1);
+
+	
+		choiceBtn1->OnClicked.AddDynamic(this, &UDialogueUI::HideChoices);
 		
 		_xChoiceContainer->AddChild(choiceBtn1);
 	}

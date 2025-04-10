@@ -36,6 +36,9 @@ def create_data_assets_from_csv(csv_file, asset_class, package_path):
         #print(asset_full_path)
         if unreal.EditorAssetLibrary.does_asset_exist(asset_full_path):
             asset = unreal.EditorAssetLibrary.load_asset(asset_full_path)
+            asset.dialogue.x_dialogue_parts.clear()
+            asset.dialogue.s_dialogue_answers.clear()
+            asset.dialogue.s_dialogue_id_choices.clear()
         else:
             factory = unreal.DataAssetFactory()
             asset = unreal.AssetToolsHelpers.get_asset_tools().create_asset(

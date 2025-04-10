@@ -23,6 +23,10 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* _xCanvas;
 	UPROPERTY(meta = (BindWidget))
+	UCanvasPanel* _xCanvasChoices;
+	UPROPERTY(meta = (BindWidget))
+	UCanvasPanel* _xCanvasDialogue;
+	UPROPERTY(meta = (BindWidget))
 	UButton* _xContinueBtn;
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* _xSentence;
@@ -66,7 +70,8 @@ private:
 	/// <summary>
 	/// Hides the choice box UI element.
 	/// </summary>
-	void HideChoices(EventParameters parameters);
+	UFUNCTION()
+	void HideChoices();
 	
 	void FillChoiceContainer(EventParameters parameters);
 	

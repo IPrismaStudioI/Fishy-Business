@@ -106,14 +106,14 @@ void UDialogueElaborator::DisplayNextSentence()
 				FString allAnswers = FString::Join(_xActualDialogue._sDialogueAnswers, TEXT("|"));
 				eventParameters.Add(UParameterWrapper::CreateParameter<FString>(allAnswers));
 				
-				AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-				gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::START_CHOICES, eventParameters);
-
 				EndDialogue();
+				AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+				gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::START_CHOICES, eventParameters);
 			}
 			else
 			{
 				EndDialogue();
+				CloseDialogue();
 			}
 		}
 	}
@@ -125,10 +125,10 @@ void UDialogueElaborator::TypeSentence()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-	EventParameters eventParametersVoid;
-	FString sentenceVoid = "";
-	eventParametersVoid.Add(UParameterWrapper::CreateParameter<FString>(sentenceVoid));
-	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::CHANGE_SENTENCE, eventParametersVoid);
+	// EventParameters eventParametersVoid;
+	// FString sentenceVoid = "";
+	// eventParametersVoid.Add(UParameterWrapper::CreateParameter<FString>(sentenceVoid));
+	// gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::CHANGE_SENTENCE, eventParametersVoid);
 
 	EventParameters eventParameters;
 	FString sentence = GetFromCurrent();
@@ -141,13 +141,16 @@ void UDialogueElaborator::EndDialogue()
 	_iCurrentMonologueIndex = 0;
 	_xActualDialogue = FDialogue();
 
+	_bIsRunning = false;
+}
+
+void UDialogueElaborator::CloseDialogue()
+{
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::END_DIALOGUE, eventParameters);
-
-	_bIsRunning = false;
 }
 
 void UDialogueElaborator::ClearCurrent()
