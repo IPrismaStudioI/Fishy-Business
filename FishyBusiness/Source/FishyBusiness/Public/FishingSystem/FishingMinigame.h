@@ -14,7 +14,10 @@ class FISHYBUSINESS_API UFishingMinigame : public UUserWidget
 {
 	GENERATED_BODY()
 
-	public:
+public:
+	virtual void NativeConstruct() override;
+
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float fMovingBarSpeed;
 
@@ -55,10 +58,10 @@ private:
 	UPROPERTY(EditAnywhere)
 	float _fFishAcceleration;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	UImage* _iFish;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	UImage* _iMovingBar;
 	
 	float _fProgress;
