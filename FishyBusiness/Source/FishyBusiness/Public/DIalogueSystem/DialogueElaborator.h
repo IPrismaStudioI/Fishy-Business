@@ -19,6 +19,9 @@ private:
 	FDialogue _xActualDialogue;
 	TArray<FString> _sCurrentText;
 	int _iCurrentMonologueIndex;
+	 
+	UPROPERTY(EditAnywhere, Category = "UI")
+	TSubclassOf<UUserWidget> DialogueUI;
 
 protected:
 	// Called when the game starts

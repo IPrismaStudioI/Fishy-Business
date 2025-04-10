@@ -7,10 +7,10 @@
 #include "EventWrapper.generated.h"
 
 
-class UObserverManager;
+class UEventBus;
 class UParameterWrapper;
 using EventParameters = TArray<UParameterWrapper*>;
-using Function = TFunction<void(EventParameters)>;
+using Function = TSharedPtr<TFunction<void(const EventParameters&)>>;
 
 UCLASS()
 class FISHYBUSINESS_API UEventWrapper : public UObject
@@ -28,7 +28,7 @@ public:
 	/// </para>
 	/// @param Callback - The function to execute when the event is triggered.
 	/// </summary>
-	static void RegisterEvent(UObserverManager* EventManager, FString EventType, TFunction<void(EventParameters)> Callback);
+	static void RegisterEvent(UEventBus* EventManager, FString EventType, TSharedPtr<TFunction<void(const EventParameters&)>> Callback);
 };
 
 UCLASS()
@@ -60,6 +60,7 @@ public:
 	template <typename T>
 	static UParameterWrapper* CreateParameter(T &data);
 };
+
 
 /// <summary>Creates and returns a new ParameterWrapper pointer instance and sets its value.
 /// <para>

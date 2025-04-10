@@ -3,6 +3,7 @@
 
 #include "DIalogueSystem/DialogueElaborator.h"
 
+#include "Blueprint/UserWidget.h"
 #include "EventManager/EventList.h"
 #include "EventManager/EventWrapper.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
@@ -23,10 +24,12 @@ void UDialogueElaborator::BeginPlay()
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-	UObserverManager* EventManager = gamemode->xDialogueEventManager;
+	UEventBus* EventManager = gamemode->xDialogueEventBus;
 	
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CONTINUE_DIALOGUE, [this](const EventParameters& Params) { DisplayNextSentenceEvent(Params); });
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CONTINUE_DIALOGUE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { DisplayNextSentenceEvent(Params); }));
 
+	UUserWidget* dialogueUI = CreateWidget(GetWorld(), DialogueUI);
+	dialogueUI->AddToViewport(0);
 }
 
 
@@ -46,7 +49,7 @@ void UDialogueElaborator::StartDialogue(FDialogue dialogue)
 		eventParameters.Add(nullptr);
 		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-		gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::START_DIALOGUE, eventParameters);
+		gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::START_DIALOGUE, eventParameters);
 		
 		_bIsRunning = true;
 
@@ -62,7 +65,7 @@ void UDialogueElaborator::StartMonologue()
 	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(_xActualDialogue.xDialogueParts[_iCurrentMonologueIndex].sName));
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::CHANGE_NAME, eventParameters);
+	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::CHANGE_NAME, eventParameters);
 	
 	ClearCurrent();
 	AddToCurrent("");
@@ -105,8 +108,8 @@ void UDialogueElaborator::DisplayNextSentence()
 			}
 		}
 	}
-
-	TypeSentence();
+	else
+		TypeSentence();
 }
 
 void UDialogueElaborator::TypeSentence()
@@ -117,12 +120,12 @@ void UDialogueElaborator::TypeSentence()
 	EventParameters eventParametersVoid;
 	FString sentenceVoid = "";
 	eventParametersVoid.Add(UParameterWrapper::CreateParameter<FString>(sentenceVoid));
-	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::CHANGE_SENTENCE, eventParametersVoid);
+	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::CHANGE_SENTENCE, eventParametersVoid);
 
 	EventParameters eventParameters;
 	FString sentence = GetFromCurrent();
 	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(sentence));
-	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::CHANGE_SENTENCE, eventParameters);
+	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::CHANGE_SENTENCE, eventParameters);
 }
 
 void UDialogueElaborator::EndDialogue()
@@ -134,7 +137,7 @@ void UDialogueElaborator::EndDialogue()
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-	gamemode->xDialogueEventManager->TriggerEvent(EventListDialogue::END_DIALOGUE, eventParameters);
+	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::END_DIALOGUE, eventParameters);
 
 	_bIsRunning = false;
 }

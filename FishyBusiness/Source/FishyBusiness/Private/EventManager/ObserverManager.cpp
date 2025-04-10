@@ -3,7 +3,7 @@
 
 #include "EventManager/ObserverManager.h"
 
-UObserverManager::UObserverManager()
+UEventBus::UEventBus()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -12,21 +12,21 @@ UObserverManager::UObserverManager()
 	// ...
 }
 
-void UObserverManager::BeginPlay()
+void UEventBus::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
 
 // Called every frame
-void UObserverManager::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UEventBus::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
 }
 
-void UObserverManager::Register(FString eventName, UEventWrapper* functionEvent)
+void UEventBus::Register(FString eventName, UEventWrapper* functionEvent)
 {
 	if (!CheckPrecondition(eventName, functionEvent)) return;
 	if (_xEventMap.Contains(eventName))
@@ -38,7 +38,7 @@ void UObserverManager::Register(FString eventName, UEventWrapper* functionEvent)
 	}
 }
 
-void UObserverManager::Unregister(FString eventName, UEventWrapper* functionEvent)
+void UEventBus::Unregister(FString eventName, UEventWrapper* functionEvent)
 {
 	if (!CheckPrecondition(eventName, functionEvent)) return;
 	if (_xEventMap.Contains(eventName))
@@ -48,19 +48,19 @@ void UObserverManager::Unregister(FString eventName, UEventWrapper* functionEven
 	}
 }
 
-void UObserverManager::TriggerEvent(FString eventName, EventParameters &parameters)
+void UEventBus::TriggerEvent(FString eventName, EventParameters &parameters)
 {
 	if (_xEventMap.Contains(eventName))
 	{
-		for (auto Element : _xEventMap[eventName])
+		for (UEventWrapper* Element : _xEventMap[eventName])
 		{
-			Element->function(parameters);
+			(*Element->function)(parameters);
 		}
 	}
 }
 
 
-bool UObserverManager::CheckPrecondition(FString eventName, UEventWrapper* functionEvent)
+bool UEventBus::CheckPrecondition(FString eventName, UEventWrapper* functionEvent)
 {
 	if (functionEvent == nullptr) return false;
 	if (eventName.IsEmpty()) return false;

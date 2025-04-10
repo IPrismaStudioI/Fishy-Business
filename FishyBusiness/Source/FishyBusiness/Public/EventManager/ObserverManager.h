@@ -10,7 +10,7 @@
 #include "ObserverManager.generated.h"
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class FISHYBUSINESS_API UObserverManager : public UActorComponent
+class FISHYBUSINESS_API UEventBus : public UActorComponent
 {
 	GENERATED_BODY()
 private:
@@ -21,7 +21,7 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	UObserverManager();
+	UEventBus();
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 

@@ -72,14 +72,21 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
 }
 
+void APlayerCharacter::SetMovable(bool option)
+{
+	_bIsMovable = option;
+}
+
 void APlayerCharacter::MoveForward(float inputVector)
 {
+	if (!_bIsMovable) return;
 	FVector ForwardDirection = GetActorForwardVector();
 	AddMovementInput(ForwardDirection, inputVector);
 }
 
 void APlayerCharacter::MoveRight(float inputVector)
 {
+	if (!_bIsMovable) return;
 	FVector RightDirection = GetActorRightVector();
 	AddMovementInput(RightDirection, inputVector * 0.66f);
 }

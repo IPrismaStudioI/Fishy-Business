@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/SphereComponent.h"
 #include "GameFramework/Actor.h"
 #include "CameraChanger.generated.h"
 
@@ -10,18 +11,10 @@ UCLASS()
 class FISHYBUSINESS_API ACameraChanger : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	ACameraChanger();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class USphereComponent* xSphereTrigger;
+	USphereComponent* xSphereTrigger;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera")
 	float fNewCameraSize;
@@ -29,6 +22,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera")
 	float fSpeed;
 
+public:	
+	// Sets default values for this actor's properties
+	ACameraChanger();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+	
 private:
 	UFUNCTION()
 	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, 

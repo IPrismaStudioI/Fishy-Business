@@ -17,15 +17,20 @@ class FISHYBUSINESS_API AFishyBusinessGameModeBase : public AGameModeBase
 public:
 	UPROPERTY(VisibleAnywhere)
 	UDialogueElaborator* xDialogueElaborator;
-
+	
 	UPROPERTY(VisibleAnywhere)
-	UObserverManager* xDialogueEventManager;
+	UEventBus* xDialogueEventBus;
+	UPROPERTY(VisibleAnywhere)
+	UEventBus* xVillageEventBus;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	UDataTable* xDataTableDialogues;
 	
 public:
 	AFishyBusinessGameModeBase();
+
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 
 	static AFishyBusinessGameModeBase* GetInstance();
 };

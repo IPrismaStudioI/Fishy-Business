@@ -12,7 +12,10 @@ struct FDialogueRow;
 UDA_Dialogue* UButtonDialogueTriggerBase::GetDialogueFromDT(FString id, AFishyBusinessGameModeBase* gamemode)
 {
 	FDialogueRow* row = gamemode->xDataTableDialogues->FindRow<FDialogueRow>(FName(id), "");
-	return row->xDialogue;
+	if (row != NULL)
+		return row->xDialogue;
+	else
+		return NULL;
 }
 
 UButtonDialogueTriggerBase::UButtonDialogueTriggerBase()
@@ -23,6 +26,9 @@ UButtonDialogueTriggerBase::UButtonDialogueTriggerBase()
 void UButtonDialogueTriggerBase::StartDialogue()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	
-	gamemode->xDialogueElaborator->StartDialogue(GetDialogueFromDT(_sDialogueID, gamemode)->Dialogue);
+
+	if (GetDialogueFromDT(_sDialogueID, gamemode))
+		gamemode->xDialogueElaborator->StartDialogue(GetDialogueFromDT(_sDialogueID, gamemode)->Dialogue);
+	else
+		UE_LOG(LogTemp, Error, TEXT("Missing dialogue"));
 }
