@@ -3,6 +3,8 @@
 
 #include "DIalogueSystem/DialogueUI.h"
 
+#include "Blueprint/WidgetTree.h"
+#include "DIalogueSystem/DialogueTriggers/ButtonDialogueTriggerBase.h"
 #include "EventManager/EventList.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
 
@@ -75,4 +77,18 @@ void UDialogueUI::ShowChoices(EventParameters parameters)
 
 void UDialogueUI::FillChoiceContainer(EventParameters parameters)
 {
+	TArray<FString> allIDChoices;
+	parameters[0]->Getter<FString>().ParseIntoArray(allIDChoices, TEXT("|"));
+	TArray<FString> allAnswers;
+	parameters[0]->Getter<FString>().ParseIntoArray(allAnswers, TEXT("|"));
+	
+	for (int i = 0; i < allIDChoices.Num(); i++) {
+		UButtonDialogueTriggerBase *choiceBtn1 = WidgetTree->ConstructWidget<UButtonDialogueTriggerBase>(UButtonDialogueTriggerBase::StaticClass());
+		choiceBtn1->Set_SDialogueID(allIDChoices[i]);
+
+		UTextBlock* labelChoice1 = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
+		labelChoice1->SetText(FText::FromString(allAnswers[i]));
+		
+		_xChoiceContainer->AddChild(choiceBtn1);
+	}
 }
