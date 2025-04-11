@@ -19,7 +19,16 @@ void UFishingMinigame::NativeConstruct()
 
 	UImage* MyImage = WidgetTree->ConstructWidget<UImage>(UImage::StaticClass(), TEXT("MyImage"));
 	Canvas->AddChild(MyImage);
+
+	//this->UpdateCanTick();
+	//PrimaryWidgetTick.bStartWithTickEnabled = true;
+	
+	//bIsFocusable = true;
+	SetKeyboardFocus();
+
+	_fTimerValue = FMath::FRandRange(0.5f, 4.0f);
 }
+
 
 void UFishingMinigame::SetupParameters(float barSpeed, float looseTime, float fishSpeed, float catchSpeed,
                                        float greenAreaSize)
@@ -33,20 +42,43 @@ void UFishingMinigame::SetupParameters(float barSpeed, float looseTime, float fi
 
 void UFishingMinigame::CheckWin()
 {
+	if (_fProgress >= 100.0f)
+	{
+		//victory
+	}
+	else if (_fProgress <= 0.0f)
+	{
+		//wait time
+		//loose
+	}
 }
 
 void UFishingMinigame::MoveFish()
 {
+	if (UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(_iFish->Slot))
+	{
+		float CurrentY = _fFishActualDirection * _fFishAcceleration; //+=
+		FVector2D NewPosition(CanvasSlot->GetPosition().X, CurrentY);
+		CanvasSlot->SetPosition(NewPosition);
+	}
 }
 
 void UFishingMinigame::MoveBar()
 {
-	//if (InKeyEvent.GetKey() == EKeys::SpaceBar)
 	if (_iMovingBar)
 	{
+		if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::SpaceBar))
+		{
+			_fActualDirection = -1.0f;
+		}
+		else
+		{
+			_fActualDirection = 1.0f;
+		}
+		
 		if (UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(_iMovingBar->Slot))
 		{
-			float CurrentY = 1.0f; //+=
+			float CurrentY = _fActualDirection * _fAcceleration; //+=
 			FVector2D NewPosition(CanvasSlot->GetPosition().X, CurrentY);
 			CanvasSlot->SetPosition(NewPosition);
 		}
@@ -55,21 +87,30 @@ void UFishingMinigame::MoveBar()
 
 void UFishingMinigame::Progress()
 {
-	if (_iMovingBar->RenderTransformPivot.Y == _iFish->RenderTransformPivot.Y)
+	if (_iMovingBar->GetRenderTransformPivot().Y == _iFish->GetRenderTransformPivot().Y)
 	{
 		_fProgress += fCatchSpeed;
-		if (_fProgress >= 100.0f)
-		{
-			//victory
-		}
 	}
 	else
 	{
 		_fProgress -= fCatchSpeed;
-		if (_fProgress <= 0.0f)
-		{
-			//wait time
-			//loose
-		}
 	}
+	CheckWin();
+}
+
+void UFishingMinigame::SetFishDirection()
+{
+	_fTimerValue = FMath::FRandRange(0.5f, 4.0f);
+	_fFishActualDirection *= -1;
+}
+
+void UFishingMinigame::Tick(float DeltaTime)
+{
+	GetWorld()->GetTimerManager().SetTimer(
+	_xTimerHandle,
+	this,
+	&UFishingMinigame::SetFishDirection,
+	_fTimerValue,     // Wait x seconds
+	true     // loop
+);
 }

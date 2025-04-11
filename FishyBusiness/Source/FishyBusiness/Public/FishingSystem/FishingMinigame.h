@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Image.h"
 #include "FishingMinigame.generated.h"
 
 /**
@@ -34,14 +35,17 @@ public:
 	float fGreenAreaSize;
 
 private:
+	virtual void Tick(float DeltaTime);
+	
+private:
 	UPROPERTY(EditAnywhere)
 	float _fMaxYPos;
 
 	UPROPERTY(EditAnywhere)
 	float _fMinYPos;
 
-	UPROPERTY(EditAnywhere)
-	float _fDirection;
+	// UPROPERTY(EditAnywhere)
+	// float _fDirection;
 	
 	UPROPERTY(EditAnywhere)
 	float _fActualDirection;
@@ -49,8 +53,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	float _fAcceleration;
 
-	UPROPERTY(EditAnywhere)
-	float _fFishDirection;
+	// UPROPERTY(EditAnywhere)
+	// float _fFishDirection;
 
 	UPROPERTY(EditAnywhere)
 	float _fFishActualDirection;
@@ -58,13 +62,17 @@ private:
 	UPROPERTY(EditAnywhere)
 	float _fFishAcceleration;
 
-	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	UPROPERTY(EditAnywhere)
 	UImage* _iFish;
 	
-	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	UPROPERTY(EditAnywhere)
 	UImage* _iMovingBar;
 	
 	float _fProgress;
+
+	FTimerHandle _xTimerHandle;
+
+	float _fTimerValue;
 	
 private:
 	void SetupParameters(float barSpeed, float looseTime, float fishSpeed, float catchSpeed, float greenAreaSize);
@@ -76,4 +84,6 @@ private:
 	void MoveBar();
 
 	void Progress();
+
+	void SetFishDirection();
 };	
