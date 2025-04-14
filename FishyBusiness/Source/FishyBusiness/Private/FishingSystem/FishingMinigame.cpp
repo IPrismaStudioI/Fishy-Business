@@ -27,6 +27,11 @@ void UFishingMinigame::NativeConstruct()
 	SetKeyboardFocus();
 
 	_fTimerValue = FMath::FRandRange(0.5f, 4.0f);
+
+	_fFishActualDirection = FMath::RandBool() ? 1.0f : -1.0f;
+	
+	_fHighLimit = _iBackgroundBar->GetRenderTransformPivot().Y - (_iBackgroundBar->GetBrush().ImageSize.Y / 2.0f);
+	_fLowLimit = _iBackgroundBar->GetRenderTransformPivot().Y + (_iBackgroundBar->GetBrush().ImageSize.Y / 2.0f);
 }
 
 
@@ -104,13 +109,33 @@ void UFishingMinigame::SetFishDirection()
 	_fFishActualDirection *= -1;
 }
 
-void UFishingMinigame::Tick(float DeltaTime)
+bool UFishingMinigame::CheckLimits(UImage* movingImage)
 {
+	if (movingImage->GetRenderTransformPivot().Y <= _fHighLimit - (movingImage->GetBrush().ImageSize.Y / 2.0f) ||
+		movingImage->GetRenderTransformPivot().Y >= _fLowLimit + (movingImage->GetBrush().ImageSize.Y / 2.0f))
+	{
+		return true;
+	}
+	return false;
+}
+
+void UFishingMinigame::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	Super::NativeTick(MyGeometry, InDeltaTime);
+
 	GetWorld()->GetTimerManager().SetTimer(
 	_xTimerHandle,
 	this,
 	&UFishingMinigame::SetFishDirection,
 	_fTimerValue,     // Wait x seconds
-	true     // loop
-);
+	true);
+
+	if (CheckLimits(_iFish))
+	{
+		_fFishActualDirection *= -1;
+	}
+
+	MoveFish();
+	MoveBar();
 }
+

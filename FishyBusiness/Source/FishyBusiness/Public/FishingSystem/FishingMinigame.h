@@ -35,7 +35,7 @@ public:
 	float fGreenAreaSize;
 
 private:
-	virtual void Tick(float DeltaTime);
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 	
 private:
 	UPROPERTY(EditAnywhere)
@@ -67,12 +67,18 @@ private:
 	
 	UPROPERTY(EditAnywhere)
 	UImage* _iMovingBar;
+
+	UPROPERTY(EditAnywhere)
+	UImage* _iBackgroundBar;
 	
 	float _fProgress;
 
 	FTimerHandle _xTimerHandle;
 
 	float _fTimerValue;
+
+	float _fHighLimit;
+	float _fLowLimit;
 	
 private:
 	void SetupParameters(float barSpeed, float looseTime, float fishSpeed, float catchSpeed, float greenAreaSize);
@@ -86,4 +92,6 @@ private:
 	void Progress();
 
 	void SetFishDirection();
+
+	bool CheckLimits(UImage* movingImage);
 };	
