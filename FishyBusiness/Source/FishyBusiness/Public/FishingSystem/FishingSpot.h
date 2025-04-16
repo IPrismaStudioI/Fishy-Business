@@ -15,11 +15,13 @@ class FISHYBUSINESS_API AFishingSpot : public AActor
 	GENERATED_BODY()
 
 private:
-	UFishingMinigame* ActiveWidget;
 	int _iCurrentFishes;
 	bool _bCanCreateMinigame = false;
 
 public:
+	UPROPERTY(BlueprintReadWrite)
+	UFishingMinigame* ActiveWidget;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class USphereComponent* xSphereTrigger;
 	
