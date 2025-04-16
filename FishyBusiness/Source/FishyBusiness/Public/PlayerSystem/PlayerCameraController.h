@@ -18,6 +18,13 @@ public:
 	UCameraComponent* xCamera;
 
 private:
+	float _fStartOrthoWidth;
+	float _fTargetOrthoWidth;
+	float _fLerpDuration;
+	float _fCurrentLerpTime;
+	bool _bIsLerping = false;
+	
+private:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
