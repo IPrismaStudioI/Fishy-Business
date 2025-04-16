@@ -38,11 +38,12 @@ void AFishingSpot::Tick(float DeltaTime)
 		if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::E))
 		{
 			ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
-
+	
 			if (ActiveWidget)
 			{
 				ActiveWidget->AddToViewport();
 				ActiveWidget->xFish = xFishes[_iCurrentFishes -1];
+				ActiveWidget->xFishSpot = this;
 				_bCanCreateMinigame = false;
 			}
 		}
