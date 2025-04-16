@@ -52,7 +52,7 @@ public:
 private:
 	UFishingMinigame* ActiveWidget;
 
-	int iCurrentFishes;
+	int _iCurrentFishes;
 
 private:
 	UFUNCTION()

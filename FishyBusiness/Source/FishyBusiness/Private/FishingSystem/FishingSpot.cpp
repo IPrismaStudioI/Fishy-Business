@@ -24,6 +24,15 @@ AFishingSpot::AFishingSpot()
 void AFishingSpot::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	_iCurrentFishes = iTotalFishes;
+}
+
+
+// Called every frame
+void AFishingSpot::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
 	if (_bCanCreateMinigame)
 	{
 		if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::E))
@@ -33,17 +42,11 @@ void AFishingSpot::BeginPlay()
 			if (ActiveWidget)
 			{
 				ActiveWidget->AddToViewport();
+				ActiveWidget->xFish = xFishes[_iCurrentFishes -1];
+				_bCanCreateMinigame = false;
 			}
 		}
 	}
-	iCurrentFishes = iTotalFishes;
-}
-
-
-// Called every frame
-void AFishingSpot::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 
 }
 
@@ -54,16 +57,18 @@ void AFishingSpot::ToggleActive(bool value)
 	actor->SetActorHiddenInGame(!value);
 	if (value == true)
 	{
-		iCurrentFishes = iTotalFishes;
+		_iCurrentFishes = iTotalFishes;
 	}
 }
 
 void AFishingSpot::FinishedMinigame()
 {
-	iCurrentFishes -= 1;
-	if (iCurrentFishes <= 0)
+	_iCurrentFishes -= 1;
+	_bCanCreateMinigame = true;
+	if (_iCurrentFishes <= 0)
 	{
 		xFishingGenerator->ShuffleSpots(this);
+		_bCanCreateMinigame = false;
 	}
 }
 
@@ -76,13 +81,14 @@ void AFishingSpot::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 {
 	if (APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor))
 	{
-		ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
-
-		if (ActiveWidget)
-		{
-			ActiveWidget->AddToViewport();
-			//ActiveWidget->SetupParameters();
-		}
+		// ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
+		//
+		// if (ActiveWidget)
+		// {
+		// 	ActiveWidget->AddToViewport();
+		// 	ActiveWidget->xFish = xFishes[_iCurrentFishes -1];
+		// 	//ActiveWidget->SetupParameters();
+		// }
 		_bCanCreateMinigame = true;
 	}
 }

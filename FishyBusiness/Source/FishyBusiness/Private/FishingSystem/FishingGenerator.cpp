@@ -50,7 +50,7 @@ void AFishingGenerator::InitialGeneration()
 
 	for (int i = 0; i < iSpotsAvailableAtSpawn; i++)
 	{
-		int RandomInt = FMath::RandRange(0, iSpotsAvailableAtSpawn);
+		int RandomInt = FMath::RandRange(0, iSpotsAvailableAtSpawn -1);
 		if (!xFishingSpots[RandomInt]->bIsActive)
 		{
 			xFishingSpots[RandomInt]->ToggleActive(true);
