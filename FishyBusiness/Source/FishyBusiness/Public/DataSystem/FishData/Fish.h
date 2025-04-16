@@ -6,6 +6,7 @@
 #include "Rarity.h"
 #include "RarityColor.h"
 #include "DataSystem/ItemData/SellableItem.h"
+#include "FishingSystem/FishBehaviour.h"
 #include "Fish.generated.h"
 
 /**
@@ -31,4 +32,7 @@ class FISHYBUSINESS_API UFish : public USellableItem
 	ERarity eRarity;
 	UPROPERTY(EditAnywhere)
 	ERarityColor eRarityColor;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyVariables")
+	TArray<UFishBehaviour*> xFishBehaviour;
 };

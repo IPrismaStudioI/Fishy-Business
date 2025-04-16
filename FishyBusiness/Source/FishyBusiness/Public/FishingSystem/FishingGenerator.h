@@ -34,10 +34,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	int iSpotsAvailableAtSpawn = 0;
+	void ShuffleSpots(AFishingSpot* depletedSpot);
 
 private:
 	void InitialGeneration();
-	void ShuffleSpots(AFishingSpot depletedSpot);
 	UFish* AllocateFish();
-	void ChooseFish();
 };

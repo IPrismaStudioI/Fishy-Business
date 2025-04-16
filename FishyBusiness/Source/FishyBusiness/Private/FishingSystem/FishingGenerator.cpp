@@ -16,7 +16,7 @@ AFishingGenerator::AFishingGenerator()
 void AFishingGenerator::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	InitialGeneration();
 }
 
 // Called every frame
@@ -26,28 +26,42 @@ void AFishingGenerator::Tick(float DeltaTime)
 
 }
 
+UFish* AFishingGenerator::AllocateFish()
+{
+	int randomInt = FMath::RandRange(0, xAvailableFishes.Num() -1);
+	//randomInt = 2;
+	return xAvailableFishes[randomInt];
+}
+
 void AFishingGenerator::InitialGeneration()
 {
+	int randInt = 6;
 	for (int i = 0; i < xFishingSpots.Num(); i++)
 	{
-		for (int j = 0; j < xFishingSpots[i]->iTotalFishes; j++){}
-		//xFishingSpots[i]->xFishes[j] = AllocateFish();
+		//randInt = FMath::RandRange(1, xFishingSpots[i]->iTotalFishes);
+		
+		for (int j = 0; j < randInt; j++)
+		{
+			xFishingSpots[i]->xFishes[j] = AllocateFish();
+		}
+		xFishingSpots[i]->xFishingGenerator = this;
+		xFishingSpots[i]->ToggleActive(false);
 	}
 
 	for (int i = 0; i < iSpotsAvailableAtSpawn; i++)
 	{
-		int RandomInt = FMath::RandRange(0, xFishingSpots.Num());
-		if (!xFishingSpots[i]->bIsActive)
+		int RandomInt = FMath::RandRange(0, iSpotsAvailableAtSpawn);
+		if (!xFishingSpots[RandomInt]->bIsActive)
 		{
-			xFishingSpots[i]->bIsActive = true;
+			xFishingSpots[RandomInt]->ToggleActive(true);
 		}
 		else i--;
 	}
 }
 
-void AFishingGenerator::ShuffleSpots(AFishingSpot depletedSpot)
+void AFishingGenerator::ShuffleSpots(AFishingSpot* depletedSpot)
 {
-	depletedSpot.bIsActive = false;
+	depletedSpot->ToggleActive(false);
 
 	int randomInt;
 	
@@ -58,14 +72,11 @@ void AFishingGenerator::ShuffleSpots(AFishingSpot depletedSpot)
 	while (!xFishingSpots[randomInt]->bIsActive);
 
 	xFishingSpots[randomInt]->bIsActive = true;
+	int randInt = FMath::RandRange(1, xFishingSpots[randomInt]->iTotalFishes);
+	for (int j = 0; j < randInt; j++)
+	{
+		xFishingSpots[randomInt]->xFishes[j] = AllocateFish();
+	}
 }
 
-// UFish* AFishingGenerator::AllocateFish()
-// {
-// 	return ;
-// }
-
-void AFishingGenerator::ChooseFish()
-{
-}
 

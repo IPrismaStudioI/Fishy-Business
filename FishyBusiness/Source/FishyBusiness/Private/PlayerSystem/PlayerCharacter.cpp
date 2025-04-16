@@ -72,6 +72,16 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
 }
 
+void APlayerCharacter::CreateMinigame()
+{
+	ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
+
+	if (ActiveWidget)
+	{
+		ActiveWidget->AddToViewport(); // Puts it on screen
+	}
+}
+
 void APlayerCharacter::MoveForward(float inputVector)
 {
 	FVector ForwardDirection = GetActorForwardVector();

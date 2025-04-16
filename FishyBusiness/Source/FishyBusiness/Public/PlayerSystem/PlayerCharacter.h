@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "PaperFlipbookComponent.h"
+#include "FishingSystem/FishingMinigame.h"
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
 
@@ -57,7 +58,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperFlipbookComponent* xEngine;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UFishingMinigame> xFishingMinigame;
+
+	void CreateMinigame();
+	
 private:
+	UFishingMinigame* ActiveWidget;
+	
 	/// <summary>moves the character on forward axis </summary>
 	void MoveForward(float inputVector);
 
