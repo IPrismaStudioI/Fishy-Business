@@ -33,9 +33,46 @@ void UFishingMinigame::NativeConstruct()
 //
 // 	_fTimerValue = FMath::FRandRange(0.5f, 4.0f);
 //
-// 	_fFishActualDirection = FMath::RandBool() ? 1.0f : -1.0f;
+// 	_fFishActualDirection = FMath::RandBool() ? 1.0f : -1.0f;s
 }
 
+
+void UFishingMinigame::MoveBar()
+{
+	_fMovingBatActualDir = FMath::Clamp(_fMovingBatActualDir *fMovingBarAcceleration +
+										   _fMovingBatActualDir, -0.9f, 0.6f);
+
+
+	if (UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(bBorder->Slot))
+	{
+		
+		float posX = CanvasSlot->GetPosition().X;
+
+		float posY = CanvasSlot->GetPosition().Y + _fMovingBatActualDir * fMovingBarSpeed;		
+
+		FVector2D pos = FVector2D(posX, posY);
+		
+		CanvasSlot->SetPosition(pos);
+	}
+}
+
+void UFishingMinigame::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	Super::NativeTick(MyGeometry, InDeltaTime);
+
+	if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::SpaceBar))
+	{
+		_fMovingBarDirection = -1.0f;
+	}
+	else
+	{
+		_fMovingBarDirection = 1.0f;
+	}
+
+	MoveBar();
+}
+
+#pragma region Comments
 // void UFishingMinigame::SetupParameters()
 // {
 // 	UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(_iBackgroundBar->Slot);
@@ -142,4 +179,4 @@ void UFishingMinigame::NativeConstruct()
 // 	MoveFish();
 // 	MoveBar();
 // }
-
+#pragma endregion

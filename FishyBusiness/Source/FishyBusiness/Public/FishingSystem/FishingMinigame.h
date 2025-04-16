@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Border.h"
+#include "Components/CanvasPanel.h"
 #include "Components/Image.h"
 #include "DataSystem/FishData/Fish.h"
 #include "FishingMinigame.generated.h"
@@ -26,9 +28,38 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AFishingSpot* xFishSpot;
+
+	UPROPERTY(meta = (BindWidget))
+	UCanvasPanel* cCanvasPanel;
+	UPROPERTY(meta = (BindWidget))
+	UImage* iFishImage;
+	UPROPERTY(meta = (BindWidget))
+	UImage* iMovingBar;
+	UPROPERTY(meta = (BindWidget))
+	UImage* iBackGroundBar;
+	UPROPERTY(meta = (BindWidget))
+	UBorder* bBorder;
+
+	//--------------------------------------------------------------
+
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	float fMovingBarSpeed;
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	float fMovingBarAcceleration;
+
+private:
+	float _fMovingBarDirection;
+	float _fMovingBatActualDir;
+
+	float _fMaxPosY;
+	float _fMinPosY;
 	
 public:
  	virtual void NativeConstruct() override;
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+
+private:
+	void MoveBar();
 	
 // public:
 // 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
