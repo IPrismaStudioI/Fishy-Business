@@ -26,23 +26,23 @@ void AFishingGenerator::Tick(float DeltaTime)
 
 }
 
-UFish* AFishingGenerator::AllocateFish()
+FString AFishingGenerator::AllocateFish()
 {
-	int randomInt = FMath::RandRange(0, xAvailableFishes.Num() -1);
+	int randomInt = FMath::RandRange(0, xAvailableFishIDs.Num() -1);
 	//randomInt = 2;
-	return xAvailableFishes[randomInt];
+	return xAvailableFishIDs[randomInt];
 }
 
 void AFishingGenerator::InitialGeneration()
 {
-	int randInt = 6;
 	for (int i = 0; i < xFishingSpots.Num(); i++)
 	{
 		//randInt = FMath::RandRange(1, xFishingSpots[i]->iTotalFishes);
-		
-		for (int j = 0; j < randInt; j++)
+
+		int total = xFishingSpots[i]->iTotalFishes;
+		for (int j = 0; j < total; j++)
 		{
-			xFishingSpots[i]->xFishes[j] = AllocateFish();
+			xFishingSpots[i]->xFishes.Add(AllocateFish());
 		}
 		xFishingSpots[i]->xFishingGenerator = this;
 		xFishingSpots[i]->ToggleActive(false);
@@ -67,7 +67,7 @@ void AFishingGenerator::ShuffleSpots(AFishingSpot* depletedSpot)
 	
 	do
 	{
-		randomInt = FMath::RandRange(0, xFishingSpots.Num());
+		randomInt = FMath::RandRange(0, xFishingSpots.Num() - 1);
 	}
 	while (!xFishingSpots[randomInt]->bIsActive);
 

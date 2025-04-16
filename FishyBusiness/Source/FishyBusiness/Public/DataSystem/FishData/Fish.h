@@ -17,9 +17,7 @@ class FISHYBUSINESS_API UFish : public USellableItem
 {
 	GENERATED_BODY()
 
-	public:
-	UPROPERTY(EditAnywhere)
-	FString sFishID;
+public:
 	UPROPERTY(EditAnywhere)
 	float fBaseSize;
 	UPROPERTY(EditAnywhere)

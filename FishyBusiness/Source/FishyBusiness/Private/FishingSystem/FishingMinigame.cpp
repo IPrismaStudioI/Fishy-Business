@@ -8,11 +8,16 @@
 #include "Components/CanvasPanelSlot.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/Image.h"
+#include "FishyBusiness/FishyBusinessGameModeBase.h"
 
 
 void UFishingMinigame::NativeConstruct()
 {
  	Super::NativeConstruct();
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	xFish = gamemode->GetFishFromDT(sFishID);
 //
 // 	UCanvasPanel* Canvas = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(), TEXT("RootCanvas"));
 // 	WidgetTree->RootWidget = Canvas;
@@ -29,10 +34,8 @@ void UFishingMinigame::NativeConstruct()
 // 	_fTimerValue = FMath::FRandRange(0.5f, 4.0f);
 //
 // 	_fFishActualDirection = FMath::RandBool() ? 1.0f : -1.0f;
-// 	
 }
-//
-//
+
 // void UFishingMinigame::SetupParameters()
 // {
 // 	UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(_iBackgroundBar->Slot);

@@ -13,48 +13,46 @@ UCLASS()
 class FISHYBUSINESS_API AFishingSpot : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	AFishingSpot();
 
 private:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
+	UFishingMinigame* ActiveWidget;
+	int _iCurrentFishes;
 	bool _bCanCreateMinigame = false;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class USphereComponent* xSphereTrigger;
 	
 	UPROPERTY(EditAnywhere)
-	TArray<UFish*> xFishes;
+	TArray<FString> xFishes;
 
 	UPROPERTY(EditAnywhere)
 	int iTotalFishes;
 
 	bool bIsActive = false;
-
-	void ToggleActive(bool value);
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UFishingMinigame> xFishingMinigame;
 
-	UFUNCTION(BlueprintCallable, Category = "MyFunctions")
-	void FinishedMinigame();
-	
+	UPROPERTY()
 	AFishingGenerator* xFishingGenerator;
 
-private:
-	UFishingMinigame* ActiveWidget;
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
-	int _iCurrentFishes;
+public:
+	// Sets default values for this actor's properties
+	AFishingSpot();
+	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+	
+	void ToggleActive(bool value);
 
-private:
+	UFUNCTION(BlueprintCallable, Category = "MyFunctions")
+	void FinishedMinigame();
+
 	UFUNCTION()
 	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
 						UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, 

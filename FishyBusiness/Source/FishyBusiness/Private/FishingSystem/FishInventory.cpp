@@ -3,6 +3,8 @@
 
 #include "FishingSystem/FishInventory.h"
 
+#include "FishyBusiness/FishyBusinessGameModeBase.h"
+
 // Sets default values for this component's properties
 UFishInventory::UFishInventory()
 {
@@ -32,27 +34,31 @@ void UFishInventory::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	// ...
 }
 
-void UFishInventory::AddFish(UFish* fish)
+void UFishInventory::AddFish(FString fishID)
 {
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	UFish* fish = gamemode->GetFishFromDT(fishID);
+	
 	FFishInfo newFishInfo(fish->fBasePrice, fish->fBaseSize);
 
-	if (_mFishes.Contains(fish->sFishID))
+	if (_mFishes.Contains(fishID))
 	{
-		_mFishes[fish->sFishID].aFishInfos.Add(newFishInfo);
+		_mFishes[fishID].aFishInfos.Add(newFishInfo);
 		return;
 	}
-	_mFishes.Add(fish->sFishID);
-	_mFishes[fish->sFishID].aFishInfos.Add(newFishInfo);
+	_mFishes.Add(fishID);
+	_mFishes[fishID].aFishInfos.Add(newFishInfo);
 }
 
-void UFishInventory::RemoveFish(UFish* fish)
+void UFishInventory::RemoveFish(FString fishID)
 {
-	if (_mFishes.Contains(fish->sFishID))
+	if (_mFishes.Contains(fishID))
 	{
-		_mFishes[fish->sFishID].aFishInfos.Pop();
+		_mFishes[fishID].aFishInfos.Pop();
 		return;
 	}
-	_mFishes.Add(fish->sFishID);
-	_mFishes[fish->sFishID].aFishInfos.Pop();
+	_mFishes.Add(fishID);
+	_mFishes[fishID].aFishInfos.Pop();
 }
 

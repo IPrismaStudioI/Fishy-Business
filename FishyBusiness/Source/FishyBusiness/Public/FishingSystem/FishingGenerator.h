@@ -13,30 +13,32 @@ UCLASS()
 class FISHYBUSINESS_API AFishingGenerator : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	AFishingGenerator();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
+public:
 	UPROPERTY(EditAnywhere)
-	TArray<UFish*> xAvailableFishes;
+	TArray<FString> xAvailableFishIDs;
 
 	UPROPERTY(EditAnywhere)
 	TArray<AFishingSpot*> xFishingSpots;
 
 	UPROPERTY(EditAnywhere)
 	int iSpotsAvailableAtSpawn = 0;
-	void ShuffleSpots(AFishingSpot* depletedSpot);
 
 private:
 	void InitialGeneration();
-	UFish* AllocateFish();
+	FString AllocateFish();
+	
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:	
+	// Sets default values for this actor's properties
+	AFishingGenerator();
+	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+	
+	void ShuffleSpots(AFishingSpot* depletedSpot);
+
 };

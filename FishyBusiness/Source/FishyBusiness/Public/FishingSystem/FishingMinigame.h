@@ -18,11 +18,18 @@ class FISHYBUSINESS_API UFishingMinigame : public UUserWidget
 	GENERATED_BODY()
 
 public:
- 	virtual void NativeConstruct() override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString sFishID;
+
+	UPROPERTY(BlueprintReadWrite)
 	UFish* xFish;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AFishingSpot* xFishSpot;
+	
+public:
+ 	virtual void NativeConstruct() override;
+	
 // public:
 // 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 // 	float fMovingBarSpeed;

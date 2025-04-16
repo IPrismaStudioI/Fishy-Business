@@ -29,6 +29,6 @@ public:
 private:
 	TMap<FString, FFishBunch> _mFishes;
 	
-	void AddFish(UFish* fish);
-	void RemoveFish(UFish* fish);
+	void AddFish(FString fishID);
+	void RemoveFish(FString fishID);
 };

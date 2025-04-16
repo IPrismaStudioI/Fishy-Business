@@ -9,7 +9,6 @@
 // Sets default values
 AFishingSpot::AFishingSpot()
 {
-
 	xSphereTrigger = CreateDefaultSubobject<USphereComponent>(TEXT("SphereTrigger"));
 	xSphereTrigger->SetupAttachment(RootComponent);
 	xSphereTrigger->OnComponentBeginOverlap.AddDynamic(this, &AFishingSpot::OnBeginOverlap);
@@ -17,7 +16,6 @@ AFishingSpot::AFishingSpot()
 
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
@@ -37,18 +35,19 @@ void AFishingSpot::Tick(float DeltaTime)
 	{
 		if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::E))
 		{
+			
 			ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
+			
+			ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
+			ActiveWidget->xFishSpot = this;
 	
 			if (ActiveWidget)
 			{
 				ActiveWidget->AddToViewport();
-				ActiveWidget->xFish = xFishes[_iCurrentFishes -1];
-				ActiveWidget->xFishSpot = this;
 				_bCanCreateMinigame = false;
 			}
 		}
 	}
-
 }
 
 void AFishingSpot::ToggleActive(bool value)
@@ -82,14 +81,6 @@ void AFishingSpot::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 {
 	if (APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor))
 	{
-		// ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
-		//
-		// if (ActiveWidget)
-		// {
-		// 	ActiveWidget->AddToViewport();
-		// 	ActiveWidget->xFish = xFishes[_iCurrentFishes -1];
-		// 	//ActiveWidget->SetupParameters();
-		// }
 		_bCanCreateMinigame = true;
 	}
 }

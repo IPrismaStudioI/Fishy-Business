@@ -3,6 +3,8 @@
 
 #include "FishyBusinessGameModeBase.h"
 
+#include "DataTables/DialogueRow.h"
+#include "DataTables/FishRow.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerSystem/PlayerCharacter.h"
 
@@ -21,4 +23,16 @@ AFishyBusinessGameModeBase* AFishyBusinessGameModeBase::GetInstance()
 {
 	AFishyBusinessGameModeBase* gamemode = GEngine->GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	return gamemode;
+}
+
+UDA_Dialogue* AFishyBusinessGameModeBase::GetDialogueFromDT(FString id)
+{
+	FDialogueRow* row = xDataTableDialogues->FindRow<FDialogueRow>(FName(id), "");
+	return row->xDialogue;
+}
+
+UFish* AFishyBusinessGameModeBase::GetFishFromDT(FString id)
+{
+	FFishRow* row = xDataTableFishes->FindRow<FFishRow>(FName(id), "");
+	return row->xFish;
 }

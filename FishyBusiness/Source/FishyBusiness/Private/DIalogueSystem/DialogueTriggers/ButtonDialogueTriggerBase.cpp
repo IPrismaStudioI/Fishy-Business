@@ -7,14 +7,6 @@
 #include "DIalogueSystem/DA_Dialogue.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
 
-struct FDialogueRow;
-
-UDA_Dialogue* UButtonDialogueTriggerBase::GetDialogueFromDT(FString id, AFishyBusinessGameModeBase* gamemode)
-{
-	FDialogueRow* row = gamemode->xDataTableDialogues->FindRow<FDialogueRow>(FName(id), "");
-	return row->xDialogue;
-}
-
 UButtonDialogueTriggerBase::UButtonDialogueTriggerBase()
 {
 	this->OnClicked.AddDynamic(this, &UButtonDialogueTriggerBase::StartDialogue);
@@ -24,5 +16,5 @@ void UButtonDialogueTriggerBase::StartDialogue()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-	gamemode->xDialogueElaborator->StartDialogue(GetDialogueFromDT(_sDialogueID, gamemode)->Dialogue);
+	gamemode->xDialogueElaborator->StartDialogue(gamemode->GetDialogueFromDT(_sDialogueID)->Dialogue);
 }
