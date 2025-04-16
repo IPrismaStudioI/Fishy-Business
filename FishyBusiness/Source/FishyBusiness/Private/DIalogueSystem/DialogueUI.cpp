@@ -42,6 +42,7 @@ void UDialogueUI::ChangeSentence(EventParameters parameters)
 {
 	FText text = FText::FromString(parameters[0]->Getter<FString>());
 	_xSentence->SetText(text);
+	OnChangeSentence();
 }
 
 void UDialogueUI::ChangeName(EventParameters parameters)

@@ -19,7 +19,7 @@ UCLASS()
 class FISHYBUSINESS_API UDialogueUI : public UUserWidget
 {
 	GENERATED_BODY()
-private:
+public:
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* _xCanvas;
 	UPROPERTY(meta = (BindWidget))
@@ -28,7 +28,7 @@ private:
 	UCanvasPanel* _xCanvasDialogue;
 	UPROPERTY(meta = (BindWidget))
 	UButton* _xContinueBtn;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UTextBlock* _xSentence;
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* _xName;
@@ -80,4 +80,7 @@ private:
 
 public:
 	virtual void NativeConstruct() override;
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnChangeSentence();
 };
