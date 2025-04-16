@@ -4,6 +4,7 @@
 #include "FishingSystem/FishingSpot.h"
 
 #include "Components/SphereComponent.h"
+#include "FishingSystem/FishingReward.h"
 #include "PlayerSystem/PlayerCharacter.h"
 
 // Sets default values
@@ -63,8 +64,16 @@ void AFishingSpot::ToggleActive(bool value)
 
 void AFishingSpot::FinishedMinigame()
 {
+	xRewardWidget = CreateWidget<UFishingReward>(GetWorld(), xFishingReward);
+	xRewardWidget->sFishID = xFishes[_iCurrentFishes -1];
+	xRewardWidget->xFishingSpot = this;
+	xRewardWidget->AddToViewport();
+
+	xPlayerCharacter->xFishInventory->AddFish(xFishes[_iCurrentFishes -1]);
+	
 	_iCurrentFishes -= 1;
 	_bCanCreateMinigame = true;
+
 	if (_iCurrentFishes <= 0)
 	{
 		xFishingGenerator->ShuffleSpots(this);
@@ -81,6 +90,7 @@ void AFishingSpot::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 {
 	if (APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor))
 	{
+		xPlayerCharacter = Player;
 		_bCanCreateMinigame = true;
 	}
 }

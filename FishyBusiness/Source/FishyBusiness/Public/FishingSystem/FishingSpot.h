@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "FishingMinigame.h"
+#include "FishingReward.h"
 #include "DataSystem/FishData/Fish.h"
 #include "GameFramework/Actor.h"
 #include "FishingSystem/FishingGenerator.h"
+#include "PlayerSystem/PlayerCharacter.h"
 #include "FishingSpot.generated.h"
 
 UCLASS()
@@ -17,10 +19,15 @@ class FISHYBUSINESS_API AFishingSpot : public AActor
 private:
 	int _iCurrentFishes;
 	bool _bCanCreateMinigame = false;
+	APlayerCharacter* xPlayerCharacter;
+
 
 public:
 	UPROPERTY(BlueprintReadWrite)
 	UFishingMinigame* ActiveWidget;
+
+	UPROPERTY(BlueprintReadWrite)
+	UFishingReward* xRewardWidget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class USphereComponent* xSphereTrigger;
@@ -35,6 +42,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UFishingMinigame> xFishingMinigame;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UFishingReward> xFishingReward;
 
 	UPROPERTY()
 	AFishingGenerator* xFishingGenerator;

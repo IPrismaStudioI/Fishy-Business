@@ -26,9 +26,11 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-private:
-	TMap<FString, FFishBunch> _mFishes;
-	
+	UFUNCTION(BlueprintCallable)
 	void AddFish(FString fishID);
 	void RemoveFish(FString fishID);
+	
+private:
+	TMap<FString, FFishBunch> _mFishes;
+
 };

@@ -29,8 +29,14 @@ public:
 	UPROPERTY(EditAnywhere)
 	ERarity eRarity;
 	UPROPERTY(EditAnywhere)
-	ERarityColor eRarityColor;
+	ERarityColor eRarityColor;	
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	FString sFishName;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* xFishImage;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyVariables")
 	TArray<UFishBehaviour*> xFishBehaviour;
 };

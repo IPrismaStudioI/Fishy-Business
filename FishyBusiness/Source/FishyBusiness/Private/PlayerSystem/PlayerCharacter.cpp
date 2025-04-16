@@ -26,6 +26,8 @@ APlayerCharacter::APlayerCharacter()
 	
 	xUniqueInventory = CreateDefaultSubobject<UUniqueInventory>("UniqueInventory");
 
+	xFishInventory = CreateDefaultSubobject<UFishInventory>("FishInventory");
+	
 	xMaterialInventory = CreateDefaultSubobject<UMaterialInventory>("MaterialInventory");
 
 	xCameraController = CreateDefaultSubobject<UPlayerCameraController>("CameraController");

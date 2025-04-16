@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "PaperFlipbookComponent.h"
 #include "FishingSystem/FishingMinigame.h"
+#include "FishingSystem/FishInventory.h"
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
 
@@ -60,6 +61,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UFishingMinigame> xFishingMinigame;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UFishInventory* xFishInventory;
 
 	void CreateMinigame();
 	
