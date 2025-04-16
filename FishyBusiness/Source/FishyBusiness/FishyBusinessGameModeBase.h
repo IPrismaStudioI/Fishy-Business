@@ -47,5 +47,6 @@ public:
 	/// </para>
 	/// @return A pointer to UFish if the dialogue is found, otherwise nullptr.
 	/// </summary>
+	UFUNCTION(BlueprintCallable)
 	UFish* GetFishFromDT(FString id);
 };

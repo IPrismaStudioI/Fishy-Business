@@ -29,16 +29,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AFishingSpot* xFishSpot;
 
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UCanvasPanel* cCanvasPanel;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UImage* iFishImage;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UImage* iMovingBar;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UImage* iBackGroundBar;
-	UPROPERTY(meta = (BindWidget))
-	UBorder* bBorder;
 
 	//--------------------------------------------------------------
 

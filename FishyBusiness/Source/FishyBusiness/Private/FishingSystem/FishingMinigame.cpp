@@ -13,11 +13,11 @@
 
 void UFishingMinigame::NativeConstruct()
 {
- 	Super::NativeConstruct();
-
-	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	
-	xFish = gamemode->GetFishFromDT(sFishID);
+	Super::NativeConstruct();
+	//
+	// AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	//
+	// xFish = gamemode->GetFishFromDT(sFishID);
 //
 // 	UCanvasPanel* Canvas = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(), TEXT("RootCanvas"));
 // 	WidgetTree->RootWidget = Canvas;
@@ -37,39 +37,37 @@ void UFishingMinigame::NativeConstruct()
 }
 
 
-void UFishingMinigame::MoveBar()
-{
-	_fMovingBatActualDir = FMath::Clamp(_fMovingBatActualDir *fMovingBarAcceleration +
-										   _fMovingBatActualDir, -0.9f, 0.6f);
-
-
-	if (UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(bBorder->Slot))
-	{
-		
-		float posX = CanvasSlot->GetPosition().X;
-
-		float posY = CanvasSlot->GetPosition().Y + _fMovingBatActualDir * fMovingBarSpeed;		
-
-		FVector2D pos = FVector2D(posX, posY);
-		
-		CanvasSlot->SetPosition(pos);
-	}
-}
-
+// void UFishingMinigame::MoveBar()
+// {
+// 	_fMovingBatActualDir = FMath::Clamp(_fMovingBatActualDir *fMovingBarAcceleration +
+// 										   _fMovingBatActualDir, -0.9f, 0.6f);
+//
+//
+// 	UCanvasPanelSlot* CanvasSlot = Cast<UCanvasPanelSlot>(iMovingBar->Slot);
+//
+// 	float posX = CanvasSlot->GetPosition().X;
+//
+// 	float posY = CanvasSlot->GetPosition().Y + _fMovingBatActualDir * fMovingBarSpeed;		
+//
+// 	FVector2D pos = FVector2D(posX, posY);
+// 	
+// 	CanvasSlot->SetPosition(pos);
+// }
+//
 void UFishingMinigame::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
-
-	if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::SpaceBar))
-	{
-		_fMovingBarDirection = -1.0f;
-	}
-	else
-	{
-		_fMovingBarDirection = 1.0f;
-	}
-
-	MoveBar();
+//
+// 	if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::SpaceBar))
+// 	{
+// 		_fMovingBarDirection = -1.0f;
+// 	}
+// 	else
+// 	{
+// 		_fMovingBarDirection = 1.0f;
+// 	}
+//
+// 	MoveBar();
 }
 
 #pragma region Comments
