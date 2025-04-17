@@ -69,9 +69,9 @@ void AFishingGenerator::ShuffleSpots(AFishingSpot* depletedSpot)
 	{
 		randomInt = FMath::RandRange(0, xFishingSpots.Num() - 1);
 	}
-	while (!xFishingSpots[randomInt]->bIsActive);
+	while (xFishingSpots[randomInt]->bIsActive);
 
-	xFishingSpots[randomInt]->bIsActive = true;
+	xFishingSpots[randomInt]->ToggleActive(true);
 	int randInt = FMath::RandRange(1, xFishingSpots[randomInt]->iTotalFishes);
 	for (int j = 0; j < randInt; j++)
 	{

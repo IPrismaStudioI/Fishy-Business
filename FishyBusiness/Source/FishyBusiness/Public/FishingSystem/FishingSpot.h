@@ -63,7 +63,7 @@ public:
 	void ToggleActive(bool value);
 
 	UFUNCTION(BlueprintCallable, Category = "MyFunctions")
-	void FinishedMinigame();
+	void FinishedMinigame(bool hasWon);
 
 	UFUNCTION()
 	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
