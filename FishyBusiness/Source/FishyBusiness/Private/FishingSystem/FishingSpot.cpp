@@ -56,6 +56,7 @@ void AFishingSpot::ToggleActive(bool value)
 	AActor* actor = this;
 	actor->SetActorEnableCollision(value);
 	actor->SetActorHiddenInGame(!value);
+	bIsActive = value;
 	if (value == true)
 	{
 		_iCurrentFishes = iTotalFishes;
@@ -75,13 +76,13 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 		
 	}
 	
-	_iCurrentFishes -= 1;
 	_bCanCreateMinigame = true;
+	_iCurrentFishes -= 1;
 
 	if (_iCurrentFishes <= 0)
 	{
-		xFishingGenerator->ShuffleSpots(this);
 		_bCanCreateMinigame = false;
+		xFishingGenerator->ShuffleSpots(this);
 	}
 }
 
