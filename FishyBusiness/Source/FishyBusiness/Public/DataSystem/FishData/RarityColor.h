@@ -7,7 +7,12 @@
 /**
  * 
  */
-enum FISHYBUSINESS_API RarityColor
+UENUM(BlueprintType)
+enum class ERarityColor : uint8
 {
-
+	GREY = 0,
+	GREEN = 1,
+	BLUE = 2,
+	PURPLE = 3,
+	GOLD = 4,
 };

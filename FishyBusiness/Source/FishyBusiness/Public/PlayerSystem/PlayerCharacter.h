@@ -6,6 +6,8 @@
 #include "MaterialInventory.h"
 #include "Movement.h"
 #include "PaperFlipbookComponent.h"
+#include "FishingSystem/FishingMinigame.h"
+#include "FishingSystem/FishInventory.h"
 #include "PlayerCameraController.h"
 #include "UniqueInventory.h"
 #include "Wallet.h"
@@ -57,6 +59,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TSubclassOf<UFishingMinigame> xFishingMinigame;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UFishInventory* xFishInventory;
+
+	void CreateMinigame();
 public:	
 	// Sets default values for this character's properties
 	APlayerCharacter();
@@ -70,6 +79,8 @@ public:
 	void SetMovable(bool option);
 	
 private:
+	UFishingMinigame* ActiveWidget;
+	
 	/// <summary>moves the character on forward axis </summary>
 	void MoveForward(float inputVector);
 
