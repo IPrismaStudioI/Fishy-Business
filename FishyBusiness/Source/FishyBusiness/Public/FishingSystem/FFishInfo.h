@@ -3,19 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Fish.h"
-#include "FFishStorage.generated.h"
+#include "UObject/NoExportTypes.h"
+#include "FFishInfo.generated.h"
 
 /**
  * 
  */
 USTRUCT(BlueprintType)
-struct FISHYBUSINESS_API FFishStorage : public FTableRowBase
+struct FISHYBUSINESS_API FFishInfo
 {
 	GENERATED_BODY()
-	public:
+
 	UPROPERTY(EditAnywhere)
-	FString sFishID;
+	float fPrice;
 	UPROPERTY(EditAnywhere)
-	UFish* xFish;
+	float fSize;
 };
