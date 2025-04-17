@@ -14,7 +14,7 @@ class FISHYBUSINESS_API UEventBus : public UActorComponent
 {
 	GENERATED_BODY()
 private:
-	TMap<FString, TArray<UEventWrapper*>> _xEventMap;
+	TMap<FString, TArray<TStrongObjectPtr<UEventWrapper>>> _xEventMap;
 	
 protected:
 	// Called when the game starts
@@ -30,14 +30,14 @@ public:
 	/// </summary>
 	/// <param name="eventName">The name of the event to register the function for.</param>
 	/// <param name="functionEvent">The function event wrapper pointer to register.</param>
-	void Register(FString eventName, UEventWrapper* functionEvent);
+	void Register(FString eventName, TStrongObjectPtr<UEventWrapper> functionEvent);
 
 	/// <summary>
 	/// Unregisters a function event from the event map for a given event name.
 	/// </summary>
 	/// <param name="eventName">The name of the event to unregister the function from.</param>
 	/// <param name="functionEvent">The function event wrapper pointer to unregister.</param>
-	void Unregister(FString eventName, UEventWrapper* functionEvent);
+	void Unregister(FString eventName, TStrongObjectPtr<UEventWrapper> functionEvent);
 	
 	/// <summary>
 	/// Calls all registered function events for a given event name, passing event parameters.
@@ -47,5 +47,5 @@ public:
 	void TriggerEvent(FString eventName, EventParameters &parameters);
 
 private:
-	bool CheckPrecondition(FString eventName, UEventWrapper* functionEvent);
+	bool CheckPrecondition(FString eventName, TStrongObjectPtr<UEventWrapper> functionEvent);
 };

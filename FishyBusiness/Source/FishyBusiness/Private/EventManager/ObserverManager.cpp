@@ -26,19 +26,19 @@ void UEventBus::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	// ...
 }
 
-void UEventBus::Register(FString eventName, UEventWrapper* functionEvent)
+void UEventBus::Register(FString eventName, TStrongObjectPtr<UEventWrapper> functionEvent)
 {
 	if (!CheckPrecondition(eventName, functionEvent)) return;
 	if (_xEventMap.Contains(eventName))
-		_xEventMap[eventName].Add(functionEvent);
+		_xEventMap[eventName].Add(MoveTemp(functionEvent));
 	else
 	{
 		_xEventMap.Add(eventName);
-		_xEventMap[eventName].Add(functionEvent);
+		_xEventMap[eventName].Add(MoveTemp(functionEvent));
 	}
 }
 
-void UEventBus::Unregister(FString eventName, UEventWrapper* functionEvent)
+void UEventBus::Unregister(FString eventName, TStrongObjectPtr<UEventWrapper> functionEvent)
 {
 	if (!CheckPrecondition(eventName, functionEvent)) return;
 	if (_xEventMap.Contains(eventName))
@@ -52,15 +52,25 @@ void UEventBus::TriggerEvent(FString eventName, EventParameters &parameters)
 {
 	if (_xEventMap.Contains(eventName))
 	{
-		for (UEventWrapper* Element : _xEventMap[eventName])
+		for (TStrongObjectPtr<UEventWrapper> Element : _xEventMap[eventName])
 		{
-			(*Element->function)(parameters);
+			if (Element && Element->function.IsValid() && *Element->function)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("This: '%p'"), this);
+				(*Element->function)(parameters);
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("EventBus: Invalid function or element for event '%s'"), *eventName);
+			}
 		}
 	}
 }
 
 
-bool UEventBus::CheckPrecondition(FString eventName, UEventWrapper* functionEvent)
+
+
+bool UEventBus::CheckPrecondition(FString eventName, TStrongObjectPtr<UEventWrapper> functionEvent)
 {
 	if (functionEvent == nullptr) return false;
 	if (eventName.IsEmpty()) return false;
