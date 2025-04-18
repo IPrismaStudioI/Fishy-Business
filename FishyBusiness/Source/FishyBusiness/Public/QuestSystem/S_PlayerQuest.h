@@ -21,4 +21,7 @@ struct FISHYBUSINESS_API FPlayerQuest
 	int iCurrentModule;
 	UPROPERTY(EditAnywhere)
 	EQuestStatus eStatus;
+
+	FPlayerQuest(TArray<FQuestModule> modules)
+		: xModules(modules), iCurrentModule(0), eStatus(EQuestStatus::E_ACTIVE_QUEST) {}
 };

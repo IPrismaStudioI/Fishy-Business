@@ -8,6 +8,7 @@
 #include "DIalogueSystem/DA_Dialogue.h"
 #include "EventManager/ObserverManager.h"
 #include "GameFramework/GameModeBase.h"
+#include "QuestSystem/QuestData/QuestRow.h"
 #include "FishyBusinessGameModeBase.generated.h"
 
 
@@ -29,6 +30,8 @@ public:
 	UDataTable* xDataTableDialogues;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	UDataTable* xDataTableFishes;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
+	UDataTable* xDataTableQuests;
 	
 public:
 	AFishyBusinessGameModeBase();
@@ -54,4 +57,7 @@ public:
 	/// </summary>
 	UFUNCTION(BlueprintCallable)
 	UFish* GetFishFromDT(FString id);
+
+	UFUNCTION(BlueprintCallable)
+	TArray<UDA_QuestModuleBase*> GetQuestFromDT(FString id);
 };

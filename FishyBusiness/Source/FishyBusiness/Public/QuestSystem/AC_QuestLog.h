@@ -15,6 +15,8 @@ class FISHYBUSINESS_API UAC_QuestLog : public UActorComponent
 public:
 	UPROPERTY(EditAnywhere)
 	TMap<FString, FPlayerQuest> xQuests;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
+	UDataTable* xQuestDT;
 	
 public:	
 	// Sets default values for this component's properties
@@ -28,5 +30,5 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	void AddQuest(FString questID);
 };

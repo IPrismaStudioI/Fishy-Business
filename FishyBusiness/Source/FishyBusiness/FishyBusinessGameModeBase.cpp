@@ -57,3 +57,9 @@ UFish* AFishyBusinessGameModeBase::GetFishFromDT(FString id)
 	FFishRow* row = xDataTableFishes->FindRow<FFishRow>(FName(id), "");
 	return row->xFish;
 }
+
+TArray<UDA_QuestModuleBase*> AFishyBusinessGameModeBase::GetQuestFromDT(FString id)
+{
+	FQuestRow* row = xDataTableQuests->FindRow<FQuestRow>(FName(id), "");
+	return row->xModuleList;
+}
