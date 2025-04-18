@@ -54,6 +54,12 @@ void UDialogueUI::ChangeName(EventParameters parameters)
 void UDialogueUI::HideDialogue(EventParameters parameters)
 {
 	_xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
+
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_MENU, eventParameters);
 }
 
 void UDialogueUI::HideDialogueStart()

@@ -31,4 +31,5 @@ public:
 	static const FString SHOW_CARPENTRY;
 	static const FString SHOW_VILLAGE_BASE;
 	static const FString HIDE_VILLAGE_BASE;
+	static const FString SHOW_MENU;
 };
