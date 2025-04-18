@@ -56,28 +56,33 @@ void AFishingSpot::ToggleActive(bool value)
 	AActor* actor = this;
 	actor->SetActorEnableCollision(value);
 	actor->SetActorHiddenInGame(!value);
+	bIsActive = value;
 	if (value == true)
 	{
 		_iCurrentFishes = iTotalFishes;
 	}
 }
 
-void AFishingSpot::FinishedMinigame()
+void AFishingSpot::FinishedMinigame(bool hasWon)
 {
-	xRewardWidget = CreateWidget<UFishingReward>(GetWorld(), xFishingReward);
-	xRewardWidget->sFishID = xFishes[_iCurrentFishes -1];
-	xRewardWidget->xFishingSpot = this;
-	xRewardWidget->AddToViewport();
+	if (hasWon)
+	{
+		xRewardWidget = CreateWidget<UFishingReward>(GetWorld(), xFishingReward);
+		xRewardWidget->sFishID = xFishes[_iCurrentFishes -1];
+		xRewardWidget->xFishingSpot = this;
+		xRewardWidget->AddToViewport();
 
-	xPlayerCharacter->xFishInventory->AddFish(xFishes[_iCurrentFishes -1]);
+		xPlayerCharacter->xFishInventory->AddFish(xFishes[_iCurrentFishes -1]);
+		
+	}
 	
-	_iCurrentFishes -= 1;
 	_bCanCreateMinigame = true;
+	_iCurrentFishes -= 1;
 
 	if (_iCurrentFishes <= 0)
 	{
-		xFishingGenerator->ShuffleSpots(this);
 		_bCanCreateMinigame = false;
+		xFishingGenerator->ShuffleSpots(this);
 	}
 }
 

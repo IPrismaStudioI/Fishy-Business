@@ -6,7 +6,7 @@
 
 void UEventWrapper::RegisterEvent(UEventBus* EventManager, FString EventType, TSharedPtr<TFunction<void(const EventParameters&)>> Callback)
 {
-	UEventWrapper* Wrapper = NewObject<UEventWrapper>();
+	TStrongObjectPtr<UEventWrapper> Wrapper = TStrongObjectPtr<UEventWrapper>(NewObject<UEventWrapper>(EventManager));
 	Wrapper->function = Callback;
-	EventManager->Register(EventType, Wrapper);
+	EventManager->Register(EventType, MoveTemp(Wrapper));
 }
