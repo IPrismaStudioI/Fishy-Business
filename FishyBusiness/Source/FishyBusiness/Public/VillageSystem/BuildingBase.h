@@ -18,7 +18,7 @@ class FISHYBUSINESS_API ABuildingBase : public ALightChangableBase
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperSpriteComponent* xOnHover; 
 	UPROPERTY(EditAnywhere) 
 	ENpcNames _eNpcName;
