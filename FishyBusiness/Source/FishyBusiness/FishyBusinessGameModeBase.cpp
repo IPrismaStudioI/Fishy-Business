@@ -10,6 +10,11 @@
 
 AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 {
+	xQuestDataManager = CreateDefaultSubobject<UQuestDataManager>("Quest Data Manager");
+	this->AddInstanceComponent(xQuestDataManager);
+
+	xQuestDataManager->SetXFishyBusinessGameMode(this);
+	
 	xDialogueElaborator = CreateDefaultSubobject<UDialogueElaborator>("Dialogue Elaborator");
 	this->AddInstanceComponent(xDialogueElaborator);
 	

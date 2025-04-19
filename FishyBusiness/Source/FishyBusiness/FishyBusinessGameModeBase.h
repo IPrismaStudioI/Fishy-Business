@@ -9,6 +9,7 @@
 #include "EventManager/ObserverManager.h"
 #include "GameFramework/GameModeBase.h"
 #include "QuestSystem/QuestData/QuestRow.h"
+#include "QuestSystem/QuestDataManager.h"
 #include "FishyBusinessGameModeBase.generated.h"
 
 
@@ -16,8 +17,10 @@ UCLASS()
 class FISHYBUSINESS_API AFishyBusinessGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-
+	
 public:
+	UQuestDataManager* xQuestDataManager;
+	
 	UPROPERTY(VisibleAnywhere)
 	UDialogueElaborator* xDialogueElaborator;
 	
@@ -31,7 +34,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	UDataTable* xDataTableFishes;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
-	UDataTable* xDataTableQuests;
+	UDataTable* xDataTableQuest;
 	
 public:
 	AFishyBusinessGameModeBase();
