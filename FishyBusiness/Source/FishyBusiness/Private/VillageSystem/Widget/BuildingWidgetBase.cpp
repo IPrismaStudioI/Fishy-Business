@@ -10,6 +10,11 @@ void UBuildingWidgetBase::NativeConstruct()
 	Super::NativeConstruct();
 
 	HideCanvas();
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	UEventBus* eventBus = gamemode->xVillageEventBus;
+	UEventWrapper::RegisterEvent(eventBus, EventListVillage::SHOW_MENU, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ShowMenu(Params); }));
+
 	
 	_xExitBuildingBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::ExitBuilding);
 }
@@ -22,6 +27,12 @@ void UBuildingWidgetBase::HideCanvas()
 void UBuildingWidgetBase::ShowCanvas(EventParameters parameters)
 {
 	_xCanvas->SetVisibility(ESlateVisibility::Visible);
+	_xMainMenu->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+void UBuildingWidgetBase::ShowMenu(EventParameters parameters)
+{
+	_xMainMenu->SetVisibility(ESlateVisibility::Visible);
 }
 
 void UBuildingWidgetBase::ExitBuilding()

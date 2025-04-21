@@ -17,11 +17,17 @@ class FISHYBUSINESS_API ABuildingBase : public ALightChangableBase
 {
 	GENERATED_BODY()
 
-private:
+protected:
+	UPROPERTY(EditAnywhere)
+	UPaperSpriteComponent* xOnHover; 
 	UPROPERTY(EditAnywhere) 
 	ENpcNames _eNpcName;
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UBuildingWidgetBase> _xBuildingUI;
+	
+public:	
+	// Sets default values for this actor's properties
+	ABuildingBase();
 	
 protected:
 	// Called when the game starts or when spawned

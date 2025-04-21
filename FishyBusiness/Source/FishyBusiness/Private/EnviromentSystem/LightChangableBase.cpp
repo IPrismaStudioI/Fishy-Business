@@ -9,9 +9,11 @@ ALightChangableBase::ALightChangableBase()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	xSprite = CreateDefaultSubobject<UPaperSpriteComponent>("Sprite");
-	this->AddInstanceComponent(xSprite);
-	SetRootComponent(xSprite);
+	xRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	SetRootComponent(xRoot);
+
+	xSprite = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("Sprite"));
+	xSprite->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
