@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "FishyBusiness/FishyBusinessGameModeBase.h"
 #include "QuestData/Enums/E_QuestRewardType.h"
 #include "QuestData/Enums/E_QuestUnlockType.h"
 #include "QuestData/Modules/DA_QuestModuleBase.h"
 #include "QuestData/Rewards/DA_QuestRewardBase.h"
 #include "QuestData/Unlock/DA_QuestUnlockBase.h"
 #include "QuestDataManager.generated.h"
+
+class AFishyBusinessGameModeBase;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class FISHYBUSINESS_API UQuestDataManager : public UActorComponent

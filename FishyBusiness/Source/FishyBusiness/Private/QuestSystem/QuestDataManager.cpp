@@ -3,7 +3,17 @@
 
 #include "QuestSystem/QuestDataManager.h"
 
+#include "FishyBusiness/FishyBusinessGameModeBase.h"
 #include "QuestSystem/QuestData/QuestRow.h"
+
+UQuestDataManager::UQuestDataManager()
+{
+}
+
+void UQuestDataManager::BeginPlay()
+{
+	Super::BeginPlay();
+}
 
 FString UQuestDataManager::GetQuestNameFromDT(FString id)
 {
