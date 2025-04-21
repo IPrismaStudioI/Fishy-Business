@@ -7,6 +7,7 @@
 #include "DataTables/FishRow.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerSystem/PlayerCharacter.h"
+#include "QuestSystem/QuestDataManager.h"
 
 AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 {
