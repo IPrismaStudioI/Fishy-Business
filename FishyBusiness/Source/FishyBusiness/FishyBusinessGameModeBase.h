@@ -12,13 +12,13 @@
 #include "QuestSystem/QuestDataManager.h"
 #include "FishyBusinessGameModeBase.generated.h"
 
-
 UCLASS()
 class FISHYBUSINESS_API AFishyBusinessGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
 public:
+	UPROPERTY(VisibleAnywhere)
 	UQuestDataManager* xQuestDataManager;
 	
 	UPROPERTY(VisibleAnywhere)
