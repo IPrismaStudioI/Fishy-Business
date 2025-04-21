@@ -14,6 +14,8 @@ class FISHYBUSINESS_API ALightChangableBase : public AActor
 
 protected:
 	UPROPERTY(EditAnywhere)
+	USceneComponent* xRoot;
+	UPROPERTY(EditAnywhere)
 	UPaperSpriteComponent* xSprite; 
 	
 public:	
@@ -27,5 +29,4 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 };

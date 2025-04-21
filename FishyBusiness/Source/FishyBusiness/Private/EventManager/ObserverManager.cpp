@@ -67,12 +67,8 @@ void UEventBus::TriggerEvent(FString eventName, EventParameters &parameters)
 	}
 }
 
-
-
-
 bool UEventBus::CheckPrecondition(FString eventName, TStrongObjectPtr<UEventWrapper> functionEvent)
 {
-	if (functionEvent == nullptr) return false;
 	if (eventName.IsEmpty()) return false;
 	return true;
 }

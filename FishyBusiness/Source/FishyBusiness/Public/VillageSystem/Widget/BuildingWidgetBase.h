@@ -35,6 +35,7 @@ public:
 protected:
 	void HideCanvas();
 	void ShowCanvas(EventParameters parameters);
+	void ShowMenu(EventParameters parameters);
 
 	UFUNCTION()
 	void ExitBuilding();
