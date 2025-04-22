@@ -108,15 +108,12 @@ void UDialogueUI::FillChoiceContainer(EventParameters parameters)
 	parameters[1]->Getter<FString>().ParseIntoArray(allAnswers, TEXT("|"));
 	
 	for (int i = 0; i < allIDChoices.Num(); i++) {
-		UButtonDialogueTriggerBase *choiceBtn1 = WidgetTree->ConstructWidget<UButtonDialogueTriggerBase>(UButtonDialogueTriggerBase::StaticClass());
-		choiceBtn1->Set_SDialogueID(allIDChoices[i]);
+		UChoiceButton *choiceBtn1 = WidgetTree->ConstructWidget<UChoiceButton>(xChoiceButton);
 
-		UTextBlock* labelChoice1 = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
-		labelChoice1->SetText(FText::FromString(allAnswers[i]));
-		choiceBtn1->AddChild(labelChoice1);
-
+		choiceBtn1->xDialogueTriggerBtn->Set_SDialogueID(allIDChoices[i]);
+		choiceBtn1->_xChoiceLabel->SetText(FText::FromString(allAnswers[i]));
 	
-		choiceBtn1->OnClicked.AddDynamic(this, &UDialogueUI::HideChoices);
+		choiceBtn1->xDialogueTriggerBtn->OnClicked.AddDynamic(this, &UDialogueUI::HideChoices);
 		
 		_xChoiceContainer->AddChild(choiceBtn1);
 	}
