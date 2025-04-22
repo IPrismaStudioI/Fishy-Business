@@ -8,6 +8,7 @@
 #include "Components/CanvasPanel.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
+#include "DialogueTriggers/ChoiceButton.h"
 #include "EventManager/EventWrapper.h"
 #include "EventManager/ObserverManager.h"
 #include "DialogueUI.generated.h"
@@ -34,6 +35,9 @@ public:
 	UTextBlock* _xName;
 	UPROPERTY(meta = (BindWidget))
 	UVerticalBox* _xChoiceContainer;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UChoiceButton> xChoiceButton;
 
 private:
 	/// <summary>
