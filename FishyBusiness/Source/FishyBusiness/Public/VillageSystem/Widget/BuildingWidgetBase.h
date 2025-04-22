@@ -39,4 +39,9 @@ protected:
 
 	UFUNCTION()
 	void ExitBuilding();
+	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnOpenBuilding();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+    void OnCloseBuilding();
 };

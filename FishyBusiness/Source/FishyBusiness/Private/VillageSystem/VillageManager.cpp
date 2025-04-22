@@ -74,6 +74,7 @@ void AVillageManager::ChangePlayerPosition(float lerp)
 
 void AVillageManager::ApproachVillage()
 {
+	OnEnterVillage();
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
@@ -84,5 +85,6 @@ void AVillageManager::ApproachVillage()
 
 void AVillageManager::FreePlayer(EventParameters parameters)
 {
+	OnExitVillage();
 	player->SetMovable(true);
 }

@@ -36,6 +36,7 @@ void AFishingSpot::Tick(float DeltaTime)
 	{
 		if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::E))
 		{
+			OnInteractFishingSpot();
 			
 			ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
 			
@@ -93,6 +94,8 @@ void AFishingSpot::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
                                   bool bFromSweep, 
                                   const FHitResult& SweepResult)
 {
+	OnOverlapFishingSpot();
+	
 	if (APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor))
 	{
 		xPlayerCharacter = Player;

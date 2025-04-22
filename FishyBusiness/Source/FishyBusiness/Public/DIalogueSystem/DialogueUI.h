@@ -52,6 +52,7 @@ private:
 	/// Hides all dialogue-related UI elements.
 	/// </summary>
 	/// <param name="param">Optional parameter (not used).</param>
+	void FinishDialogue(EventParameters parameters);
 	void HideDialogue(EventParameters parameters);
 	void HideDialogueStart();
 
@@ -83,4 +84,9 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnChangeSentence();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnStartDialogue();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnFinishDialogue();
+	
 };

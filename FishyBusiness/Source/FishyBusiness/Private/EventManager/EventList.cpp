@@ -7,9 +7,10 @@ const FString EventListDialogue::CHANGE_SENTENCE = TEXT("CHANGE_SENTENCE");
 const FString EventListDialogue::CHANGE_NAME = TEXT("CHANGE_NAME");
 const FString EventListDialogue::START_DIALOGUE = TEXT("START_DIALOGUE");
 const FString EventListDialogue::END_DIALOGUE = TEXT("END_DIALOGUE");
+const FString EventListDialogue::CONTINUE_DIALOGUE = TEXT("CONTINUE_DIALOGUE");
+const FString EventListDialogue::CLOSE_DIALOGUE = TEXT("CLOSE_DIALOGUE");
 const FString EventListDialogue::HIDE_CHOICES = TEXT("HIDE_CHOICES");
 const FString EventListDialogue::START_CHOICES = TEXT("START_CHOICES");
-const FString EventListDialogue::CONTINUE_DIALOGUE = TEXT("CONTINUE_DIALOGUE");
 
 const FString EventListVillage::SHOW_LIGHTHOUSE = TEXT("SHOW_LIGHTHOUSE");
 const FString EventListVillage::SHOW_FISHSHOP = TEXT("SHOW_FISHSHOP");
