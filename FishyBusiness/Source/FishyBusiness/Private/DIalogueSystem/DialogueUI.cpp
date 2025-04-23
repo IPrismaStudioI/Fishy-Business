@@ -55,24 +55,22 @@ void UDialogueUI::ChangeName(EventParameters parameters)
 
 void UDialogueUI::FinishDialogue(EventParameters parameters)
 {
-	// _xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
-	_xContinueBtn->SetVisibility(ESlateVisibility::Collapsed);
+	_xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
 	
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_MENU, eventParameters);
+	OnFinishDialogue();
 }
 
 void UDialogueUI::HideDialogue(EventParameters parameters)
 {
-	OnFinishDialogue();
 	_xContinueBtn->SetVisibility(ESlateVisibility::Visible);
 	_xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
 	_xCanvasChoices->SetVisibility(ESlateVisibility::Collapsed);
 }
-
 
 void UDialogueUI::HideDialogueStart()
 {

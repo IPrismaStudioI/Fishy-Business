@@ -57,6 +57,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UFishInventory* xFishInventory;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsMoving = false;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -80,4 +83,6 @@ private:
 
 	/// <summary>moves the character on right axis</summary>
 	void MoveRight(float inputVector);
+
+	void CheckMoving();
 };

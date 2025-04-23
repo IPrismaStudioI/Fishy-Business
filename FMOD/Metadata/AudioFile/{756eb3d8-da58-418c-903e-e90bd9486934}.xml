@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{756eb3d8-da58-418c-903e-e90bd9486934}">
+		<property name="assetPath">
+			<value>SFX_MinigameFailure.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.99385416666666671</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{681caa4e-8d56-41dc-843e-3ed544368314}</destination>
+		</relationship>
+	</object>
+</objects>
