@@ -55,8 +55,7 @@ void UDialogueUI::ChangeName(EventParameters parameters)
 
 void UDialogueUI::FinishDialogue(EventParameters parameters)
 {
-	// _xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
-	_xContinueBtn->SetVisibility(ESlateVisibility::Collapsed);
+	_xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
 	
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
@@ -72,7 +71,6 @@ void UDialogueUI::HideDialogue(EventParameters parameters)
 	_xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
 	_xCanvasChoices->SetVisibility(ESlateVisibility::Collapsed);
 }
-
 
 void UDialogueUI::HideDialogueStart()
 {
