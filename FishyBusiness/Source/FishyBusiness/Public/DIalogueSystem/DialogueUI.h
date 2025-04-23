@@ -25,7 +25,7 @@ public:
 	UCanvasPanel* _xCanvas;
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* _xCanvasChoices;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UCanvasPanel* _xCanvasDialogue;
 	UPROPERTY(meta = (BindWidget))
 	UButton* _xContinueBtn;
