@@ -20,6 +20,7 @@ UCLASS()
 class FISHYBUSINESS_API UDialogueUI : public UUserWidget
 {
 	GENERATED_BODY()
+	
 public:
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* _xCanvas;
