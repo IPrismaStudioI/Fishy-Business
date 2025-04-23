@@ -63,11 +63,11 @@ void UDialogueUI::FinishDialogue(EventParameters parameters)
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_MENU, eventParameters);
+	OnFinishDialogue();
 }
 
 void UDialogueUI::HideDialogue(EventParameters parameters)
 {
-	OnFinishDialogue();
 	_xContinueBtn->SetVisibility(ESlateVisibility::Visible);
 	_xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
 	_xCanvasChoices->SetVisibility(ESlateVisibility::Collapsed);
