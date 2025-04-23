@@ -3,6 +3,7 @@
 
 #include "QuestSystem/AC_QuestLog.h"
 
+#include "FishyBusiness/FishyBusinessGameModeBase.h"
 #include "QuestSystem/QuestData/QuestRow.h"
 
 // Sets default values for this component's properties
@@ -36,11 +37,13 @@ void UAC_QuestLog::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 
 void UAC_QuestLog::AddQuest(FString questID)
 {
-	FQuestRow* questRow = xQuestDT->FindRow<FQuestRow>(FName(questID), "");
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	//gamemode->GetQuestFromDT(questID);
+	//FQuestRow* questRow = gamemode->xQuestDataManager->GetQuestNameFromDT(questID);
 	//FPlayerQuest playerQuest; //= FPlayerQuest(questRow->xModuleList, 0, EQuestStatus::E_ACTIVE_QUEST);
 	if (xQuests.Find(questID) == nullptr)
 	{
-		xQuests.Add(questID, FPlayerQuest(questRow->xModuleList));
+		xQuests.Add(questID, FPlayerQuest(gamemode->xQuestDataManager->GetQuestModuleListFromDT(questID)));
 	}
 }
 

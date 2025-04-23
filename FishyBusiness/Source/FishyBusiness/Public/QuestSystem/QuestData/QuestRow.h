@@ -33,7 +33,7 @@ public:
 	EQuestUnlockType eUnlockType;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FQuestModule> xModuleList;
+	TArray<UDA_QuestModuleBase*> xModuleList;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UDA_QuestRewardBase* xReward;

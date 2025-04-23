@@ -15,8 +15,8 @@ class FISHYBUSINESS_API UAC_QuestLog : public UActorComponent
 public:
 	UPROPERTY(EditAnywhere)
 	TMap<FString, FPlayerQuest> xQuests;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
-	UDataTable* xQuestDT;
+	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
+	// UDataTable* xQuestDT;
 	
 public:	
 	// Sets default values for this component's properties
