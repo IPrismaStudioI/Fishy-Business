@@ -17,7 +17,7 @@ class FISHYBUSINESS_API AFishyBusinessGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UDialogueElaborator* xDialogueElaborator;
 	
 	UPROPERTY(VisibleAnywhere)

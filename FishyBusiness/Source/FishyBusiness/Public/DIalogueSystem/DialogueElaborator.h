@@ -22,7 +22,11 @@ private:
 	 
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UUserWidget> DialogueUI;
-
+	
+public:
+	UPROPERTY(BlueprintReadWrite)
+	UUserWidget* dialogueUIWidget;
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
