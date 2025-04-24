@@ -3,6 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CompendioPageBase.h"
+#include "MainCompendio.h"
+#include "DataSystem/FishData/Fish.h"
+#include "EventManager/EventWrapper.h"
 #include "GameFramework/Actor.h"
 #include "CompendioManager.generated.h"
 
@@ -12,22 +16,34 @@ class FISHYBUSINESS_API ACompendioManager : public AActor
 	GENERATED_BODY()
 	
 private:
-	bool _bIsOpen = false;
-	UPROPERTY()
-	UMainCompendio* _xMainCompendio;
-	int _iActualPageIndex;
-	TArrayTSubclassOf<UCompendioPageBase> test
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UMainCompendio> _xMainCompendio;
 	
-public:	
-	// Sets default values for this actor's properties
-	ACompendioManager();
+	UPROPERTY()
+	TMap<FString, bool> _xFishCatalogued;
+	UPROPERTY()
+	int _iPageNum;
+
+	bool _bIsOpen = false;
+	int _iActualPageIndex;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
+	// Sets default values for this actor's properties
+	ACompendioManager();
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	void OpenCompendio();
+	void GoToPrevPage();
+	void GoToNextPage();
+	void CreateCatalogue(TArray<UCompendioPageBase*> pageList);
+	void CatalogueFish(EventParameters parameters);
 
+private:
+	void CallCreatePage(int i, int j);
 };

@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Image.h"
+#include "Components/TextBlock.h"
+#include "EventManager/EventWrapper.h"
 #include "CompendioPageBase.generated.h"
 
 /**
@@ -13,5 +16,17 @@ UCLASS()
 class FISHYBUSINESS_API UCompendioPageBase : public UUserWidget
 {
 	GENERATED_BODY()
+private:
+	UPROPERTY(meta = (BindWidget))
+	UImage* _xPageImage;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* _xNumPageText;
 	
+public:
+	virtual void NativeConstruct() override;
+	
+	void SetPageIndex(int numPage);
+	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnCreate();
 };

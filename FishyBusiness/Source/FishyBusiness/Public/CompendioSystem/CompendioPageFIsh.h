@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "CompendioSystem/CompendioPageBase.h"
+#include "DataSystem/FishData/Fish.h"
 #include "CompendioPageFIsh.generated.h"
 
 /**
@@ -13,5 +14,13 @@ UCLASS()
 class FISHYBUSINESS_API UCompendioPageFIsh : public UCompendioPageBase
 {
 	GENERATED_BODY()
-	
+
+public:
+	UPROPERTY(EditAnywhere)
+	FString xFishID;
+
+public:
+	virtual void NativeConstruct() override;
+
+	void FillInformations(EventParameters parameters);
 };
