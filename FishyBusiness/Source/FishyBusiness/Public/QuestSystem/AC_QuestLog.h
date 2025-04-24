@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "S_PlayerQuest.h"
 #include "Components/ActorComponent.h"
+#include "DataSystem/ItemData/BaseItem.h"
 #include "AC_QuestLog.generated.h"
 
 
@@ -31,4 +32,16 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void AddQuest(FString questID);
+
+	void AdvanceExploreModule(EQuestZones zone);
+	void AdvanceDialogueModule(ENpcNames npcName);
+	void AdvanceCollectModule(UBaseItem* item, int quantity);
+
+private:
+	void CheckNextModule();
+	void CheckQuestStatus();
+	
+	FString FindQuestFromExplore(EQuestZones zone);
+	FString FindQuestFromDialogue(ENpcNames npcName);
+	FString FindQuestFromCollect(UBaseItem* item);
 };

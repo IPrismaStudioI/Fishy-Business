@@ -46,4 +46,87 @@ void UAC_QuestLog::AddQuest(FString questID)
 		xQuests.Add(questID, FPlayerQuest(gamemode->xQuestDataManager->GetQuestModuleListFromDT(questID)));
 	}
 }
+//----------------------------------------------------------------------------------
+#pragma region Advance
+
+void UAC_QuestLog::AdvanceExploreModule(EQuestZones zone)
+{
+	FPlayerQuest quest = xQuests[FindQuestFromExplore(zone)];
+}
+
+void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName)
+{
+	FPlayerQuest quest = xQuests[FindQuestFromDialogue(npcName)];
+}
+
+void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
+{
+	FPlayerQuest quest = xQuests[FindQuestFromCollect(item)];
+}
+
+#pragma endregion
+
+//----------------------------------------------------------------------------------
+#pragma region Check Modules 
+
+void UAC_QuestLog::CheckNextModule()
+{
+}
+
+void UAC_QuestLog::CheckQuestStatus()
+{
+}
+
+#pragma endregion
+
+//----------------------------------------------------------------------------------
+#pragma region Find Quest 
+
+FString UAC_QuestLog::FindQuestFromExplore(EQuestZones zone)
+{
+	for (auto Quest : xQuests)
+	{
+		for (auto Module : Quest.Value.xModules)
+		{
+			if (Module->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE)
+			{
+				return Quest.Key;
+			}
+			
+		}
+	}
+}
+
+FString UAC_QuestLog::FindQuestFromDialogue(ENpcNames npcName)
+{
+	for (auto Quest : xQuests)
+	{
+		for (auto Module : Quest.Value.xModules)
+		{
+			if (Module->eModuleType == EPlayerModuleType::E_INTERACT_MODULE)
+			{
+				return Quest.Key;
+			}
+			
+		}
+	}
+}
+
+FString UAC_QuestLog::FindQuestFromCollect(UBaseItem* item)
+{
+	for (auto Quest : xQuests)
+	{
+		for (auto Module : Quest.Value.xModules)
+		{
+			if (Module->eModuleType == EPlayerModuleType::E_COLLECT_MODULE)
+			{
+				return Quest.Key;
+			}
+			
+		}
+	}
+}
+
+#pragma endregion
+
 
