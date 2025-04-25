@@ -4,9 +4,12 @@
 #include "FishingSystem/FishingSpot.h"
 
 #include "Components/SphereComponent.h"
+#include "EventManager/EventWrapper.h"
 #include "FishingSystem/FishingReward.h"
+#include "FishyBusiness/FishyBusinessGameModeBase.h"
 #include "PlayerSystem/PlayerCharacter.h"
 
+class AFishyBusinessGameModeBase;
 // Sets default values
 AFishingSpot::AFishingSpot()
 {
@@ -74,7 +77,11 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 		xRewardWidget->AddToViewport();
 
 		xPlayerCharacter->xFishInventory->AddFish(xFishes[_iCurrentFishes -1]);
-		
+
+		EventParameters eventParameters;
+		eventParameters.Add(UParameterWrapper::CreateParameter<FString>(xFishes[_iCurrentFishes -1]));
+		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+		gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CATALOGUE_FISH, eventParameters);
 	}
 	
 	_bCanCreateMinigame = true;

@@ -8,14 +8,28 @@
 void UMainCompendio::NativeConstruct()
 {
 	Super::NativeConstruct();
+	// Registering functions to EventManager
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	UEventBus* EventManager = gamemode->xCompendioEventBus;
+	
+	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::OPEN_CLOSE_COMPENDIO, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { ShowMainCompendio(Params) ;}));
+	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::CREATE_PAGE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { CreatePages(Params) ;}));
 }
 
 void UMainCompendio::ShowMainCompendio(EventParameters parameters)
 {
 	if (_xCanvasPanel->IsVisible())
+	{
 		_xCanvasPanel->SetVisibility(ESlateVisibility::Hidden);
+		RemovePage();
+	}
 	else
+	{
 		_xCanvasPanel->SetVisibility(ESlateVisibility::Visible);
+		AddPage(0, 0, false);
+		AddPage(1, 1, false);
+	}
 }
 
 void UMainCompendio::CreatePages(EventParameters parameters)

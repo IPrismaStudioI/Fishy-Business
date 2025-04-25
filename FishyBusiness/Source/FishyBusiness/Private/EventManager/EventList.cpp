@@ -24,4 +24,3 @@ const FString EventListVillage::SHOW_MENU = TEXT("SHOW_MENU");
 const FString EventListCompendio::CREATE_PAGE = TEXT("CREATE_PAGE");
 const FString EventListCompendio::OPEN_CLOSE_COMPENDIO = TEXT("OPEN_CLOSE_COMPENDIO");
 const FString EventListCompendio::CATALOGUE_FISH = TEXT("CATALOGUE_FISH");
-const FString EventListCompendio::SET_PAGE_INDEX = TEXT("SET_PAGE_INDEX");

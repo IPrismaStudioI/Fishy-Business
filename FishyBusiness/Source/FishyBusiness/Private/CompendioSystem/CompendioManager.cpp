@@ -40,6 +40,13 @@ void ACompendioManager::BeginPlay()
 			InputComponent->BindAction("PrevCompendioPage", IE_Pressed, this, &ACompendioManager::GoToPrevPage);
 		}
 	}
+
+	// Registering functions to EventManager
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	UEventBus* EventManager = gamemode->xCompendioEventBus;
+	
+	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::CATALOGUE_FISH, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { CatalogueFish(Params) ;}));
 }
 
 // Called every frame 
@@ -98,7 +105,7 @@ void ACompendioManager::CreateCatalogue(TArray<UCompendioPageBase*> pageList)
 	for (UCompendioPageBase* Element : pageList)
 	{
 		if (Element->IsA(UCompendioPageFIsh::StaticClass()))
-			_xFishCatalogued.Add(Cast<UCompendioPageFIsh>(Element)->xFishID, false);
+			_xFishCatalogued.Add(Cast<UCompendioPageFIsh>(Element)->sFishID, false);
 	}
 }
 

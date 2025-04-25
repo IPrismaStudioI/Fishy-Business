@@ -14,10 +14,18 @@ UCLASS()
 class FISHYBUSINESS_API UCompendioPageFIsh : public UCompendioPageBase
 {
 	GENERATED_BODY()
+
+private:
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* _xFishName;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* _xFishDescription;
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* _xLocation;
 	
 public:
 	UPROPERTY(EditAnywhere)
-	FString xFishID;
+	FString sFishID;
 
 public:
 	virtual void NativeConstruct() override;

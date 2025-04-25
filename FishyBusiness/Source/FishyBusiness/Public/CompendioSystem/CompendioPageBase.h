@@ -16,7 +16,7 @@ UCLASS()
 class FISHYBUSINESS_API UCompendioPageBase : public UUserWidget
 {
 	GENERATED_BODY()
-private:
+protected:
 	UPROPERTY(meta = (BindWidget))
 	UImage* _xPageImage;
 	UPROPERTY(meta = (BindWidget))
