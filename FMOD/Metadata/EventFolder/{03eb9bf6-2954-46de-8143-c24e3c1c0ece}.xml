@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EventFolder" id="{03eb9bf6-2954-46de-8143-c24e3c1c0ece}">
+		<property name="name">
+			<value>FOLDER_Snapshots</value>
+		</property>
+		<relationship name="folder">
+			<destination>{f947d76e-ef3e-4bfc-a921-0c7b558eb661}</destination>
+		</relationship>
+	</object>
+</objects>
