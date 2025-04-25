@@ -10,11 +10,14 @@ void UCompendioPageFIsh::NativeConstruct()
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	UEventBus* eventBus = gamemode->xCompendioEventBus;
-	UEventWrapper::RegisterEvent(eventBus, EventListCompendio::FILL_INFORMATION, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FillInformations(Params); }));
-	
 }
 
-void UCompendioPageFIsh::FillInformations(EventParameters parameters)
+void UCompendioPageFIsh::NativeDestruct()
 {
-	
+	Super::NativeConstruct();
+}
+
+void UCompendioPageFIsh::FillInformations(bool isCatalogued)
+{
+
 }

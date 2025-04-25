@@ -34,6 +34,6 @@ public:
 	void CreatePages(EventParameters parameters);
 
 private:
-	void AddPage(int index, int page);
+	void AddPage(int index, int page, bool isCatalogued);
 	void RemovePage();
 };

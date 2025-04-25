@@ -14,13 +14,14 @@ UCLASS()
 class FISHYBUSINESS_API UCompendioPageFIsh : public UCompendioPageBase
 {
 	GENERATED_BODY()
-
+	
 public:
 	UPROPERTY(EditAnywhere)
 	FString xFishID;
 
 public:
 	virtual void NativeConstruct() override;
+	virtual void NativeDestruct() override;
 
-	void FillInformations(EventParameters parameters);
+	void FillInformations(bool isCatalogued) override;
 };

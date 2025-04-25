@@ -42,7 +42,7 @@ void ACompendioManager::BeginPlay()
 	}
 }
 
-// Called every frame
+// Called every frame 
 void ACompendioManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -88,11 +88,13 @@ void ACompendioManager::GoToPrevPage()
 		i = _iActualPageIndex - 1;
 	}
 
-	CallCreatePage(_iActualPageIndex, i);
+	CallCreatePage(i , _iActualPageIndex);
 }
 
 void ACompendioManager::CreateCatalogue(TArray<UCompendioPageBase*> pageList)
 {
+	_xFishCatalogued.Add("", false);
+	_xFishCatalogued.Add("", false);
 	for (UCompendioPageBase* Element : pageList)
 	{
 		if (Element->IsA(UCompendioPageFIsh::StaticClass()))
@@ -111,6 +113,15 @@ void ACompendioManager::CallCreatePage(int i, int j)
 	EventParameters eventParameters;
 	eventParameters.Add(UParameterWrapper::CreateParameter<int>(i));
 	eventParameters.Add(UParameterWrapper::CreateParameter<int>(j));
+	
+	TArray<FString> fishesID;
+	_xFishCatalogued.GenerateKeyArray (fishesID);
+	
+	if ((i > 0 && j > 1) && (i < fishesID.Num() - 2 && j < fishesID.Num() - 1))
+	{
+		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(_xFishCatalogued[fishesID[i]]));
+		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(_xFishCatalogued[fishesID[j]]));
+	}
 	
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	

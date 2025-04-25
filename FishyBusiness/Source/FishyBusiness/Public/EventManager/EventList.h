@@ -40,7 +40,6 @@ class FISHYBUSINESS_API EventListCompendio
 public:
 	static const FString CREATE_PAGE;
 	static const FString OPEN_CLOSE_COMPENDIO;
-	static const FString FILL_INFORMATION;
 	static const FString CATALOGUE_FISH;
 	static const FString SET_PAGE_INDEX;
 };

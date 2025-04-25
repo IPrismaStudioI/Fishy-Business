@@ -17,3 +17,7 @@ void UCompendioPageBase::SetPageIndex(int numPage)
 	FText text = FText::FromString(FString::FromInt(numPage));
 	_xNumPageText->SetText(text);
 }
+
+void UCompendioPageBase::FillInformations(bool isCatalogued)
+{
+}

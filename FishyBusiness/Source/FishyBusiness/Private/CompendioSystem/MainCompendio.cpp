@@ -24,19 +24,27 @@ void UMainCompendio::CreatePages(EventParameters parameters)
 	
 	int firstPage = parameters[0]->Getter<int>();
 	int secondPage = parameters[1]->Getter<int>();
+	bool cataloguedFirstPage = parameters[2]->Getter<bool>();
+	bool cataloguedSecondPage = parameters[3]->Getter<bool>();
 
 	RemovePage();
-	AddPage(firstPage, 0);
-	AddPage(secondPage, 1);
+	AddPage(firstPage, 0, cataloguedFirstPage);
+	AddPage(secondPage, 1, cataloguedSecondPage);
 }
 
-void UMainCompendio::AddPage(int index, int page)
+void UMainCompendio::AddPage(int index, int page, bool isCatalogued)
 {
 	_xActualPages.Add(CreateWidget(GetWorld(), xPageList[index]->GetClass()));
 	_xActualPages[page]->AddToViewport(2);
 	Cast<UCompendioPageBase>(_xActualPages[page])->SetPageIndex(index + 1);
+	Cast<UCompendioPageBase>(_xActualPages[page])->FillInformations(isCatalogued);
 }
 
 void UMainCompendio::RemovePage()
 {
+	for (auto Element : _xActualPages)
+	{
+		Element->RemoveFromParent();
+		delete Element;
+	}
 }

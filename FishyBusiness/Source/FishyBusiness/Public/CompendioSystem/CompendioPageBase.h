@@ -26,6 +26,7 @@ public:
 	virtual void NativeConstruct() override;
 	
 	void SetPageIndex(int numPage);
+	virtual void FillInformations(bool isCatalogued);
 	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnCreate();
