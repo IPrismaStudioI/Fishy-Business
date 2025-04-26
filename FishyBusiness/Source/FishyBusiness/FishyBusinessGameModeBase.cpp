@@ -55,6 +55,7 @@ AFishyBusinessGameModeBase* AFishyBusinessGameModeBase::GetInstance()
 UDA_Dialogue* AFishyBusinessGameModeBase::GetDialogueFromDT(FString id)
 {
 	FDialogueRow* row = xDataTableDialogues->FindRow<FDialogueRow>(FName(id), "");
+	if (!row) return NULL;
 	return row->xDialogue;
 }
 

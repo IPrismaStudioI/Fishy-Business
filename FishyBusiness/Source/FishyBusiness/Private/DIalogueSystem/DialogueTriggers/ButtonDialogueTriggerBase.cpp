@@ -15,6 +15,7 @@ UButtonDialogueTriggerBase::UButtonDialogueTriggerBase()
 void UButtonDialogueTriggerBase::StartDialogue()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	
-	gamemode->xDialogueElaborator->StartDialogue(gamemode->GetDialogueFromDT(_sDialogueID)->Dialogue);
+
+	if (_sDialogueID != "")	
+		gamemode->xDialogueElaborator->StartDialogue(gamemode->GetDialogueFromDT(_sDialogueID)->Dialogue);
 }
