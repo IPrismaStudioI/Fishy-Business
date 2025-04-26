@@ -5,7 +5,7 @@
 			<value>SFX_AmbientCoastalShores</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{c8ab8997-2e9e-41b9-8664-fdeed88e9871}</destination>
@@ -59,11 +59,17 @@
 	<object class="EventAutomatableProperties" id="{d8f6c0b7-5aaa-4df9-a631-d89b42ed963a}" />
 	<object class="MarkerTrack" id="{89ccc4ee-2df6-49fc-b02c-4bd7de20d68e}" />
 	<object class="GroupTrack" id="{b4d39d2b-10e2-432f-89e1-f446b5dffbb6}">
+		<relationship name="modules">
+			<destination>{56c90fd2-474a-4063-a74c-262ac455f526}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{684c0fb7-fcd2-473e-b31f-85118159c9d5}</destination>
 		</relationship>
 	</object>
 	<object class="Timeline" id="{f65511ce-f9fe-4758-8f86-dd13dd7bc4b1}">
+		<relationship name="modules">
+			<destination>{56c90fd2-474a-4063-a74c-262ac455f526}</destination>
+		</relationship>
 		<relationship name="markers">
 			<destination>{86bb7bb2-f3a0-44cb-af6f-d1fd31bd00ec}</destination>
 		</relationship>
@@ -85,7 +91,18 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{fd453a55-e227-4b22-b770-db34f21dcb72}" />
+	<object class="SingleSound" id="{56c90fd2-474a-4063-a74c-262ac455f526}">
+		<property name="length">
+			<value>16.754708333333333</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{4d23f575-d669-4668-afae-86f193c1ad4f}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerGroup" id="{684c0fb7-fcd2-473e-b31f-85118159c9d5}">
+		<property name="volume">
+			<value>-20</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -104,7 +121,7 @@
 			<value>0</value>
 		</property>
 		<property name="length">
-			<value>2</value>
+			<value>16.754708333333333</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{f65511ce-f9fe-4758-8f86-dd13dd7bc4b1}</destination>
