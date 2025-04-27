@@ -13,6 +13,8 @@ ACompendioManager::ACompendioManager()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	_iActualPageIndex = 1;
 }
 
 
@@ -67,7 +69,7 @@ void ACompendioManager::OpenCompendio()
 void ACompendioManager::GoToNextPage()
 {
 	int i;
-	if (_iPageNum < _iActualPageIndex + 2)
+	if (_iPageNum > _iActualPageIndex + 2)
 	{
 		_iActualPageIndex = _iActualPageIndex + 2;
 		i = _iActualPageIndex - 1;
@@ -100,13 +102,13 @@ void ACompendioManager::GoToPrevPage()
 
 void ACompendioManager::CreateCatalogue(TArray<TSubclassOf<UCompendioPageBase>> pageList)
 {
-	_xFishCatalogued.Add("", false);
-	_xFishCatalogued.Add("", false);
-	for (TSubclassOf<UCompendioPageBase> Element : pageList)
+	_xFishCatalogued.Add("upgrade1", false);
+	_xFishCatalogued.Add("upgrade2", false);
+	for (int i = 0; i < pageList.Num(); i++)
 	{
-		if (Element->IsChildOf(UCompendioPageFIsh::StaticClass()))
+		if (pageList[i]->IsChildOf(UCompendioPageFIsh::StaticClass()))
 		{
-			UCompendioPageFIsh* pageFish = Cast<UCompendioPageFIsh>(Element->GetDefaultObject());
+			UCompendioPageFIsh* pageFish = Cast<UCompendioPageFIsh>(pageList[i]->GetDefaultObject());
 			_xFishCatalogued.Add(pageFish->sFishID, false);
 		}
 	}
@@ -131,6 +133,12 @@ void ACompendioManager::CallCreatePage(int i, int j)
 	{
 		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(_xFishCatalogued[fishesID[i]]));
 		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(_xFishCatalogued[fishesID[j]]));
+	}
+	else
+	{
+		bool x = false;
+		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(x));
+		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(x));
 	}
 	
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();

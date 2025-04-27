@@ -11,6 +11,8 @@ void UMainCompendio::NativeConstruct()
 	// Registering functions to EventManager
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
+	_xCanvasPanel->SetVisibility(ESlateVisibility::Hidden);
+
 	UEventBus* EventManager = gamemode->xCompendioEventBus;
 	
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::OPEN_CLOSE_COMPENDIO, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { ShowMainCompendio(Params) ;}));
@@ -19,7 +21,7 @@ void UMainCompendio::NativeConstruct()
 
 void UMainCompendio::ShowMainCompendio(EventParameters parameters)
 {
-	if (_xCanvasPanel->IsVisible())
+	if (_xCanvasPanel->GetVisibility() == ESlateVisibility::Visible)
 	{
 		_xCanvasPanel->SetVisibility(ESlateVisibility::Hidden);
 		RemovePage();
@@ -59,6 +61,7 @@ void UMainCompendio::RemovePage()
 	for (auto Element : _xActualPages)
 	{
 		Element->RemoveFromParent();
-		delete Element;
 	}
+
+	_xActualPages.Empty();
 }
