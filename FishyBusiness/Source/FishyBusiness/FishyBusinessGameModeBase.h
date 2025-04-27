@@ -9,6 +9,7 @@
 #include "EventManager/ObserverManager.h"
 #include "GameFramework/GameModeBase.h"
 #include "QuestSystem/QuestDataManager.h"
+#include "QuestSystem/QuestBoard/QuestUnlockStorageManager.h"
 #include "FishyBusinessGameModeBase.generated.h"
 
 UCLASS()
@@ -22,6 +23,8 @@ public:
 	
 	UPROPERTY(VisibleAnywhere)
 	UDialogueElaborator* xDialogueElaborator;
+	UPROPERTY(VisibleAnywhere)
+	UQuestUnlockStorageManager* xQuestUnlockStorageManager;
 	
 	UPROPERTY(VisibleAnywhere)
 	UEventBus* xDialogueEventBus;

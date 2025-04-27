@@ -3,3 +3,7 @@
 
 #include "QuestSystem/QuestBoard/QuestBoardUI.h"
 
+void UQuestBoardUI::NativeConstruct()
+{
+	Super::NativeConstruct();
+}

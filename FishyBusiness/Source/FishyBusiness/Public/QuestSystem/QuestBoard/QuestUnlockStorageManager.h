@@ -4,17 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "QuestManager.generated.h"
+#include "QuestUnlockStorageManager.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class FISHYBUSINESS_API UQuestManager : public UActorComponent
+class FISHYBUSINESS_API UQuestUnlockStorageManager : public UActorComponent
 {
 	GENERATED_BODY()
-
+	
+public:
+	UPROPERTY(EditAnywhere)
+	TArray<FString> _sUnlockedQuestList;
+	
 public:	
 	// Sets default values for this component's properties
-	UQuestManager();
+	UQuestUnlockStorageManager();
 
 protected:
 	// Called when the game starts
@@ -23,6 +27,4 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
 };

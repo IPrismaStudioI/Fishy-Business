@@ -3,3 +3,7 @@
 
 #include "QuestSystem/QuestBoard/QuestItemUI.h"
 
+void UQuestItemUI::NativeConstruct()
+{
+	Super::NativeConstruct();
+}

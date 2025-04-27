@@ -13,6 +13,10 @@ UCLASS()
 class FISHYBUSINESS_API UQuestBuildingWidget : public UBuildingWidgetBase
 {
 	GENERATED_BODY()
+
+private:
+	UPROPERTY(meta = (BindWidget)) 
+	UButton* _xBoardBtn;
 	
 public:
 	virtual void NativeConstruct() override;
