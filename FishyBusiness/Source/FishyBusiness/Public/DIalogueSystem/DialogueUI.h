@@ -33,7 +33,7 @@ public:
 	UTextBlock* _xSentence;
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* _xName;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UVerticalBox* _xChoiceContainer;
 
 	UPROPERTY(EditAnywhere)
