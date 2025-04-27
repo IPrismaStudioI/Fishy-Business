@@ -51,17 +51,51 @@ void UAC_QuestLog::AddQuest(FString questID)
 
 void UAC_QuestLog::AdvanceExploreModule(EQuestZones zone)
 {
-	FPlayerQuest quest = xQuests[FindQuestFromExplore(zone)];
+	FString questID = "null";
+	for (auto Quest : xQuests)
+	{
+		for (auto Module : Quest.Value.xModules)
+		{
+			if (Module->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE)
+			{
+				//if zone ==
+				questID = Quest.Key;
+			}
+			
+		}
+	}
+	//FPlayerQuest quest = xQuests[FindQuestFromExplore(zone)];
+	//quest.iCurrentModule++;
+	if (questID != "null")
+	{
+		CheckQuestStatus(xQuests[questID]);
+		if (xQuests[questID].eStatus == EQuestStatus::E_ACTIVE_QUEST)
+		{
+			CheckNextModule();
+		}\
+	}
 }
 
 void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName)
 {
 	FPlayerQuest quest = xQuests[FindQuestFromDialogue(npcName)];
+	quest.iCurrentModule++;
+	CheckQuestStatus(quest);
+	if (quest.eStatus == EQuestStatus::E_ACTIVE_QUEST)
+	{
+		CheckNextModule();
+	}
 }
 
 void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 {
 	FPlayerQuest quest = xQuests[FindQuestFromCollect(item)];
+	quest.iCurrentModule++;
+	CheckQuestStatus(quest);
+	if (quest.eStatus == EQuestStatus::E_ACTIVE_QUEST)
+	{
+		CheckNextModule();
+	}
 }
 
 #pragma endregion
@@ -73,8 +107,12 @@ void UAC_QuestLog::CheckNextModule()
 {
 }
 
-void UAC_QuestLog::CheckQuestStatus()
+void UAC_QuestLog::CheckQuestStatus(FPlayerQuest quest)
 {
+	if (quest.iCurrentModule == quest.xModules.Num() -1)
+	{
+		quest.eStatus = EQuestStatus::E_COMPLETED_QUEST;
+	}
 }
 
 #pragma endregion
@@ -90,6 +128,7 @@ FString UAC_QuestLog::FindQuestFromExplore(EQuestZones zone)
 		{
 			if (Module->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE)
 			{
+				//if zone ==
 				return Quest.Key;
 			}
 			
@@ -105,6 +144,7 @@ FString UAC_QuestLog::FindQuestFromDialogue(ENpcNames npcName)
 		{
 			if (Module->eModuleType == EPlayerModuleType::E_INTERACT_MODULE)
 			{
+				//if zone ==
 				return Quest.Key;
 			}
 			
@@ -120,6 +160,7 @@ FString UAC_QuestLog::FindQuestFromCollect(UBaseItem* item)
 		{
 			if (Module->eModuleType == EPlayerModuleType::E_COLLECT_MODULE)
 			{
+				//if zone ==
 				return Quest.Key;
 			}
 			

@@ -39,7 +39,7 @@ public:
 
 private:
 	void CheckNextModule();
-	void CheckQuestStatus();
+	void CheckQuestStatus(FPlayerQuest quest);
 	
 	FString FindQuestFromExplore(EQuestZones zone);
 	FString FindQuestFromDialogue(ENpcNames npcName);
