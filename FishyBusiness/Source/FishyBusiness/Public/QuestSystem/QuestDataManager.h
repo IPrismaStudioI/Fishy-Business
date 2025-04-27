@@ -43,4 +43,5 @@ public:
 	TArray<UDA_QuestModuleBase*> GetQuestModuleListFromDT(FString id);
 	UDA_QuestRewardBase* GetQuestRewardFromDT(FString id);
 	EQuestRewardType GetQuestRewardTypeFromDT(FString id);
+	UTexture2D* GetQuestIconFromDT(FString id);
 };

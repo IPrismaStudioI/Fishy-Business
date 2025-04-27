@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "QuestItemUI.h"
+#include "QuestBoardUI.h"
+#include "QuestBulletinFocusedUI.h"
+#include "QuestBulletinUI.h"
 #include "Components/ActorComponent.h"
 #include "QuestBoard.generated.h"
 
@@ -24,21 +26,27 @@ class FISHYBUSINESS_API UQuestBoard : public UActorComponent
 	
 private:
 	UPROPERTY(EditAnywhere, Category = "UI")
-	TSubclassOf<UUserWidget> _xQuestBoardUI;
+	TSubclassOf<UQuestBoardUI> _xQuestBoardUI;
+	UPROPERTY(EditAnywhere, Category = "UI")
+	TSubclassOf<UQuestBulletinFocusedUI> _xQuestBulletinFocusedUI;
 
-	UPROPERTY()
-	TMap<UQuestItemUI*, FQuestUIElement> _mQuestUIElements;
+	UPROPERTY() 
+	TMap<UQuestBulletinUI*, FQuestUIElement> _mQuestUIElements;
 	
-public:	
-	// Sets default values for this component's properties
-	UQuestBoard();
-
+private:	
+	void SetupQuestUIElements();
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:	
+	// Sets default values for this component's properties
+	UQuestBoard();
+	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	void FillQuestBulletins(EventParameters parameters);
 };
 

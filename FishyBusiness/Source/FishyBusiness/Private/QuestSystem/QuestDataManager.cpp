@@ -56,3 +56,9 @@ EQuestRewardType UQuestDataManager::GetQuestRewardTypeFromDT(FString id)
 	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	return row->eRewardType;
 }
+
+UTexture2D* UQuestDataManager::GetQuestIconFromDT(FString id)
+{
+	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	return row->xQuestIcon;
+}

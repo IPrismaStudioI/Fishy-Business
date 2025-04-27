@@ -4,19 +4,25 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Button.h"
 #include "Components/Image.h"
-#include "QuestItemUI.generated.h"
+#include "QuestBulletinUI.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FISHYBUSINESS_API UQuestItemUI : public UUserWidget
+class FISHYBUSINESS_API UQuestBulletinUI : public UUserWidget
 {
 	GENERATED_BODY()
-private:
+	
+public:
 	UPROPERTY(meta = (BindWidget))
 	UImage* _xIcon;
+	UPROPERTY(meta = (BindWidget))
+	UButton* _xBulletinBtn;
+
+	FString _sQuestID;
 	
 public:
 	virtual void NativeConstruct() override;

@@ -39,4 +39,7 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EQuestRewardType eRewardType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* xQuestIcon;
 };

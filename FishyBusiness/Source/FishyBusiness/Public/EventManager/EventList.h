@@ -38,4 +38,5 @@ class FISHYBUSINESS_API EventListQuest
 {
 public:
 	static const FString SHOW_QUEST_BOARD;
+	static const FString FILL_BULLETIN;
 };

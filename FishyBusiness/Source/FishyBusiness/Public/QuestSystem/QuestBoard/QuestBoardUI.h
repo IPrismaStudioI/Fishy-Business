@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "QuestItemUI.h"
+#include "QuestBulletinUI.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Button.h"
 #include "Components/CanvasPanel.h"
+#include "EventManager/EventWrapper.h"
 #include "QuestBoardUI.generated.h"
 
 /**
@@ -23,10 +25,18 @@ private:
 	UCanvasPanel* _xCanvasBulletin;
 	
 public:
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UButton* _xExitBtn;
+	
+public:
 	UPROPERTY()
-	TArray<UQuestItemUI*> xQuestItemUIList;
+	TArray<UQuestBulletinUI*> xQuestItemUIList;
 	
 public:
 	virtual void NativeConstruct() override;
 
+	void OpenBoard(EventParameters parameters);
+	
+	UFUNCTION()
+	void CloseBoard();
 };

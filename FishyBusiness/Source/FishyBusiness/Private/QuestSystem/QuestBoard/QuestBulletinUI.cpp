@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "QuestSystem/QuestBoard/QuestItemUI.h"
+#include "QuestSystem/QuestBoard/QuestBulletinUI.h"
 
-void UQuestItemUI::NativeConstruct()
+void UQuestBulletinUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 }

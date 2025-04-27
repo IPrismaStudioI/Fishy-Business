@@ -7,13 +7,14 @@
 #include "Components/Button.h"
 #include "Components/CanvasPanel.h"
 #include "Components/RichTextBlock.h"
-#include "QuestItemFocusedUI.generated.h"
+#include "EventManager/EventWrapper.h"
+#include "QuestBulletinFocusedUI.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FISHYBUSINESS_API UQuestItemFocusedUI : public UUserWidget
+class FISHYBUSINESS_API UQuestBulletinFocusedUI : public UUserWidget
 {
 	GENERATED_BODY()
 	
@@ -30,7 +31,16 @@ private:
 	UButton* _xQuestExitBtn;
 	UPROPERTY(meta = (BindWidget))
 	UButton* _xQuestAcceptBtn;
+
+	FString _sQuestID;
 	
 public:
 	virtual void NativeConstruct() override;
+
+	UFUNCTION()
+	void QuestAccept();
+	UFUNCTION()
+	void CloseBulletin();
+	
+	void FillBulletin(EventParameters parameters);
 };
