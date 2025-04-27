@@ -34,3 +34,11 @@ public:
 	static const FString HIDE_VILLAGE_BASE;
 	static const FString SHOW_MENU;
 };
+
+class FISHYBUSINESS_API EventListCompendio
+{
+public:
+	static const FString CREATE_PAGE;
+	static const FString OPEN_CLOSE_COMPENDIO;
+	static const FString CATALOGUE_FISH;
+};
