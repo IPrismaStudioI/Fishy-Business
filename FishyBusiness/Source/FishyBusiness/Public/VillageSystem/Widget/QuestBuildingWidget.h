@@ -20,4 +20,7 @@ private:
 	
 public:
 	virtual void NativeConstruct() override;
+
+	UFUNCTION()
+	void ShowQuestBoard();
 };

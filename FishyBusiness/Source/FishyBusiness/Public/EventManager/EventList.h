@@ -33,3 +33,9 @@ public:
 	static const FString HIDE_VILLAGE_BASE;
 	static const FString SHOW_MENU;
 };
+
+class FISHYBUSINESS_API EventListQuest
+{
+public:
+	static const FString SHOW_QUEST_BOARD;
+};

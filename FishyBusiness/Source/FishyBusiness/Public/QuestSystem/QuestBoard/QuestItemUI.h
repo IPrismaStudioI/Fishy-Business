@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Image.h"
 #include "QuestItemUI.generated.h"
 
 /**
@@ -13,6 +14,9 @@ UCLASS()
 class FISHYBUSINESS_API UQuestItemUI : public UUserWidget
 {
 	GENERATED_BODY()
+private:
+	UPROPERTY(meta = (BindWidget))
+	UImage* _xIcon;
 	
 public:
 	virtual void NativeConstruct() override;

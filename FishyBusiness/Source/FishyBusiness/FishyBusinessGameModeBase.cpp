@@ -25,6 +25,8 @@ AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 	this->AddInstanceComponent(xDialogueEventBus);
 	xVillageEventBus = CreateDefaultSubobject<UEventBus>("Village Bus");
 	this->AddInstanceComponent(xVillageEventBus);
+	xQuestEventBus = CreateDefaultSubobject<UEventBus>("Quest Bus");
+	this->AddInstanceComponent(xQuestEventBus);
 
 	DefaultPawnClass = APlayerCharacter::StaticClass();
 }
