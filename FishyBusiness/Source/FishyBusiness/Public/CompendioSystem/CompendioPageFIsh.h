@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "CompendioSystem/CompendioPageBase.h"
 #include "DataSystem/FishData/Fish.h"
+#include "Components/RichTextBlock.h"
 #include "CompendioPageFIsh.generated.h"
 
 /**
@@ -17,11 +18,11 @@ class FISHYBUSINESS_API UCompendioPageFIsh : public UCompendioPageBase
 
 private:
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* _xFishName;
+	URichTextBlock* _xFishName;
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* _xFishDescription;
+	URichTextBlock* _xFishDescription;
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* _xLocation;
+	URichTextBlock* _xLocation;
 	
 public:
 	UPROPERTY(EditAnywhere)
