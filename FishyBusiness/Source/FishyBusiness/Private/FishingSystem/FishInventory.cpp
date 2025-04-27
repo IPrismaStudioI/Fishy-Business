@@ -39,6 +39,8 @@ void UFishInventory::AddFish(FString fishID)
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	UFish* fish = gamemode->GetFishFromDT(fishID);
+
+	if (fish == nullptr) return;
 	
 	FFishInfo newFishInfo(fish->fBasePrice, fish->fBaseSize);
 
