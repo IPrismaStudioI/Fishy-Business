@@ -26,7 +26,7 @@ private:
 	
 public:
 	UPROPERTY(EditAnywhere)
-	TArray<UCompendioPageBase*> xPageList;
+	TArray<TSubclassOf<UCompendioPageBase>> xPageList;
 
 public:
 	virtual void NativeConstruct() override;

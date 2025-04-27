@@ -48,7 +48,7 @@ void UMainCompendio::CreatePages(EventParameters parameters)
 
 void UMainCompendio::AddPage(int index, int page, bool isCatalogued)
 {
-	_xActualPages.Add(CreateWidget(GetWorld(), xPageList[index]->GetClass()));
+	_xActualPages.Add(CreateWidget(GetWorld(), xPageList[index]));
 	_xActualPages[page]->AddToViewport(2);
 	Cast<UCompendioPageBase>(_xActualPages[page])->SetPageIndex(index + 1);
 	Cast<UCompendioPageBase>(_xActualPages[page])->FillInformations(isCatalogued);

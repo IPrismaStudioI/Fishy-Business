@@ -98,14 +98,17 @@ void ACompendioManager::GoToPrevPage()
 	CallCreatePage(i , _iActualPageIndex);
 }
 
-void ACompendioManager::CreateCatalogue(TArray<UCompendioPageBase*> pageList)
+void ACompendioManager::CreateCatalogue(TArray<TSubclassOf<UCompendioPageBase>> pageList)
 {
 	_xFishCatalogued.Add("", false);
 	_xFishCatalogued.Add("", false);
-	for (UCompendioPageBase* Element : pageList)
+	for (TSubclassOf<UCompendioPageBase> Element : pageList)
 	{
-		if (Element->IsA(UCompendioPageFIsh::StaticClass()))
-			_xFishCatalogued.Add(Cast<UCompendioPageFIsh>(Element)->sFishID, false);
+		if (Element->IsChildOf(UCompendioPageFIsh::StaticClass()))
+		{
+			UCompendioPageFIsh* pageFish = Cast<UCompendioPageFIsh>(Element->GetDefaultObject());
+			_xFishCatalogued.Add(pageFish->sFishID, false);
+		}
 	}
 }
 
