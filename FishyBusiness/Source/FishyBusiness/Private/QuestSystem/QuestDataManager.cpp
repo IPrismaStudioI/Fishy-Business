@@ -62,3 +62,9 @@ UTexture2D* UQuestDataManager::GetQuestIconFromDT(FString id)
 	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	return row->xQuestIcon;
 }
+
+FString UQuestDataManager::GetQuestGiverFromDT(FString id)
+{
+	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	return row->sQuestGiver;
+}

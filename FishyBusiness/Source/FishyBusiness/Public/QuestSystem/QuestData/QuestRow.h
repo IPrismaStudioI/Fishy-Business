@@ -42,4 +42,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UTexture2D* xQuestIcon;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString sQuestGiver;
 };

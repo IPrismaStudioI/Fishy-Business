@@ -43,4 +43,9 @@ public:
 	void CloseBulletin();
 	
 	void FillBulletin(EventParameters parameters);
+	
+	void ShowBulletin(bool isShowed);
+
+	UFUNCTION()
+	void QuitBulletin();
 };

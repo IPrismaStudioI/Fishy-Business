@@ -15,6 +15,8 @@ void UQuestBulletinFocusedUI::NativeConstruct()
 	
 	UEventWrapper::RegisterEvent(EventManager, EventListQuest::FILL_BULLETIN, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { FillBulletin(Params) ;}));
 
+	_xQuestExitBtn->OnClicked.AddDynamic(this, &UQuestBulletinFocusedUI::QuitBulletin);
+	_xQuestAcceptBtn->OnClicked.AddDynamic(this, &UQuestBulletinFocusedUI::QuestAccept);
 }
 
 void UQuestBulletinFocusedUI::QuestAccept()
@@ -29,5 +31,25 @@ void UQuestBulletinFocusedUI::CloseBulletin()
 
 void UQuestBulletinFocusedUI::FillBulletin(EventParameters parameters)
 {
-	
+	_sQuestID = parameters[0]->Getter<FString>();
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	_xQuestName->SetText(FText::FromString(gamemode->xQuestDataManager->GetQuestNameFromDT(_sQuestID)));
+	_xQuestDescription->SetText(FText::FromString(gamemode->xQuestDataManager->GetQuestDescriptionFromDT(_sQuestID)));
+	_xQuestGiver->SetText(FText::FromString(gamemode->xQuestDataManager->GetQuestGiverFromDT(_sQuestID)));
+
+	ShowBulletin(true);
+}
+
+void UQuestBulletinFocusedUI::ShowBulletin(bool isShowed)
+{
+	if (isShowed)
+		_xCanvas->SetVisibility(ESlateVisibility::Visible);
+	else
+		_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+void UQuestBulletinFocusedUI::QuitBulletin()
+{
+	ShowBulletin(false);
 }
