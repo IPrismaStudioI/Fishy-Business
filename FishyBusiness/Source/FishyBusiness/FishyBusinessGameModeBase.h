@@ -24,6 +24,8 @@ public:
 	UEventBus* xDialogueEventBus;
 	UPROPERTY(VisibleAnywhere)
 	UEventBus* xVillageEventBus;
+	UPROPERTY(VisibleAnywhere)
+	UEventBus* xCompendioEventBus;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	UDataTable* xDataTableDialogues;
