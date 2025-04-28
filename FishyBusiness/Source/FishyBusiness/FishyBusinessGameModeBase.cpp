@@ -51,7 +51,7 @@ AFishyBusinessGameModeBase* AFishyBusinessGameModeBase::GetInstance()
 UDA_Dialogue* AFishyBusinessGameModeBase::GetDialogueFromDT(FString id)
 {
 	FDialogueRow* row = xDataTableDialogues->FindRow<FDialogueRow>(FName(id), "");
-	if (row)
+	if (!row)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Dialogue Row not fund"));
 		return nullptr;
@@ -62,7 +62,7 @@ UDA_Dialogue* AFishyBusinessGameModeBase::GetDialogueFromDT(FString id)
 UFish* AFishyBusinessGameModeBase::GetFishFromDT(FString id)
 {
 	FFishRow* row = xDataTableFishes->FindRow<FFishRow>(FName(id), "");
-	if (row)
+	if (!row)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Fish Row not fund"));
 		return nullptr;
