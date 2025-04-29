@@ -10,11 +10,11 @@ void UQuestBulletinFocusedUI::NativeConstruct()
 	Super::NativeConstruct();
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	
 	UEventBus* EventManager = gamemode->xQuestEventBus;
-	
 	UEventWrapper::RegisterEvent(EventManager, EventListQuest::FILL_BULLETIN, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { FillBulletin(Params) ;}));
 
+	ShowBulletin(false);
+	
 	_xQuestExitBtn->OnClicked.AddDynamic(this, &UQuestBulletinFocusedUI::QuitBulletin);
 	_xQuestAcceptBtn->OnClicked.AddDynamic(this, &UQuestBulletinFocusedUI::QuestAccept);
 }

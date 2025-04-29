@@ -12,6 +12,7 @@
 UENUM(BlueprintType)
 enum class EQuestRewardType : uint8
 {
+	None = 0,
 	ITEM_REWARD				UMETA(DisplayName = "ITEM_REWARD"),
 	NEW_QUEST_REWARD		UMETA(DisplayName = "NEW_QUEST_REWARD"),
 	UPGRADE_REWARD			UMETA(DisplayName = "UPGRADE_REWARD"),

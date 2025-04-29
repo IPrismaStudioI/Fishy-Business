@@ -42,7 +42,7 @@ void UQuestBoard::SetupQuestUIElements()
 	_mQuestUIElements.GenerateKeyArray(x);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-	for (int i = 0; i < x.Num(); i++)
+	for (int i = 0; i < x.Num() && i < gamemode->xQuestUnlockStorageManager->_sUnlockedQuestList.Num(); i++)
 	{
 		FString id = gamemode->xQuestUnlockStorageManager->_sUnlockedQuestList[i];
 		_mQuestUIElements[x[i]].sQuestID = id;
@@ -64,12 +64,18 @@ void UQuestBoard::FillQuestBulletins(EventParameters parameters)
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-	for (int i = 0; i < x.Num(); i++)
+	for (int i = 0; i < x.Num() && i < gamemode->xQuestUnlockStorageManager->_sUnlockedQuestList.Num(); i++)
 	{
 		FString id = gamemode->xQuestUnlockStorageManager->_sUnlockedQuestList[i];
 		x[i]->_sQuestID = id;
 		UTexture2D* icon = gamemode->xQuestDataManager->GetQuestIconFromDT(id);
 		x[i]->_xIcon->SetBrushFromTexture(icon);
+	}
+	
+	for (int i = 0; i < x.Num(); i++)
+	{
+		if (x[i]->_sQuestID == "")
+			x[i]->_xBulletinBtn->SetIsEnabled(false);
 	}
 }
 

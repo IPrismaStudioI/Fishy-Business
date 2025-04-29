@@ -10,9 +10,7 @@ void UQuestBoardUI::NativeConstruct()
 	Super::NativeConstruct();
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	
 	UEventBus* EventManager = gamemode->xQuestEventBus;
-	
 	UEventWrapper::RegisterEvent(EventManager, EventListQuest::SHOW_QUEST_BOARD, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { OpenBoard(Params) ;}));
 	
 	for (int32 i = 0; i < _xCanvasBulletin->GetChildrenCount(); i++)
@@ -22,6 +20,8 @@ void UQuestBoardUI::NativeConstruct()
 			xQuestItemUIList.Add(item);
 		}
 	}
+
+	CloseBoard();
 
 	_xExitBtn->OnClicked.AddDynamic(this, &UQuestBoardUI::CloseBoard);
 }
