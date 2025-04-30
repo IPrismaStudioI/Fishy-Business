@@ -7,11 +7,19 @@
 #include "DataTables/FishRow.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerSystem/PlayerCharacter.h"
+#include "QuestSystem/QuestDataManager.h"
 
 AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 {
+	xQuestDataManager = CreateDefaultSubobject<UQuestDataManager>("Quest Data Manager");
+	this->AddInstanceComponent(xQuestDataManager);
+
+	xQuestDataManager->SetXFishyBusinessGameMode(this);
+	
 	xDialogueElaborator = CreateDefaultSubobject<UDialogueElaborator>("Dialogue Elaborator");
 	this->AddInstanceComponent(xDialogueElaborator);
+	xQuestUnlockStorageManager = CreateDefaultSubobject<UQuestUnlockStorageManager>("Quest Unlock Storage Manager");
+	this->AddInstanceComponent(xQuestUnlockStorageManager);
 	
 	xDialogueEventBus = CreateDefaultSubobject<UEventBus>("Dialogue Bus");
 	this->AddInstanceComponent(xDialogueEventBus);
@@ -19,6 +27,8 @@ AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 	this->AddInstanceComponent(xVillageEventBus);
 	xCompendioEventBus = CreateDefaultSubobject<UEventBus>("Compendio Bus");
 	this->AddInstanceComponent(xCompendioEventBus);
+	xQuestEventBus = CreateDefaultSubobject<UEventBus>("Quest Bus");
+	this->AddInstanceComponent(xQuestEventBus);
 
 	DefaultPawnClass = APlayerCharacter::StaticClass();
 }
@@ -68,4 +78,10 @@ UFish* AFishyBusinessGameModeBase::GetFishFromDT(FString id)
 		return nullptr;
 	}
 	return row->xFish;
+}
+
+TArray<UDA_QuestModuleBase*> AFishyBusinessGameModeBase::GetQuestFromDT(FString id)
+{
+	FQuestRow* row = xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	return row->xModuleList;
 }
