@@ -17,7 +17,12 @@ struct FQuestUIElement
 public:
 	FString sQuestID;
 	bool bIsActive;
+	bool operator==(const FQuestUIElement& Other) const
+	{
+		return sQuestID == Other.sQuestID;
+	}
 };
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class FISHYBUSINESS_API UQuestBoard : public UActorComponent

@@ -6,6 +6,7 @@
 #include "S_PlayerQuest.h"
 #include "Components/ActorComponent.h"
 #include "DataSystem/ItemData/BaseItem.h"
+#include "EventManager/EventWrapper.h"
 #include "AC_QuestLog.generated.h"
 
 
@@ -38,6 +39,8 @@ public:
 	//void AdvanceDialogueModule(ENpcNames npcName);
 	//void AdvanceCollectModule(UBaseItem* item, int quantity);
 
+	void AddQuestEvent(EventParameters params);
+	
 private:
 	void CheckNextModule();
 	void CheckQuestStatus(FPlayerQuest quest);

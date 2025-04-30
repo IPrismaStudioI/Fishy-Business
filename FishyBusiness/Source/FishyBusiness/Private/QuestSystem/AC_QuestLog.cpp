@@ -3,6 +3,7 @@
 
 #include "QuestSystem/AC_QuestLog.h"
 
+#include "FishingSystem/FishingGenerator.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
 #include "QuestSystem/QuestData/QuestRow.h"
 
@@ -22,7 +23,11 @@ void UAC_QuestLog::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	UEventBus* eventManager = gamemode->xQuestEventBus;
+	
+	UEventWrapper::RegisterEvent(eventManager, EventListQuest::ADD_QUEST, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AddQuestEvent(Params); }));
 	
 }
 
@@ -43,6 +48,12 @@ void UAC_QuestLog::AddQuest(FString questID)
 	{
 		xQuests.Add(questID, FPlayerQuest(gamemode->xQuestDataManager->GetQuestModuleListFromDT(questID)));
 	}
+}
+
+void UAC_QuestLog::AddQuestEvent(EventParameters params)
+{
+	FString questID = params[0]->Getter<FString>();
+	AddQuest(questID);
 }
 
 //----------------------------------------------------------------------------------
