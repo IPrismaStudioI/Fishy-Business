@@ -35,6 +35,7 @@ private:
 	
 private:	
 	void SetupQuestUIElements();
+	int FindQuestID(FString questID);
 	
 protected:
 	// Called when the game starts
@@ -48,5 +49,6 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void FillQuestBulletins(EventParameters parameters);
+	void AddQuest(EventParameters parameters);
 };
 

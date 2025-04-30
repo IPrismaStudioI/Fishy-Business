@@ -20,8 +20,9 @@ void UQuestBoard::BeginPlay()
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	UEventBus* eventBus = gamemode->xVillageEventBus;
+	UEventBus* eventBusQuest = gamemode->xQuestEventBus;
 	UEventWrapper::RegisterEvent(eventBus, EventListVillage::SHOW_LIGHTHOUSE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FillQuestBulletins(Params); }));
-
+	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::UI_ADD_QUEST, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AddQuest(Params); }));
 	
 	UUserWidget* questBoardUI = CreateWidget(GetWorld(), _xQuestBoardUI);
 	questBoardUI->AddToViewport(1);
@@ -79,3 +80,29 @@ void UQuestBoard::FillQuestBulletins(EventParameters parameters)
 	}
 }
 
+void UQuestBoard::AddQuest(EventParameters parameters)
+{
+	FString id = parameters[0]->Getter<FString>();
+	
+	TArray<UQuestBulletinUI*> x;
+	_mQuestUIElements.GenerateKeyArray(x);
+
+	_mQuestUIElements[x[FindQuestID(id)]].bIsActive = true;
+
+	EventParameters eventParameters;
+	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(id));
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADD_QUEST, eventParameters);
+}
+
+int UQuestBoard::FindQuestID(FString questID)
+{
+	TArray<FQuestUIElement> v;
+	FQuestUIElement tmp;
+	tmp.sQuestID = questID;
+	tmp.bIsActive = false;
+	_mQuestUIElements.GenerateValueArray(v);
+	
+	return v.Find(tmp);
+}

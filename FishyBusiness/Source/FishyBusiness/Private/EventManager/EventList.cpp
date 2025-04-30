@@ -22,3 +22,5 @@ const FString EventListVillage::SHOW_MENU = TEXT("SHOW_MENU");
 
 const FString EventListQuest::SHOW_QUEST_BOARD = TEXT("SHOW_QUEST_BOARD");
 const FString EventListQuest::FILL_BULLETIN = TEXT("FILL_BULLETIN");
+const FString EventListQuest::UI_ADD_QUEST = TEXT("UI_ADD_QUEST");
+const FString EventListQuest::ADD_QUEST = TEXT("ADD_QUEST");

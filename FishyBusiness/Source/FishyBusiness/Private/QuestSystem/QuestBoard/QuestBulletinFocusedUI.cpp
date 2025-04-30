@@ -21,7 +21,11 @@ void UQuestBulletinFocusedUI::NativeConstruct()
 
 void UQuestBulletinFocusedUI::QuestAccept()
 {
-	//TODO da vedere con jack e il quest logo
+	EventParameters eventParameters;
+	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(_sQuestID));
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::UI_ADD_QUEST, eventParameters);
 }
 
 void UQuestBulletinFocusedUI::CloseBulletin()
