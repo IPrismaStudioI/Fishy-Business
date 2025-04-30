@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "E_ModuleType.h"
 #include "DA_QuestModuleBase.generated.h"
 
 /**
@@ -17,4 +18,5 @@ class FISHYBUSINESS_API UDA_QuestModuleBase : public UDataAsset
 protected:
 	UPROPERTY()
 	FString sDescription;
+	
 };

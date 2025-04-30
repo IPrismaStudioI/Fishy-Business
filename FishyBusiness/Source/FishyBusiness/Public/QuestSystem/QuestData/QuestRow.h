@@ -6,6 +6,7 @@
 #include "Enums/E_QuestRewardType.h"
 #include "Enums/E_QuestUnlockType.h"
 #include "Modules/DA_QuestModuleBase.h"
+#include "QuestSystem/S_QuestModule.h"
 #include "Rewards/DA_QuestRewardBase.h"
 #include "Unlock/DA_QuestUnlockBase.h"
 #include "UObject/NoExportTypes.h"
