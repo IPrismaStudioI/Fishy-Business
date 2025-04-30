@@ -43,6 +43,8 @@ APlayerCharacter::APlayerCharacter()
 
 	xEngine = CreateDefaultSubobject<UPaperFlipbookComponent>("Engine");
 	xEngine->SetupAttachment(RootComponent);
+
+	xQuestLog = CreateDefaultSubobject<UAC_QuestLog>("QuestLog");
 	
 	xCamera->SetProjectionMode(ECameraProjectionMode::Orthographic);
 
