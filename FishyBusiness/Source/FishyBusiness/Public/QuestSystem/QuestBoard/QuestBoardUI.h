@@ -20,11 +20,11 @@ class FISHYBUSINESS_API UQuestBoardUI : public UUserWidget
 
 private:
 	UPROPERTY(meta = (BindWidget))
-	UCanvasPanel* _xCanvas;
-	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* _xCanvasBulletin;
 	
 public:
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UCanvasPanel* _xCanvas;
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButton* _xExitBtn;
 	
