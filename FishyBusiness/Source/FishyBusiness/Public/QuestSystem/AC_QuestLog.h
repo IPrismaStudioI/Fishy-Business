@@ -31,17 +31,18 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UFUNCTION(BlueprintCallable)
 	void AddQuest(FString questID);
 
-	void AdvanceExploreModule(EQuestZones zone);
-	void AdvanceDialogueModule(ENpcNames npcName);
-	void AdvanceCollectModule(UBaseItem* item, int quantity);
+	//void AdvanceExploreModule(EQuestZones zone);
+	//void AdvanceDialogueModule(ENpcNames npcName);
+	//void AdvanceCollectModule(UBaseItem* item, int quantity);
 
 private:
 	void CheckNextModule();
 	void CheckQuestStatus(FPlayerQuest quest);
 	
-	FString FindQuestFromExplore(EQuestZones zone);
-	FString FindQuestFromDialogue(ENpcNames npcName);
-	FString FindQuestFromCollect(UBaseItem* item);
+	//FString FindQuestFromExplore(EQuestZones zone);
+	//FString FindQuestFromDialogue(ENpcNames npcName);
+	//FString FindQuestFromCollect(UBaseItem* item);
 };

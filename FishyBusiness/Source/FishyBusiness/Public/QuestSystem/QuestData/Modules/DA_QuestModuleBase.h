@@ -14,10 +14,6 @@ UCLASS()
 class FISHYBUSINESS_API UDA_QuestModuleBase : public UDataAsset
 {
 	GENERATED_BODY()
-
-public:
-	UPROPERTY(EditAnywhere)
-	EPlayerModuleType eModuleType;
 	
 protected:
 	UPROPERTY()

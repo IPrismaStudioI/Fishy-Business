@@ -14,6 +14,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "QuestSystem/AC_QuestLog.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -57,6 +58,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UFishInventory* xFishInventory;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UAC_QuestLog* xQuestLog;
 	
 protected:
 	// Called when the game starts or when spawned
