@@ -26,6 +26,8 @@ void UQuestBulletinFocusedUI::QuestAccept()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::UI_ADD_QUEST, eventParameters);
+
+	ShowBulletin(false);
 }
 
 void UQuestBulletinFocusedUI::CloseBulletin()

@@ -54,6 +54,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void FillQuestBulletins(EventParameters parameters);
+	void BulletinCheck();
 	void AddQuest(EventParameters parameters);
 };
 

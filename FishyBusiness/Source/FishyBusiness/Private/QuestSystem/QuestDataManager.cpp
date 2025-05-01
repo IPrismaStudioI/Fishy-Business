@@ -17,7 +17,8 @@ void UQuestDataManager::BeginPlay()
 
 FString UQuestDataManager::GetQuestNameFromDT(FString id)
 {
-	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	FQuestRow* row = gamemode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	if (!row)
 	{
 		UE_LOG(LogCore, Error, TEXT("Quest row not found"));
@@ -28,7 +29,8 @@ FString UQuestDataManager::GetQuestNameFromDT(FString id)
 
 FString UQuestDataManager::GetQuestDescriptionFromDT(FString id)
 {
-	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	FQuestRow* row = gamemode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	if (!row)
 	{
 		UE_LOG(LogCore, Error, TEXT("Quest row not found"));
@@ -39,7 +41,8 @@ FString UQuestDataManager::GetQuestDescriptionFromDT(FString id)
 
 UDA_QuestUnlockBase* UQuestDataManager::GetQuestUnlockFromDT(FString id)
 {
-	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	FQuestRow* row = gamemode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	if (!row)
 	{
 		UE_LOG(LogCore, Error, TEXT("Quest row not found"));
@@ -50,7 +53,8 @@ UDA_QuestUnlockBase* UQuestDataManager::GetQuestUnlockFromDT(FString id)
 
 EQuestUnlockType UQuestDataManager::GetQuestUnlockTypeFromDT(FString id)
 {
-	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	FQuestRow* row = gamemode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	if (!row)
 	{
 		UE_LOG(LogCore, Error, TEXT("Quest row not found"));
@@ -61,7 +65,8 @@ EQuestUnlockType UQuestDataManager::GetQuestUnlockTypeFromDT(FString id)
 
 TArray<UDA_QuestModuleBase*> UQuestDataManager::GetQuestModuleListFromDT(FString id)
 {
-	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	FQuestRow* row = gamemode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	if (!row)
 	{
 		UE_LOG(LogCore, Error, TEXT("Quest row not found"));
@@ -72,7 +77,8 @@ TArray<UDA_QuestModuleBase*> UQuestDataManager::GetQuestModuleListFromDT(FString
 
 UDA_QuestRewardBase* UQuestDataManager::GetQuestRewardFromDT(FString id)
 {
-	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	FQuestRow* row = gamemode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	if (!row)
 	{
 		UE_LOG(LogCore, Error, TEXT("Quest row not found"));
@@ -83,7 +89,8 @@ UDA_QuestRewardBase* UQuestDataManager::GetQuestRewardFromDT(FString id)
 
 EQuestRewardType UQuestDataManager::GetQuestRewardTypeFromDT(FString id)
 {
-	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	FQuestRow* row = gamemode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	if (!row)
 	{
 		UE_LOG(LogCore, Error, TEXT("Quest row not found"));
@@ -94,7 +101,8 @@ EQuestRewardType UQuestDataManager::GetQuestRewardTypeFromDT(FString id)
 
 UTexture2D* UQuestDataManager::GetQuestIconFromDT(FString id)
 {
-	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	FQuestRow* row = gamemode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	if (!row)
 	{
 		UE_LOG(LogCore, Error, TEXT("Quest row not found"));
@@ -105,7 +113,8 @@ UTexture2D* UQuestDataManager::GetQuestIconFromDT(FString id)
 
 FString UQuestDataManager::GetQuestGiverFromDT(FString id)
 {
-	FQuestRow* row = xFishyBusinessGameMode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	FQuestRow* row = gamemode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	if (!row)
 	{
 		UE_LOG(LogCore, Error, TEXT("Quest row not found"));
