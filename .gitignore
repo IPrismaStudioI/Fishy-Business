@@ -22,15 +22,15 @@ Wwise/*.validationcache
 Wwise/*.wsettings
 
 # Fmod Project
-FMOD/FishyBusiness_FMOD/.user/
-FMOD/FishyBusiness_FMOD/.unsaved/
-FMOD/FishyBusiness_FMOD/.cache/
-FMOD/FishyBusiness_FMOD/.restore/
-FMOD/FishyBusiness_FMOD/user/
-FMOD/FishyBusiness_FMOD/unsaved/
-FMOD/FishyBusiness_FMOD/restore/
-FMOD/FishyBusiness_FMOD/fmod.log
-FMOD/FishyBusiness_FMOD/fmod_editor.log
+FMOD/.user/
+FMOD/.unsaved/
+FMOD/.cache/
+FMOD/.restore/
+FMOD/user/
+FMOD/unsaved/
+FMOD/restore/
+FMOD/fmod.log
+FMOD/fmod_editor.log
 
 # Code Editors
 FishyBusiness/.vs/

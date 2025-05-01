@@ -20,8 +20,6 @@ class FISHYBUSINESS_API UQuestBulletinFocusedUI : public UUserWidget
 	
 private:
 	UPROPERTY(meta = (BindWidget))
-	UCanvasPanel* _xCanvas;
-	UPROPERTY(meta = (BindWidget))
 	URichTextBlock* _xQuestName;
 	UPROPERTY(meta = (BindWidget))
 	URichTextBlock* _xQuestDescription;
@@ -33,6 +31,10 @@ private:
 	UButton* _xQuestAcceptBtn;
 
 	FString _sQuestID;
+
+public:
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UCanvasPanel* _xCanvas;
 	
 public:
 	virtual void NativeConstruct() override;

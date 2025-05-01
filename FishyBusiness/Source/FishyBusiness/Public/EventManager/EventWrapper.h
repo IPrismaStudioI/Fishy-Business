@@ -28,7 +28,7 @@ public:
 	/// </para>
 	/// @param Callback - The function to execute when the event is triggered.
 	/// </summary>
-	static void RegisterEvent(UEventBus* EventManager, FString EventType, TSharedPtr<TFunction<void(const EventParameters&)>> Callback);
+	static TStrongObjectPtr<UEventWrapper> RegisterEvent(UEventBus* EventManager, FString EventType, TSharedPtr<TFunction<void(const EventParameters&)>> Callback);
 };
 
 UCLASS()

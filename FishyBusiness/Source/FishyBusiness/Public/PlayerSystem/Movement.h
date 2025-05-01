@@ -49,6 +49,8 @@ public:
 public:    
 	UMovement();
 	virtual void SetupInputBindings();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnBoatMovement();
 
 protected:
 	// Called when the game starts

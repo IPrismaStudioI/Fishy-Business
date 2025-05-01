@@ -48,6 +48,14 @@ private:
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UVillageUI> VillageUI;
 
+private:
+	UFUNCTION()
+	void ChangePlayerPosition(float val);
+	UFUNCTION()
+	void ApproachVillage();
+	
+	void FreePlayer(EventParameters parameters);
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -68,11 +76,8 @@ public:
 	UFUNCTION()
 	virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
 
-private:
-	UFUNCTION()
-	void ChangePlayerPosition(float val);
-	UFUNCTION()
-	void ApproachVillage();
-	
-	void FreePlayer(EventParameters parameters);
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnEnterVillage();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnExitVillage();
 };

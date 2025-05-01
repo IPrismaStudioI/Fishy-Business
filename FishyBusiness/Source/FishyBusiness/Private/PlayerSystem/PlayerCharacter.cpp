@@ -65,6 +65,8 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	CheckMoving();
+	
 }
 
 // Called to bind functionality to input
@@ -79,6 +81,21 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void APlayerCharacter::SetMovable(bool option)
 {
 	_bIsMovable = option;
+}
+
+void APlayerCharacter::CheckMoving()
+{
+	if (_bIsMovable)
+	{
+		if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::W)
+			|| GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::S)
+			|| GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::D)
+			|| GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::A))
+		{
+			bIsMoving = true;
+		}
+		else bIsMoving = false;
+	}
 }
 
 void APlayerCharacter::MoveForward(float inputVector)

@@ -60,6 +60,8 @@ public:
 	UFishInventory* xFishInventory;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsMoving = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UAC_QuestLog* xQuestLog;
 	
 protected:
@@ -84,4 +86,6 @@ private:
 
 	/// <summary>moves the character on right axis</summary>
 	void MoveRight(float inputVector);
+
+	void CheckMoving();
 };

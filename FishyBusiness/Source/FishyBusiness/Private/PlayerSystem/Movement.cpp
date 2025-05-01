@@ -56,12 +56,14 @@ void UMovement::OnMovingVertical(float vector)
 {
 	_fyDirection = vector;
 	CheckDirection();
+	OnBoatMovement();
 }
 
 void UMovement::OnMovingHorizontal(float vector)
 {
 	_fxDirection = vector;
 	CheckDirection();
+	OnBoatMovement();
 }
 
 void UMovement::CheckDirection()

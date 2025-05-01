@@ -4,6 +4,7 @@
 #include "DIalogueSystem/DialogueUI.h"
 
 #include "Blueprint/WidgetTree.h"
+#include "Components/CanvasPanelSlot.h"
 #include "DIalogueSystem/DialogueTriggers/ButtonDialogueTriggerBase.h"
 #include "EventManager/EventList.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
@@ -23,8 +24,9 @@ void UDialogueUI::NativeConstruct()
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_SENTENCE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { ChangeSentence(Params) ;}));
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CHANGE_NAME, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ChangeName(Params); }));
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::START_DIALOGUE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ShowDialogue(Params); }));
-	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::END_DIALOGUE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { HideDialogue(Params); }));
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::END_DIALOGUE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FinishDialogue(Params); }));
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::START_CHOICES, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ShowChoices(Params); }));
+	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CLOSE_DIALOGUE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { HideDialogue(Params); }));
 
 	_xContinueBtn->OnClicked.AddDynamic(this, &UDialogueUI::OnContinueBtnClicked);
 }
@@ -51,15 +53,23 @@ void UDialogueUI::ChangeName(EventParameters parameters)
 	_xName->SetText(text);
 }
 
-void UDialogueUI::HideDialogue(EventParameters parameters)
+void UDialogueUI::FinishDialogue(EventParameters parameters)
 {
 	_xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
-
+	
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_MENU, eventParameters);
+	OnFinishDialogue();
+}
+
+void UDialogueUI::HideDialogue(EventParameters parameters)
+{
+	_xContinueBtn->SetVisibility(ESlateVisibility::Visible);
+	_xCanvasDialogue->SetVisibility(ESlateVisibility::Collapsed);
+	_xCanvasChoices->SetVisibility(ESlateVisibility::Collapsed);
 }
 
 void UDialogueUI::HideDialogueStart()
@@ -70,6 +80,7 @@ void UDialogueUI::HideDialogueStart()
 
 void UDialogueUI::ShowDialogue(EventParameters parameters)
 {
+	OnStartDialogue();
 	_xCanvasDialogue->SetVisibility(ESlateVisibility::Visible);
 	//_xCanvasChoices->SetVisibility(ESlateVisibility::Visible);
 }
@@ -95,15 +106,12 @@ void UDialogueUI::FillChoiceContainer(EventParameters parameters)
 	parameters[1]->Getter<FString>().ParseIntoArray(allAnswers, TEXT("|"));
 	
 	for (int i = 0; i < allIDChoices.Num(); i++) {
-		UButtonDialogueTriggerBase *choiceBtn1 = WidgetTree->ConstructWidget<UButtonDialogueTriggerBase>(UButtonDialogueTriggerBase::StaticClass());
-		choiceBtn1->Set_SDialogueID(allIDChoices[i]);
+		UChoiceButton *choiceBtn1 = WidgetTree->ConstructWidget<UChoiceButton>(xChoiceButton);
 
-		UTextBlock* labelChoice1 = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
-		labelChoice1->SetText(FText::FromString(allAnswers[i]));
-		choiceBtn1->AddChild(labelChoice1);
-
+		choiceBtn1->xDialogueTriggerBtn->Set_SDialogueID(allIDChoices[i]);
+		choiceBtn1->_xChoiceLabel->SetText(FText::FromString(allAnswers[i]));
 	
-		choiceBtn1->OnClicked.AddDynamic(this, &UDialogueUI::HideChoices);
+		choiceBtn1->xDialogueTriggerBtn->OnClicked.AddDynamic(this, &UDialogueUI::HideChoices);
 		
 		_xChoiceContainer->AddChild(choiceBtn1);
 	}

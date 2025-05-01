@@ -22,7 +22,7 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UQuestDataManager* xQuestDataManager;
 	
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UDialogueElaborator* xDialogueElaborator;
 	UPROPERTY(VisibleAnywhere)
 	UQuestUnlockStorageManager* xQuestUnlockStorageManager;
@@ -33,6 +33,8 @@ public:
 	UEventBus* xVillageEventBus;
 	UPROPERTY(VisibleAnywhere)
 	UEventBus* xQuestEventBus;
+	UPROPERTY(VisibleAnywhere)
+	UEventBus* xCompendioEventBus;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	UDataTable* xDataTableDialogues;
