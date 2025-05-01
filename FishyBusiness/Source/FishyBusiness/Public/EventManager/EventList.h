@@ -88,6 +88,21 @@ public:
 	/// FString id
 	/// </summary>
 	static const FString ADD_QUEST;
+	
+	/// <summary>
+	/// FString id
+	/// </summary>
+	static const FString ADVANCE_EXPLORE;
+
+	/// <summary>
+	/// FString id
+	/// </summary>
+	static const FString ADVANCE_INTERACT;
+
+	/// <summary>
+	/// FString id
+	/// </summary>
+	static const FString ADVANCE_COLLECT;
 };
 
 class FISHYBUSINESS_API EventListCompendio

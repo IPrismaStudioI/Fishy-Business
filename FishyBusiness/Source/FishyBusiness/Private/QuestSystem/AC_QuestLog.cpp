@@ -6,6 +6,9 @@
 #include "FishingSystem/FishingGenerator.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
 #include "QuestSystem/QuestData/QuestRow.h"
+#include "QuestSystem/QuestData/Modules/DA_CollectionModule.h"
+#include "QuestSystem/QuestData/Modules/DA_ExplorationModule.h"
+#include "QuestSystem/QuestData/Modules/DA_InteractionModule.h"
 
 // Sets default values for this component's properties
 UAC_QuestLog::UAC_QuestLog()
@@ -28,6 +31,9 @@ void UAC_QuestLog::BeginPlay()
 	UEventBus* eventManager = gamemode->xQuestEventBus;
 	
 	UEventWrapper::RegisterEvent(eventManager, EventListQuest::ADD_QUEST, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AddQuestEvent(Params); }));
+	UEventWrapper::RegisterEvent(eventManager, EventListQuest::ADVANCE_EXPLORE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceExploreEvent(Params); }));
+	UEventWrapper::RegisterEvent(eventManager, EventListQuest::ADVANCE_INTERACT, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceInteractEvent(Params); }));
+	UEventWrapper::RegisterEvent(eventManager, EventListQuest::ADVANCE_COLLECT, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceCollectEvent(Params); }));
 	
 }
 
@@ -56,171 +62,112 @@ void UAC_QuestLog::AddQuestEvent(EventParameters params)
 	AddQuest(questID);
 }
 
+
 //----------------------------------------------------------------------------------
 #pragma region Advance
 
-// void UAC_QuestLog::AdvanceExploreModule(EQuestZones zone)
-// {
-// 	FString questID = "null";
-// 	for (auto Quest : xQuests)
-// 	{
-// 		for (auto Module : Quest.Value.xModules)
-// 		{
-// 			if (Module->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE)
-// 			{
-// 				if (Module->eQuestZone == zone)
-// 				{
-// 					questID = Quest.Key;
-// 				}
-// 			}
-// 		}
-// 	}
-// 	
-// 	//FPlayerQuest quest = xQuests[FindQuestFromExplore(zone)];
-// 	//quest.iCurrentModule++;
-//
-// 	if (questID != "null")
-// 	{
-// 		xQuests[questID].iCurrentModule++;
-// 		CheckQuestStatus(xQuests[questID]);
-// 		if (xQuests[questID].eStatus == EQuestStatus::E_ACTIVE_QUEST)
-// 		{
-// 			CheckNextModule();
-// 		}
-// 	}
-// }
-//
-// void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName)
-// {
-// 	FString questID = "null";
-// 	for (auto Quest : xQuests)
-// 	{
-// 		for (auto Module : Quest.Value.xModules)
-// 		{
-// 			if (Module->eModuleType == EPlayerModuleType::E_INTERACT_MODULE)
-// 			{
-// 				if (Module->eNpcName == npcName)
-// 				{
-// 					questID = Quest.Key;
-// 				}
-// 			}
-// 		}
-// 	}
-// 	
-// 	//FPlayerQuest quest = xQuests[FindQuestFromDialogue(npcName)];
-// 	//quest.iCurrentModule++;
-// 	
-// 	if (questID != "null")
-// 	{
-// 		xQuests[questID].iCurrentModule++;
-// 		CheckQuestStatus(xQuests[questID]);
-// 		if (xQuests[questID].eStatus == EQuestStatus::E_ACTIVE_QUEST)
-// 		{
-// 			CheckNextModule();
-// 		}
-// 	}
-// }
-//
-// void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
-// {
-// 	FString questID = "null";
-// 	for (auto Quest : xQuests)
-// 	{
-// 		for (auto Module : Quest.Value.xModules)
-// 		{
-// 			if (Module->eModuleType == EPlayerModuleType::E_COLLECT_MODULE)
-// 			{
-// 				if (Module->xItem == item && Module->iAmountOf == quantity)
-// 				{
-// 					questID = Quest.Key;
-// 				}
-// 			}
-// 		}
-// 	}
-// 	
-// 	//FPlayerQuest quest = xQuests[FindQuestFromCollect(item)];
-// 	//quest.iCurrentModule++;
-// 	
-// 	if (questID != "null")
-// 	{
-// 		xQuests[questID].iCurrentModule++;
-// 		CheckQuestStatus(xQuests[questID]);
-// 		if (xQuests[questID].eStatus == EQuestStatus::E_ACTIVE_QUEST)
-// 		{
-// 			CheckNextModule();
-// 		}
-// 	}
-// }
-
-#pragma endregion
-
-//----------------------------------------------------------------------------------
-#pragma region Check Modules 
-
-void UAC_QuestLog::CheckNextModule()
+void UAC_QuestLog::AdvanceExploreModule(EQuestZones zone)
 {
+	for (const TPair<FString, FPlayerQuest>& QuestPair : xQuests)
+	{
+		for (int i = 0; i < QuestPair.Value.xModules.Num(); i++)
+		{
+			if (QuestPair.Value.xModules[i]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE)
+			{
+				UDA_ExplorationModule* ExploreModule = Cast<UDA_ExplorationModule>(QuestPair.Value.xModules[i]);
+				if (ExploreModule->QuestZones == zone)
+				{
+					xQuests[QuestPair.Key].xModules[i]->bIsCompleted = true;
+					CheckAdvanceModule(QuestPair.Key);
+				}
+			}
+		}
+	}
 }
 
-void UAC_QuestLog::CheckQuestStatus(FPlayerQuest quest)
+void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID)
 {
-	if (quest.iCurrentModule == quest.xModules.Num() -1)
+	for (int i = 0; i < xQuests[questID].xModules.Num(); i++)
 	{
-		quest.eStatus = EQuestStatus::E_COMPLETED_QUEST;
+		UDA_InteractionModule* InteractModule = Cast<UDA_InteractionModule>(xQuests[questID].xModules[i]);
+		if (InteractModule)
+		{
+			if (InteractModule->eNpcName == npcName)
+			{
+				xQuests[questID].xModules[i]->bIsCompleted = true;
+				CheckAdvanceModule(questID);
+			}
+		}
+	}
+}
+
+void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
+{
+	for (const TPair<FString, FPlayerQuest>& QuestPair : xQuests)
+	{
+		for (int i = 0; i < QuestPair.Value.xModules.Num(); i++)
+		{
+			if (QuestPair.Value.xModules[i]->eModuleType == EPlayerModuleType::E_COLLECT_MODULE)
+			{
+				UDA_CollectionModule* CollectModule = Cast<UDA_CollectionModule>(QuestPair.Value.xModules[i]);
+				if (CollectModule->xTypeOfItem == item && CollectModule->iAmount == quantity)
+				{
+					xQuests[QuestPair.Key].xModules[i]->bIsCompleted = true;
+					CheckAdvanceModule(QuestPair.Key);
+				}
+			}
+		}
 	}
 }
 
 #pragma endregion
 
 //----------------------------------------------------------------------------------
-#pragma region Find Quest 
+#pragma region Check Modules 
 
-// FString UAC_QuestLog::FindQuestFromExplore(EQuestZones zone)
-// {
-// 	for (auto Quest : xQuests)
-// 	{
-// 		for (auto Module : Quest.Value.xModules)
-// 		{
-// 			if (Module->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE)
-// 			{
-// 				//if zone ==
-// 				return Quest.Key;
-// 			}
-// 			
-// 		}
-// 	}
-// }
+void UAC_QuestLog::CheckAdvanceModule(FString questID)
+{
+	if (xQuests[questID].xModules[xQuests[questID].iCurrentModule]->bIsCompleted == true)
+	{
+		xQuests[questID].iCurrentModule++;
+		CheckQuestStatus(questID);
+		CheckAdvanceModule(questID);
+	}
+}
 
-// FString UAC_QuestLog::FindQuestFromDialogue(ENpcNames npcName)
-// {
-// 	for (auto Quest : xQuests)
-// 	{
-// 		for (auto Module : Quest.Value.xModules)
-// 		{
-// 			if (Module->eModuleType == EPlayerModuleType::E_INTERACT_MODULE)
-// 			{
-// 				//if zone ==
-// 				return Quest.Key;
-// 			}
-// 			
-// 		}
-// 	}
-// }
+void UAC_QuestLog::CheckQuestStatus(FString questID)
+{
+	if (xQuests[questID].iCurrentModule == xQuests[questID].xModules.Num() -1)
+	{
+		xQuests[questID].eStatus = EQuestStatus::E_COMPLETED_QUEST;
+	}
+}
 
-// FString UAC_QuestLog::FindQuestFromCollect(UBaseItem* item)
-// {
-// 	for (auto Quest : xQuests)
-// 	{
-// 		for (auto Module : Quest.Value.xModules)
-// 		{
-// 			if (Module->eModuleType == EPlayerModuleType::E_COLLECT_MODULE)
-// 			{
-// 				//if zone ==
-// 				return Quest.Key;
-// 			}
-// 			
-// 		}
-// 	}
-// }
+#pragma endregion
+
+//----------------------------------------------------------------------------------
+#pragma region Event Bus Advance 
+
+void UAC_QuestLog::AdvanceExploreEvent(EventParameters params)
+{
+	EQuestZones zone = params[0]->Getter<EQuestZones>();
+	AdvanceExploreModule(zone);
+}
+
+void UAC_QuestLog::AdvanceInteractEvent(EventParameters params)
+{
+	ENpcNames npcName = params[0]->Getter<ENpcNames>();
+	FString questID = params[1]->Getter<FString>();
+	AdvanceDialogueModule(npcName, questID);
+}
+
+void UAC_QuestLog::AdvanceCollectEvent(EventParameters params)
+{
+	UBaseItem* item = params[0]->Getter<UBaseItem*>();
+	int quantity = params[1]->Getter<int>();
+	AdvanceCollectModule(item, quantity);
+}
+
 
 #pragma endregion
 
