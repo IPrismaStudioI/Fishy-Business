@@ -20,6 +20,7 @@ UCLASS()
 class FISHYBUSINESS_API UDialogueUI : public UUserWidget
 {
 	GENERATED_BODY()
+	
 public:
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* _xCanvas;
@@ -33,7 +34,7 @@ public:
 	UTextBlock* _xSentence;
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* _xName;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UVerticalBox* _xChoiceContainer;
 
 	UPROPERTY(EditAnywhere)
