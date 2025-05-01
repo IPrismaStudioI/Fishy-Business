@@ -7,4 +7,6 @@ AQuestBuilding::AQuestBuilding()
 {
 	_xQuestBoard = CreateDefaultSubobject<UQuestBoard>("Quest Board");
 	this->AddInstanceComponent(_xQuestBoard);
+	_xQuestReward = CreateDefaultSubobject<UQuestReward>("Quest Reward");
+	this->AddInstanceComponent(_xQuestReward);
 }
