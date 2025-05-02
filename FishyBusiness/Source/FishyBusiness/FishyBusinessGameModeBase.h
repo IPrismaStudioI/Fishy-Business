@@ -8,27 +8,40 @@
 #include "DIalogueSystem/DA_Dialogue.h"
 #include "EventManager/ObserverManager.h"
 #include "GameFramework/GameModeBase.h"
+#include "QuestSystem/QuestData/QuestRow.h"
+#include "QuestSystem/QuestDataManager.h"
+#include "QuestSystem/QuestBoard/QuestUnlockStorageManager.h"
 #include "FishyBusinessGameModeBase.generated.h"
-
 
 UCLASS()
 class FISHYBUSINESS_API AFishyBusinessGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-
+	
 public:
 	UPROPERTY(VisibleAnywhere)
+	UQuestDataManager* xQuestDataManager;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UDialogueElaborator* xDialogueElaborator;
+	UPROPERTY(VisibleAnywhere)
+	UQuestUnlockStorageManager* xQuestUnlockStorageManager;
 	
 	UPROPERTY(VisibleAnywhere)
 	UEventBus* xDialogueEventBus;
 	UPROPERTY(VisibleAnywhere)
 	UEventBus* xVillageEventBus;
+	UPROPERTY(VisibleAnywhere)
+	UEventBus* xQuestEventBus;
+	UPROPERTY(VisibleAnywhere)
+	UEventBus* xCompendioEventBus;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	UDataTable* xDataTableDialogues;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	UDataTable* xDataTableFishes;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
+	UDataTable* xDataTableQuest;
 	
 public:
 	AFishyBusinessGameModeBase();
@@ -54,4 +67,7 @@ public:
 	/// </summary>
 	UFUNCTION(BlueprintCallable)
 	UFish* GetFishFromDT(FString id);
+
+	UFUNCTION(BlueprintCallable)
+	TArray<UDA_QuestModuleBase*> GetQuestFromDT(FString id);
 };

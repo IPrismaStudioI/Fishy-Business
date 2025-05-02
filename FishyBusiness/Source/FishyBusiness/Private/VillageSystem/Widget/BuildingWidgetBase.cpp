@@ -26,6 +26,7 @@ void UBuildingWidgetBase::HideCanvas()
 
 void UBuildingWidgetBase::ShowCanvas(EventParameters parameters)
 {
+	OnOpenBuilding();
 	_xCanvas->SetVisibility(ESlateVisibility::Visible);
 	_xMainMenu->SetVisibility(ESlateVisibility::Collapsed);
 }
@@ -37,6 +38,7 @@ void UBuildingWidgetBase::ShowMenu(EventParameters parameters)
 
 void UBuildingWidgetBase::ExitBuilding()
 {
+	OnCloseBuilding();
 	HideCanvas();
 
 	EventParameters eventParameters;
@@ -44,5 +46,6 @@ void UBuildingWidgetBase::ExitBuilding()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_VILLAGE_BASE, eventParameters);
+	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::CLOSE_DIALOGUE, eventParameters);
 
 }

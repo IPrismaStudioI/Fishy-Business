@@ -6,6 +6,7 @@
 #include "Rarity.h"
 #include "RarityColor.h"
 #include "DataSystem/ItemData/SellableItem.h"
+#include "Enums/Biomes.h"
 #include "FishingSystem/FishBehaviour.h"
 #include "Fish.generated.h"
 
@@ -26,16 +27,27 @@ public:
 	float fBasePrice;
 	UPROPERTY(EditAnywhere)
 	float fPriceCorrector;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ERarity eRarity;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ERarityColor eRarityColor;	
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString sFishName;
+	
+	UPROPERTY(EditAnywhere)
+	FString sFishDescription;
+	
+	UPROPERTY(EditAnywhere)
+	EBiomes eLocation;
+	
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UTexture2D* xFishImage;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* xFishCatalogueImage;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* xFishNotCatalogueImage;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MyVariables")
 	TArray<UFishBehaviour*> xFishBehaviour;

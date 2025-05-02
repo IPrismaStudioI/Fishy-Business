@@ -8,6 +8,7 @@
 #include "Components/CanvasPanel.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
+#include "DialogueTriggers/ChoiceButton.h"
 #include "EventManager/EventWrapper.h"
 #include "EventManager/ObserverManager.h"
 #include "DialogueUI.generated.h"
@@ -19,12 +20,13 @@ UCLASS()
 class FISHYBUSINESS_API UDialogueUI : public UUserWidget
 {
 	GENERATED_BODY()
+	
 public:
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* _xCanvas;
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* _xCanvasChoices;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UCanvasPanel* _xCanvasDialogue;
 	UPROPERTY(meta = (BindWidget))
 	UButton* _xContinueBtn;
@@ -32,8 +34,11 @@ public:
 	UTextBlock* _xSentence;
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* _xName;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UVerticalBox* _xChoiceContainer;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UChoiceButton> xChoiceButton;
 
 private:
 	/// <summary>
@@ -52,6 +57,7 @@ private:
 	/// Hides all dialogue-related UI elements.
 	/// </summary>
 	/// <param name="param">Optional parameter (not used).</param>
+	void FinishDialogue(EventParameters parameters);
 	void HideDialogue(EventParameters parameters);
 	void HideDialogueStart();
 
@@ -83,4 +89,9 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnChangeSentence();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnStartDialogue();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnFinishDialogue();
+	
 };

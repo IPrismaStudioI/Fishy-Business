@@ -28,8 +28,8 @@ void UDialogueElaborator::BeginPlay()
 	
 	UEventWrapper::RegisterEvent(EventManager, EventListDialogue::CONTINUE_DIALOGUE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { DisplayNextSentenceEvent(Params); }));
 
-	UUserWidget* dialogueUI = CreateWidget(GetWorld(), DialogueUI);
-	dialogueUI->AddToViewport(1);
+	dialogueUIWidget = CreateWidget(GetWorld(), DialogueUI);
+	dialogueUIWidget->AddToViewport(3);
 }
 
 
