@@ -17,4 +17,8 @@ class FISHYBUSINESS_API AUpgradeBuilding : public ABuildingBase
 private:
 	UPROPERTY(EditAnywhere)
 	TArray<FString> xUpgradeIDList;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 };

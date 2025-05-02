@@ -21,6 +21,12 @@ const FString EventListVillage::SHOW_VILLAGE_BASE = TEXT("SHOW_VILLAGE_BASE");
 const FString EventListVillage::HIDE_VILLAGE_BASE = TEXT("HIDE_VILLAGE_BASE");
 const FString EventListVillage::SHOW_MENU = TEXT("SHOW_MENU");
 
+const FString EventListVillage::RESTORE_ARCHIVE = TEXT("RESTORE_ARCHIVE");
+const FString EventListVillage::RESTORE_FISHSHOP = TEXT("RESTORE_FISHSHOP");
+const FString EventListVillage::RESTORE_WORKSHOP = TEXT("RESTORE_WORKSHOP");
+const FString EventListVillage::RESTORE_CARPENTRY = TEXT("RESTORE_CARPENTRY");
+const FString EventListVillage::RESTORE_LIGHTHOUSE = TEXT("RESTORE_LIGHTHOUSE");
+
 const FString EventListQuest::SHOW_QUEST_BOARD = TEXT("SHOW_QUEST_BOARD");
 const FString EventListQuest::FILL_BULLETIN = TEXT("FILL_BULLETIN");
 const FString EventListQuest::UI_ADD_QUEST = TEXT("UI_ADD_QUEST");
