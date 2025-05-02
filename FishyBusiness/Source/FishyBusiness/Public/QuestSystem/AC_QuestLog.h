@@ -7,6 +7,8 @@
 #include "Components/ActorComponent.h"
 #include "DataSystem/ItemData/BaseItem.h"
 #include "EventManager/EventWrapper.h"
+#include "QuestData/Enums/E_QuestZones.h"
+#include "Enums/ENpcNames.h"
 #include "AC_QuestLog.generated.h"
 
 
