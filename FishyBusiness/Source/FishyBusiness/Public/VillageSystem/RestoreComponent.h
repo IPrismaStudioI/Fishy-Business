@@ -3,24 +3,26 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PaperSprite.h"
 #include "Components/ActorComponent.h"
-#include "QuestUnlockStorageManager.generated.h"
+#include "EventManager/EventWrapper.h"
+#include "QuestSystem/RestorationSystem/E_BuildingStatus.h"
+#include "RestoreComponent.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class FISHYBUSINESS_API UQuestUnlockStorageManager : public UActorComponent
+class FISHYBUSINESS_API URestoreComponent : public UActorComponent
 {
 	GENERATED_BODY()
-	
-public:
+
+private:
 	UPROPERTY(EditAnywhere)
-	TArray<FString> _sUnlockedQuestList;
-	UPROPERTY()
-	TArray<FString> _sCompletedQuestList;
+	TArray<UPaperSprite*> xSpriteList;
+	EBuildingStatus* buildingStatus;
 	
 public:	
 	// Sets default values for this component's properties
-	UQuestUnlockStorageManager();
+	URestoreComponent();
 
 protected:
 	// Called when the game starts
@@ -29,4 +31,6 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	void ChangeStatus(EventParameters params);
 };

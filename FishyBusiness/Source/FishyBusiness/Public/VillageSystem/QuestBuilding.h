@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "QuestSystem/QuestReward.h"
 #include "QuestSystem/QuestBoard/QuestBoard.h"
 #include "VillageSystem/BuildingBase.h"
 #include "QuestBuilding.generated.h"
@@ -18,8 +19,14 @@ class FISHYBUSINESS_API AQuestBuilding : public ABuildingBase
 private:
 	UPROPERTY(EditAnywhere)
 	UQuestBoard* _xQuestBoard;
+	UPROPERTY(EditAnywhere)
+	UQuestReward* _xQuestReward;
 
 public:	
 	// Sets default values for this actor's properties
 	AQuestBuilding();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 };
