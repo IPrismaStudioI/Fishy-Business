@@ -104,20 +104,24 @@ public:
 	static const FString ADD_QUEST;
 	
 	/// <summary>
-	/// FString id
+	/// int zone 
 	/// </summary>
 	static const FString ADVANCE_EXPLORE;
 
 	/// <summary>
-	/// FString id
+	/// int npc name, FString id
 	/// </summary>
-	static const FString GET_REWARD;
 	static const FString ADVANCE_INTERACT;
 
 	/// <summary>
-	/// FString id
+	/// FString item id, int amount
 	/// </summary>
 	static const FString ADVANCE_COLLECT;
+
+	///<summary>
+	///FString id
+	///</summary>
+	static const FString GET_REWARD;
 };
 
 class FISHYBUSINESS_API EventListCompendio
