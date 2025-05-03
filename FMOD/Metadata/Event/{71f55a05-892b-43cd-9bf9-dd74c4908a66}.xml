@@ -67,7 +67,8 @@
 	<object class="MarkerTrack" id="{1a169900-a837-4f07-9bad-aa2850ce7222}" />
 	<object class="GroupTrack" id="{92cdd1c7-eb50-46fd-8596-0eacab48ee27}">
 		<relationship name="modules">
-			<destination>{9921384b-5210-4874-973a-dc7c69761e30}</destination>
+			<destination>{1a03569d-d289-400b-8d9a-f966ed777eaa}</destination>
+			<destination>{0e3ba78b-f2c8-4662-bc74-6b0120d7bab6}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{91f60154-bc53-417a-aaef-2308502dcd0a}</destination>
@@ -80,7 +81,8 @@
 	</object>
 	<object class="ParameterProxy" id="{be8fc11d-b452-4c35-9d57-226e6d65cc3a}">
 		<relationship name="modules">
-			<destination>{9921384b-5210-4874-973a-dc7c69761e30}</destination>
+			<destination>{1a03569d-d289-400b-8d9a-f966ed777eaa}</destination>
+			<destination>{0e3ba78b-f2c8-4662-bc74-6b0120d7bab6}</destination>
 		</relationship>
 		<relationship name="preset">
 			<destination>{64d3217f-5feb-4ddd-ac75-ea5635423eaa}</destination>
@@ -103,11 +105,19 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{14873c35-ba00-4fce-8d9a-09d080b571aa}" />
-	<object class="SnapshotModule" id="{9921384b-5210-4874-973a-dc7c69761e30}">
+	<object class="SnapshotModule" id="{1a03569d-d289-400b-8d9a-f966ed777eaa}">
 		<property name="start">
 			<value>1</value>
 		</property>
 		<relationship name="event">
+			<destination>{855be681-fbd2-412e-a2af-d8ae145bac7a}</destination>
+		</relationship>
+	</object>
+	<object class="CommandSound" id="{0e3ba78b-f2c8-4662-bc74-6b0120d7bab6}">
+		<property name="commandType">
+			<value>1</value>
+		</property>
+		<relationship name="commandTarget">
 			<destination>{855be681-fbd2-412e-a2af-d8ae145bac7a}</destination>
 		</relationship>
 	</object>
