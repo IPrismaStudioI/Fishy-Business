@@ -32,7 +32,7 @@
 	</object>
 	<object class="EventAutomatableProperties" id="{c5121eed-1584-4aa0-add0-760b011f52ad}">
 		<relationship name="modulators">
-			<destination>{0e05827c-9caf-4664-a749-bc44e1c5bd4c}</destination>
+			<destination>{6e2015d9-80c5-466d-a298-43f87be1561a}</destination>
 		</relationship>
 	</object>
 	<object class="MarkerTrack" id="{8cd9bb22-b4e9-4c99-b961-5f0133f07414}" />
@@ -98,21 +98,21 @@
 			<destination>{4ef70465-7082-4634-a335-0d33558b4aab}</destination>
 		</relationship>
 	</object>
-	<object class="ADSRModulator" id="{0e05827c-9caf-4664-a749-bc44e1c5bd4c}">
+	<object class="ADSRModulator" id="{6e2015d9-80c5-466d-a298-43f87be1561a}">
 		<property name="nameOfPropertyBeingModulated">
 			<value>snapshotIntensity</value>
 		</property>
 		<property name="attackTime">
-			<value>560</value>
+			<value>314.102539</value>
 		</property>
 		<property name="peakValue">
 			<value>100</value>
 		</property>
+		<property name="holdTime">
+			<value>448.717926</value>
+		</property>
 		<property name="sustainValue">
 			<value>100</value>
-		</property>
-		<property name="releaseTime">
-			<value>480</value>
 		</property>
 	</object>
 </objects>
