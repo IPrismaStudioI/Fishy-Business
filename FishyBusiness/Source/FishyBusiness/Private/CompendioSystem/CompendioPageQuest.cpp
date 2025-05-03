@@ -3,6 +3,7 @@
 
 #include "CompendioSystem/CompendioPageQuest.h"
 
+#include "Blueprint/WidgetTree.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerSystem/PlayerCharacter.h"
@@ -42,7 +43,15 @@ void UCompendioPageQuest::FillQuest()
 
 		for (int i = 0; i < log->xQuests.Find(_sQuestID)->iCurrentModule; i++)
 		{
-			//FString desc = log->xQuests.Find(_sQuestID)->xModules[i]
+			FString desc = log->xQuests.Find(_sQuestID)->xModules[i]->sDescription;
+			int currentAmount = log->xQuests.Find(_sQuestID)->iCurrentAmountModules[i];
+			int totalAmount = log->xQuests.Find(_sQuestID)->iTotalAmountModules[i];
+
+			UQuestModuleUI* taskQuestTmp = WidgetTree->ConstructWidget<UQuestModuleUI>(_xQuestTaskUI);
+			taskQuestTmp->_xQuestTaskDescription->SetText(FText::FromString(desc));
+			taskQuestTmp->_xQuestTaskCurrentAmount->SetText(FText::FromString(FString::FromInt(currentAmount)));
+			taskQuestTmp->_xQuestTaskTotalAmount->SetText(FText::FromString(FString::FromInt(totalAmount)));
+			_xBoxTasks->AddChild(taskQuestTmp);
 		}
 	}
 	else
