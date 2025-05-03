@@ -7,6 +7,8 @@
 #include "Components/ActorComponent.h"
 #include "DataSystem/ItemData/BaseItem.h"
 #include "EventManager/EventWrapper.h"
+#include "QuestData/Enums/E_QuestZones.h"
+#include "Enums/ENpcNames.h"
 #include "AC_QuestLog.generated.h"
 
 
@@ -35,17 +37,18 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AddQuest(FString questID);
 
-	//void AdvanceExploreModule(EQuestZones zone);
-	//void AdvanceDialogueModule(ENpcNames npcName);
-	//void AdvanceCollectModule(UBaseItem* item, int quantity);
+	void AdvanceExploreModule(EQuestZones zone);
+	void AdvanceDialogueModule(ENpcNames npcName, FString questID);
+	void AdvanceCollectModule(UBaseItem* item, int quantity);
 
 	void AddQuestEvent(EventParameters params);
 	
+	void AdvanceExploreEvent(EventParameters params);
+	void AdvanceInteractEvent(EventParameters params);
+	void AdvanceCollectEvent(EventParameters params);
+
 private:
-	void CheckNextModule();
-	void CheckQuestStatus(FPlayerQuest quest);
+	void CheckAdvanceModule(FString questID);
+	void CheckQuestStatus(FString questID);
 	
-	//FString FindQuestFromExplore(EQuestZones zone);
-	//FString FindQuestFromDialogue(ENpcNames npcName);
-	//FString FindQuestFromCollect(UBaseItem* item);
 };
