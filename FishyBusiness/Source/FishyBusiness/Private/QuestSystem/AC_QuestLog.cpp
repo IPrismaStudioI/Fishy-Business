@@ -53,6 +53,16 @@ void UAC_QuestLog::AddQuest(FString questID)
 	if (xQuests.Find(questID) == nullptr)
 	{
 		xQuests.Add(questID, FPlayerQuest(gamemode->xQuestDataManager->GetQuestModuleListFromDT(questID)));
+		for (UDA_QuestModuleBase* Element : xQuests[questID].xModules)
+		{
+			if (UDA_CollectionModule* tmp = Cast<UDA_CollectionModule>(Element))
+				xQuests[questID].iTotalAmountModules[xQuests[questID].iCurrentModule] = tmp->iAmount;
+			else if (Cast<UDA_ExplorationModule>(Element))
+				xQuests[questID].iTotalAmountModules[xQuests[questID].iCurrentModule] = 1;
+			else if (Cast<UDA_InteractionModule>(Element))
+				xQuests[questID].iTotalAmountModules[xQuests[questID].iCurrentModule] = 1;
+		}
+		
 	}
 }
 
@@ -75,28 +85,13 @@ void UAC_QuestLog::AdvanceExploreModule(EQuestZones zone)
 	{
 		if (UDA_ExplorationModule* ExploreModule = Cast<UDA_ExplorationModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
-			if (ExploreModule->QuestZones ==  zone)
+			if (ExploreModule->QuestZones == zone)
 			{
 				CheckAdvanceModule(questIDs[i]);
+				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule] = 1;
 			}
 		}
 	}
-	
-	// for (const TPair<FString, FPlayerQuest>& QuestPair : xQuests)
-	// {
-	// 	  for (int i = 0; i < QuestPair.Value.xModules.Num(); i++)
-	// 	  {
-	// 		if (QuestPair.Value.xModules[QuestPair.Value.iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE)
-	// 		{
-	// 			UDA_ExplorationModule* ExploreModule = Cast<UDA_ExplorationModule>(QuestPair.Value.xModules[i]);
-	// 			if (ExploreModule->QuestZones == zone)
-	// 			{
-	// 				//xQuests[QuestPair.Key].xModules[i]->bIsCompleted = true;
-	// 				CheckAdvanceModule(QuestPair.Key);
-	// 			}
-	// 		}
-	// 	 }
-	// }
 }
 
 void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID)
@@ -109,6 +104,7 @@ void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID)
 			{
 				//xQuests[questID].xModules[i]->bIsCompleted = true;
 				CheckAdvanceModule(questID);
+				xQuests[questID].iCurrentAmountModules[xQuests[questID].iCurrentModule] = 1;
 			}
 		}
 	}
@@ -123,10 +119,11 @@ void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 	{
 		if (UDA_CollectionModule* CollectModule = Cast<UDA_CollectionModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
-			if (CollectModule->xTypeOfItem ==  item && CollectModule->iAmount == quantity)
+			if (CollectModule->xTypeOfItem == item && CollectModule->iAmount == quantity)
 			{
 				CheckAdvanceModule(questIDs[i]);
 			}
+			xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule] = quantity;
 		}
 	}
 	// for (const TPair<FString, FPlayerQuest>& QuestPair : xQuests)
