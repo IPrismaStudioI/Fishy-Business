@@ -25,12 +25,75 @@ public:
 class FISHYBUSINESS_API EventListVillage
 {
 public:
+	/// <summary>
+	/// no parameters
+	/// </summary>
 	static const FString SHOW_LIGHTHOUSE;
+	
+	/// <summary>
+	/// no parameters
+	/// </summary>
 	static const FString SHOW_FISHSHOP;
+
+	/// <summary>
+	/// no parameters
+	/// </summary>
 	static const FString SHOW_WORKSHOP;
+
+	/// <summary>
+	/// no parameters
+	/// </summary>
 	static const FString SHOW_ARCHIVE;
+
+	/// <summary>
+	/// no parameters
+	/// </summary>
 	static const FString SHOW_CARPENTRY;
+
+	/// <summary>
+	/// no parameters
+	/// </summary>
 	static const FString SHOW_VILLAGE_BASE;
+
+	/// <summary>
+	/// no parameters
+	/// </summary>
 	static const FString HIDE_VILLAGE_BASE;
+
+	/// <summary>
+	/// no parameters
+	/// </summary>
 	static const FString SHOW_MENU;
+};
+
+class FISHYBUSINESS_API EventListQuest
+{
+public:
+	/// <summary>
+	/// no parameters
+	/// </summary>
+	static const FString SHOW_QUEST_BOARD;
+	
+	/// <summary>
+	/// no parameters
+	/// </summary>
+	static const FString FILL_BULLETIN;
+	
+	/// <summary>
+	/// FString id
+	/// </summary>
+	static const FString UI_ADD_QUEST;
+	
+	/// <summary>
+	/// FString id
+	/// </summary>
+	static const FString ADD_QUEST;
+};
+
+class FISHYBUSINESS_API EventListCompendio
+{
+public:
+	static const FString CREATE_PAGE;
+	static const FString OPEN_CLOSE_COMPENDIO;
+	static const FString CATALOGUE_FISH;
 };

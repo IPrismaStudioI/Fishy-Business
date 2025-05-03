@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "QuestSystem/QuestBoard/QuestBoard.h"
 #include "VillageSystem/BuildingBase.h"
 #include "QuestBuilding.generated.h"
 
@@ -13,5 +14,12 @@ UCLASS()
 class FISHYBUSINESS_API AQuestBuilding : public ABuildingBase
 {
 	GENERATED_BODY()
-	
+
+private:
+	UPROPERTY(EditAnywhere)
+	UQuestBoard* _xQuestBoard;
+
+public:	
+	// Sets default values for this actor's properties
+	AQuestBuilding();
 };

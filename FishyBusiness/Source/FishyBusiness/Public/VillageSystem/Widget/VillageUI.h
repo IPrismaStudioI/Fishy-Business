@@ -16,20 +16,20 @@ class FISHYBUSINESS_API UVillageUI : public UUserWidget
 {
 	GENERATED_BODY()
 	
-private:
-	UPROPERTY(meta = (BindWidget))
+public:
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButtonDialogueTriggerBase* _xFishShopBtn;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButtonDialogueTriggerBase* _xLighthouseBtn;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButtonDialogueTriggerBase* _xWorkshopBtn;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButtonDialogueTriggerBase* _xArchiveBtn;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButtonDialogueTriggerBase* _xCarpentryBtn;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButton* _xExitVillageBtn;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UCanvasPanel* _xCanvas;
 
 public:

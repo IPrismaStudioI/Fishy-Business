@@ -19,7 +19,7 @@ class FISHYBUSINESS_API UChoiceButton : public UUserWidget
 public:
 	UPROPERTY(meta = (BindWidget))
 	USizeBox* _xCanvas;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButtonDialogueTriggerBase* xDialogueTriggerBtn;
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UTextBlock* _xChoiceLabel;

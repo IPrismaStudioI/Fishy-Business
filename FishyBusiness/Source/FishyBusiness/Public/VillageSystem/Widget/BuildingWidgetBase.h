@@ -21,12 +21,14 @@ class FISHYBUSINESS_API UBuildingWidgetBase : public UUserWidget
 
 protected:
 	UPROPERTY(meta = (BindWidget))
-	UVerticalBox* _xMainMenu;
-	UPROPERTY(meta = (BindWidget))
 	UImage* _xNpcImage;
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* _xCanvas;
-	UPROPERTY(meta = (BindWidget))
+
+public:
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UVerticalBox* _xMainMenu;
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButton* _xExitBuildingBtn; 
 
 public:

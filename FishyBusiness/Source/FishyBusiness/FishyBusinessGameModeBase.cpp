@@ -7,16 +7,28 @@
 #include "DataTables/FishRow.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerSystem/PlayerCharacter.h"
+#include "QuestSystem/QuestDataManager.h"
 
 AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 {
+	xQuestDataManager = CreateDefaultSubobject<UQuestDataManager>("Quest Data Manager");
+	this->AddInstanceComponent(xQuestDataManager);
+
+	xQuestDataManager->SetXFishyBusinessGameMode(this);
+	
 	xDialogueElaborator = CreateDefaultSubobject<UDialogueElaborator>("Dialogue Elaborator");
 	this->AddInstanceComponent(xDialogueElaborator);
+	xQuestUnlockStorageManager = CreateDefaultSubobject<UQuestUnlockStorageManager>("Quest Unlock Storage Manager");
+	this->AddInstanceComponent(xQuestUnlockStorageManager);
 	
 	xDialogueEventBus = CreateDefaultSubobject<UEventBus>("Dialogue Bus");
 	this->AddInstanceComponent(xDialogueEventBus);
 	xVillageEventBus = CreateDefaultSubobject<UEventBus>("Village Bus");
 	this->AddInstanceComponent(xVillageEventBus);
+	xCompendioEventBus = CreateDefaultSubobject<UEventBus>("Compendio Bus");
+	this->AddInstanceComponent(xCompendioEventBus);
+	xQuestEventBus = CreateDefaultSubobject<UEventBus>("Quest Bus");
+	this->AddInstanceComponent(xQuestEventBus);
 
 	DefaultPawnClass = APlayerCharacter::StaticClass();
 }
@@ -49,11 +61,27 @@ AFishyBusinessGameModeBase* AFishyBusinessGameModeBase::GetInstance()
 UDA_Dialogue* AFishyBusinessGameModeBase::GetDialogueFromDT(FString id)
 {
 	FDialogueRow* row = xDataTableDialogues->FindRow<FDialogueRow>(FName(id), "");
+	if (!row)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Dialogue Row not fund"));
+		return nullptr;
+	}
 	return row->xDialogue;
 }
 
 UFish* AFishyBusinessGameModeBase::GetFishFromDT(FString id)
 {
 	FFishRow* row = xDataTableFishes->FindRow<FFishRow>(FName(id), "");
+	if (!row)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Fish Row not fund"));
+		return nullptr;
+	}
 	return row->xFish;
+}
+
+TArray<UDA_QuestModuleBase*> AFishyBusinessGameModeBase::GetQuestFromDT(FString id)
+{
+	FQuestRow* row = xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
+	return row->xModuleList;
 }
