@@ -15,7 +15,6 @@ class FISHYBUSINESS_API UDialogueElaborator : public UActorComponent
 	GENERATED_BODY()
 
 private:
-	bool _bIsRunning = false;
 	FDialogue _xActualDialogue;
 	TArray<FString> _sCurrentText;
 	int _iCurrentMonologueIndex;
@@ -24,6 +23,8 @@ private:
 	TSubclassOf<UUserWidget> DialogueUI;
 	
 public:
+	UPROPERTY(BlueprintReadWrite)
+	bool _bIsRunning = false;
 	UPROPERTY(BlueprintReadWrite)
 	UUserWidget* dialogueUIWidget;
 	
