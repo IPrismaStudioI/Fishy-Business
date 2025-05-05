@@ -29,6 +29,8 @@ void UButtonDialogueTriggerAdvance::AdvanceQuest()
 
 void UButtonDialogueTriggerAdvance::CheckIfVisible()
 {
+	Super::CheckIfVisible();
+	
 	APlayerCharacter* player = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	if (player->xQuestLog->xQuests[_sQuestID].iCurrentModule == _iModuleIndex) //checks if the current module is the same as the specified _iModulIndex
 	{
