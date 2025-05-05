@@ -79,9 +79,9 @@ void UAC_QuestLog::AddQuestEvent(EventParameters params)
 void UAC_QuestLog::AdvanceExploreModule(EQuestZones zone)
 {
 	TArray<FString> questIDs;
-	xQuests.GenerateKeyArray(questIDs);
+	xQuests.GenerateKeyArray(questIDs); //generate array of quest ids from xQuests
 
-	for (int i = 0; i < questIDs.Num(); i++)
+	for (int i = 0; i < questIDs.Num(); i++) //checks if there is a quest with a module that requires the specified zone
 	{
 		if (UDA_ExplorationModule* ExploreModule = Cast<UDA_ExplorationModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
@@ -94,18 +94,14 @@ void UAC_QuestLog::AdvanceExploreModule(EQuestZones zone)
 	}
 }
 
-void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID)
+void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID, int moduleIndex)
 {
-	for (int i = 0; i < xQuests[questID].xModules.Num(); i++)
+	if (UDA_InteractionModule* InteractModule = Cast<UDA_InteractionModule>(xQuests[questID].xModules[moduleIndex])) //gets the quest and the specified module (it also checks if it's actually an interaction)
 	{
-		if (UDA_InteractionModule* InteractModule = Cast<UDA_InteractionModule>(xQuests[questID].xModules[i]))
+		if (InteractModule->eNpcName == npcName)//checks if the npc is correct
 		{
-			if (InteractModule->eNpcName == npcName)
-			{
-				//xQuests[questID].xModules[i]->bIsCompleted = true;
-				CheckAdvanceModule(questID);
-				xQuests[questID].iCurrentAmountModules[xQuests[questID].iCurrentModule] = 1;
-			}
+			CheckAdvanceModule(questID);
+			xQuests[questID].iCurrentAmountModules[xQuests[questID].iCurrentModule] = 1;
 		}
 	}
 }
@@ -113,34 +109,20 @@ void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID)
 void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 {
 	TArray<FString> questIDs;
-	xQuests.GenerateKeyArray(questIDs);
+	xQuests.GenerateKeyArray(questIDs);//generate array of quest ids from xQuests
 
-	for (int i = 0; i < questIDs.Num(); i++)
+	for (int i = 0; i < questIDs.Num(); i++) //checks if there is a quest with a module that requires the specified item and amount
 	{
 		if (UDA_CollectionModule* CollectModule = Cast<UDA_CollectionModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
-			if (CollectModule->xTypeOfItem == item && CollectModule->iAmount == quantity)
+			if (CollectModule->xTypeOfItem == item && CollectModule->iAmount >= quantity)
 			{
 				CheckAdvanceModule(questIDs[i]);
 			}
 			xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule] = quantity;
 		}
 	}
-	// for (const TPair<FString, FPlayerQuest>& QuestPair : xQuests)
-	// {
-	// 	for (int i = 0; i < QuestPair.Value.xModules.Num(); i++)
-	// 	{
-	// 		if (QuestPair.Value.xModules[i]->eModuleType == EPlayerModuleType::E_COLLECT_MODULE)
-	// 		{
-	// 			UDA_CollectionModule* CollectModule = Cast<UDA_CollectionModule>(QuestPair.Value.xModules[i]);
-	// 			if (CollectModule->xTypeOfItem == item && CollectModule->iAmount == quantity)
-	// 			{
-	// 				//xQuests[QuestPair.Key].xModules[i]->bIsCompleted = true;
-	// 				CheckAdvanceModule(QuestPair.Key);
-	// 			}
-	// 		}
-	// 	}
-	// }
+
 }
 
 #pragma endregion
@@ -179,7 +161,8 @@ void UAC_QuestLog::AdvanceInteractEvent(EventParameters params)
 	int npcNameInt = params[0]->Getter<int>();
 	FString questID = params[1]->Getter<FString>();
 	ENpcNames npcName = static_cast<ENpcNames>(npcNameInt);
-	AdvanceDialogueModule(npcName, questID);
+	int moduleIndex = params[2]->Getter<int>();
+	AdvanceDialogueModule(npcName, questID, moduleIndex);
 }
 
 void UAC_QuestLog::AdvanceCollectEvent(EventParameters params)

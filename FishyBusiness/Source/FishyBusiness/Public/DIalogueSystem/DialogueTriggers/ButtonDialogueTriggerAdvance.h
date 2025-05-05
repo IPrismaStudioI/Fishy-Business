@@ -25,9 +25,15 @@ private:
 public:
 	UButtonDialogueTriggerAdvance();
 
+	///<summary>
+	///triggers the event to advance the specified quest (quest ID, npc name)
+	///</summary>
 	UFUNCTION()
 	void AdvanceQuest();
 
+	///<summary>
+	///Checks if the associated quest current module is the same as _iModuleIndex, if it is, the button will be visible, if not it will be collapsed
+	///</summary>
 	UFUNCTION(BlueprintCallable)
 	void CheckIfVisible();
 };

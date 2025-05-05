@@ -109,7 +109,7 @@ public:
 	static const FString ADVANCE_EXPLORE;
 
 	/// <summary>
-	/// int npc name, FString id
+	/// int npc name, FString id, int moduleIndex
 	/// </summary>
 	static const FString ADVANCE_INTERACT;
 
