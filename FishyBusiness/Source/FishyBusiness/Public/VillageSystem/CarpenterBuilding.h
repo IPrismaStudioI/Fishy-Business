@@ -14,4 +14,7 @@ class FISHYBUSINESS_API ACarpenterBuilding : public ABuildingBase
 {
 	GENERATED_BODY()
 	
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 };

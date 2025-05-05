@@ -4,33 +4,25 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "Components/Button.h"
-#include "Components/Image.h"
-#include "QuestBulletinUI.generated.h"
+#include "Components/RichTextBlock.h"
+#include "QuestModuleUI.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FISHYBUSINESS_API UQuestBulletinUI : public UUserWidget
+class FISHYBUSINESS_API UQuestModuleUI : public UUserWidget
 {
 	GENERATED_BODY()
 	
 public:
 	UPROPERTY(meta = (BindWidget))
-	UImage* _xIcon;
+	URichTextBlock* _xQuestTaskDescription;
 	UPROPERTY(meta = (BindWidget))
-	UButton* _xBulletinBtn;
-
-	FString _sQuestID;
+	URichTextBlock* _xQuestTaskCurrentAmount;
+	UPROPERTY(meta = (BindWidget))
+	URichTextBlock* _xQuestTaskTotalAmount;
 	
 public:
 	virtual void NativeConstruct() override;
-
-	UFUNCTION()
-	void CheckCompleted();
-	
-private:
-	void ShowBulletinFocused();
-	void ApplyReward();
 };

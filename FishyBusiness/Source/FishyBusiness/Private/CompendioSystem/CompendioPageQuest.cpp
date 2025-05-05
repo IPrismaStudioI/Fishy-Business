@@ -3,6 +3,11 @@
 
 #include "CompendioSystem/CompendioPageQuest.h"
 
+#include "Blueprint/WidgetTree.h"
+#include "FishyBusiness/FishyBusinessGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "PlayerSystem/PlayerCharacter.h"
+
 void UCompendioPageQuest::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -16,4 +21,41 @@ void UCompendioPageQuest::NativeDestruct()
 void UCompendioPageQuest::FillInformations(bool isCatalogued)
 {
 	Super::FillInformations(isCatalogued);
+
+	_xPageImage->SetBrushFromTexture(_xPageTexture);
+}
+
+void UCompendioPageQuest::FillQuest()
+{
+	UAC_QuestLog* log = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0))->xQuestLog;
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	if (log->xQuests.Find(_sQuestID))
+	{
+		_xQuestCanvas->SetVisibility(ESlateVisibility::Visible);
+		FString status = UEnum::GetDisplayValueAsText(log->xQuests[_sQuestID].eStatus).ToString();
+		_xQuestStatus->SetText(FText::FromString(status));
+		FString name = gamemode->xQuestDataManager->GetQuestNameFromDT(_sQuestID);
+		_xQuestName->SetText(FText::FromString(name));
+		FString description = gamemode->xQuestDataManager->GetQuestDescriptionFromDT(_sQuestID);
+		_xQuestDescription->SetText(FText::FromString(description));
+
+		for (int i = 0; i < log->xQuests.Find(_sQuestID)->iCurrentModule; i++)
+		{
+			FString desc = log->xQuests.Find(_sQuestID)->xModules[i]->sDescription;
+			int currentAmount = log->xQuests.Find(_sQuestID)->iCurrentAmountModules[i];
+			int totalAmount = log->xQuests.Find(_sQuestID)->iTotalAmountModules[i];
+
+			UQuestModuleUI* taskQuestTmp = WidgetTree->ConstructWidget<UQuestModuleUI>(_xQuestTaskUI);
+			taskQuestTmp->_xQuestTaskDescription->SetText(FText::FromString(desc));
+			taskQuestTmp->_xQuestTaskCurrentAmount->SetText(FText::FromString(FString::FromInt(currentAmount)));
+			taskQuestTmp->_xQuestTaskTotalAmount->SetText(FText::FromString(FString::FromInt(totalAmount)));
+			_xBoxTasks->AddChild(taskQuestTmp);
+		}
+	}
+	else
+	{
+		_xQuestCanvas->SetVisibility(ESlateVisibility::Collapsed);
+	}
 }
