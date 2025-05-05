@@ -19,7 +19,7 @@ class FISHYBUSINESS_API UQuestBulletinUI : public UUserWidget
 public:
 	UPROPERTY(meta = (BindWidget))
 	UImage* _xIcon;
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButton* _xBulletinBtn;
 
 	FString _sQuestID;
