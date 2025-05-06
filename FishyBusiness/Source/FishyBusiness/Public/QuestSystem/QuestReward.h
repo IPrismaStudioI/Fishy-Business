@@ -4,29 +4,30 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "QuestUnlockStorageManager.generated.h"
+#include "EventManager/EventWrapper.h"
+#include "QuestData/Rewards/DA_QuestRewardBase.h"
+#include "QuestReward.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class FISHYBUSINESS_API UQuestUnlockStorageManager : public UActorComponent
+class FISHYBUSINESS_API UQuestReward : public UActorComponent
 {
 	GENERATED_BODY()
-	
-public:
-	UPROPERTY(EditAnywhere)
-	TArray<FString> _sUnlockedQuestList;
-	UPROPERTY()
-	TArray<FString> _sCompletedQuestList;
-	
-public:	
-	// Sets default values for this component's properties
-	UQuestUnlockStorageManager();
+
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:	
+	// Sets default values for this component's properties
+	UQuestReward();
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	void GiveReward(EventParameters parameters);
+
+private:
+	void GetItemReward(UDA_QuestRewardBase* reward);
+	void GetRestorationReward(UDA_QuestRewardBase* reward);
 };

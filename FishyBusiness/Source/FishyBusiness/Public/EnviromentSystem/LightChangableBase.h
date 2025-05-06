@@ -16,9 +16,14 @@ protected:
 	UPROPERTY(EditAnywhere)
 	USceneComponent* xRoot;
 	UPROPERTY(EditAnywhere)
-	UPaperSpriteComponent* xSprite; 
-	
-public:	
+	UPaperSpriteComponent* xSprite;
+
+public:
+	UPaperSpriteComponent* GetXSprite() const
+	{
+		return xSprite;
+	}
+
 	// Sets default values for this actor's properties
 	ALightChangableBase();
 
