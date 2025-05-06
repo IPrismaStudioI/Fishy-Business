@@ -18,9 +18,6 @@ class FISHYBUSINESS_API UDA_QuestModuleBase : public UDataAsset
 public:
 	UPROPERTY()
 	EPlayerModuleType eModuleType;
-	
-protected:
 	UPROPERTY()
 	FString sDescription;
-	
 };
