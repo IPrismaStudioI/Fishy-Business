@@ -102,10 +102,25 @@ public:
 	/// FString id
 	/// </summary>
 	static const FString ADD_QUEST;
+	
+	/// <summary>
+	/// int zone 
+	/// </summary>
+	static const FString ADVANCE_EXPLORE;
 
 	/// <summary>
-	/// FString id
+	/// int npc name, FString id, int moduleIndex
 	/// </summary>
+	static const FString ADVANCE_INTERACT;
+
+	/// <summary>
+	/// FString item id, int amount
+	/// </summary>
+	static const FString ADVANCE_COLLECT;
+
+	///<summary>
+	///FString id
+	///</summary>
 	static const FString GET_REWARD;
 };
 

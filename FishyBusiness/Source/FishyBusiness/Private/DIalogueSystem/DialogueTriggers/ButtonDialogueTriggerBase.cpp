@@ -20,3 +20,7 @@ void UButtonDialogueTriggerBase::StartDialogue()
 	
 	gamemode->xDialogueElaborator->StartDialogue(gamemode->GetDialogueFromDT(_sDialogueID)->Dialogue);
 }
+
+void UButtonDialogueTriggerBase::CheckIfVisible()
+{
+}

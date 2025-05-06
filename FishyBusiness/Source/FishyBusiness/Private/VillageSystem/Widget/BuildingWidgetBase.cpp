@@ -17,6 +17,8 @@ void UBuildingWidgetBase::NativeConstruct()
 
 	
 	_xExitBuildingBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::ExitBuilding);
+	_xDialogueVerticalBoxBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::ShowDialogueMenu);
+	_xExitDialogueVerticalBoxBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::HideDialogueMenu);
 }
 
 void UBuildingWidgetBase::HideCanvas()
@@ -33,6 +35,24 @@ void UBuildingWidgetBase::ShowCanvas(EventParameters parameters)
 
 void UBuildingWidgetBase::ShowMenu(EventParameters parameters)
 {
+	_xMainMenu->SetVisibility(ESlateVisibility::Visible);
+}
+
+void UBuildingWidgetBase::ShowDialogueMenu()
+{
+	_xDialogueVerticalBoxBtn->SetVisibility(ESlateVisibility::Visible);
+	_xMainMenu->SetVisibility(ESlateVisibility::Collapsed);
+	TArray<UWidget*> children = _xDialogueVerticalBoxBtn->GetAllChildren();
+
+	for (int i = 0; i < children.Num() - 1; i++)
+	{
+		Cast<UButtonDialogueTriggerBase>(children[i])->CheckIfVisible();
+	}
+}
+
+void UBuildingWidgetBase::HideDialogueMenu()
+{
+	_xDialogueVerticalBoxBtn->SetVisibility(ESlateVisibility::Collapsed);
 	_xMainMenu->SetVisibility(ESlateVisibility::Visible);
 }
 
