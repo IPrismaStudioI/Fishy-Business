@@ -7,9 +7,9 @@
 UENUM(BlueprintType)
 enum class ENpcNames : uint8
 {
-	E_QUEST_KEEPER	UMETA(DisplayName = "Quest Keeper"),
-	E_SHOPKEEPER    UMETA(DisplayName = "Shopkeeper"),
-	E_ENGINEER      UMETA(DisplayName = "Engineer"),
-	E_ARCHIVIST     UMETA(DisplayName = "Archivist"),
-	E_CARPENTER     UMETA(DisplayName = "Carpenter"),
+	E_QUEST_KEEPER = 0	UMETA(DisplayName = "Quest Keeper"),
+	E_SHOPKEEPER = 1    UMETA(DisplayName = "Shopkeeper"),
+	E_ENGINEER = 2      UMETA(DisplayName = "Engineer"),
+	E_ARCHIVIST = 3     UMETA(DisplayName = "Archivist"),
+	E_CARPENTER = 4     UMETA(DisplayName = "Carpenter"),
 };

@@ -32,6 +32,9 @@ const FString EventListQuest::FILL_BULLETIN = TEXT("FILL_BULLETIN");
 const FString EventListQuest::UI_ADD_QUEST = TEXT("UI_ADD_QUEST");
 const FString EventListQuest::ADD_QUEST = TEXT("ADD_QUEST");
 const FString EventListQuest::GET_REWARD = TEXT("GET_REWARD");
+const FString EventListQuest::ADVANCE_EXPLORE = TEXT("ADVANCE_EXPLORE");
+const FString EventListQuest::ADVANCE_INTERACT = TEXT("ADVANCE_INTERACT");
+const FString EventListQuest::ADVANCE_COLLECT = TEXT("ADVANCE_COLLECT");
 
 const FString EventListCompendio::CREATE_PAGE = TEXT("CREATE_PAGE");
 const FString EventListCompendio::OPEN_CLOSE_COMPENDIO = TEXT("OPEN_CLOSE_COMPENDIO");

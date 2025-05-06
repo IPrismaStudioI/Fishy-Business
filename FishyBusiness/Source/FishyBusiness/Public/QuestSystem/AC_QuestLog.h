@@ -7,6 +7,8 @@
 #include "Components/ActorComponent.h"
 #include "DataSystem/ItemData/BaseItem.h"
 #include "EventManager/EventWrapper.h"
+#include "QuestData/Enums/E_QuestZones.h"
+#include "Enums/ENpcNames.h"
 #include "AC_QuestLog.generated.h"
 
 
@@ -32,20 +34,42 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	/// <summary>
+	/// Adds a quest from the quest Data table to xQuests
+	/// </summary>
 	UFUNCTION(BlueprintCallable)
 	void AddQuest(FString questID);
 
-	//void AdvanceExploreModule(EQuestZones zone);
-	//void AdvanceDialogueModule(ENpcNames npcName);
-	//void AdvanceCollectModule(UBaseItem* item, int quantity);
+	/// <summary>
+	///	gets the quest zone and checks if there is a quest module that requires that zone, if so it advances that quest by 1 position
+	/// </summary>
+	void AdvanceExploreModule(EQuestZones zone);
+
+	/// <summary>
+	///gets the quest id, npc name and module index, checks if they are correct then advance the specified quest by 1 position
+	/// </summary>
+	void AdvanceDialogueModule(ENpcNames npcName, FString questID, int moduleIndex);
+
+	/// <summary>
+	///	gets the item and checks if there is a quest module that requires that item, if there is and the amount passed is >= of the required amount it advances that quest by 1 position
+	/// </summary>
+	void AdvanceCollectModule(UBaseItem* item, int quantity);
 
 	void AddQuestEvent(EventParameters params);
 	
+	void AdvanceExploreEvent(EventParameters params);
+	void AdvanceInteractEvent(EventParameters params);
+	void AdvanceCollectEvent(EventParameters params);
+
 private:
-	void CheckNextModule();
-	void CheckQuestStatus(FPlayerQuest quest);
+	/// <summary>
+	/// augment the quest current module by 1 and calls CheckQuestStatus()
+	/// </summary>
+	void CheckAdvanceModule(FString questID);
+
+	/// <summary>
+	/// checks if the quest is completed
+	/// </summary>
+	void CheckQuestStatus(FString questID);
 	
-	//FString FindQuestFromExplore(EQuestZones zone);
-	//FString FindQuestFromDialogue(ENpcNames npcName);
-	//FString FindQuestFromCollect(UBaseItem* item);
 };

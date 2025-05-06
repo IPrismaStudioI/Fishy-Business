@@ -8,6 +8,7 @@
 #include "Components/CanvasPanel.h"
 #include "Components/Image.h"
 #include "Components/VerticalBox.h"
+#include "DIalogueSystem/DialogueTriggers/ButtonDialogueTriggerBase.h"
 #include "EventManager/EventWrapper.h"
 #include "BuildingWidgetBase.generated.h"
 
@@ -29,6 +30,12 @@ public:
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UVerticalBox* _xMainMenu;
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UButtonDialogueTriggerBase* _xDialogueVerticalBoxBtn;
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UButton* _xExitDialogueVerticalBoxBtn; 
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UVerticalBox* _xDialogueMenu;
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButton* _xExitBuildingBtn; 
 
 public:
@@ -39,6 +46,10 @@ protected:
 	void ShowCanvas(EventParameters parameters);
 	void ShowMenu(EventParameters parameters);
 
+	UFUNCTION()
+	void ShowDialogueMenu();
+	UFUNCTION()
+	void HideDialogueMenu();
 	UFUNCTION()
 	void ExitBuilding();
 	
