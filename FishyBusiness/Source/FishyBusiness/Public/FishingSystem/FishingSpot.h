@@ -50,6 +50,14 @@ public:
 	UPROPERTY()
 	AFishingGenerator* xFishingGenerator;
 
+private:
+	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
+	float _fNewCameraSize;
+	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
+	float _fLerpSpeed;
+	float _fOldCameraSize;
+	
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

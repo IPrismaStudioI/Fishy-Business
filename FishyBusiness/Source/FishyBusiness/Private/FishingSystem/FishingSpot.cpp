@@ -65,6 +65,8 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 		gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CATALOGUE_FISH, eventParameters);
 	}
 
+	xPlayerCharacter->xCameraController->ResizeCamera(_fOldCameraSize, _fLerpSpeed);
+	
 	ActiveWidget[0]->RemoveFromParent();
 	ActiveWidget.Empty();
 	
@@ -121,7 +123,11 @@ void AFishingSpot::OnInteractFishing()
 			xPlayerCharacter->SetMovable(false);
 			
 			OnInteractFishingSpot();
-			
+
+			_fOldCameraSize = xPlayerCharacter->xCamera->OrthoWidth;
+			xPlayerCharacter->xCameraController->ResizeCamera(_fNewCameraSize, _fLerpSpeed);
+		
+		
 			ActiveWidget.Add(CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame));
 			
 			ActiveWidget[0]->sFishID = xFishes[_iCurrentFishes -1];
