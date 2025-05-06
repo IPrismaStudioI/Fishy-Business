@@ -14,8 +14,11 @@ AVillageManager::AVillageManager()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	xRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	SetRootComponent(xRoot);
+	
 	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("ArriveTrigger"));
-	RootComponent = Trigger;
+	Trigger->SetupAttachment(RootComponent);;
 
 	Trigger->OnComponentBeginOverlap.AddDynamic(this, &AVillageManager::OnOverlapBegin);
 
@@ -41,6 +44,8 @@ void AVillageManager::BeginPlay()
 	
 	UVillageUI* villageUI = CreateWidget<UVillageUI>(GetWorld(), VillageUI);
 	villageUI->AddToViewport(0);
+
+	_xTargetPosition = GetActorLocation() + (_xPosition * 2);
 	
 	// ArriveTimeline->AddInterpFloat(fCurve, tickCallback, FName{ TEXT("Floaty") });
 	// ArriveTimeline->SetTimelineFinishedFunc(finishedCallback);
@@ -58,7 +63,7 @@ void AVillageManager::Tick(float DeltaTime)
 
 		ChangePlayerPosition(alpha);
 		
-		if (alpha > 1.f)
+		if (alpha >= 1.f)
 		{
 			_bIsLerping = false;
 			ApproachVillage();
@@ -81,7 +86,8 @@ void AVillageManager::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, A
 void AVillageManager::ChangePlayerPosition(float lerp)
 {
 	player->SetMovable(false);
-	FVector newPos = FMath::Lerp(FVector(_xInitialPosition), _xTargetPosition, lerp);
+
+	FVector newPos = FMath::Lerp(_xInitialPosition, _xTargetPosition, lerp);
 	player->SetActorLocation(newPos);
 }
 

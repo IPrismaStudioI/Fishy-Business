@@ -25,9 +25,12 @@ private:
 	
 #pragma region move player
 	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
+	FVector _xPosition;
 	FVector _xTargetPosition;
 	FVector _xInitialPosition;
-	
+
+	UPROPERTY(EditAnywhere)
+	USceneComponent* xRoot;
 	UPROPERTY(EditAnywhere, Category="ArriveTrigger")
 	UBoxComponent* Trigger;
 #pragma endregion move player
@@ -37,6 +40,7 @@ private:
 private:
 	UPROPERTY(EditAnywhere, Category = "LerpApproach")
 	float _fLerpDuration = 0.f;
+	
 	float _fCurrentLerpTime = 0.f;
 	bool _bIsLerping = false;
 	
