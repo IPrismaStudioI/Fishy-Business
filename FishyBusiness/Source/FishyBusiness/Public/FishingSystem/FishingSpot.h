@@ -23,10 +23,9 @@ private:
 	bool _bHasPlayerInteracted = false;
 	APlayerCharacter* xPlayerCharacter;
 
-
 public:
 	UPROPERTY(BlueprintReadWrite)
-	UFishingMinigame* ActiveWidget;
+	TArray<UFishingMinigame*> ActiveWidget;
 
 	UPROPERTY(BlueprintReadWrite)
 	UFishingReward* xRewardWidget;
@@ -51,6 +50,14 @@ public:
 	UPROPERTY()
 	AFishingGenerator* xFishingGenerator;
 
+private:
+	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
+	float _fNewCameraSize;
+	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
+	float _fLerpSpeed;
+	float _fOldCameraSize;
+	
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

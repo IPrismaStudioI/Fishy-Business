@@ -37,7 +37,6 @@ void AFishingGenerator::InitialGeneration()
 {
 	for (int i = 0; i < xFishingSpots.Num(); i++)
 	{
-		//randInt = FMath::RandRange(1, xFishingSpots[i]->iTotalFishes);
 
 		int total = xFishingSpots[i]->iTotalFishes;
 		for (int j = 0; j < total; j++)
@@ -48,14 +47,14 @@ void AFishingGenerator::InitialGeneration()
 		xFishingSpots[i]->ToggleActive(false);
 	}
 
-	for (int i = 0; i < iSpotsAvailableAtSpawn; i++)
+	for (int k = 0; k < iSpotsAvailableAtSpawn; k++)
 	{
-		int RandomInt = FMath::RandRange(0, iSpotsAvailableAtSpawn -1);
-		if (!xFishingSpots[RandomInt]->bIsActive)
+		int RandInt = FMath::RandRange(0, xFishingSpots.Num() -1);
+		if (!xFishingSpots[RandInt]->bIsActive)
 		{
-			xFishingSpots[RandomInt]->ToggleActive(true);
+			xFishingSpots[RandInt]->ToggleActive(true);
 		}
-		else i--;
+		else k--;
 	}
 }
 

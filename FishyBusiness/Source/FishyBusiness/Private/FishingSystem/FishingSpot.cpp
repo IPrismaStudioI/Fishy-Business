@@ -34,28 +34,6 @@ void AFishingSpot::BeginPlay()
 void AFishingSpot::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//  if (_bCanCreateMinigame)
-	//  {
-	//  	if (this->_bHasPlayerInteracted)
-	//  	{
-	//  		_bHasPlayerInteracted = false;
-	//  		
-	//  		xPlayerCharacter->SetMovable(false);
-	//  		
-	//  		OnInteractFishingSpot();
-	//  		
-	//  		ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
-	//  		
-	//  		ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
-	//  		ActiveWidget->xFishSpot = this;
-	//
-	//  		if (ActiveWidget)
-	//  		{
-	//  			ActiveWidget->AddToViewport();
-	//  			_bCanCreateMinigame = false;
-	//  		}
-	//  	}
-	// }
 }
 
 void AFishingSpot::ToggleActive(bool value)
@@ -87,6 +65,11 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 		gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CATALOGUE_FISH, eventParameters);
 	}
 
+	xPlayerCharacter->xCameraController->ResizeCamera(_fOldCameraSize, _fLerpSpeed);
+	
+	ActiveWidget[0]->RemoveFromParent();
+	ActiveWidget.Empty();
+	
 	xPlayerCharacter->SetMovable(true);
 	_bCanCreateMinigame = true;
 	_iCurrentFishes -= 1;
@@ -140,15 +123,19 @@ void AFishingSpot::OnInteractFishing()
 			xPlayerCharacter->SetMovable(false);
 			
 			OnInteractFishingSpot();
+
+			_fOldCameraSize = xPlayerCharacter->xCamera->OrthoWidth;
+			xPlayerCharacter->xCameraController->ResizeCamera(_fNewCameraSize, _fLerpSpeed);
+		
+		
+			ActiveWidget.Add(CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame));
 			
-			ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
-			
-			ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
-			ActiveWidget->xFishSpot = this;
+			ActiveWidget[0]->sFishID = xFishes[_iCurrentFishes -1];
+			ActiveWidget[0]->xFishSpot = this;
 	
-			if (ActiveWidget)
+			if (ActiveWidget[0])
 			{
-				ActiveWidget->AddToViewport();
+				ActiveWidget[0]->AddToViewport();
 				_bCanCreateMinigame = false;
 			}
 		//}
