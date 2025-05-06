@@ -23,10 +23,9 @@ private:
 	bool _bHasPlayerInteracted = false;
 	APlayerCharacter* xPlayerCharacter;
 
-
 public:
 	UPROPERTY(BlueprintReadWrite)
-	UFishingMinigame* ActiveWidget;
+	TArray<UFishingMinigame*> ActiveWidget;
 
 	UPROPERTY(BlueprintReadWrite)
 	UFishingReward* xRewardWidget;

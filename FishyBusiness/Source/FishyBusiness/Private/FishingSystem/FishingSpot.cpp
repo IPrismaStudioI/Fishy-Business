@@ -34,28 +34,6 @@ void AFishingSpot::BeginPlay()
 void AFishingSpot::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//  if (_bCanCreateMinigame)
-	//  {
-	//  	if (this->_bHasPlayerInteracted)
-	//  	{
-	//  		_bHasPlayerInteracted = false;
-	//  		
-	//  		xPlayerCharacter->SetMovable(false);
-	//  		
-	//  		OnInteractFishingSpot();
-	//  		
-	//  		ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
-	//  		
-	//  		ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
-	//  		ActiveWidget->xFishSpot = this;
-	//
-	//  		if (ActiveWidget)
-	//  		{
-	//  			ActiveWidget->AddToViewport();
-	//  			_bCanCreateMinigame = false;
-	//  		}
-	//  	}
-	// }
 }
 
 void AFishingSpot::ToggleActive(bool value)
@@ -87,6 +65,9 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 		gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CATALOGUE_FISH, eventParameters);
 	}
 
+	ActiveWidget[0]->RemoveFromParent();
+	ActiveWidget.Empty();
+	
 	xPlayerCharacter->SetMovable(true);
 	_bCanCreateMinigame = true;
 	_iCurrentFishes -= 1;
@@ -141,14 +122,14 @@ void AFishingSpot::OnInteractFishing()
 			
 			OnInteractFishingSpot();
 			
-			ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
+			ActiveWidget.Add(CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame));
 			
-			ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
-			ActiveWidget->xFishSpot = this;
+			ActiveWidget[0]->sFishID = xFishes[_iCurrentFishes -1];
+			ActiveWidget[0]->xFishSpot = this;
 	
-			if (ActiveWidget)
+			if (ActiveWidget[0])
 			{
-				ActiveWidget->AddToViewport();
+				ActiveWidget[0]->AddToViewport();
 				_bCanCreateMinigame = false;
 			}
 		//}
