@@ -9,6 +9,8 @@ ABuildingBase::ABuildingBase()
 {
 	xOnHover = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("OnHover"));
 	xOnHover->SetupAttachment(RootComponent);
+	xRestoreComponent = CreateDefaultSubobject<URestoreComponent>("Restore Component");
+	this->AddInstanceComponent(xRestoreComponent);
 }
 
 void ABuildingBase::BeginPlay()

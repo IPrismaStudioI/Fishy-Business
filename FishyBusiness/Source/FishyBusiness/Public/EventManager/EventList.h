@@ -29,41 +29,55 @@ public:
 	/// no parameters
 	/// </summary>
 	static const FString SHOW_LIGHTHOUSE;
-	
 	/// <summary>
 	/// no parameters
 	/// </summary>
 	static const FString SHOW_FISHSHOP;
-
 	/// <summary>
 	/// no parameters
 	/// </summary>
 	static const FString SHOW_WORKSHOP;
-
 	/// <summary>
 	/// no parameters
 	/// </summary>
 	static const FString SHOW_ARCHIVE;
-
 	/// <summary>
 	/// no parameters
 	/// </summary>
 	static const FString SHOW_CARPENTRY;
-
 	/// <summary>
 	/// no parameters
 	/// </summary>
 	static const FString SHOW_VILLAGE_BASE;
-
 	/// <summary>
 	/// no parameters
 	/// </summary>
 	static const FString HIDE_VILLAGE_BASE;
-
 	/// <summary>
 	/// no parameters
 	/// </summary>
 	static const FString SHOW_MENU;
+
+	/// <summary>
+	/// EBuildingStatus new status
+	/// </summary>
+	static const FString RESTORE_CARPENTRY;
+	/// <summary>
+	/// EBuildingStatus new status
+	/// </summary>
+	static const FString RESTORE_LIGHTHOUSE;
+	/// <summary>
+	/// EBuildingStatus new status
+	/// </summary>
+	static const FString RESTORE_FISHSHOP;
+	/// <summary>
+	/// EBuildingStatus new status
+	/// </summary>
+	static const FString RESTORE_WORKSHOP;
+	/// <summary>
+	/// EBuildingStatus new status
+	/// </summary>
+	static const FString RESTORE_ARCHIVE;
 };
 
 class FISHYBUSINESS_API EventListQuest
@@ -88,6 +102,11 @@ public:
 	/// FString id
 	/// </summary>
 	static const FString ADD_QUEST;
+
+	/// <summary>
+	/// FString id
+	/// </summary>
+	static const FString GET_REWARD;
 };
 
 class FISHYBUSINESS_API EventListCompendio

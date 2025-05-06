@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "RestoreComponent.h"
 #include "EnviromentSystem/LightChangableBase.h"
 #include "Enums/ENpcNames.h"
 #include "Widget/BuildingWidgetBase.h"
@@ -19,7 +20,9 @@ class FISHYBUSINESS_API ABuildingBase : public ALightChangableBase
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UPaperSpriteComponent* xOnHover; 
+	UPaperSpriteComponent* xOnHover;
+	UPROPERTY(EditAnywhere)
+	URestoreComponent* xRestoreComponent; 
 	UPROPERTY(EditAnywhere) 
 	ENpcNames _eNpcName;
 	UPROPERTY(EditAnywhere, Category = "UI")
