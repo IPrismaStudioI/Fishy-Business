@@ -40,9 +40,11 @@ void UQuestBulletinFocusedUI::FillBulletin(EventParameters parameters)
 	_sQuestID = parameters[0]->Getter<FString>();
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	_xQuestName->SetText(FText::FromString(gamemode->xQuestDataManager->GetQuestNameFromDT(_sQuestID)));
+	FString name = "<QuestName>" + gamemode->xQuestDataManager->GetQuestNameFromDT(_sQuestID) + "</>";
+	_xQuestName->SetText(FText::FromString(name));
 	_xQuestDescription->SetText(FText::FromString(gamemode->xQuestDataManager->GetQuestDescriptionFromDT(_sQuestID)));
-	_xQuestGiver->SetText(FText::FromString(gamemode->xQuestDataManager->GetQuestGiverFromDT(_sQuestID)));
+	FString npc = "<QuestNPC>" + gamemode->xQuestDataManager->GetQuestGiverFromDT(_sQuestID) + "</>";
+	_xQuestGiver->SetText(FText::FromString(npc));
 
 	ShowBulletin(true);
 }

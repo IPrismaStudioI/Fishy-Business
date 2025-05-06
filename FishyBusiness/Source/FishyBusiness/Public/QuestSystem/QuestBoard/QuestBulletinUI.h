@@ -28,5 +28,9 @@ public:
 	virtual void NativeConstruct() override;
 
 	UFUNCTION()
+	void CheckCompleted();
+	
+private:
 	void ShowBulletinFocused();
+	void ApplyReward();
 };

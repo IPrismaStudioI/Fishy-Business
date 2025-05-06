@@ -15,6 +15,8 @@ class FISHYBUSINESS_API UQuestUnlockStorageManager : public UActorComponent
 public:
 	UPROPERTY(EditAnywhere)
 	TArray<FString> _sUnlockedQuestList;
+	UPROPERTY()
+	TArray<FString> _sCompletedQuestList;
 	
 public:	
 	// Sets default values for this component's properties
