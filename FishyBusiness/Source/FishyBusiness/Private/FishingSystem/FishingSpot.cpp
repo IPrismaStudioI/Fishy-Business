@@ -27,43 +27,35 @@ void AFishingSpot::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
-	if (PlayerController)
-	{
-		EnableInput(PlayerController);
-		InputComponent->BindAction("StartFishing", IE_Pressed, this, &AFishingSpot::OnInteractFishing);
-	}
-	
 	_iCurrentFishes = iTotalFishes;
 }
-
 
 // Called every frame
 void AFishingSpot::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	 if (_bCanCreateMinigame)
-	 {
-	 	if (_bHasPlayerInteracted)
-	 	{
-	 		_bHasPlayerInteracted = false;
-	 		
-	 		xPlayerCharacter->SetMovable(false);
-	 		
-	 		OnInteractFishingSpot();
-	 		
-	 		ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
-	 		
-	 		ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
-	 		ActiveWidget->xFishSpot = this;
-	
-	 		if (ActiveWidget)
-	 		{
-	 			ActiveWidget->AddToViewport();
-	 			_bCanCreateMinigame = false;
-	 		}
-	 	}
-	}
+	//  if (_bCanCreateMinigame)
+	//  {
+	//  	if (this->_bHasPlayerInteracted)
+	//  	{
+	//  		_bHasPlayerInteracted = false;
+	//  		
+	//  		xPlayerCharacter->SetMovable(false);
+	//  		
+	//  		OnInteractFishingSpot();
+	//  		
+	//  		ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
+	//  		
+	//  		ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
+	//  		ActiveWidget->xFishSpot = this;
+	//
+	//  		if (ActiveWidget)
+	//  		{
+	//  			ActiveWidget->AddToViewport();
+	//  			_bCanCreateMinigame = false;
+	//  		}
+	//  	}
+	// }
 }
 
 void AFishingSpot::ToggleActive(bool value)
@@ -119,7 +111,14 @@ void AFishingSpot::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 	{
 		xPlayerCharacter = Player;
 		_bCanCreateMinigame = true;
+
+		EnableInput(Cast<APlayerController>(xPlayerCharacter->GetController()));
+		if (InputComponent)
+		{
+			InputComponent->BindAction("StartFishing", IE_Pressed, this, &AFishingSpot::OnInteractFishing);
+		}
 	}
+
 }
 
 void AFishingSpot::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -133,27 +132,27 @@ void AFishingSpot::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor
 
 void AFishingSpot::OnInteractFishing()
 {
-	_bHasPlayerInteracted = true;
-	// if (_bCanCreateMinigame)
-	// {
-	// 	// if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::E) || GetWorld())
-	// 	// {
-	// 		xPlayerCharacter->SetMovable(false);
-	// 		
-	// 		OnInteractFishingSpot();
-	// 		
-	// 		ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
-	// 		
-	// 		ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
-	// 		ActiveWidget->xFishSpot = this;
-	//
-	// 		if (ActiveWidget)
-	// 		{
-	// 			ActiveWidget->AddToViewport();
-	// 			_bCanCreateMinigame = false;
-	// 		}
-	// 	//}
-	// }
+	if (_bCanCreateMinigame)
+	{
+		_bCanCreateMinigame = false;
+		// if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::E) || GetWorld())
+		// {
+			xPlayerCharacter->SetMovable(false);
+			
+			OnInteractFishingSpot();
+			
+			ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
+			
+			ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
+			ActiveWidget->xFishSpot = this;
+	
+			if (ActiveWidget)
+			{
+				ActiveWidget->AddToViewport();
+				_bCanCreateMinigame = false;
+			}
+		//}
+	}
 }
 
 
