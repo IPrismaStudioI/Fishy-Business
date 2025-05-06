@@ -18,7 +18,9 @@ class FISHYBUSINESS_API AFishingSpot : public AActor
 
 private:
 	int _iCurrentFishes;
+	UPROPERTY()
 	bool _bCanCreateMinigame = false;
+	bool _bHasPlayerInteracted = false;
 	APlayerCharacter* xPlayerCharacter;
 
 
@@ -78,4 +80,7 @@ public:
 	void OnOverlapFishingSpot();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnInteractFishingSpot();
+
+private:
+	void OnInteractFishing();
 };

@@ -27,6 +27,13 @@ void AFishingSpot::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+	if (PlayerController)
+	{
+		EnableInput(PlayerController);
+		InputComponent->BindAction("StartFishing", IE_Pressed, this, &AFishingSpot::OnInteractFishing);
+	}
+	
 	_iCurrentFishes = iTotalFishes;
 }
 
@@ -35,23 +42,27 @@ void AFishingSpot::BeginPlay()
 void AFishingSpot::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (_bCanCreateMinigame)
-	{
-		if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::E))
-		{
-			OnInteractFishingSpot();
-			
-			ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
-			
-			ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
-			ActiveWidget->xFishSpot = this;
+	 if (_bCanCreateMinigame)
+	 {
+	 	if (_bHasPlayerInteracted)
+	 	{
+	 		_bHasPlayerInteracted = false;
+	 		
+	 		xPlayerCharacter->SetMovable(false);
+	 		
+	 		OnInteractFishingSpot();
+	 		
+	 		ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
+	 		
+	 		ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
+	 		ActiveWidget->xFishSpot = this;
 	
-			if (ActiveWidget)
-			{
-				ActiveWidget->AddToViewport();
-				_bCanCreateMinigame = false;
-			}
-		}
+	 		if (ActiveWidget)
+	 		{
+	 			ActiveWidget->AddToViewport();
+	 			_bCanCreateMinigame = false;
+	 		}
+	 	}
 	}
 }
 
@@ -83,7 +94,8 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 		gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CATALOGUE_FISH, eventParameters);
 	}
-	
+
+	xPlayerCharacter->SetMovable(true);
 	_bCanCreateMinigame = true;
 	_iCurrentFishes -= 1;
 
@@ -117,6 +129,31 @@ void AFishingSpot::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor
 	{
 		_bCanCreateMinigame = false;
 	}
+}
+
+void AFishingSpot::OnInteractFishing()
+{
+	_bHasPlayerInteracted = true;
+	// if (_bCanCreateMinigame)
+	// {
+	// 	// if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::E) || GetWorld())
+	// 	// {
+	// 		xPlayerCharacter->SetMovable(false);
+	// 		
+	// 		OnInteractFishingSpot();
+	// 		
+	// 		ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
+	// 		
+	// 		ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
+	// 		ActiveWidget->xFishSpot = this;
+	//
+	// 		if (ActiveWidget)
+	// 		{
+	// 			ActiveWidget->AddToViewport();
+	// 			_bCanCreateMinigame = false;
+	// 		}
+	// 	//}
+	// }
 }
 
 
