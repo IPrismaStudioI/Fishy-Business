@@ -13,6 +13,11 @@ void UButtonDialogueTriggerCatalogue::CheckIfVisible()
 	Super::CheckIfVisible();
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	if (_sFishID.IsEmpty())
+	{
+		this->SetVisibility(ESlateVisibility::Collapsed);
+		return;
+	}
 	if (!gamemode->xCatalogueFishComponent->_xFishCatalogued.Find(_sFishID)) return;
 	if (gamemode->xCatalogueFishComponent->_xFishCatalogued[_sFishID]) //checks if the fish is catalogued
 	{

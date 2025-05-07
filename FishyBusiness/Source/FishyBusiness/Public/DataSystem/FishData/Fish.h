@@ -34,6 +34,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString sFishName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString sFishSName;
 	
 	UPROPERTY(EditAnywhere)
 	FString sFishDescription;

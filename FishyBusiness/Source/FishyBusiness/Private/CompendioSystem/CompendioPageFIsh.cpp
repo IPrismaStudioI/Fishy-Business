@@ -26,6 +26,8 @@ void UCompendioPageFIsh::FillInformations(bool isCatalogued)
 		_xPageImage->SetBrushFromTexture(fish->xFishCatalogueImage);
 		FString name = "<Compendium>" + fish->sFishName + "</>";
 		_xFishName->SetText(FText::FromString(name));
+		FString sname = "<Compendium>" + fish->sFishSName + "</>";
+		_xFishSName->SetText(FText::FromString(sname));
 		FString desc = "<Compendium>" + fish->sFishDescription + "</>";
 		_xFishDescription->SetText(FText::FromString(desc));
 		FString loc = "<Compendium>" + UEnum::GetDisplayValueAsText(fish->eLocation).ToString() + "</>";

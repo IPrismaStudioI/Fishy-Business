@@ -62,10 +62,29 @@ void ACompendioManager::OpenCompendio()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	if (gamemode->GetIsMainOverlayVisible()) return;
 
+	_iActualPageIndexPair = 0;
+	_iActualPageIndex = 1;
+
 	_bIsOpen = !_bIsOpen;
 	
 	EventParameters eventParameters;
-	eventParameters.Add(nullptr);
+	eventParameters.Add(UParameterWrapper::CreateParameter<int>(_iActualPageIndexPair));
+	eventParameters.Add(UParameterWrapper::CreateParameter<int>(_iActualPageIndex));
+
+	TArray<FString> fishesID;
+	gamemode->xCatalogueFishComponent->_xFishCatalogued.GenerateKeyArray (fishesID);
+	
+	if ((_iActualPageIndexPair > 0 && _iActualPageIndex > 1) && (_iActualPageIndexPair < fishesID.Num() - 2 && _iActualPageIndex < fishesID.Num() - 1))
+	{
+		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(gamemode->xCatalogueFishComponent->_xFishCatalogued[fishesID[_iActualPageIndexPair]]));
+		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(gamemode->xCatalogueFishComponent->_xFishCatalogued[fishesID[_iActualPageIndex]]));
+	}
+	else
+	{
+		bool x = false;
+		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(x));
+		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(x));
+	}
 	
 	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::OPEN_CLOSE_COMPENDIO, eventParameters);
 }
