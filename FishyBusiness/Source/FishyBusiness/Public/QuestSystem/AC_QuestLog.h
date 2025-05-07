@@ -71,5 +71,20 @@ private:
 	/// checks if the quest is completed
 	/// </summary>
 	void CheckQuestStatus(FString questID);
+
+#pragma region Events blueprint
+
+public:
+	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void QuestCompleted();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void TaskCompleted();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void QuestAdded();
+	
+#pragma endregion
 	
 };

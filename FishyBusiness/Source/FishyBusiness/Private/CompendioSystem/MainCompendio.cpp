@@ -54,6 +54,7 @@ void UMainCompendio::AddPage(int index, int page, bool isCatalogued)
 	_xActualPages[page]->AddToViewport(2);
 	Cast<UCompendioPageBase>(_xActualPages[page])->SetPageIndex(index + 1);
 	Cast<UCompendioPageBase>(_xActualPages[page])->FillInformations(isCatalogued);
+	UpdateCompendiumF();
 }
 
 void UMainCompendio::RemovePage()
@@ -64,4 +65,11 @@ void UMainCompendio::RemovePage()
 	}
 
 	_xActualPages.Empty();
+}
+
+void UMainCompendio::OnClickOpenClose()
+{
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	ShowMainCompendio(eventParameters);
 }

@@ -37,6 +37,7 @@ public:
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
 	
 	void OpenCompendio();
 	void GoToPrevPage();
@@ -46,4 +47,5 @@ public:
 
 private:
 	void CallCreatePage(int i, int j);
+	
 };

@@ -29,6 +29,9 @@ public:
 
 	UFUNCTION()
 	void CheckCompleted();
+
+	UFUNCTION(BlueprintCallable)
+	void OnClick();
 	
 private:
 	void ShowBulletinFocused();
