@@ -50,11 +50,19 @@ protected:
 	void ShowDialogueMenu();
 	UFUNCTION()
 	void HideDialogueMenu();
-	UFUNCTION()
+
+public:
+	UFUNCTION(BlueprintCallable)
 	void ExitBuilding();
 	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnOpenBuilding();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
     void OnCloseBuilding();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnShowMainMenuUI();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnShowDialogueMenuUI();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnHideDialogueMenuUI();
 };
