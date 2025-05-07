@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "../Public/DIalogueSystem/DialogueElaborator.h"
+#include "CompendioSystem/CatalogueFishComponent.h"
 #include "DataSystem/FishData/Fish.h"
 #include "DIalogueSystem/DA_Dialogue.h"
 #include "EventManager/ObserverManager.h"
@@ -26,6 +27,8 @@ public:
 	UDialogueElaborator* xDialogueElaborator;
 	UPROPERTY(VisibleAnywhere)
 	UQuestUnlockStorageManager* xQuestUnlockStorageManager;
+	UPROPERTY(VisibleAnywhere)
+	UCatalogueFishComponent* xCatalogueFishComponent;
 	
 	UPROPERTY(VisibleAnywhere)
 	UEventBus* xDialogueEventBus;

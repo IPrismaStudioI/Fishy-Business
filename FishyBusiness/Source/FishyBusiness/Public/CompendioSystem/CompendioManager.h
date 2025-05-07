@@ -20,8 +20,6 @@ private:
 	TSubclassOf<UMainCompendio> _xMainCompendio;
 	
 	UPROPERTY()
-	TMap<FString, bool> _xFishCatalogued;
-	UPROPERTY()
 	int _iPageNum;
 
 	bool _bIsOpen = false;
