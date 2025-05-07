@@ -27,7 +27,7 @@ public:
 	UButtonDialogueTriggerBase();
 
 	///<summary>Initiates a dialogue using the dialogue ID stored in _sDialogueID.</summary>
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void StartDialogue();
 
 	///<summary>

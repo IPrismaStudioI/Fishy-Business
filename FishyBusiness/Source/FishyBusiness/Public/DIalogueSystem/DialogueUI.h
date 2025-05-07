@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "Components/CanvasPanel.h"
+#include "Components/RichTextBlock.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "DialogueTriggers/ChoiceButton.h"
@@ -33,10 +34,10 @@ public:
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UTextBlock* _xSentence;
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* _xName;
+	URichTextBlock* _xName;
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UVerticalBox* _xChoiceContainer;
-
+	
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UChoiceButton> xChoiceButton;
 
@@ -81,11 +82,12 @@ private:
 	
 	void FillChoiceContainer(EventParameters parameters);
 	
-	UFUNCTION()
-	void OnContinueBtnClicked();
 
 public:
 	virtual void NativeConstruct() override;
+	
+	UFUNCTION(BlueprintCallable)
+	void OnContinueBtnClicked();
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnChangeSentence();
@@ -93,5 +95,7 @@ public:
 	void OnStartDialogue();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnFinishDialogue();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnFillVerticalBox();
 	
 };

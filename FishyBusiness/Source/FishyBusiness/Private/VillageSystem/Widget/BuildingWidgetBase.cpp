@@ -37,24 +37,30 @@ void UBuildingWidgetBase::ShowCanvas(EventParameters parameters)
 void UBuildingWidgetBase::ShowMenu(EventParameters parameters)
 {
 	_xMainMenu->SetVisibility(ESlateVisibility::Visible);
+	OnShowMainMenuUI();
 }
 
 void UBuildingWidgetBase::ShowDialogueMenu()
 {
 	_xDialogueVerticalBoxBtn->SetVisibility(ESlateVisibility::Visible);
 	_xMainMenu->SetVisibility(ESlateVisibility::Collapsed);
+
+	OnShowDialogueMenuUI();
+	
 	TArray<UWidget*> children = _xDialogueVerticalBoxBtn->GetAllChildren();
 
 	for (int i = 0; i < children.Num() - 1; i++)
 	{
 		Cast<UButtonDialogueTriggerBase>(children[i])->CheckIfVisible();
 	}
+	
 }
 
 void UBuildingWidgetBase::HideDialogueMenu()
 {
 	_xDialogueVerticalBoxBtn->SetVisibility(ESlateVisibility::Collapsed);
 	_xMainMenu->SetVisibility(ESlateVisibility::Visible);
+	OnHideDialogueMenuUI();
 }
 
 void UBuildingWidgetBase::ExitBuilding()

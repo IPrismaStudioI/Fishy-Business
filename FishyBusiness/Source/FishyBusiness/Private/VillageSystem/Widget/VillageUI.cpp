@@ -79,6 +79,7 @@ void UVillageUI::onCarpentryBtnClicked()
 void UVillageUI::ShowWidget(EventParameters parameters)
 {
 	_xCanvas->SetVisibility(ESlateVisibility::Visible);
+	OnVisible();
 }
 
 void UVillageUI::ExitWidget()

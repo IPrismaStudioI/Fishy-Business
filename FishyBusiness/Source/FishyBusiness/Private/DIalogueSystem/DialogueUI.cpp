@@ -49,8 +49,8 @@ void UDialogueUI::ChangeSentence(EventParameters parameters)
 
 void UDialogueUI::ChangeName(EventParameters parameters)
 {
-	FText text = FText::FromString(parameters[0]->Getter<FString>());
-	_xName->SetText(text);
+	FString name = "<NPCName>" + parameters[0]->Getter<FString>() + "</>";
+	_xName->SetText(FText::FromString(name));
 }
 
 void UDialogueUI::FinishDialogue(EventParameters parameters)
@@ -115,4 +115,5 @@ void UDialogueUI::FillChoiceContainer(EventParameters parameters)
 		
 		_xChoiceContainer->AddChild(choiceBtn1);
 	}
+	OnFillVerticalBox();
 }
