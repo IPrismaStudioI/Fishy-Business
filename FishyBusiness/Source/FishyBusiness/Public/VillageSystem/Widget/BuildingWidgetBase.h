@@ -30,7 +30,7 @@ public:
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UVerticalBox* _xMainMenu;
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
-	UButtonDialogueTriggerBase* _xDialogueVerticalBoxBtn;
+	UButton* _xDialogueVerticalBoxBtn;
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButton* _xExitDialogueVerticalBoxBtn; 
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
