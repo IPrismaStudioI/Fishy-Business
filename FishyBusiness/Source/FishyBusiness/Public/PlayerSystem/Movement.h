@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PaperFlipbookComponent.h"
 
 UENUM(BlueprintType)
 enum class EDirections : uint8
@@ -42,7 +43,7 @@ public:
 	UPROPERTY()
 	UPaperFlipbook* xCockPit;
 	UPROPERTY()
-	UPaperFlipbook* Hull;
+	UPaperFlipbookComponent* Hull;
 	UPROPERTY()
 	UPaperFlipbook* xEngine;
 

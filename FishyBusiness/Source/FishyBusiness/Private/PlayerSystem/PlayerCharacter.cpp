@@ -48,15 +48,16 @@ APlayerCharacter::APlayerCharacter()
 	
 	xCamera->SetProjectionMode(ECameraProjectionMode::Orthographic);
 
-	xMovement->xCockPit = xCockpit->GetFlipbook();
-	xMovement->Hull = xHull->GetFlipbook();
-	xMovement->xEngine = xEngine->GetFlipbook();
 }
 
 // Called when the game starts or when spawned
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	xMovement->xCockPit = xCockpit->GetFlipbook();
+	xMovement->Hull = xHull;
+	xMovement->xEngine = xEngine->GetFlipbook();
 	
 }
 
