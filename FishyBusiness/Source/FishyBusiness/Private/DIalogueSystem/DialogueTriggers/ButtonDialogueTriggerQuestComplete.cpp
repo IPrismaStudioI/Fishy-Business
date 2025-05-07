@@ -11,6 +11,12 @@ void UButtonDialogueTriggerQuestComplete::CheckIfVisible()
 	{
 		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 
+		if (_sQuestID.IsEmpty())
+		{
+			this->SetVisibility(ESlateVisibility::Collapsed);
+			return;
+		}
+		
 		if (gamemode->xQuestUnlockStorageManager->_sCompletedQuestList.Contains(_sQuestID))
 		{
 			_bOneTime = false;

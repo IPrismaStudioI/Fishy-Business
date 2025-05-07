@@ -22,6 +22,8 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	URichTextBlock* _xFishDescription;
 	UPROPERTY(meta = (BindWidget))
+	URichTextBlock* _xFishSName;
+	UPROPERTY(meta = (BindWidget))
 	URichTextBlock* _xLocation;
 	
 public:

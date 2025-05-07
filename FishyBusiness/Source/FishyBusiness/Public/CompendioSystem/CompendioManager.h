@@ -23,7 +23,8 @@ private:
 	int _iPageNum;
 
 	bool _bIsOpen = false;
-	int _iActualPageIndex;
+	int _iActualPageIndex = 1;
+	int _iActualPageIndexPair = 0;
 
 protected:
 	// Called when the game starts or when spawned

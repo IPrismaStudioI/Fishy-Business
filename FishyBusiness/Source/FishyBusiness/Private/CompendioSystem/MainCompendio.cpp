@@ -29,8 +29,12 @@ void UMainCompendio::ShowMainCompendio(EventParameters parameters)
 	else
 	{
 		_xCanvasPanel->SetVisibility(ESlateVisibility::Visible);
-		AddPage(0, 0, false);
-		AddPage(1, 1, false);
+		int firstPage = parameters[0]->Getter<int>();
+		int secondPage = parameters[1]->Getter<int>();
+		bool cataloguedFirstPage = parameters[2]->Getter<bool>();
+		bool cataloguedSecondPage = parameters[3]->Getter<bool>();
+		AddPage(firstPage, 0, cataloguedFirstPage);
+		AddPage(secondPage, 1, cataloguedSecondPage);
 	}
 }
 
