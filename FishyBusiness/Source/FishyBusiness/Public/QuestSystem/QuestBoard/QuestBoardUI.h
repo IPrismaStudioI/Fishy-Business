@@ -39,4 +39,10 @@ public:
 	
 	UFUNCTION()
 	void CloseBoard();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void ShowQuestBoard();
+
+	UFUNCTION(BlueprintCallable)
+	void OnClick();
 };

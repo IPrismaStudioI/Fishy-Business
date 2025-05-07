@@ -53,6 +53,7 @@ void UQuestBulletinFocusedUI::ShowBulletin(bool isShowed)
 {
 	if (isShowed)
 		_xCanvas->SetVisibility(ESlateVisibility::Visible);
+		OnVisible();
 	else
 		_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
 }
@@ -61,3 +62,14 @@ void UQuestBulletinFocusedUI::QuitBulletin()
 {
 	ShowBulletin(false);
 }
+
+void UQuestBulletinFocusedUI::OnClickAccept()
+{
+	QuestAccept();
+}
+
+void UQuestBulletinFocusedUI::OnClickDecline()
+{
+	CloseBulletin();
+}
+

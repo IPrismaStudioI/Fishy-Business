@@ -36,4 +36,13 @@ public:
 private:
 	void AddPage(int index, int page, bool isCatalogued);
 	void RemovePage();
+
+#pragma region Blueprint
+
+public:
+	UFUNCTION(BlueprintCallable)
+	void OnClickOpenClose();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void UpdateCompendiumF();
+#pragma endregion
 };

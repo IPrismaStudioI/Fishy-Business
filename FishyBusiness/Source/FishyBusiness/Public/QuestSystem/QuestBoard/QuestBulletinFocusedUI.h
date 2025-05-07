@@ -50,4 +50,12 @@ public:
 
 	UFUNCTION()
 	void QuitBulletin();
+
+	UFUNCTION(BlueprintCallable)
+	void OnClickAccept();
+	UFUNCTION(BlueprintCallable)
+	void OnClickDecline();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnVisible();
+
 };
