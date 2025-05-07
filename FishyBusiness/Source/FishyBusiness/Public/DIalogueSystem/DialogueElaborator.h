@@ -16,13 +16,14 @@ class FISHYBUSINESS_API UDialogueElaborator : public UActorComponent
 
 private:
 	FDialogue _xActualDialogue;
-	TArray<FString> _sCurrentText;
 	int _iCurrentMonologueIndex;
 	 
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UUserWidget> DialogueUI;
 	
 public:
+	UPROPERTY(BlueprintReadWrite)
+	TArray<FString> _sCurrentText;
 	UPROPERTY(BlueprintReadWrite)
 	bool _bIsRunning = false;
 	UPROPERTY(BlueprintReadWrite)

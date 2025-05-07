@@ -20,6 +20,8 @@ AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 	this->AddInstanceComponent(xDialogueElaborator);
 	xQuestUnlockStorageManager = CreateDefaultSubobject<UQuestUnlockStorageManager>("Quest Unlock Storage Manager");
 	this->AddInstanceComponent(xQuestUnlockStorageManager);
+	xCatalogueFishComponent = CreateDefaultSubobject<UCatalogueFishComponent>("Catalogue Fish Component");
+	this->AddInstanceComponent(xCatalogueFishComponent);
 	
 	xDialogueEventBus = CreateDefaultSubobject<UEventBus>("Dialogue Bus");
 	this->AddInstanceComponent(xDialogueEventBus);

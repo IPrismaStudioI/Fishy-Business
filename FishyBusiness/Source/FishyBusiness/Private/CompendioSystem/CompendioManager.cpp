@@ -114,37 +114,40 @@ void ACompendioManager::GoToPrevPage()
 
 void ACompendioManager::CreateCatalogue(TArray<TSubclassOf<UCompendioPageBase>> pageList)
 {
-	_xFishCatalogued.Add("upgrade1", false);
-	_xFishCatalogued.Add("upgrade2", false);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->xCatalogueFishComponent->_xFishCatalogued.Add("upgrade1", false);
+	gamemode->xCatalogueFishComponent->_xFishCatalogued.Add("upgrade2", false);
 	for (int i = 0; i < pageList.Num(); i++)
 	{
 		if (pageList[i]->IsChildOf(UCompendioPageFIsh::StaticClass()))
 		{
 			UCompendioPageFIsh* pageFish = Cast<UCompendioPageFIsh>(pageList[i]->GetDefaultObject());
-			_xFishCatalogued.Add(pageFish->sFishID, false);
+			gamemode->xCatalogueFishComponent->_xFishCatalogued.Add(pageFish->sFishID, false);
 		}
 	}
 }
 
 void ACompendioManager::CatalogueFish(EventParameters parameters)
 {
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	FString fishId = parameters[0]->Getter<FString>();
-	_xFishCatalogued[fishId] = true;
+	gamemode->xCatalogueFishComponent->_xFishCatalogued[fishId] = true;
 }
 
 void ACompendioManager::CallCreatePage(int i, int j)
 {
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	EventParameters eventParameters;
 	eventParameters.Add(UParameterWrapper::CreateParameter<int>(i));
 	eventParameters.Add(UParameterWrapper::CreateParameter<int>(j));
 	
 	TArray<FString> fishesID;
-	_xFishCatalogued.GenerateKeyArray (fishesID);
+	gamemode->xCatalogueFishComponent->_xFishCatalogued.GenerateKeyArray (fishesID);
 	
 	if ((i > 0 && j > 1) && (i < fishesID.Num() - 2 && j < fishesID.Num() - 1))
 	{
-		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(_xFishCatalogued[fishesID[i]]));
-		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(_xFishCatalogued[fishesID[j]]));
+		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(gamemode->xCatalogueFishComponent->_xFishCatalogued[fishesID[i]]));
+		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(gamemode->xCatalogueFishComponent->_xFishCatalogued[fishesID[j]]));
 	}
 	else
 	{
@@ -153,7 +156,6 @@ void ACompendioManager::CallCreatePage(int i, int j)
 		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(x));
 	}
 	
-	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CREATE_PAGE, eventParameters);
 }
