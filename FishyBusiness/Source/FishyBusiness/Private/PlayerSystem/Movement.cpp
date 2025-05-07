@@ -53,24 +53,36 @@ void UMovement::SetFlipbook(EDirections direction)
 void UMovement::OnMovingVertical(float vector)
 {
 	_fyDirection = vector;
-	CheckDirection();
+	//CheckDirection();
 	OnBoatMovement();
 }
 
 void UMovement::OnMovingHorizontal(float vector)
 {
 	_fxDirection = vector;
-	CheckDirection();
+	//CheckDirection();
 	OnBoatMovement();
 }
 
 void UMovement::CheckDirection()
 {
-	float x = _fxDirection;
-	float y = _fyDirection;
+	if (-0.3f < vVelocity.GetSafeNormal().Y && vVelocity.GetSafeNormal().Y < 0.3f) {_fX = 0.0f;}
+	else if (vVelocity.GetSafeNormal().Y > 0.3f) {_fX = 1.0f;}
+	else if (vVelocity.GetSafeNormal().Y < 0.3f) {_fX = -1.0f;}
+		
+	
+	if (-0.3f < vVelocity.GetSafeNormal().X && vVelocity.GetSafeNormal().X < 0.3f) {_fY = 0.0f;}
+	else if (vVelocity.GetSafeNormal().X > 0.3f) {_fY = 1.0f;}
+	else if (vVelocity.GetSafeNormal().X < 0.3f) {_fY = -1.0f;}
 
-	int HashX = static_cast<int>(x * 10);
-	int HashY = static_cast<int>(y * 10);
+	// _fX = vVelocity.GetSafeNormal().Y;
+	// _fY = vVelocity.GetSafeNormal().X;
+	
+	UE_LOG(LogTemp, Warning, TEXT("X = %f"), _fX);
+	UE_LOG(LogTemp, Warning, TEXT("Y = %f"), _fY);
+
+	int HashX = static_cast<int>(_fX * 10);
+	int HashY = static_cast<int>(_fY * 10);
 
 	switch (int Code = HashX * 10 + HashY)
 	{

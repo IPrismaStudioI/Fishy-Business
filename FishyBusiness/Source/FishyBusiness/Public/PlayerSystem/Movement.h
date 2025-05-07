@@ -34,9 +34,13 @@ private:
 	TMap<EDirections, UPaperFlipbook*> _xHullFlipBook;
 	UPROPERTY(EditAnywhere)
 	TMap<EDirections, UPaperFlipbook*> _xEngineFlipBook;
-
+	
 	float _fxDirection;
 	float _fyDirection;
+
+	
+	float _fX = 0.0f;
+	float _fY = 0.0f;
 
 public:
 	//actual sprite
@@ -47,11 +51,16 @@ public:
 	UPROPERTY()
 	UPaperFlipbook* xEngine;
 
+	FVector vVelocity;
+
 public:    
 	UMovement();
 	virtual void SetupInputBindings();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnBoatMovement();
+
+	/// <summary>checks the direction and calls SetFlipbook() depending on the direction</summary>
+	void CheckDirection();
 
 protected:
 	// Called when the game starts
@@ -67,8 +76,6 @@ private:
 	/// <summary>checks when the character is moving horizontally</summary>
 	void OnMovingHorizontal(float vector);
 
-	/// <summary>checks the direction and calls SetFlipbook() depending on the direction</summary>
-	void CheckDirection();
 };
 
 
