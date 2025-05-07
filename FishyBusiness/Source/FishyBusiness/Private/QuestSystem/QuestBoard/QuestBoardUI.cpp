@@ -29,9 +29,15 @@ void UQuestBoardUI::NativeConstruct()
 void UQuestBoardUI::OpenBoard(EventParameters parameters)
 {
 	_xCanvas->SetVisibility(ESlateVisibility::Visible);
+	ShowQuestBoard();
 }
 
 void UQuestBoardUI::CloseBoard()
 {
 	_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+void UQuestBoardUI::OnClick()
+{
+	CloseBoard();
 }

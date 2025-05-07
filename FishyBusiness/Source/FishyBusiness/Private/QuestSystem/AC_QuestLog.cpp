@@ -53,6 +53,8 @@ void UAC_QuestLog::AddQuest(FString questID)
 	if (xQuests.Find(questID) == nullptr)
 	{
 		xQuests.Add(questID, FPlayerQuest(gamemode->xQuestDataManager->GetQuestModuleListFromDT(questID)));
+		QuestAdded();
+
 		for (UDA_QuestModuleBase* Element : xQuests[questID].xModules)
 		{
 			if (UDA_CollectionModule* tmp = Cast<UDA_CollectionModule>(Element))
@@ -133,6 +135,7 @@ void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 void UAC_QuestLog::CheckAdvanceModule(FString questID)
 {
 	xQuests[questID].iCurrentModule++;
+	TaskCompleted();
 	CheckQuestStatus(questID);
 }
 
@@ -140,6 +143,7 @@ void UAC_QuestLog::CheckQuestStatus(FString questID)
 {
 	if (xQuests[questID].iCurrentModule == xQuests[questID].xModules.Num())
 	{
+		QuestCompleted();
 		xQuests[questID].eStatus = EQuestStatus::E_COMPLETED_QUEST;
 	}
 }

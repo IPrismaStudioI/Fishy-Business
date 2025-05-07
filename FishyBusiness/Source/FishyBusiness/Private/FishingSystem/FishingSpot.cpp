@@ -113,6 +113,7 @@ void AFishingSpot::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor
 	}
 }
 
+
 void AFishingSpot::OnInteractFishing()
 {
 	if (_bCanCreateMinigame)
@@ -142,4 +143,7 @@ void AFishingSpot::OnInteractFishing()
 	}
 }
 
-
+void AFishingSpot::InteractFishingSpot()
+{
+	OnInteractFishing();
+}

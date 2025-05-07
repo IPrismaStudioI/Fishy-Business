@@ -23,6 +23,11 @@ void UQuestBulletinUI::CheckCompleted()
 		ApplyReward();
 }
 
+void UQuestBulletinUI::OnClick()
+{
+	CheckCompleted();
+}
+
 void UQuestBulletinUI::ShowBulletinFocused()
 {
 	EventParameters eventParameters;
