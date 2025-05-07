@@ -15,6 +15,7 @@ void UBuildingWidgetBase::NativeConstruct()
 	UEventBus* eventBus = gamemode->xVillageEventBus;
 	UEventWrapper::RegisterEvent(eventBus, EventListVillage::SHOW_MENU, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ShowMenu(Params); }));
 
+	_xDialogueMenu->SetVisibility(ESlateVisibility::Collapsed);
 	
 	_xExitBuildingBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::ExitBuilding);
 	_xDialogueVerticalBoxBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::ShowDialogueMenu);
