@@ -18,6 +18,9 @@ class FISHYBUSINESS_API AFishyBusinessGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+private:
+	bool _bIsMainOverlayVisible;
+
 public:
 	UPROPERTY(VisibleAnywhere)
 	UQuestDataManager* xQuestDataManager;
@@ -49,6 +52,17 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
+	UFUNCTION(BlueprintCallable)
+	bool GetIsMainOverlayVisible() const
+	{
+		return _bIsMainOverlayVisible;
+	}
+
+	void SetBIsMainOverlayVisible(bool bBIsMainOverlayVisible)
+	{
+		_bIsMainOverlayVisible = bBIsMainOverlayVisible;
+	}
+	
 	static AFishyBusinessGameModeBase* GetInstance();
 
 	/// <summary>Return a UDA_Dialogue* from the dialogue DataTable using an ID.
