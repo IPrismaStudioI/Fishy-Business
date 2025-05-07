@@ -42,23 +42,22 @@ void UBuildingWidgetBase::ShowMenu(EventParameters parameters)
 
 void UBuildingWidgetBase::ShowDialogueMenu()
 {
-	_xDialogueVerticalBoxBtn->SetVisibility(ESlateVisibility::Visible);
+	_xDialogueMenu->SetVisibility(ESlateVisibility::Visible);
 	_xMainMenu->SetVisibility(ESlateVisibility::Collapsed);
 
 	OnShowDialogueMenuUI();
 	
-	TArray<UWidget*> children = _xDialogueVerticalBoxBtn->GetAllChildren();
+	TArray<UWidget*> children = _xDialogueMenu->GetAllChildren();
 
 	for (int i = 0; i < children.Num() - 1; i++)
 	{
 		Cast<UButtonDialogueTriggerBase>(children[i])->CheckIfVisible();
 	}
-	
 }
 
 void UBuildingWidgetBase::HideDialogueMenu()
 {
-	_xDialogueVerticalBoxBtn->SetVisibility(ESlateVisibility::Collapsed);
+	_xDialogueMenu->SetVisibility(ESlateVisibility::Collapsed);
 	_xMainMenu->SetVisibility(ESlateVisibility::Visible);
 	OnHideDialogueMenuUI();
 }
