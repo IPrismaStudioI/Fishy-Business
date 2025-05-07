@@ -59,15 +59,23 @@ void ACompendioManager::Tick(float DeltaTime)
 
 void ACompendioManager::OpenCompendio()
 {
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	if (gamemode->GetIsMainOverlayVisible()) return;
+
+	_bIsOpen = !_bIsOpen;
+	
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
-	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::OPEN_CLOSE_COMPENDIO, eventParameters);
 }
 
 void ACompendioManager::GoToNextPage()
 {
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	if (gamemode->GetIsMainOverlayVisible()) return;
+	if (!_bIsOpen) return;
+	
 	int i;
 	if (_iPageNum > _iActualPageIndex + 2)
 	{
@@ -85,6 +93,10 @@ void ACompendioManager::GoToNextPage()
 
 void ACompendioManager::GoToPrevPage()
 {
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	if (gamemode->GetIsMainOverlayVisible()) return;
+	if (!_bIsOpen) return;
+	
 	int i;
 	if (_iActualPageIndex - 2 > 0)
 	{

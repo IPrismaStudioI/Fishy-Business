@@ -48,8 +48,10 @@ void UDialogueElaborator::StartDialogue(FDialogue dialogue)
 		EventParameters eventParameters;
 		eventParameters.Add(nullptr);
 		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+		gamemode->SetBIsMainOverlayVisible(true);
 	
 		gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::START_DIALOGUE, eventParameters);
+
 		
 		_bIsRunning = true;
 
@@ -151,6 +153,8 @@ void UDialogueElaborator::CloseDialogue()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::END_DIALOGUE, eventParameters);
+
+	gamemode->SetBIsMainOverlayVisible(false);
 }
 
 void UDialogueElaborator::ClearCurrent()
