@@ -11,6 +11,6 @@
 UENUM(BlueprintType)
 enum class EQuestStatus : uint8
 {
-	E_ACTIVE_QUEST,
-	E_COMPLETED_QUEST,
+	E_ACTIVE_QUEST     UMETA(DisplayName = "Attiva"),
+	E_COMPLETED_QUEST  UMETA(DisplayName = "Completa"),
 };

@@ -166,7 +166,7 @@ void ACompendioManager::CallCreatePage(int i, int j)
 	TArray<FString> fishesID;
 	gamemode->xCatalogueFishComponent->_xFishCatalogued.GenerateKeyArray (fishesID);
 	
-	if ((i > 0 && j > 1) && (i < fishesID.Num() - 2 && j < fishesID.Num() - 1))
+	if (((i > 0 && j > 1) && (i <= fishesID.Num() - 1 && j <= fishesID.Num() - 2)) || ((i > 1 && j > 0) && (i <= fishesID.Num() - 2 && j <= fishesID.Num() - 1)))
 	{
 		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(gamemode->xCatalogueFishComponent->_xFishCatalogued[fishesID[i]]));
 		eventParameters.Add(UParameterWrapper::CreateParameter<bool>(gamemode->xCatalogueFishComponent->_xFishCatalogued[fishesID[j]]));

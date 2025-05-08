@@ -62,16 +62,19 @@ void UAC_QuestLog::AddQuest(FString questID)
 		    if (UDA_CollectionModule* tmp = Cast<UDA_CollectionModule>(x))
 		    {
 		   		xQuests[questID].iTotalAmountModules.Add(Cast<UDA_CollectionModule>(tmp)->iAmount);
+		   		xQuests[questID].iCurrentAmountModules.Add(0);
 		    }
 			
 		 	if (UDA_ExplorationModule* tpm = Cast<UDA_ExplorationModule>(x))
 		 	{
 		 		xQuests[questID].iTotalAmountModules.Add(1);
+		 		xQuests[questID].iCurrentAmountModules.Add(0);
 		 	}
 			
 		 	if (UDA_InteractionModule* mpt = Cast<UDA_InteractionModule>(x))
 		 	{
 		 		xQuests[questID].iTotalAmountModules.Add(1);
+		 		xQuests[questID].iCurrentAmountModules.Add(0);
 		 	}
 		}
 	}
