@@ -33,6 +33,7 @@ APlayerCharacter::APlayerCharacter()
 
 	xCameraController = CreateDefaultSubobject<UPlayerCameraController>("CameraController");
 	xCameraController->xCamera = xCamera;
+	xCameraController->xSpringArm = xSpringArm;
 	
 	xWallet = CreateDefaultSubobject<UWallet>("Wallet");
 
