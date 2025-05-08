@@ -59,7 +59,7 @@ void UFishInventory::AddFish(FString fishID)
 	int amount = _mFishes[fishID].aFishInfos.Num();
 	eventParameters.Add(UParameterWrapper::CreateParameter<int>(amount));
 	
-	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_EXPLORE, eventParameters);
+	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_COLLECT, eventParameters);
 	
 }
 

@@ -102,7 +102,7 @@ void UAC_QuestLog::AdvanceExploreModule(EQuestZones zone)
 			if (ExploreModule->QuestZones == zone)
 			{
 				CheckAdvanceModule(questIDs[i]);
-				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule] = 1;
+				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = 1;
 			}
 		}
 	}
@@ -115,7 +115,7 @@ void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID, int
 		if (InteractModule->eNpcName == npcName)//checks if the npc is correct
 		{
 			CheckAdvanceModule(questID);
-			xQuests[questID].iCurrentAmountModules[xQuests[questID].iCurrentModule] = 1;
+			xQuests[questID].iCurrentAmountModules[xQuests[questID].iCurrentModule - 1] = 1;
 		}
 	}
 }
@@ -133,7 +133,7 @@ void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 			{
 				CheckAdvanceModule(questIDs[i]);
 			}
-			xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule] = quantity;
+			xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
 		}
 	}
 
