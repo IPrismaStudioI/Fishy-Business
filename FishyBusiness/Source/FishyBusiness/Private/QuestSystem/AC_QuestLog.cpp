@@ -54,17 +54,16 @@ void UAC_QuestLog::AddQuest(FString questID)
 	{
 		xQuests.Add(questID, FPlayerQuest(gamemode->xQuestDataManager->GetQuestModuleListFromDT(questID)));
 		QuestAdded();
-
-		for (UDA_QuestModuleBase* Element : xQuests[questID].xModules)
-		{
-			if (UDA_CollectionModule* tmp = Cast<UDA_CollectionModule>(Element))
-				xQuests[questID].iTotalAmountModules[xQuests[questID].iCurrentModule] = tmp->iAmount;
-			else if (Cast<UDA_ExplorationModule>(Element))
-				xQuests[questID].iTotalAmountModules[xQuests[questID].iCurrentModule] = 1;
-			else if (Cast<UDA_InteractionModule>(Element))
-				xQuests[questID].iTotalAmountModules[xQuests[questID].iCurrentModule] = 1;
-		}
 		
+		// for (int i = 0; i < xQuests[questID].xModules.Num(); i++)
+		// {
+		// 	if (UDA_CollectionModule* tmp = Cast<UDA_CollectionModule>(xQuests[questID].xModules[i]))
+		// 		xQuests[questID].iTotalAmountModules[i] = Cast<UDA_CollectionModule>(tmp)->iAmount;
+		// 	else if (UDA_ExplorationModule* tpm = Cast<UDA_ExplorationModule>(xQuests[questID].xModules[i]))
+		// 		xQuests[questID].iTotalAmountModules[i] = 1;
+		// 	else if (UDA_InteractionModule* mpt = Cast<UDA_InteractionModule>(xQuests[questID].xModules[i]))
+		// 		xQuests[questID].iTotalAmountModules[i] = 1;
+		// }
 	}
 }
 
