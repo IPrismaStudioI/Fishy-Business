@@ -72,11 +72,34 @@ void UQuestBoard::FillQuestBulletins(EventParameters parameters)
 		UTexture2D* icon = gamemode->xQuestDataManager->GetQuestIconFromDT(id);
 		x[i]->_xIcon->SetBrushFromTexture(icon);
 	}
+
+	BulletinCheck();
+}
+
+void UQuestBoard::BulletinCheck()
+{
+	TArray<UQuestBulletinUI*> x;
+	_mQuestUIElements.GenerateKeyArray(x);
 	
 	for (int i = 0; i < x.Num(); i++)
 	{
-		if (x[i]->_sQuestID == "")
+		FString id = x[i]->_sQuestID;
+		if (id == "")
+		{
 			x[i]->_xBulletinBtn->SetIsEnabled(false);
+		}
+		else
+		{
+			if (_mQuestUIElements[x[FindQuestID(id)]].bIsActive)
+			{
+				AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+				int funded = gamemode->xQuestUnlockStorageManager->_sCompletedQuestList.Find(id);
+				if (funded != -1)
+					x[i]->_xBulletinBtn->SetIsEnabled(true);
+				else
+					x[i]->_xBulletinBtn->SetIsEnabled(false);
+			}
+		}
 	}
 }
 
@@ -94,6 +117,8 @@ void UQuestBoard::AddQuest(EventParameters parameters)
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADD_QUEST, eventParameters);
+
+	BulletinCheck();
 }
 
 int UQuestBoard::FindQuestID(FString questID)

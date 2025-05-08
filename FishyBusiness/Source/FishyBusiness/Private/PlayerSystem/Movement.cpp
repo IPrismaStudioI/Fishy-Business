@@ -8,8 +8,6 @@
 // Sets default values for this component's properties
 UMovement::UMovement(): xCockPit(nullptr), Hull(nullptr), xEngine(nullptr), _fxDirection(0), _fyDirection(0)
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
@@ -47,7 +45,7 @@ void UMovement::SetupInputBindings()
 void UMovement::SetFlipbook(EDirections direction)
 {
 	//xCockPit = _xCockPitFlipBook[direction];
-	//Hull = _xHullFlipBook[direction];
+	Hull->SetFlipbook(_xHullFlipBook[direction]);
 	//xEngine = _xEngineFlipBook[direction];
 }
 
@@ -55,49 +53,61 @@ void UMovement::SetFlipbook(EDirections direction)
 void UMovement::OnMovingVertical(float vector)
 {
 	_fyDirection = vector;
-	CheckDirection();
+	//CheckDirection();
 	OnBoatMovement();
 }
 
 void UMovement::OnMovingHorizontal(float vector)
 {
 	_fxDirection = vector;
-	CheckDirection();
+	//CheckDirection();
 	OnBoatMovement();
 }
 
 void UMovement::CheckDirection()
 {
-	float x = _fxDirection;
-	float y = _fyDirection;
+	if (-fVelocityDeadZoneY < vVelocity.GetSafeNormal().Y && vVelocity.GetSafeNormal().Y < fVelocityDeadZoneY) {_fX = 0.0f;}
+	else if (vVelocity.GetSafeNormal().Y > 0.3f) {_fX = 1.0f;}
+	else if (vVelocity.GetSafeNormal().Y < 0.3f) {_fX = -1.0f;}
+		
+	
+	if (-fVelocityDeadZoneX < vVelocity.GetSafeNormal().X && vVelocity.GetSafeNormal().X < fVelocityDeadZoneX) {_fY = 0.0f;}
+	else if (vVelocity.GetSafeNormal().X > 0.3f) {_fY = 1.0f;}
+	else if (vVelocity.GetSafeNormal().X < 0.3f) {_fY = -1.0f;}
 
-	int HashX = static_cast<int>(x * 10);
-	int HashY = static_cast<int>(y * 10);
+	// _fX = vVelocity.GetSafeNormal().Y;
+	// _fY = vVelocity.GetSafeNormal().X;
+	
+	UE_LOG(LogTemp, Warning, TEXT("X = %f"), _fX);
+	UE_LOG(LogTemp, Warning, TEXT("Y = %f"), _fY);
+
+	int HashX = static_cast<int>(_fX * 10);
+	int HashY = static_cast<int>(_fY * 10);
 
 	switch (int Code = HashX * 10 + HashY)
 	{
-	case 1:    // (0, 1) N
+	case 10:    // (0, 1) N
 		SetFlipbook(EDirections::E_NORTH);
 		break;
-	case 11:   // (1, 1) NE
+	case 110:   // (1, 1) NE
 		SetFlipbook(EDirections::E_NORTH_EST);
 		break;
-	case 10:   // (1, 0) E
+	case 100:   // (1, 0) E
 		SetFlipbook(EDirections::E_EST);
 		break;
-	case 9:    // (1, -1) SE
+	case 90:    // (1, -1) SE
 		SetFlipbook(EDirections::E_SOUTH_EST);
 		break;
-	case -1:   // (0, -1) S
+	case -10:   // (0, -1) S
 		SetFlipbook(EDirections::E_SOUTH);
 		break;
-	case -11:  // (-1, -1) SW
+	case -110:  // (-1, -1) SW
 		SetFlipbook(EDirections::E_SOUTH_WEST);
 		break; 
-	case -10:  // (-1, 0) W 
+	case -100:  // (-1, 0) W 
 		SetFlipbook(EDirections::E_WEST);
 		break;
-	case -9:   // (-1, 1) NW
+	case -90:   // (-1, 1) NW
 		SetFlipbook(EDirections::E_NORTH_WEST);
 		break;
 	}

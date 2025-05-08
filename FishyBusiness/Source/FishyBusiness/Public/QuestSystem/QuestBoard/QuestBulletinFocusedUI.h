@@ -25,16 +25,16 @@ private:
 	URichTextBlock* _xQuestDescription;
 	UPROPERTY(meta = (BindWidget))
 	URichTextBlock* _xQuestGiver;
-	UPROPERTY(meta = (BindWidget))
-	UButton* _xQuestExitBtn;
-	UPROPERTY(meta = (BindWidget))
-	UButton* _xQuestAcceptBtn;
 
 	FString _sQuestID;
 
 public:
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UCanvasPanel* _xCanvas;
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UButton* _xQuestExitBtn;
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UButton* _xQuestAcceptBtn;
 	
 public:
 	virtual void NativeConstruct() override;
@@ -50,4 +50,12 @@ public:
 
 	UFUNCTION()
 	void QuitBulletin();
+
+	UFUNCTION(BlueprintCallable)
+	void OnClickAccept();
+	UFUNCTION(BlueprintCallable)
+	void OnClickDecline();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnVisible();
+
 };

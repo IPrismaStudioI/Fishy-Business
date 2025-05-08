@@ -26,24 +26,38 @@ private:
 #pragma region move player
 	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
 	FVector _xPosition;
+	FVector _xTargetPosition;
 	FVector _xInitialPosition;
-	
+
+	UPROPERTY(EditAnywhere)
+	USceneComponent* xRoot;
 	UPROPERTY(EditAnywhere, Category="ArriveTrigger")
 	UBoxComponent* Trigger;
 #pragma endregion move player
 
-#pragma region timeline
-	UPROPERTY(EditAnywhere, Category = "Timeline")
-	UTimelineComponent* ArriveTimeline;
-	UPROPERTY(EditAnywhere, Category = "Timeline")
-	float ArriveTimeLineLenght;
+#pragma region LerpApproach
 
-	UPROPERTY()
-	UCurveFloat* fCurve;
-
-	FOnTimelineFloat tickCallback{};
-	FOnTimelineEventStatic finishedCallback;
-#pragma endregion timeline
+private:
+	UPROPERTY(EditAnywhere, Category = "LerpApproach")
+	float _fLerpDuration = 0.f;
+	
+	float _fCurrentLerpTime = 0.f;
+	bool _bIsLerping = false;
+	
+#pragma endregion lerpApproach
+	
+// #pragma region timeline
+// 	UPROPERTY(EditAnywhere, Category = "Timeline")
+// 	UTimelineComponent* ArriveTimeline;
+// 	UPROPERTY(EditAnywhere, Category = "Timeline")
+// 	float ArriveTimeLineLenght;
+//
+// 	UPROPERTY()
+// 	UCurveFloat* fCurve;
+//
+// 	FOnTimelineFloat tickCallback{};
+// 	FOnTimelineEventStatic finishedCallback;
+// #pragma endregion timeline
 	
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UVillageUI> VillageUI;

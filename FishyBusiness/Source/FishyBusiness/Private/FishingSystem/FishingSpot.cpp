@@ -30,29 +30,10 @@ void AFishingSpot::BeginPlay()
 	_iCurrentFishes = iTotalFishes;
 }
 
-
 // Called every frame
 void AFishingSpot::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (_bCanCreateMinigame)
-	{
-		if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::E))
-		{
-			OnInteractFishingSpot();
-			
-			ActiveWidget = CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame);
-			
-			ActiveWidget->sFishID = xFishes[_iCurrentFishes -1];
-			ActiveWidget->xFishSpot = this;
-	
-			if (ActiveWidget)
-			{
-				ActiveWidget->AddToViewport();
-				_bCanCreateMinigame = false;
-			}
-		}
-	}
 }
 
 void AFishingSpot::ToggleActive(bool value)
@@ -69,6 +50,7 @@ void AFishingSpot::ToggleActive(bool value)
 
 void AFishingSpot::FinishedMinigame(bool hasWon)
 {
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	if (hasWon)
 	{
 		xRewardWidget = CreateWidget<UFishingReward>(GetWorld(), xFishingReward);
@@ -80,9 +62,15 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 
 		EventParameters eventParameters;
 		eventParameters.Add(UParameterWrapper::CreateParameter<FString>(xFishes[_iCurrentFishes -1]));
-		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 		gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CATALOGUE_FISH, eventParameters);
 	}
+
+	gamemode->SetBIsMainOverlayVisible(false);
+	
+	xPlayerCharacter->xCameraController->ResizeCamera(_fOldCameraSize, _fLerpSpeed);
+	
+	ActiveWidget[0]->RemoveFromParent();
+	ActiveWidget.Empty();
 	
 	_bCanCreateMinigame = true;
 	_iCurrentFishes -= 1;
@@ -107,7 +95,14 @@ void AFishingSpot::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 	{
 		xPlayerCharacter = Player;
 		_bCanCreateMinigame = true;
+
+		EnableInput(Cast<APlayerController>(xPlayerCharacter->GetController()));
+		if (InputComponent)
+		{
+			InputComponent->BindAction("StartFishing", IE_Pressed, this, &AFishingSpot::OnInteractFishing);
+		}
 	}
+
 }
 
 void AFishingSpot::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -120,3 +115,39 @@ void AFishingSpot::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor
 }
 
 
+void AFishingSpot::OnInteractFishing()
+{
+	if (_bCanCreateMinigame)
+	{
+		_bCanCreateMinigame = false;
+		// if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::E) || GetWorld())
+		// {
+		xPlayerCharacter->SetMovable(false);
+		
+		OnInteractFishingSpot();
+
+		_fOldCameraSize = xPlayerCharacter->xCamera->OrthoWidth;
+		xPlayerCharacter->xCameraController->ResizeCamera(_fNewCameraSize, _fLerpSpeed);
+	
+	
+		ActiveWidget.Add(CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame));
+		
+		ActiveWidget[0]->sFishID = xFishes[_iCurrentFishes -1];
+		ActiveWidget[0]->xFishSpot = this;
+
+		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+		gamemode->SetBIsMainOverlayVisible(true);
+	
+		if (ActiveWidget[0])
+		{
+			ActiveWidget[0]->AddToViewport();
+			_bCanCreateMinigame = false;
+		}
+		//}
+	}
+}
+
+void AFishingSpot::InteractFishingSpot()
+{
+	OnInteractFishing();
+}

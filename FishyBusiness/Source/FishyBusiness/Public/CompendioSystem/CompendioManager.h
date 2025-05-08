@@ -20,12 +20,11 @@ private:
 	TSubclassOf<UMainCompendio> _xMainCompendio;
 	
 	UPROPERTY()
-	TMap<FString, bool> _xFishCatalogued;
-	UPROPERTY()
 	int _iPageNum;
 
 	bool _bIsOpen = false;
-	int _iActualPageIndex;
+	int _iActualPageIndex = 1;
+	int _iActualPageIndexPair = 0;
 
 protected:
 	// Called when the game starts or when spawned
@@ -37,6 +36,7 @@ public:
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
 	
 	void OpenCompendio();
 	void GoToPrevPage();
@@ -46,4 +46,5 @@ public:
 
 private:
 	void CallCreatePage(int i, int j);
+	
 };

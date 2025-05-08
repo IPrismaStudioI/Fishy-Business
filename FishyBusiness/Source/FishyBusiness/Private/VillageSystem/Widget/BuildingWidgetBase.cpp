@@ -15,8 +15,18 @@ void UBuildingWidgetBase::NativeConstruct()
 	UEventBus* eventBus = gamemode->xVillageEventBus;
 	UEventWrapper::RegisterEvent(eventBus, EventListVillage::SHOW_MENU, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ShowMenu(Params); }));
 
+	_xDialogueMenu->SetVisibility(ESlateVisibility::Collapsed);
 	
 	_xExitBuildingBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::ExitBuilding);
+	_xDialogueVerticalBoxBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::ShowDialogueMenu);
+	_xExitDialogueVerticalBoxBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::HideDialogueMenu);
+
+	TArray<UWidget*> children = _xDialogueMenu->GetAllChildren();
+	for (int i = 0; i < children.Num(); i++)
+	{
+		if (Cast<UButtonDialogueTriggerBase>(children[i]))
+			Cast<UButtonDialogueTriggerBase>(children[i])->OnClicked.AddDynamic(this, &UBuildingWidgetBase::HideDialogueMenu);
+	}
 }
 
 void UBuildingWidgetBase::HideCanvas()
@@ -34,6 +44,29 @@ void UBuildingWidgetBase::ShowCanvas(EventParameters parameters)
 void UBuildingWidgetBase::ShowMenu(EventParameters parameters)
 {
 	_xMainMenu->SetVisibility(ESlateVisibility::Visible);
+	OnShowMainMenuUI();
+}
+
+void UBuildingWidgetBase::ShowDialogueMenu()
+{
+	_xDialogueMenu->SetVisibility(ESlateVisibility::Visible);
+	_xMainMenu->SetVisibility(ESlateVisibility::Collapsed);
+
+	OnShowDialogueMenuUI();
+	
+	TArray<UWidget*> children = _xDialogueMenu->GetAllChildren();
+
+	for (int i = 0; i < children.Num(); i++)
+	{
+		if (Cast<UButtonDialogueTriggerBase>(children[i]))
+			Cast<UButtonDialogueTriggerBase>(children[i])->CheckIfVisible();
+	}
+}
+
+void UBuildingWidgetBase::HideDialogueMenu()
+{
+	_xDialogueMenu->SetVisibility(ESlateVisibility::Collapsed);
+	OnHideDialogueMenuUI();
 }
 
 void UBuildingWidgetBase::ExitBuilding()

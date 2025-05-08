@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PaperFlipbookComponent.h"
 
 UENUM(BlueprintType)
 enum class EDirections : uint8
@@ -33,24 +34,38 @@ private:
 	TMap<EDirections, UPaperFlipbook*> _xHullFlipBook;
 	UPROPERTY(EditAnywhere)
 	TMap<EDirections, UPaperFlipbook*> _xEngineFlipBook;
-
+	
 	float _fxDirection;
 	float _fyDirection;
+
+	
+	float _fX = 0.0f;
+	float _fY = 0.0f;
 
 public:
 	//actual sprite
 	UPROPERTY()
 	UPaperFlipbook* xCockPit;
 	UPROPERTY()
-	UPaperFlipbook* Hull;
+	UPaperFlipbookComponent* Hull;
 	UPROPERTY()
 	UPaperFlipbook* xEngine;
+
+	FVector vVelocity;
+
+	UPROPERTY(EditAnywhere)
+	float fVelocityDeadZoneX;
+	UPROPERTY(EditAnywhere)
+	float fVelocityDeadZoneY;
 
 public:    
 	UMovement();
 	virtual void SetupInputBindings();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnBoatMovement();
+
+	/// <summary>checks the direction and calls SetFlipbook() depending on the direction</summary>
+	void CheckDirection();
 
 protected:
 	// Called when the game starts
@@ -66,8 +81,6 @@ private:
 	/// <summary>checks when the character is moving horizontally</summary>
 	void OnMovingHorizontal(float vector);
 
-	/// <summary>checks the direction and calls SetFlipbook() depending on the direction</summary>
-	void CheckDirection();
 };
 
 

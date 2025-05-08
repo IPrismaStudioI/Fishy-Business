@@ -23,6 +23,9 @@ class FISHYBUSINESS_API APlayerCharacter : public ACharacter
 	GENERATED_BODY()
 
 private:
+	UPROPERTY()
+	UCharacterMovementComponent* _xCharacterMovementComponent;
+
 	bool _bIsMovable = true;
 	
 public:
@@ -63,6 +66,7 @@ public:
 	bool bIsMoving = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UAC_QuestLog* xQuestLog;
+
 	
 protected:
 	// Called when the game starts or when spawned
@@ -78,6 +82,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintCallable)
 	void SetMovable(bool option);
 	
 private:	

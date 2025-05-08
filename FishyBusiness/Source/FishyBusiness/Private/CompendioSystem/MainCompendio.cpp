@@ -29,8 +29,12 @@ void UMainCompendio::ShowMainCompendio(EventParameters parameters)
 	else
 	{
 		_xCanvasPanel->SetVisibility(ESlateVisibility::Visible);
-		AddPage(0, 0, false);
-		AddPage(1, 1, false);
+		int firstPage = parameters[0]->Getter<int>();
+		int secondPage = parameters[1]->Getter<int>();
+		bool cataloguedFirstPage = parameters[2]->Getter<bool>();
+		bool cataloguedSecondPage = parameters[3]->Getter<bool>();
+		AddPage(firstPage, 0, cataloguedFirstPage);
+		AddPage(secondPage, 1, cataloguedSecondPage);
 	}
 }
 
@@ -54,6 +58,7 @@ void UMainCompendio::AddPage(int index, int page, bool isCatalogued)
 	_xActualPages[page]->AddToViewport(2);
 	Cast<UCompendioPageBase>(_xActualPages[page])->SetPageIndex(index + 1);
 	Cast<UCompendioPageBase>(_xActualPages[page])->FillInformations(isCatalogued);
+	UpdateCompendiumF();
 }
 
 void UMainCompendio::RemovePage()
@@ -64,4 +69,11 @@ void UMainCompendio::RemovePage()
 	}
 
 	_xActualPages.Empty();
+}
+
+void UMainCompendio::OnClickOpenClose()
+{
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	ShowMainCompendio(eventParameters);
 }

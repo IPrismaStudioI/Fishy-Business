@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "../Public/DIalogueSystem/DialogueElaborator.h"
+#include "CompendioSystem/CatalogueFishComponent.h"
 #include "DataSystem/FishData/Fish.h"
 #include "DIalogueSystem/DA_Dialogue.h"
 #include "EventManager/ObserverManager.h"
@@ -18,6 +19,9 @@ class FISHYBUSINESS_API AFishyBusinessGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+private:
+	bool _bIsMainOverlayVisible;
+
 public:
 	UPROPERTY(VisibleAnywhere)
 	UQuestDataManager* xQuestDataManager;
@@ -26,6 +30,8 @@ public:
 	UDialogueElaborator* xDialogueElaborator;
 	UPROPERTY(VisibleAnywhere)
 	UQuestUnlockStorageManager* xQuestUnlockStorageManager;
+	UPROPERTY(VisibleAnywhere)
+	UCatalogueFishComponent* xCatalogueFishComponent;
 	
 	UPROPERTY(VisibleAnywhere)
 	UEventBus* xDialogueEventBus;
@@ -49,6 +55,17 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
+	UFUNCTION(BlueprintCallable)
+	bool GetIsMainOverlayVisible() const
+	{
+		return _bIsMainOverlayVisible;
+	}
+
+	void SetBIsMainOverlayVisible(bool bBIsMainOverlayVisible)
+	{
+		_bIsMainOverlayVisible = bBIsMainOverlayVisible;
+	}
+	
 	static AFishyBusinessGameModeBase* GetInstance();
 
 	/// <summary>Return a UDA_Dialogue* from the dialogue DataTable using an ID.

@@ -16,11 +16,20 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USphereComponent* xSphereTrigger;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera Zoom")
 	float fNewCameraSize;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera")
-	float fSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera Zoom")
+	float fZoomSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "SpringArm Reposition")
+	bool bCanSpringarmRelocate = false;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (MakeEditWidget = true), category = "SpringArm Reposition")
+	FVector vNewSpringarmPosition;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "SpringArm Reposition")
+	float fRelocateSpeed;
 
 public:	
 	// Sets default values for this actor's properties
@@ -33,6 +42,7 @@ protected:
 private:
 
 	float _fOldCameraSize;
+	FVector _vOldSpringarmPos;
 	
 	UFUNCTION()
 	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, 

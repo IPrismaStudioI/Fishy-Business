@@ -8,6 +8,7 @@
 #include "Components/CanvasPanel.h"
 #include "Components/Image.h"
 #include "Components/VerticalBox.h"
+#include "DIalogueSystem/DialogueTriggers/ButtonDialogueTriggerBase.h"
 #include "EventManager/EventWrapper.h"
 #include "BuildingWidgetBase.generated.h"
 
@@ -29,6 +30,12 @@ public:
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UVerticalBox* _xMainMenu;
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UButton* _xDialogueVerticalBoxBtn;
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UButton* _xExitDialogueVerticalBoxBtn; 
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
+	UVerticalBox* _xDialogueMenu;
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
 	UButton* _xExitBuildingBtn; 
 
 public:
@@ -40,10 +47,22 @@ protected:
 	void ShowMenu(EventParameters parameters);
 
 	UFUNCTION()
+	void ShowDialogueMenu();
+	UFUNCTION()
+	void HideDialogueMenu();
+
+public:
+	UFUNCTION(BlueprintCallable)
 	void ExitBuilding();
 	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnOpenBuilding();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
     void OnCloseBuilding();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnShowMainMenuUI();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnShowDialogueMenuUI();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnHideDialogueMenuUI();
 };

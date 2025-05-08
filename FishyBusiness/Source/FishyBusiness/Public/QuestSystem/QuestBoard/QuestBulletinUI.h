@@ -28,5 +28,12 @@ public:
 	virtual void NativeConstruct() override;
 
 	UFUNCTION()
+	void CheckCompleted();
+
+	UFUNCTION(BlueprintCallable)
+	void OnClick();
+	
+private:
 	void ShowBulletinFocused();
+	void ApplyReward();
 };

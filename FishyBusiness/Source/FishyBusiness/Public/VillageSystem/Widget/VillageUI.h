@@ -36,19 +36,22 @@ public:
 	virtual void NativeConstruct() override;
 
 private:
-	UFUNCTION()
-	void onFishShopBtnClicked();
-	UFUNCTION()
-	void onLighthouseBtnClicked();
-	UFUNCTION()
-	void onWorkshopBtnClicked();
-	UFUNCTION()
-	void onArchiveBtnClicked();
-	UFUNCTION()
-	void onCarpentryBtnClicked();
-	
 	void ShowWidget(EventParameters parameters);
 	void HideWidget();
-	UFUNCTION()
+
+public:
+	UFUNCTION(BlueprintCallable)
 	void ExitWidget();
+	UFUNCTION(BlueprintCallable)
+	void onFishShopBtnClicked();
+	UFUNCTION(BlueprintCallable)
+	void onLighthouseBtnClicked();
+	UFUNCTION(BlueprintCallable)
+	void onWorkshopBtnClicked();
+	UFUNCTION(BlueprintCallable)
+	void onArchiveBtnClicked();
+	UFUNCTION(BlueprintCallable)
+	void onCarpentryBtnClicked();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnVisible();
 };

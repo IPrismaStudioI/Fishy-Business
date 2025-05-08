@@ -18,13 +18,14 @@ class FISHYBUSINESS_API AFishingSpot : public AActor
 
 private:
 	int _iCurrentFishes;
+	UPROPERTY()
 	bool _bCanCreateMinigame = false;
+	bool _bHasPlayerInteracted = false;
 	APlayerCharacter* xPlayerCharacter;
-
 
 public:
 	UPROPERTY(BlueprintReadWrite)
-	UFishingMinigame* ActiveWidget;
+	TArray<UFishingMinigame*> ActiveWidget;
 
 	UPROPERTY(BlueprintReadWrite)
 	UFishingReward* xRewardWidget;
@@ -49,6 +50,14 @@ public:
 	UPROPERTY()
 	AFishingGenerator* xFishingGenerator;
 
+private:
+	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
+	float _fNewCameraSize;
+	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
+	float _fLerpSpeed;
+	float _fOldCameraSize;
+	
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -78,4 +87,10 @@ public:
 	void OnOverlapFishingSpot();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnInteractFishingSpot();
+
+	UFUNCTION(BlueprintCallable)
+	void InteractFishingSpot();
+
+private:
+	void OnInteractFishing();
 };

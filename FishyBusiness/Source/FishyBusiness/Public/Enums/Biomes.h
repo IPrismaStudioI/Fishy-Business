@@ -10,5 +10,5 @@
 UENUM(BlueprintType)
 enum class EBiomes : uint8
 {
-	E_STANDARD_BIOME    UMETA(DisplayName = "E_STANDARD_BIOME")
+	E_STANDARD_BIOME    UMETA(DisplayName = "Coastal Shores")
 };

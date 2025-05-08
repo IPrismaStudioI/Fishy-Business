@@ -39,8 +39,14 @@ void ACameraChanger::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 		//checks if the player has the camera controller
 		if (UPlayerCameraController* PlayerComponent = Player->FindComponentByClass<UPlayerCameraController>())
 		{
-			PlayerComponent->ResizeCamera(fNewCameraSize, fSpeed);
+			PlayerComponent->ResizeCamera(fNewCameraSize, fZoomSpeed);
 			_fOldCameraSize = PlayerComponent->xCamera->OrthoWidth;
+
+			if (bCanSpringarmRelocate)
+			{
+				PlayerComponent->RelocateCamera(vNewSpringarmPosition, fRelocateSpeed);
+				_vOldSpringarmPos = PlayerComponent->xSpringArm->SocketOffset;
+			}
 		}
 	}
 }
@@ -53,7 +59,12 @@ void ACameraChanger::OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AAct
 		//checks if the player has the camera controller
 		if (UPlayerCameraController* PlayerComponent = Player->FindComponentByClass<UPlayerCameraController>())
 		{
-			PlayerComponent->ResizeCamera(_fOldCameraSize, fSpeed);
+			PlayerComponent->ResizeCamera(_fOldCameraSize, fZoomSpeed);
+
+			if (bCanSpringarmRelocate)
+			{
+				PlayerComponent->RelocateCamera(_vOldSpringarmPos, fRelocateSpeed);
+			}
 		}
 	}
 }

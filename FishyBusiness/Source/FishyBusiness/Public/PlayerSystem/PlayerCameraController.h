@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Camera/CameraComponent.h"
 #include "Components/ActorComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "PlayerCameraController.generated.h"
 
 
@@ -17,12 +18,21 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UCameraComponent* xCamera;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USpringArmComponent* xSpringArm;
+
 private:
-	float _fStartOrthoWidth;
-	float _fTargetOrthoWidth;
-	float _fLerpDuration;
-	float _fCurrentLerpTime;
-	bool _bIsLerping = false;
+	float _fZoomStartOrthoWidth;
+	float _fZoomTargetOrthoWidth;
+	float _fZoomLerpDuration;
+	float _fZoomCurrentLerpTime;
+	bool _bZoomIsLerping = false;
+
+	FVector _vRelocateStartPosition;
+	FVector _vRelocateTargetPosition;
+	float _fRelocateLerpDuration;
+	float _fRelocateCurrentLerpTime;
+	bool _bRelocateIsLerping = false;
 	
 private:
 	// Called when the game starts
@@ -37,4 +47,7 @@ public:
 
 	/// <summary>Changes player camera orthographic size within specified seconds</summary>
 	void ResizeCamera(float nextValue, float speed);
+	
+	/// <summary> Changes player camera position within specified seconds </summary>
+	void RelocateCamera(FVector nextValue, float speed);
 };
