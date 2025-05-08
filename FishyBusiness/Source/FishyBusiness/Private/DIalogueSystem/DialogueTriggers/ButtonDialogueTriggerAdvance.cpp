@@ -33,12 +33,12 @@ void UButtonDialogueTriggerAdvance::CheckIfVisible()
 	
 	APlayerCharacter* player = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	
-	if (_sQuestID.IsEmpty())
+	if (_sQuestID.IsEmpty() || !player->xQuestLog->xQuests.Find(_sQuestID))
 	{
 		this->SetVisibility(ESlateVisibility::Collapsed);
 		return;
 	}
-	
+
 	if (player->xQuestLog->xQuests[_sQuestID].iCurrentModule == _iModuleIndex) //checks if the current module is the same as the specified _iModulIndex
 	{
 		this->SetVisibility(ESlateVisibility::Visible);
