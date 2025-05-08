@@ -30,7 +30,7 @@ public:
 	UDialogueElaborator* xDialogueElaborator;
 	UPROPERTY(VisibleAnywhere)
 	UQuestUnlockStorageManager* xQuestUnlockStorageManager;
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UCatalogueFishComponent* xCatalogueFishComponent;
 	
 	UPROPERTY(VisibleAnywhere)
