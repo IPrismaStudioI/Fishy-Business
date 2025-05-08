@@ -65,14 +65,13 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 		gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CATALOGUE_FISH, eventParameters);
 	}
 
-	gamemode->SetBIsMainOverlayVisible(true);
+	gamemode->SetBIsMainOverlayVisible(false);
 	
 	xPlayerCharacter->xCameraController->ResizeCamera(_fOldCameraSize, _fLerpSpeed);
 	
 	ActiveWidget[0]->RemoveFromParent();
 	ActiveWidget.Empty();
 	
-	xPlayerCharacter->SetMovable(true);
 	_bCanCreateMinigame = true;
 	_iCurrentFishes -= 1;
 

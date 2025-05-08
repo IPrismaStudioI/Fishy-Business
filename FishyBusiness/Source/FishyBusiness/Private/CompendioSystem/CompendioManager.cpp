@@ -7,6 +7,8 @@
 #include "CompendioSystem/CompendioPageFIsh.h"
 #include "EventManager/EventWrapper.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "PlayerSystem/PlayerCharacter.h"
 
 // Sets default values
 ACompendioManager::ACompendioManager()
@@ -61,11 +63,12 @@ void ACompendioManager::OpenCompendio()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	if (gamemode->GetIsMainOverlayVisible()) return;
-
+	
 	_iActualPageIndexPair = 0;
 	_iActualPageIndex = 1;
 
 	_bIsOpen = !_bIsOpen;
+	Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0))->SetMovable(!_bIsOpen);
 	
 	EventParameters eventParameters;
 	eventParameters.Add(UParameterWrapper::CreateParameter<int>(_iActualPageIndexPair));
