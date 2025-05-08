@@ -66,6 +66,7 @@ void AVillageManager::Tick(float DeltaTime)
 		if (alpha >= 1.f)
 		{
 			_bIsLerping = false;
+			_fCurrentLerpTime = 0.f;
 			ApproachVillage();
 		}
 	}
