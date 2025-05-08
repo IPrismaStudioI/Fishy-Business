@@ -17,7 +17,9 @@ struct FISHYBUSINESS_API FPlayerQuest
 
 	UPROPERTY(EditAnywhere)
 	TArray<UDA_QuestModuleBase*> xModules;
+	UPROPERTY(EditAnywhere)
 	TArray<int> iCurrentAmountModules;
+	UPROPERTY(EditAnywhere)
 	TArray<int> iTotalAmountModules;
 	UPROPERTY(EditAnywhere)
 	int iCurrentModule;
