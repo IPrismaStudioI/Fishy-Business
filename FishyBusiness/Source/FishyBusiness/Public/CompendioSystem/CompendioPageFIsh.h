@@ -27,7 +27,7 @@ private:
 	URichTextBlock* _xLocation;
 	
 public:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString sFishID;
 
 public:
