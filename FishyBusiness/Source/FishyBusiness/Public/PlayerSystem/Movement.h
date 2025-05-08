@@ -53,6 +53,11 @@ public:
 
 	FVector vVelocity;
 
+	UPROPERTY(EditAnywhere)
+	float fVelocityDeadZoneX;
+	UPROPERTY(EditAnywhere)
+	float fVelocityDeadZoneY;
+
 public:    
 	UMovement();
 	virtual void SetupInputBindings();

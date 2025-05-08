@@ -66,12 +66,12 @@ void UMovement::OnMovingHorizontal(float vector)
 
 void UMovement::CheckDirection()
 {
-	if (-0.3f < vVelocity.GetSafeNormal().Y && vVelocity.GetSafeNormal().Y < 0.3f) {_fX = 0.0f;}
+	if (-fVelocityDeadZoneY < vVelocity.GetSafeNormal().Y && vVelocity.GetSafeNormal().Y < fVelocityDeadZoneY) {_fX = 0.0f;}
 	else if (vVelocity.GetSafeNormal().Y > 0.3f) {_fX = 1.0f;}
 	else if (vVelocity.GetSafeNormal().Y < 0.3f) {_fX = -1.0f;}
 		
 	
-	if (-0.3f < vVelocity.GetSafeNormal().X && vVelocity.GetSafeNormal().X < 0.3f) {_fY = 0.0f;}
+	if (-fVelocityDeadZoneX < vVelocity.GetSafeNormal().X && vVelocity.GetSafeNormal().X < fVelocityDeadZoneX) {_fY = 0.0f;}
 	else if (vVelocity.GetSafeNormal().X > 0.3f) {_fY = 1.0f;}
 	else if (vVelocity.GetSafeNormal().X < 0.3f) {_fY = -1.0f;}
 
