@@ -97,8 +97,8 @@ void AVillageManager::ApproachVillage()
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_VILLAGE_BASE, eventParameters);
 	gamemode->SetBIsMainOverlayVisible(true);
+	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_VILLAGE_BASE, eventParameters);
 	UE_LOG(LogTemp, Warning, TEXT("ApproachVillage!"));
 }
 
@@ -106,4 +106,6 @@ void AVillageManager::FreePlayer(EventParameters parameters)
 {
 	OnExitVillage();
 	player->SetMovable(true);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->SetBIsMainOverlayVisible(false);
 }
