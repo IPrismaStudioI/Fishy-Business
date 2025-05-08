@@ -4,6 +4,7 @@
 #include "PlayerSystem/PlayerCharacter.h"
 
 #include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "PlayerSystem/MaterialInventory.h"
 #include "PlayerSystem/Movement.h"
@@ -48,15 +49,17 @@ APlayerCharacter::APlayerCharacter()
 	
 	xCamera->SetProjectionMode(ECameraProjectionMode::Orthographic);
 
-	xMovement->xCockPit = xCockpit->GetFlipbook();
-	xMovement->Hull = xHull->GetFlipbook();
-	xMovement->xEngine = xEngine->GetFlipbook();
 }
 
 // Called when the game starts or when spawned
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	_xCharacterMovementComponent = GetCharacterMovement();
+	xMovement->xCockPit = xCockpit->GetFlipbook();
+	xMovement->Hull = xHull;
+	xMovement->xEngine = xEngine->GetFlipbook();
 	
 }
 
@@ -66,7 +69,9 @@ void APlayerCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	CheckMoving();
-	
+
+	xMovement->vVelocity = _xCharacterMovementComponent->Velocity;
+	xMovement->CheckDirection();
 }
 
 // Called to bind functionality to input
