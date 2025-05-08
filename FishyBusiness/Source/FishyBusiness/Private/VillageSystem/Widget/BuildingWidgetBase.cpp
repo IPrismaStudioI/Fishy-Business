@@ -20,6 +20,7 @@ void UBuildingWidgetBase::NativeConstruct()
 	_xExitBuildingBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::ExitBuilding);
 	_xDialogueVerticalBoxBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::ShowDialogueMenu);
 	_xExitDialogueVerticalBoxBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::HideDialogueMenu);
+	_xExitDialogueVerticalBoxBtn->OnClicked.AddDynamic(this, &UBuildingWidgetBase::ShowMainMenuEvent);
 
 	TArray<UWidget*> children = _xDialogueMenu->GetAllChildren();
 	for (int i = 0; i < children.Num(); i++)
@@ -67,6 +68,12 @@ void UBuildingWidgetBase::HideDialogueMenu()
 {
 	_xDialogueMenu->SetVisibility(ESlateVisibility::Collapsed);
 	OnHideDialogueMenuUI();
+}
+
+void UBuildingWidgetBase::ShowMainMenuEvent()
+{
+	_xMainMenu->SetVisibility(ESlateVisibility::Visible);
+	OnShowMainMenuUI();
 }
 
 void UBuildingWidgetBase::ExitBuilding()

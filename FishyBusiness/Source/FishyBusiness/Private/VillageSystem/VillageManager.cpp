@@ -98,7 +98,7 @@ void AVillageManager::ApproachVillage()
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_VILLAGE_BASE, eventParameters);
-
+	gamemode->SetBIsMainOverlayVisible(true);
 	UE_LOG(LogTemp, Warning, TEXT("ApproachVillage!"));
 }
 

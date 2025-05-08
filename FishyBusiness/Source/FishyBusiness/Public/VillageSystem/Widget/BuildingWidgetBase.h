@@ -50,6 +50,8 @@ protected:
 	void ShowDialogueMenu();
 	UFUNCTION()
 	void HideDialogueMenu();
+	UFUNCTION()
+	void ShowMainMenuEvent();
 
 public:
 	UFUNCTION(BlueprintCallable)
