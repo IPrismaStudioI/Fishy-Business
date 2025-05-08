@@ -155,6 +155,7 @@ void UDialogueElaborator::CloseDialogue()
 	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::END_DIALOGUE, eventParameters);
 
 	gamemode->SetBIsMainOverlayVisible(false);
+	OnCloseDialogue();
 }
 
 void UDialogueElaborator::ClearCurrent()
