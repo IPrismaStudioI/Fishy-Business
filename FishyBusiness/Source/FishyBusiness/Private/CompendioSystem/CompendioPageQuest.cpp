@@ -35,7 +35,7 @@ void UCompendioPageQuest::FillQuest()
 	if (log->xQuests.Find(_sQuestID))
 	{
 		_xQuestCanvas->SetVisibility(ESlateVisibility::Visible);
-		FString status = "<Compendium>" + UEnum::GetDisplayValueAsText(log->xQuests[_sQuestID].eStatus).ToString() + "</>";
+		FString status = "<Compendium>" + gamemode->eQuestStatusString[log->xQuests[_sQuestID].eStatus] + "</>";
 		_xQuestStatus->SetText(FText::FromString(status));
 		FString name = "<Compendium>" + gamemode->xQuestDataManager->GetQuestNameFromDT(_sQuestID) + "</>";
 		_xQuestName->SetText(FText::FromString(name));
