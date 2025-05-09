@@ -55,6 +55,7 @@ public:
 	UPaperFlipbook* xEngine;
 
 	FVector vVelocity;
+	float fMaxSpeed;
 
 	UPROPERTY(EditAnywhere)
 	float fVelocityDeadZoneX;
