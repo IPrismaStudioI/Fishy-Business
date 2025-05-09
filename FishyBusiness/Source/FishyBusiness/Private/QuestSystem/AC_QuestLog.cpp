@@ -129,14 +129,17 @@ void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 	{
 		if (UDA_CollectionModule* CollectModule = Cast<UDA_CollectionModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
-			if (CollectModule->xTypeOfItem == item && CollectModule->iAmount >= quantity)
+			if (CollectModule->xTypeOfItem == item && quantity >= CollectModule->iAmount)
 			{
 				CheckAdvanceModule(questIDs[i]);
+				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
 			}
-			xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
+			if (CollectModule->xTypeOfItem == item)
+			{
+				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
+			}
 		}
 	}
-
 }
 
 #pragma endregion
