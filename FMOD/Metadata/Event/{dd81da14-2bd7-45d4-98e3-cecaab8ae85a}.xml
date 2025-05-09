@@ -53,7 +53,7 @@
 			<destination>{065a614d-df7c-4c70-93a3-e95ab9a8bcde}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{ce11009e-8c0b-4e69-8f8c-ccf72480548f}</destination>
+			<destination>{d2eecd95-4a5f-4e3c-8491-8425dfcc4dd8}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{627a78f0-2c44-466a-91fb-cf873871e569}">
@@ -102,6 +102,9 @@
 	<object class="SingleSound" id="{f9aa5c5d-a5af-4319-8ee9-cd6d84f738e4}">
 		<property name="length">
 			<value>7.230291666666667</value>
+		</property>
+		<property name="volume">
+			<value>-1</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{6cefded0-8ec7-46cc-8b82-8720d088d796}</destination>
@@ -163,7 +166,10 @@
 			<value>pitch</value>
 		</property>
 		<property name="initialValue">
-			<value>-20.0000076</value>
+			<value>-20.0000114</value>
+		</property>
+		<property name="attackTime">
+			<value>865.384644</value>
 		</property>
 		<property name="attackShape">
 			<value>0.110947154</value>

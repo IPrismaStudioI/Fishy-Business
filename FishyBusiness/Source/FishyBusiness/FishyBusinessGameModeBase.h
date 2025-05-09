@@ -9,6 +9,7 @@
 #include "DIalogueSystem/DA_Dialogue.h"
 #include "EventManager/ObserverManager.h"
 #include "GameFramework/GameModeBase.h"
+#include "QuestSystem/E_QuestStatus.h"
 #include "QuestSystem/QuestData/QuestRow.h"
 #include "QuestSystem/QuestDataManager.h"
 #include "QuestSystem/QuestBoard/QuestUnlockStorageManager.h"
@@ -48,6 +49,11 @@ public:
 	UDataTable* xDataTableFishes;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	UDataTable* xDataTableQuest;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enumerators")
+	TMap<EBiomes, FString> eBiomesNames;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enumerators")
+	TMap<EQuestStatus, FString> eQuestStatusString;
 	
 public:
 	AFishyBusinessGameModeBase();

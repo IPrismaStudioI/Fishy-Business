@@ -32,7 +32,7 @@ void UCompendioPageFIsh::FillInformations(bool isCatalogued)
 			_xFishSName->SetText(FText::FromString(sname));
 			FString desc = "<Compendium>" + fish->sFishDescription + "</>";
 			_xFishDescription->SetText(FText::FromString(desc));
-			FString loc = "<Compendium>" + UEnum::GetDisplayValueAsText(fish->eLocation).ToString() + "</>";
+			FString loc = "<Compendium>" + gamemode->eBiomesNames[fish->eLocation] + "</>";
 			_xLocation->SetText(FText::FromString(loc));
 		}
 		else

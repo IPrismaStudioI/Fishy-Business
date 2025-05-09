@@ -31,13 +31,16 @@ private:
 	UPROPERTY(EditAnywhere)
 	TMap<EDirections, UPaperFlipbook*> _xCockPitFlipBook;
 	UPROPERTY(EditAnywhere)
-	TMap<EDirections, UPaperFlipbook*> _xHullFlipBook;
+	TMap<EDirections, UPaperFlipbook*> _xMovingHullFlipBook;
+	UPROPERTY(EditAnywhere)
+	TMap<EDirections, UPaperFlipbook*> _xIdleHullFlipBook;
 	UPROPERTY(EditAnywhere)
 	TMap<EDirections, UPaperFlipbook*> _xEngineFlipBook;
 	
 	float _fxDirection;
 	float _fyDirection;
 
+	EDirections _eDirection = EDirections::E_EST;
 	
 	float _fX = 0.0f;
 	float _fY = 0.0f;
