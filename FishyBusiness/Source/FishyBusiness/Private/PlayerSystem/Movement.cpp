@@ -75,6 +75,12 @@ void UMovement::CheckDirection()
 	if (-fVelocityDeadZoneX < vVelocity.GetSafeNormal().X && vVelocity.GetSafeNormal().X < fVelocityDeadZoneX) {_fY = 0.0f;}
 	else if (vVelocity.GetSafeNormal().X > 0.3f) {_fY = 1.0f;}
 	else if (vVelocity.GetSafeNormal().X < 0.3f) {_fY = -1.0f;}
+	
+	if (vVelocity.Length() < 0.3 * fMaxSpeed)
+	{ 
+		_fY = 0.0f;
+		_fX = 0.0f;
+	}
 
 	// _fX = vVelocity.GetSafeNormal().Y;
 	// _fY = vVelocity.GetSafeNormal().X;

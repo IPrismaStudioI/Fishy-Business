@@ -61,6 +61,7 @@ void APlayerCharacter::BeginPlay()
 	xMovement->xCockPit = xCockpit->GetFlipbook();
 	xMovement->Hull = xHull;
 	xMovement->xEngine = xEngine->GetFlipbook();
+	xMovement->fMaxSpeed = _xCharacterMovementComponent->MaxWalkSpeed;
 	
 }
 
