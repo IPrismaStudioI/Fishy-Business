@@ -33,5 +33,6 @@ public:
 	///<summary>
 	///Checks if the associated quest current module is the same as _iModuleIndex, if it is, the button will be visible, if not it will be collapsed
 	///</summary>
+	UFUNCTION(BlueprintCallable)
 	virtual void CheckIfVisible();
 };
