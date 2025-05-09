@@ -102,7 +102,6 @@ void APlayerCharacter::CheckMoving()
 		}
 		else bIsMoving = false;
 	}
-	else bIsMoving = false;
 }
 
 void APlayerCharacter::MoveForward(float inputVector)
