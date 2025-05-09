@@ -13,7 +13,7 @@ class FISHYBUSINESS_API UCatalogueFishComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite)
 	TMap<FString, bool> _xFishCatalogued;
 	
 public:	

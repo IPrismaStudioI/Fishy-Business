@@ -37,8 +37,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
+	UFUNCTION(BlueprintCallable)
 	void OpenCompendio();
+	
 	void GoToPrevPage();
 	void GoToNextPage();
 	void CreateCatalogue(TArray<TSubclassOf<UCompendioPageBase>> pageList);

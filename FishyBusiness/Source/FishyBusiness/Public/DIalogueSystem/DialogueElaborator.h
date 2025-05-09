@@ -75,4 +75,8 @@ private:
 	void AddToCurrent(FString sentence);
 	void RemoveFromCurrent();
 	FString GetFromCurrent();
+	
+public:
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnCloseDialogue();
 };

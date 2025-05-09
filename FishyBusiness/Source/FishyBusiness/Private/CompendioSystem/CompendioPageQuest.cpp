@@ -42,7 +42,7 @@ void UCompendioPageQuest::FillQuest()
 		FString description = "<Compendium>" + gamemode->xQuestDataManager->GetQuestDescriptionFromDT(_sQuestID) + "</>";
 		_xQuestDescription->SetText(FText::FromString(description));
 
-		for (int i = 0; i < log->xQuests.Find(_sQuestID)->iCurrentModule; i++)
+		for (int i = 0; i <= log->xQuests.Find(_sQuestID)->iCurrentModule; i++)
 		{
 			FString desc = "<Compendium>" + log->xQuests.Find(_sQuestID)->xModules[i]->sDescription + "</>";
 			FString currentAmount = "<Compendium>" + FString::FromInt(log->xQuests.Find(_sQuestID)->iCurrentAmountModules[i]) + "</>";

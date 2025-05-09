@@ -62,16 +62,19 @@ void UAC_QuestLog::AddQuest(FString questID)
 		    if (UDA_CollectionModule* tmp = Cast<UDA_CollectionModule>(x))
 		    {
 		   		xQuests[questID].iTotalAmountModules.Add(Cast<UDA_CollectionModule>(tmp)->iAmount);
+		   		xQuests[questID].iCurrentAmountModules.Add(0);
 		    }
 			
 		 	if (UDA_ExplorationModule* tpm = Cast<UDA_ExplorationModule>(x))
 		 	{
 		 		xQuests[questID].iTotalAmountModules.Add(1);
+		 		xQuests[questID].iCurrentAmountModules.Add(0);
 		 	}
 			
 		 	if (UDA_InteractionModule* mpt = Cast<UDA_InteractionModule>(x))
 		 	{
 		 		xQuests[questID].iTotalAmountModules.Add(1);
+		 		xQuests[questID].iCurrentAmountModules.Add(0);
 		 	}
 		}
 	}
@@ -99,7 +102,7 @@ void UAC_QuestLog::AdvanceExploreModule(EQuestZones zone)
 			if (ExploreModule->QuestZones == zone)
 			{
 				CheckAdvanceModule(questIDs[i]);
-				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule] = 1;
+				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = 1;
 			}
 		}
 	}
@@ -112,7 +115,7 @@ void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID, int
 		if (InteractModule->eNpcName == npcName)//checks if the npc is correct
 		{
 			CheckAdvanceModule(questID);
-			xQuests[questID].iCurrentAmountModules[xQuests[questID].iCurrentModule] = 1;
+			xQuests[questID].iCurrentAmountModules[xQuests[questID].iCurrentModule - 1] = 1;
 		}
 	}
 }
@@ -126,14 +129,17 @@ void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 	{
 		if (UDA_CollectionModule* CollectModule = Cast<UDA_CollectionModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
-			if (CollectModule->xTypeOfItem == item && CollectModule->iAmount >= quantity)
+			if (CollectModule->xTypeOfItem == item && quantity >= CollectModule->iAmount)
 			{
 				CheckAdvanceModule(questIDs[i]);
+				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
 			}
-			xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule] = quantity;
+			if (CollectModule->xTypeOfItem == item)
+			{
+				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
+			}
 		}
 	}
-
 }
 
 #pragma endregion
