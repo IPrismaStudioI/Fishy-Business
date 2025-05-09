@@ -44,8 +44,9 @@ void UMovement::SetupInputBindings()
 
 void UMovement::SetFlipbook(EDirections direction)
 {
+	_eDirection = direction;
 	//xCockPit = _xCockPitFlipBook[direction];
-	Hull->SetFlipbook(_xHullFlipBook[direction]);
+	Hull->SetFlipbook(_xMovingHullFlipBook[direction]);
 	//xEngine = _xEngineFlipBook[direction];
 }
 
@@ -109,6 +110,9 @@ void UMovement::CheckDirection()
 		break;
 	case -90:   // (-1, 1) NW
 		SetFlipbook(EDirections::E_NORTH_WEST);
+		break;
+	case 0:
+		Hull->SetFlipbook(_xIdleHullFlipBook[_eDirection]);
 		break;
 	}
 }
