@@ -74,6 +74,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "MyFunctions")
 	void FinishedMinigame(bool hasWon);
 
+	UFUNCTION(BlueprintCallable, Category = "MyFunctions")
+	void CreateReward();
+
 	UFUNCTION()
 	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
 						UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, 

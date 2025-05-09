@@ -51,26 +51,25 @@ void AFishingSpot::ToggleActive(bool value)
 void AFishingSpot::FinishedMinigame(bool hasWon)
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+
 	if (hasWon)
 	{
-		xRewardWidget = CreateWidget<UFishingReward>(GetWorld(), xFishingReward);
-		xRewardWidget->sFishID = xFishes[_iCurrentFishes -1];
-		xRewardWidget->xFishingSpot = this;
-		xRewardWidget->AddToViewport();
-
 		xPlayerCharacter->xFishInventory->AddFish(xFishes[_iCurrentFishes -1]);
-
+		
 		EventParameters eventParameters;
 		eventParameters.Add(UParameterWrapper::CreateParameter<FString>(xFishes[_iCurrentFishes -1]));
 		gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CATALOGUE_FISH, eventParameters);
 	}
-
+	
 	gamemode->SetBIsMainOverlayVisible(false);
 	
 	xPlayerCharacter->xCameraController->ResizeCamera(_fOldCameraSize, _fLerpSpeed);
-	
-	ActiveWidget[0]->RemoveFromParent();
-	ActiveWidget.Empty();
+
+	if (!ActiveWidget.IsEmpty())
+	{
+		ActiveWidget[0]->RemoveFromParent();
+		ActiveWidget.Empty();
+	}
 	
 	_bCanCreateMinigame = true;
 	_iCurrentFishes -= 1;
@@ -80,6 +79,17 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 		_bCanCreateMinigame = false;
 		xFishingGenerator->ShuffleSpots(this);
 	}
+}
+
+void AFishingSpot::CreateReward()
+{
+	xRewardWidget = CreateWidget<UFishingReward>(GetWorld(), xFishingReward);
+	xRewardWidget->sFishID = xFishes[_iCurrentFishes -1];
+	xRewardWidget->xFishingSpot = this;
+	xRewardWidget->AddToViewport();
+
+	ActiveWidget[0]->RemoveFromParent();
+	ActiveWidget.Empty();
 }
 
 void AFishingSpot::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, 
