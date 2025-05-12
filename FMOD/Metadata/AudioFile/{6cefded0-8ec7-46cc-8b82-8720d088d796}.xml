@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{6cefded0-8ec7-46cc-8b82-8720d088d796}">
 		<property name="assetPath">
-			<value>SFX_BoatMovement_Loop.wav</value>
+			<value>LoopsAmbBoat/SFX_BoatMovement_Loop.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

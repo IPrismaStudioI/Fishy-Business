@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{4906b427-09b3-49f4-916e-e3f0da899237}">
 		<property name="assetPath">
-			<value>SFX_CompendiumPageFlip.wav</value>
+			<value>TownQuestComp/SFX_CompendiumPageFlip.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

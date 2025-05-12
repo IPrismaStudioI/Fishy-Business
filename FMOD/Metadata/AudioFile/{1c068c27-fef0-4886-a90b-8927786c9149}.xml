@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{1c068c27-fef0-4886-a90b-8927786c9149}">
 		<property name="assetPath">
-			<value>SFX_MinigameReelIn_02.wav</value>
+			<value>Minigame/SFX_MinigameReelIn_02.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

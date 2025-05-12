@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{ceec49a2-e480-4cd4-9d24-d687dcadfa2f}">
 		<property name="assetPath">
-			<value>SFX_CompendiumClose.wav</value>
+			<value>TownQuestComp/SFX_CompendiumClose.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{87269431-8c40-4e89-b000-7c0fce5c4f08}">
 		<property name="assetPath">
-			<value>SFX_PolaroidAquired.wav</value>
+			<value>TownQuestComp/SFX_PolaroidAquired.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

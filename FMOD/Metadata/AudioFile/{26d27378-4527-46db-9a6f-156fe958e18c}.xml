@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{26d27378-4527-46db-9a6f-156fe958e18c}">
 		<property name="assetPath">
-			<value>SFX_MapClose.wav</value>
+			<value>TownQuestComp/SFX_MapClose.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>
