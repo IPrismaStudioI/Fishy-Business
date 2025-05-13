@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
-	<object class="ParameterPreset" id="{0a056a8c-fa22-4d9d-8c73-76f9a04999d1}">
+	<object class="ParameterPreset" id="{27f5ec09-8222-406f-a912-30f71f1c2316}">
 		<property name="name">
-			<value>DialogueLenght</value>
+			<value>WordCounter</value>
 		</property>
 		<relationship name="folder">
 			<destination>{ec44e45d-b6d5-486a-9410-9d09ba88ae11}</destination>
 		</relationship>
 		<relationship name="parameter">
-			<destination>{826794bb-ef13-4c90-abe8-6e150ed4616a}</destination>
+			<destination>{1086f203-7442-431c-b065-1788730a5285}</destination>
 		</relationship>
 	</object>
-	<object class="GameParameter" id="{826794bb-ef13-4c90-abe8-6e150ed4616a}">
+	<object class="GameParameter" id="{1086f203-7442-431c-b065-1788730a5285}">
 		<property name="minimum">
 			<value>1</value>
 		</property>
 		<property name="maximum">
-			<value>10</value>
+			<value>36</value>
+		</property>
+		<property name="isGlobal">
+			<value>true</value>
 		</property>
 		<property name="initialValue">
 			<value>1</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
 		</property>
 	</object>
 </objects>
