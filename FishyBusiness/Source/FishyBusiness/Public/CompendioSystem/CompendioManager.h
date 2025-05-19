@@ -39,6 +39,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void OpenCompendio();
+	UFUNCTION(BlueprintCallable)
+	void CloseCompendio();
 	
 	void GoToPrevPage();
 	void GoToNextPage();

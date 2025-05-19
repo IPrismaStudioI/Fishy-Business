@@ -40,6 +40,7 @@ void ACompendioManager::BeginPlay()
 		if (InputComponent)
 		{
 			InputComponent->BindAction("OpenCompendio", IE_Pressed, this, &ACompendioManager::OpenCompendio);
+			InputComponent->BindAction("CloseCompendio", IE_Pressed, this, &ACompendioManager::CloseCompendio);
 			InputComponent->BindAction("NextCompendioPage", IE_Pressed, this, &ACompendioManager::GoToNextPage);
 			InputComponent->BindAction("PrevCompendioPage", IE_Pressed, this, &ACompendioManager::GoToPrevPage);
 		}
@@ -62,13 +63,14 @@ void ACompendioManager::Tick(float DeltaTime)
 void ACompendioManager::OpenCompendio()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	if (gamemode->GetIsMainOverlayVisible()) return;
+	if (gamemode->GetIsMainOverlayVisible() == true && _bIsOpen == false) return;
 	
 	_iActualPageIndexPair = 0;
 	_iActualPageIndex = 1;
 
 	_bIsOpen = !_bIsOpen;
-	Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0))->SetMovable(!_bIsOpen);
+	Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0))->SetCompendioMovable(!_bIsOpen);
+	gamemode->SetBIsMainOverlayVisible(_bIsOpen);
 	
 	EventParameters eventParameters;
 	eventParameters.Add(UParameterWrapper::CreateParameter<int>(_iActualPageIndexPair));
@@ -92,10 +94,25 @@ void ACompendioManager::OpenCompendio()
 	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::OPEN_CLOSE_COMPENDIO, eventParameters);
 }
 
+void ACompendioManager::CloseCompendio()
+{
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	if (gamemode->GetIsMainOverlayVisible() == true && _bIsOpen == false) return;
+
+	_bIsOpen = false;
+
+	Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0))->SetCompendioMovable(!_bIsOpen);
+	gamemode->SetBIsMainOverlayVisible(_bIsOpen);
+
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CLOSE_COMPENDIO, eventParameters);
+}
+
 void ACompendioManager::GoToNextPage()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	if (gamemode->GetIsMainOverlayVisible()) return;
+	if (!gamemode->GetIsMainOverlayVisible()) return;
 	if (!_bIsOpen) return;
 	
 	int i;
@@ -116,7 +133,7 @@ void ACompendioManager::GoToNextPage()
 void ACompendioManager::GoToPrevPage()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	if (gamemode->GetIsMainOverlayVisible()) return;
+	if (!gamemode->GetIsMainOverlayVisible()) return;
 	if (!_bIsOpen) return;
 	
 	int i;

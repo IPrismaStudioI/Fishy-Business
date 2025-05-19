@@ -31,6 +31,7 @@ public:
 public:
 	virtual void NativeConstruct() override;
 	void ShowMainCompendio(EventParameters parameters);
+	void HideMainCompendio(EventParameters parameters);
 	void CreatePages(EventParameters parameters);
 
 private:
