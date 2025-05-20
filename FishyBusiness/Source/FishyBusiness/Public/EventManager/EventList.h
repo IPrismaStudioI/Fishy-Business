@@ -61,6 +61,11 @@ public:
 	/// <summary>
 	/// EBuildingStatus new status
 	/// </summary>
+	static const FString ESC_VILLAGE;
+
+	/// <summary>
+	/// EBuildingStatus new status
+	/// </summary>
 	static const FString RESTORE_CARPENTRY;
 	/// <summary>
 	/// EBuildingStatus new status
@@ -131,4 +136,6 @@ public:
 	static const FString OPEN_CLOSE_COMPENDIO;
 	static const FString CLOSE_COMPENDIO;
 	static const FString CATALOGUE_FISH;
+	static const FString NEXT_PAGE;
+	static const FString PREV_PAGE;
 };

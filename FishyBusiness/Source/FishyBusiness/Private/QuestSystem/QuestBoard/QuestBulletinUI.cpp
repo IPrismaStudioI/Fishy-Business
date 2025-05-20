@@ -44,4 +44,6 @@ void UQuestBulletinUI::ApplyReward()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::GET_REWARD, eventParameters);
+
+	_xBulletinBtn->SetIsEnabled(false);
 }

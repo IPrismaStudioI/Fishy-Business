@@ -21,6 +21,8 @@ const FString EventListVillage::SHOW_VILLAGE_BASE = TEXT("SHOW_VILLAGE_BASE");
 const FString EventListVillage::HIDE_VILLAGE_BASE = TEXT("HIDE_VILLAGE_BASE");
 const FString EventListVillage::SHOW_MENU = TEXT("SHOW_MENU");
 
+const FString EventListVillage::ESC_VILLAGE = TEXT("ESC_VILLAGE");
+
 const FString EventListVillage::RESTORE_ARCHIVE = TEXT("RESTORE_ARCHIVE");
 const FString EventListVillage::RESTORE_FISHSHOP = TEXT("RESTORE_FISHSHOP");
 const FString EventListVillage::RESTORE_WORKSHOP = TEXT("RESTORE_WORKSHOP");
@@ -40,3 +42,5 @@ const FString EventListCompendio::CREATE_PAGE = TEXT("CREATE_PAGE");
 const FString EventListCompendio::OPEN_CLOSE_COMPENDIO = TEXT("OPEN_CLOSE_COMPENDIO");
 const FString EventListCompendio::CLOSE_COMPENDIO = TEXT("CLOSE_COMPENDIO");
 const FString EventListCompendio::CATALOGUE_FISH = TEXT("CATALOGUE_FISH");
+const FString EventListCompendio::NEXT_PAGE = TEXT("NEXT_PAGE");
+const FString EventListCompendio::PREV_PAGE = TEXT("PREV_PAGE");

@@ -14,10 +14,29 @@ void UMainCompendio::NativeConstruct()
 	_xCanvasPanel->SetVisibility(ESlateVisibility::Hidden);
 
 	UEventBus* EventManager = gamemode->xCompendioEventBus;
+
+	_xNextBtn->OnClicked.AddDynamic(this, &UMainCompendio::OnNextClick);
+	_xPrevBtn->OnClicked.AddDynamic(this, &UMainCompendio::OnPrevClick);
 	
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::OPEN_CLOSE_COMPENDIO, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { ShowMainCompendio(Params) ;}));
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::CLOSE_COMPENDIO, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { HideMainCompendio(Params) ;}));
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::CREATE_PAGE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { CreatePages(Params) ;}));
+}
+
+void UMainCompendio::OnNextClick()
+{
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::NEXT_PAGE, eventParameters);
+}
+
+void UMainCompendio::OnPrevClick()
+{
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::PREV_PAGE, eventParameters);
 }
 
 void UMainCompendio::ShowMainCompendio(EventParameters parameters)

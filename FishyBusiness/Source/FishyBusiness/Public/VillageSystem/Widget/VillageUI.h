@@ -42,6 +42,7 @@ private:
 public:
 	UFUNCTION(BlueprintCallable)
 	void ExitWidget();
+	void ExitWidgetEvent(EventParameters parameters);
 	UFUNCTION(BlueprintCallable)
 	void onFishShopBtnClicked();
 	UFUNCTION(BlueprintCallable)

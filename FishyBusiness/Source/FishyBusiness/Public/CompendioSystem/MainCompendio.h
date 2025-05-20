@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "CompendioPageBase.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/Button.h"
 #include "Components/CanvasPanel.h"
 #include "EventManager/EventWrapper.h"
 #include "MainCompendio.generated.h"
@@ -20,6 +21,10 @@ class FISHYBUSINESS_API UMainCompendio : public UUserWidget
 private:
 	UPROPERTY(meta = (BindWidget))
 	UCanvasPanel* _xCanvasPanel;
+	UPROPERTY(meta = (BindWidget))
+	UButton* _xPrevBtn;
+	UPROPERTY(meta = (BindWidget))
+	UButton* _xNextBtn;
 
 	//list of 2 elements
 	TArray<UUserWidget*> _xActualPages; 
@@ -34,6 +39,11 @@ public:
 	void HideMainCompendio(EventParameters parameters);
 	void CreatePages(EventParameters parameters);
 
+	UFUNCTION()
+	void OnNextClick();
+	UFUNCTION()
+	void OnPrevClick();
+
 private:
 	void AddPage(int index, int page, bool isCatalogued);
 	void RemovePage();
@@ -47,3 +57,4 @@ public:
 	void UpdateCompendiumF();
 #pragma endregion
 };
+

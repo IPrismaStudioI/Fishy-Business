@@ -52,6 +52,8 @@ void ACompendioManager::BeginPlay()
 	UEventBus* EventManager = gamemode->xCompendioEventBus;
 	
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::CATALOGUE_FISH, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { CatalogueFish(Params) ;}));
+	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::NEXT_PAGE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { GoToNextPageEvent(Params) ;}));
+	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::PREV_PAGE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { GoToPrevPageEvent(Params) ;}));
 }
 
 // Called every frame 
@@ -109,6 +111,11 @@ void ACompendioManager::CloseCompendio()
 	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CLOSE_COMPENDIO, eventParameters);
 }
 
+void ACompendioManager::GoToNextPageEvent(EventParameters parameters)
+{
+	GoToNextPage();
+}
+
 void ACompendioManager::GoToNextPage()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
@@ -128,6 +135,11 @@ void ACompendioManager::GoToNextPage()
 	}
 	
 	CallCreatePage(_iActualPageIndex, i);
+}
+
+void ACompendioManager::GoToPrevPageEvent(EventParameters parameters)
+{
+	GoToPrevPage();
 }
 
 void ACompendioManager::GoToPrevPage()

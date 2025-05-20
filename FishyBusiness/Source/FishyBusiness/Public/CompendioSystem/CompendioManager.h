@@ -43,7 +43,9 @@ public:
 	void CloseCompendio();
 	
 	void GoToPrevPage();
+	void GoToPrevPageEvent(EventParameters parameters);
 	void GoToNextPage();
+	void GoToNextPageEvent(EventParameters parameters);
 	void CreateCatalogue(TArray<TSubclassOf<UCompendioPageBase>> pageList);
 	void CatalogueFish(EventParameters parameters);
 
