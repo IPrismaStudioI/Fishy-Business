@@ -160,6 +160,8 @@ void UAC_QuestLog::CheckQuestStatus(FString questID)
 	{
 		QuestCompleted();
 		xQuests[questID].eStatus = EQuestStatus::E_COMPLETED_QUEST;
+		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+		gamemode->xQuestUnlockStorageManager->_sCompletedQuestList.Add(questID);
 	}
 }
 

@@ -112,7 +112,6 @@ void AFishingSpot::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 			InputComponent->BindAction("StartFishing", IE_Pressed, this, &AFishingSpot::OnInteractFishing);
 		}
 	}
-
 }
 
 void AFishingSpot::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -127,6 +126,8 @@ void AFishingSpot::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor
 
 void AFishingSpot::OnInteractFishing()
 {
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	if (gamemode->GetIsMainOverlayVisible()) return;
 	if (_bCanCreateMinigame)
 	{
 		_bCanCreateMinigame = false;
@@ -145,7 +146,6 @@ void AFishingSpot::OnInteractFishing()
 		ActiveWidget[0]->sFishID = xFishes[_iCurrentFishes -1];
 		ActiveWidget[0]->xFishSpot = this;
 
-		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 		gamemode->SetBIsMainOverlayVisible(true);
 	
 		if (ActiveWidget[0])

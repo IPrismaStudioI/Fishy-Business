@@ -19,6 +19,7 @@ void UVillageUI::NativeConstruct()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	UEventBus* eventBus = gamemode->xVillageEventBus;
 	UEventWrapper::RegisterEvent(eventBus, EventListVillage::SHOW_VILLAGE_BASE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ShowWidget(Params); }));
+	UEventWrapper::RegisterEvent(eventBus, EventListVillage::ESC_VILLAGE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ExitWidgetEvent(Params); }));
 }
 
 void UVillageUI::onFishShopBtnClicked()
@@ -90,6 +91,11 @@ void UVillageUI::ExitWidget()
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::HIDE_VILLAGE_BASE, eventParameters);
 
 	_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+void UVillageUI::ExitWidgetEvent(EventParameters parameters)
+{
+	ExitWidget();
 }
 
 void UVillageUI::HideWidget()

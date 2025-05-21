@@ -90,6 +90,6 @@ void UQuestReward::GetRestorationReward(UDA_QuestRewardBase* reward)
 	}
 	
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	gamemode->xQuestEventBus->TriggerEvent(event, eventParameters);
+	gamemode->xVillageEventBus->TriggerEvent(event, eventParameters);
 }
 
