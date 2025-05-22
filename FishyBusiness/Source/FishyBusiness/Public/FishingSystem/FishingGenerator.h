@@ -18,7 +18,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	TArray<FString> xAvailableFishIDs;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<AFishingSpot*> xFishingSpots;
 
 	UPROPERTY(EditAnywhere)
