@@ -15,7 +15,7 @@ class FISHYBUSINESS_API UQuestUnlockStorageManager : public UActorComponent
 public:
 	UPROPERTY(EditAnywhere)
 	TArray<FString> _sUnlockedQuestList;
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FString> _sCompletedQuestList;
 	
 public:	

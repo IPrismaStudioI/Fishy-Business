@@ -50,6 +50,17 @@ void AVillageManager::BeginPlay()
 	// ArriveTimeline->AddInterpFloat(fCurve, tickCallback, FName{ TEXT("Floaty") });
 	// ArriveTimeline->SetTimelineFinishedFunc(finishedCallback);
 	// ArriveTimeline->SetTimelineLength(ArriveTimeLineLenght);
+
+	APlayerController* playerController = GetWorld()->GetFirstPlayerController();
+	if (playerController)
+	{
+		EnableInput(playerController);
+
+		if (InputComponent)
+		{
+			//InputComponent->BindAction("CloseVillage", IE_Pressed, this, &AVillageManager::ExitVillage);
+		}
+	}
 }
 
 // Called every frame
@@ -72,8 +83,16 @@ void AVillageManager::Tick(float DeltaTime)
 	}
 }
 
+void AVillageManager::ExitVillage()
+{
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ESC_VILLAGE, eventParameters);
+}
+
 void AVillageManager::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                     UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	player = Cast<APlayerCharacter>(OtherActor);
 	_xInitialPosition = player->GetActorLocation();
@@ -98,7 +117,6 @@ void AVillageManager::ApproachVillage()
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	gamemode->SetBIsMainOverlayVisible(true);
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_VILLAGE_BASE, eventParameters);
 	player->bIsMoving = false;
 	UE_LOG(LogTemp, Warning, TEXT("ApproachVillage!"));
@@ -106,8 +124,11 @@ void AVillageManager::ApproachVillage()
 
 void AVillageManager::FreePlayer(EventParameters parameters)
 {
+	if (!player) return;
 	OnExitVillage();
 	player->SetMovable(true);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	gamemode->SetBIsMainOverlayVisible(false);
+
+	player = nullptr;
 }
