@@ -122,6 +122,11 @@ public:
 	///FString id
 	///</summary>
 	static const FString GET_REWARD;
+
+	///<summary>
+	///FString quest id, int task array pos
+	///</summary>
+	static const FString UPDATE_UI_TASK;
 };
 
 class FISHYBUSINESS_API EventListCompendio

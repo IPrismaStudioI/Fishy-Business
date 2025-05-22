@@ -16,6 +16,11 @@ UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class FISHYBUSINESS_API UAC_QuestLog : public UActorComponent
 {
 	GENERATED_BODY()
+
+private:
+	FString _sActiveQuest;
+	int _iQuestCount = -1;
+	
 public:
 	UPROPERTY(EditAnywhere)
 	TMap<FString, FPlayerQuest> xQuests;
@@ -71,6 +76,10 @@ private:
 	/// checks if the quest is completed
 	/// </summary>
 	void CheckQuestStatus(FString questID);
+
+	void SetActiveQuest(FString questID);
+
+	void UpdateUIQuest();
 
 #pragma region Events blueprint
 

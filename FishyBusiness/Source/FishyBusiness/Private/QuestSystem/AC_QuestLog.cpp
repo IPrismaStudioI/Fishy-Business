@@ -54,6 +54,8 @@ void UAC_QuestLog::AddQuest(FString questID)
 	{
 		xQuests.Add(questID, FPlayerQuest(gamemode->xQuestDataManager->GetQuestModuleListFromDT(questID)));
 		QuestAdded();
+
+		SetActiveQuest(questID);
 		
 		for (int i = 0; i < xQuests[questID].xModules.Num(); i++)
 		{
@@ -150,6 +152,7 @@ void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 void UAC_QuestLog::CheckAdvanceModule(FString questID)
 {
 	xQuests[questID].iCurrentModule++;
+	UpdateUIQuest();
 	TaskCompleted();
 	CheckQuestStatus(questID);
 }
@@ -160,8 +163,15 @@ void UAC_QuestLog::CheckQuestStatus(FString questID)
 	{
 		QuestCompleted();
 		xQuests[questID].eStatus = EQuestStatus::E_COMPLETED_QUEST;
+		_sActiveQuest.Empty();
+
+		TArray<FString> questIDs;
+		xQuests.GenerateKeyArray(questIDs);
+		FString newActive = questIDs[_iQuestCount + 1];
+		SetActiveQuest(_sActiveQuest);
 	}
 }
+
 
 #pragma endregion
 
@@ -196,4 +206,23 @@ void UAC_QuestLog::AdvanceCollectEvent(EventParameters params)
 
 #pragma endregion
 
+void UAC_QuestLog::SetActiveQuest(FString questID)
+{
+	if (_sActiveQuest.IsEmpty())
+	{
+		_iQuestCount += 1;
+		_sActiveQuest = questID;
+		UpdateUIQuest();
+	}
+}
+
+void UAC_QuestLog::UpdateUIQuest()
+{
+	EventParameters eventParameters;
+	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(_sActiveQuest));
+	eventParameters.Add(UParameterWrapper::CreateParameter<int>(xQuests[_sActiveQuest].iCurrentModule));
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::UPDATE_UI_TASK, eventParameters);
+}
 
