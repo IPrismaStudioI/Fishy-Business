@@ -44,6 +44,8 @@ void UBuildingWidgetBase::ShowCanvas(EventParameters parameters)
 
 void UBuildingWidgetBase::ShowMenu(EventParameters parameters)
 {
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->SetBIsMainOverlayVisible(true);
 	_xMainMenu->SetVisibility(ESlateVisibility::Visible);
 	OnShowMainMenuUI();
 }
@@ -88,4 +90,5 @@ void UBuildingWidgetBase::ExitBuilding()
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_VILLAGE_BASE, eventParameters);
 	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::CLOSE_DIALOGUE, eventParameters);
 
+	gamemode->SetBIsMainOverlayVisible(false);
 }

@@ -27,6 +27,7 @@ private:
 	UCharacterMovementComponent* _xCharacterMovementComponent;
 
 	bool _bIsMovable = true;
+	bool _bIsCompendioMovable = true;
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -84,6 +85,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetMovable(bool option);
+	UFUNCTION(BlueprintCallable)
+	void SetCompendioMovable(bool option);
 	
 private:	
 	/// <summary>moves the character on forward axis </summary>
