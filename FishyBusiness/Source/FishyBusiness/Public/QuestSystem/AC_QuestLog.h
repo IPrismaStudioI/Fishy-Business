@@ -17,7 +17,7 @@ class FISHYBUSINESS_API UAC_QuestLog : public UActorComponent
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FString, FPlayerQuest> xQuests;
 	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	// UDataTable* xQuestDT;
