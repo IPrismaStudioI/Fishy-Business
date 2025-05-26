@@ -13,6 +13,11 @@ ABuildingBase::ABuildingBase()
 	this->AddInstanceComponent(xRestoreComponent);
 }
 
+void ABuildingBase::Notify(bool enable)
+{
+	xAdvanceNotifySprite->SetVisibility(enable);
+}
+
 void ABuildingBase::BeginPlay()
 {
 	Super::BeginPlay();

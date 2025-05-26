@@ -62,11 +62,13 @@ public:
 	void AdvanceCollectEvent(EventParameters params);
 
 private:
+	void CreateAdvanceNotify(int moduleIndex, FString questID);
+	
 	/// <summary>
 	/// augment the quest current module by 1 and calls CheckQuestStatus()
 	/// </summary>
 	void CheckAdvanceModule(FString questID);
-
+	
 	/// <summary>
 	/// checks if the quest is completed
 	/// </summary>

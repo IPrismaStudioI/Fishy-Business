@@ -84,8 +84,8 @@ void UAC_QuestLog::AddQuestEvent(EventParameters params)
 {
 	FString questID = params[0]->Getter<FString>();
 	AddQuest(questID);
+	CreateAdvanceNotify(0, questID);
 }
-
 
 //----------------------------------------------------------------------------------
 #pragma region Advance
@@ -147,12 +147,27 @@ void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 //----------------------------------------------------------------------------------
 #pragma region Check Modules 
 
+void UAC_QuestLog::CreateAdvanceNotify(int moduleIndex, FString questID)
+{
+	if (UDA_InteractionModule* module = Cast<UDA_InteractionModule>(xQuests[questID].xModules[moduleIndex]))
+	{
+		int index = static_cast<int>(module->eNpcName);
+
+		EventParameters eventParameters;
+		eventParameters.Add(UParameterWrapper::CreateParameter<int>(index));
+		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+		gamemode->xQuestEventBus->TriggerEvent(EventListQuest::CALL_NOTIFY, eventParameters);
+	}
+}
+
 void UAC_QuestLog::CheckAdvanceModule(FString questID)
 {
 	xQuests[questID].iCurrentModule++;
 	TaskCompleted();
 	CheckQuestStatus(questID);
+	CreateAdvanceNotify(xQuests[questID].iCurrentModule, questID);
 }
+
 
 void UAC_QuestLog::CheckQuestStatus(FString questID)
 {

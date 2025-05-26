@@ -20,9 +20,6 @@ class FISHYBUSINESS_API AVillageManager : public AActor
 private:
 	APlayerCharacter* player;
 	
-	UPROPERTY(EditAnywhere, Category = "Buildings")
-	TMap<EBuildings, ABuildingBase*> _xBuldingsMap;
-	
 #pragma region move player
 	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
 	FVector _xPosition;
@@ -62,6 +59,10 @@ private:
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UVillageUI> VillageUI;
 
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Buildings")
+	TMap<EBuildings, ABuildingBase*> XBuildingsMap;
+
 private:
 	UFUNCTION()
 	void ChangePlayerPosition(float val);
@@ -75,11 +76,6 @@ protected:
 	virtual void BeginPlay() override;
 	
 public:
-	TMap<EBuildings, ABuildingBase*>& xBuldingsMap()
-	{
-		return _xBuldingsMap;
-	}
-
 	// Sets default values for this actor's properties
 
 	AVillageManager();
@@ -87,12 +83,12 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION()
-	void ExitVillage();
+	void AdvanceNotify(EventParameters params);
 	
 	UFUNCTION()
+	void ExitVillage();
+	UFUNCTION()
 	virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
-
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnEnterVillage();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)

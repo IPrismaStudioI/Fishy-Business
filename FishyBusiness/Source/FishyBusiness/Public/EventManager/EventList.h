@@ -127,6 +127,11 @@ public:
 	///FString id
 	///</summary>
 	static const FString GET_REWARD;
+
+	///<summary>
+	///int enum id
+	///</summary>
+	static const FString CALL_NOTIFY;
 };
 
 class FISHYBUSINESS_API EventListCompendio
