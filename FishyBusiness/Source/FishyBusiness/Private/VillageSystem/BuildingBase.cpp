@@ -18,6 +18,7 @@ ABuildingBase::ABuildingBase()
 void ABuildingBase::Notify(bool enable)
 {
 	xAdvanceNotifySprite->SetVisibility(enable);
+	xAdvanceNotifySprite->SetHiddenInGame(!enable);
 }
 
 void ABuildingBase::BeginPlay()
@@ -26,5 +27,6 @@ void ABuildingBase::BeginPlay()
 
 	UBuildingWidgetBase* buildingUI = CreateWidget<UBuildingWidgetBase>(GetWorld(), _xBuildingUI);
 	buildingUI->AddToViewport(0);
+	xAdvanceNotifySprite->SetVisibility(false);
 }
 
