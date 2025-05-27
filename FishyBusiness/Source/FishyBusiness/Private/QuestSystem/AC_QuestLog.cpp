@@ -165,7 +165,10 @@ void UAC_QuestLog::CheckAdvanceModule(FString questID)
 	xQuests[questID].iCurrentModule++;
 	TaskCompleted();
 	CheckQuestStatus(questID);
-	CreateAdvanceNotify(xQuests[questID].iCurrentModule, questID);
+	if (xQuests[questID].iCurrentModule != xQuests[questID].xModules.Num())
+		CreateAdvanceNotify(xQuests[questID].iCurrentModule, questID);
+	else
+		CreateAdvanceNotify(xQuests[questID].iCurrentModule - 1, questID);
 }
 
 
