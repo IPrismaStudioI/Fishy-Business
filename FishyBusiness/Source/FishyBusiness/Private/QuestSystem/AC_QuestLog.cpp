@@ -97,6 +97,7 @@ void UAC_QuestLog::AdvanceExploreModule(EQuestZones zone)
 
 	for (int i = 0; i < questIDs.Num(); i++) //checks if there is a quest with a module that requires the specified zone
 	{
+		if (xQuests[questIDs[i]].eStatus != EQuestStatus::E_ACTIVE_QUEST) break;
 		if (UDA_ExplorationModule* ExploreModule = Cast<UDA_ExplorationModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
 			if (ExploreModule->QuestZones == zone)
@@ -110,6 +111,7 @@ void UAC_QuestLog::AdvanceExploreModule(EQuestZones zone)
 
 void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID, int moduleIndex)
 {
+	if (xQuests[questID].eStatus != EQuestStatus::E_ACTIVE_QUEST) return;
 	if (UDA_InteractionModule* InteractModule = Cast<UDA_InteractionModule>(xQuests[questID].xModules[moduleIndex])) //gets the quest and the specified module (it also checks if it's actually an interaction)
 	{
 		if (InteractModule->eNpcName == npcName)//checks if the npc is correct
@@ -127,6 +129,7 @@ void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 
 	for (int i = 0; i < questIDs.Num(); i++) //checks if there is a quest with a module that requires the specified item and amount
 	{
+		if (xQuests[questIDs[i]].eStatus != EQuestStatus::E_ACTIVE_QUEST) break;
 		if (UDA_CollectionModule* CollectModule = Cast<UDA_CollectionModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
 			if (CollectModule->xTypeOfItem == item && quantity >= CollectModule->iAmount)
