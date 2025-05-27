@@ -43,6 +43,7 @@ void AVillageManager::BeginPlay()
 	UEventBus* eventBus2 = gamemode->xQuestEventBus;
 	UEventWrapper::RegisterEvent(eventBus, EventListVillage::HIDE_VILLAGE_BASE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FreePlayer(Params); }));
 	UEventWrapper::RegisterEvent(eventBus2, EventListQuest::CALL_NOTIFY, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceNotify(Params); }));
+	UEventWrapper::RegisterEvent(eventBus2, EventListQuest::CALL_DENOTIFY, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceDenotify(Params); }));
 	
 	UVillageUI* villageUI = CreateWidget<UVillageUI>(GetWorld(), VillageUI);
 	villageUI->AddToViewport(0);
@@ -90,6 +91,13 @@ void AVillageManager::AdvanceNotify(EventParameters params)
 	EBuildings building = static_cast<EBuildings>(params[0]->Getter<int>());
 
 	XBuildingsMap[building]->Notify(true);
+}
+
+void AVillageManager::AdvanceDenotify(EventParameters params)
+{
+	EBuildings building = static_cast<EBuildings>(params[0]->Getter<int>());
+
+	XBuildingsMap[building]->Notify(false);
 }
 
 void AVillageManager::ExitVillage()

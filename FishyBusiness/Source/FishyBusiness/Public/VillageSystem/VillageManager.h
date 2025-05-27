@@ -84,6 +84,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void AdvanceNotify(EventParameters params);
+	void AdvanceDenotify(EventParameters params);
 	
 	UFUNCTION()
 	void ExitVillage();
