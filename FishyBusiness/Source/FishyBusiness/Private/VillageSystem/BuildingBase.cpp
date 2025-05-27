@@ -9,6 +9,8 @@ ABuildingBase::ABuildingBase()
 {
 	xOnHover = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("OnHover"));
 	xOnHover->SetupAttachment(RootComponent);
+	xAdvanceNotifySprite = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("AdvanceNotifySprite"));
+	xAdvanceNotifySprite->SetupAttachment(RootComponent);
 	xRestoreComponent = CreateDefaultSubobject<URestoreComponent>("Restore Component");
 	this->AddInstanceComponent(xRestoreComponent);
 }
