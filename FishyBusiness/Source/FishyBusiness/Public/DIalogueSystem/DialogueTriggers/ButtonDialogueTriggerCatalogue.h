@@ -17,7 +17,7 @@ class FISHYBUSINESS_API UButtonDialogueTriggerCatalogue : public UButtonDialogue
 private:
 	UPROPERTY(EditAnywhere)
 	FString _sFishID;
-	
+
 public:
 	UButtonDialogueTriggerCatalogue();
 

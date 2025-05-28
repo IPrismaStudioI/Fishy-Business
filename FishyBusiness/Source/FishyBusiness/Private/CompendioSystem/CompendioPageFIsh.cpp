@@ -34,10 +34,12 @@ void UCompendioPageFIsh::FillInformations(bool isCatalogued)
 			_xFishDescription->SetText(FText::FromString(desc));
 			FString loc = "<Compendium>" + gamemode->eBiomesNames[fish->eLocation] + "</>";
 			_xLocation->SetText(FText::FromString(loc));
+			_xLilaInfoBtn->SetVisibility(ESlateVisibility::Visible);
 		}
 		else
 		{
 			_xPageImage->SetBrushFromTexture(fish->xFishNotCatalogueImage);
+			_xLilaInfoBtn->SetVisibility(ESlateVisibility::Collapsed);
 		}
 	}
 }
