@@ -127,6 +127,11 @@ public:
 	///FString quest id, int task array pos
 	///</summary>
 	static const FString UPDATE_UI_TASK;
+	
+	///<summary>
+	///Used to hide the quest task in ui
+	///</summary>
+	static const FString HIDE_UI_TASK;
 };
 
 class FISHYBUSINESS_API EventListCompendio

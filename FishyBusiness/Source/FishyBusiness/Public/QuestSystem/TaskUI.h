@@ -26,4 +26,5 @@ public:
 private:
 	void ChangeTaskDescription(EventParameters parameters);
 	void NativeConstruct();
+	void ClearUI(EventParameters parameters);
 };

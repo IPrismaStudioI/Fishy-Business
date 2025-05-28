@@ -36,6 +36,7 @@ const FString EventListQuest::ADVANCE_EXPLORE = TEXT("ADVANCE_EXPLORE");
 const FString EventListQuest::ADVANCE_INTERACT = TEXT("ADVANCE_INTERACT");
 const FString EventListQuest::ADVANCE_COLLECT = TEXT("ADVANCE_COLLECT");
 const FString EventListQuest::UPDATE_UI_TASK = TEXT("UPDATE_UI_TASK");
+const FString EventListQuest::HIDE_UI_TASK = TEXT("HIDE_UI_TASK");
 
 const FString EventListCompendio::CREATE_PAGE = TEXT("CREATE_PAGE");
 const FString EventListCompendio::OPEN_CLOSE_COMPENDIO = TEXT("OPEN_CLOSE_COMPENDIO");

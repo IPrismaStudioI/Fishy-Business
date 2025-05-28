@@ -167,9 +167,11 @@ void UAC_QuestLog::CheckQuestStatus(FString questID)
 
 		TArray<FString> questIDs;
 		xQuests.GenerateKeyArray(questIDs);
-		if (_iQuestCount + 1> questIDs.Num())
-		FString newActive = questIDs[_iQuestCount + 1];
-		SetActiveQuest(_sActiveQuest);
+		if (_iQuestCount + 1 > questIDs.Num())
+		{
+			FString newActive = questIDs[_iQuestCount + 1];
+			SetActiveQuest(newActive);
+		}
 	}
 }
 
@@ -219,14 +221,22 @@ void UAC_QuestLog::SetActiveQuest(FString questID)
 
 void UAC_QuestLog::UpdateUIQuest()
 {
-	if(xQuests[_sActiveQuest].iCurrentModule <= xQuests[_sActiveQuest].xModules.Num() - 1)
+	if(xQuests[_sActiveQuest].iCurrentModule <= xQuests[_sActiveQuest].xModules.Num())
 	{
 		EventParameters eventParameters;
 		eventParameters.Add(UParameterWrapper::CreateParameter<FString>(_sActiveQuest));
 		eventParameters.Add(UParameterWrapper::CreateParameter<int>(xQuests[_sActiveQuest].iCurrentModule));
 
 		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-		gamemode->xQuestEventBus->TriggerEvent(EventListQuest::UPDATE_UI_TASK, eventParameters);
+
+		if(xQuests[_sActiveQuest].iCurrentModule == xQuests[_sActiveQuest].xModules.Num())
+		{
+			gamemode->xQuestEventBus->TriggerEvent(EventListQuest::HIDE_UI_TASK, eventParameters);
+		}
+		else
+		{
+			gamemode->xQuestEventBus->TriggerEvent(EventListQuest::UPDATE_UI_TASK, eventParameters);
+		}
 	}
 }
 
