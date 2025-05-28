@@ -25,4 +25,8 @@ public:
 	///Checks if the associated fish is catalogued, if it is, the button will be visible, if not it will be collapsed
 	///</summary>
 	void CheckIfVisible();
+	
+private:
+	UFUNCTION()
+	void SetMainOverlay();
 };

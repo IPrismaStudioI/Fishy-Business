@@ -22,7 +22,7 @@ void UCompendioPageFIsh::FillInformations(bool isCatalogued)
 	{
 		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 		UFish* fish = gamemode->GetFishFromDT(sFishID);
-		
+		_xLilaInfoBtn->Set_SDialogueID(sLilaInfoID);
 		if (isCatalogued)
 		{
 			_xPageImage->SetBrushFromTexture(fish->xFishCatalogueImage);

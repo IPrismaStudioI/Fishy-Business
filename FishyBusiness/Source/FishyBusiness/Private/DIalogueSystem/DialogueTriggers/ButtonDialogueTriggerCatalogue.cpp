@@ -5,7 +5,7 @@
 
 UButtonDialogueTriggerCatalogue::UButtonDialogueTriggerCatalogue()
 {
-
+	this->OnClicked.AddDynamic(this, &UButtonDialogueTriggerCatalogue::SetMainOverlay);
 }
 
 void UButtonDialogueTriggerCatalogue::CheckIfVisible()
@@ -27,4 +27,10 @@ void UButtonDialogueTriggerCatalogue::CheckIfVisible()
 	{
 		this->SetVisibility(ESlateVisibility::Collapsed);
 	}
+}
+
+void UButtonDialogueTriggerCatalogue::SetMainOverlay()
+{
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->SetBIsMainOverlayVisible(true);
 }
