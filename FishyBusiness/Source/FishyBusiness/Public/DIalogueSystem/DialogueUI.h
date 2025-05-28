@@ -32,7 +32,7 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	UButton* _xContinueBtn;
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
-	UTextBlock* _xSentence;
+	URichTextBlock* _xSentence;
 	UPROPERTY(meta = (BindWidget))
 	URichTextBlock* _xName;
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
