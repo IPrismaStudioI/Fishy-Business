@@ -77,6 +77,7 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 	if (_iCurrentFishes <= 0)
 	{
 		_bCanCreateMinigame = false;
+		OnSpotDeactivate();
 		xFishingGenerator->ShuffleSpots(this);
 	}
 }

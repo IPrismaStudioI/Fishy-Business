@@ -94,6 +94,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void InteractFishingSpot();
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnSpotDeactivate();
+
 private:
 	void OnInteractFishing();
 };

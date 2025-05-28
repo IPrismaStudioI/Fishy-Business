@@ -33,6 +33,8 @@ private:
 	float _fRelocateLerpDuration;
 	float _fRelocateCurrentLerpTime;
 	bool _bRelocateIsLerping = false;
+
+	bool _bIsMoving = false;
 	
 private:
 	// Called when the game starts

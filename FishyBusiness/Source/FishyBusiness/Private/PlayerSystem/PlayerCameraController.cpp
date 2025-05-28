@@ -40,6 +40,7 @@ void UPlayerCameraController::TickComponent(float DeltaTime, ELevelTick TickType
 		if (alpha >= 1.f)
 		{
 			_bZoomIsLerping = false;
+			_bIsMoving = false;
 		}
 	}
 
@@ -60,11 +61,15 @@ void UPlayerCameraController::TickComponent(float DeltaTime, ELevelTick TickType
 
 void UPlayerCameraController::ResizeCamera(float nextValue, float speed)
 {
-	_fZoomStartOrthoWidth = xCamera->OrthoWidth;
-	_fZoomTargetOrthoWidth = nextValue;
-	_fZoomCurrentLerpTime = 0.0f;
-	_fZoomLerpDuration = speed;
-	_bZoomIsLerping = true;
+	if (!_bIsMoving)
+	{
+		_bIsMoving = true;
+		_fZoomStartOrthoWidth = xCamera->OrthoWidth;
+		_fZoomTargetOrthoWidth = nextValue;
+		_fZoomCurrentLerpTime = 0.0f;
+		_fZoomLerpDuration = speed;
+		_bZoomIsLerping = true;
+	}
 	
 	//float lastValue = xCamera->OrthoWidth;
 
@@ -73,10 +78,13 @@ void UPlayerCameraController::ResizeCamera(float nextValue, float speed)
 
 void UPlayerCameraController::RelocateCamera(FVector nextValue, float speed)
 {
-	_vRelocateStartPosition = xSpringArm->SocketOffset;
-	_vRelocateTargetPosition = nextValue;
-	_fRelocateCurrentLerpTime = 0.0f;
-	_fRelocateLerpDuration = speed;
-	_bRelocateIsLerping = true;
+	if (!_bIsMoving)
+	{
+		_vRelocateStartPosition = xSpringArm->SocketOffset;
+		_vRelocateTargetPosition = nextValue;
+		_fRelocateCurrentLerpTime = 0.0f;
+		_fRelocateLerpDuration = speed;
+		_bRelocateIsLerping = true;
+	}
 }
 
