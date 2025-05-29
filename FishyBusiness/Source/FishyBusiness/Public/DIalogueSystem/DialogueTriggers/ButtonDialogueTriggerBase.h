@@ -13,8 +13,8 @@ class FISHYBUSINESS_API UButtonDialogueTriggerBase : public UButton
 {
 	GENERATED_BODY()
 
-private:
-	UPROPERTY(EditAnywhere)
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString _sDialogueID;
 
 public:
