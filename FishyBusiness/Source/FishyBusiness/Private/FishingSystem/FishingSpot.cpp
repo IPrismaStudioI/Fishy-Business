@@ -132,8 +132,7 @@ void AFishingSpot::OnInteractFishing()
 	if (_bCanCreateMinigame)
 	{
 		_bCanCreateMinigame = false;
-		// if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::E) || GetWorld())
-		// {
+		
 		xPlayerCharacter->SetMovable(false);
 		
 		OnInteractFishingSpot();
@@ -153,7 +152,6 @@ void AFishingSpot::OnInteractFishing()
 			ActiveWidget[0]->AddToViewport();
 			_bCanCreateMinigame = false;
 		}
-		//}
 	}
 }
 

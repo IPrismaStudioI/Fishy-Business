@@ -40,7 +40,6 @@ void UPlayerCameraController::TickComponent(float DeltaTime, ELevelTick TickType
 		if (alpha >= 1.f)
 		{
 			_bZoomIsLerping = false;
-			_bIsMoving = false;
 		}
 	}
 
@@ -54,22 +53,18 @@ void UPlayerCameraController::TickComponent(float DeltaTime, ELevelTick TickType
 
 		if (beta >= 1.f)
 		{
-			_bZoomIsLerping = false;
+			_bRelocateIsLerping = false;
 		}
 	}
 }
 
 void UPlayerCameraController::ResizeCamera(float nextValue, float speed)
 {
-	if (!_bIsMoving)
-	{
-		_bIsMoving = true;
-		_fZoomStartOrthoWidth = xCamera->OrthoWidth;
-		_fZoomTargetOrthoWidth = nextValue;
-		_fZoomCurrentLerpTime = 0.0f;
-		_fZoomLerpDuration = speed;
-		_bZoomIsLerping = true;
-	}
+	_fZoomStartOrthoWidth = xCamera->OrthoWidth;
+	_fZoomTargetOrthoWidth = nextValue;
+	_fZoomCurrentLerpTime = 0.0f;
+	_fZoomLerpDuration = speed;
+	_bZoomIsLerping = true;
 	
 	//float lastValue = xCamera->OrthoWidth;
 
