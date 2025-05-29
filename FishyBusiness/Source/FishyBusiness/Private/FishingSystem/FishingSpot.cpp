@@ -44,6 +44,7 @@ void AFishingSpot::ToggleActive(bool value)
 	bIsActive = value;
 	if (value == true)
 	{
+		OnSpotActivate();
 		_iCurrentFishes = iTotalFishes;
 	}
 }
@@ -77,7 +78,6 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 	if (_iCurrentFishes <= 0)
 	{
 		_bCanCreateMinigame = false;
-		OnSpotDeactivate();
 		xFishingGenerator->ShuffleSpots(this);
 	}
 }
@@ -137,8 +137,7 @@ void AFishingSpot::OnInteractFishing()
 		xPlayerCharacter->SetMovable(false);
 		
 		OnInteractFishingSpot();
-
-		_fOldCameraSize = xPlayerCharacter->xCamera->OrthoWidth;
+		
 		xPlayerCharacter->xCameraController->ResizeCamera(_fNewCameraSize, _fLerpSpeed);
 	
 	

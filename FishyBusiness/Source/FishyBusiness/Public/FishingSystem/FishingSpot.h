@@ -52,10 +52,11 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
+	float _fOldCameraSize;
+	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
 	float _fNewCameraSize;
 	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
 	float _fLerpSpeed;
-	float _fOldCameraSize;
 	
 	
 protected:
@@ -95,7 +96,7 @@ public:
 	void InteractFishingSpot();
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void OnSpotDeactivate();
+	void OnSpotActivate();
 
 private:
 	void OnInteractFishing();
