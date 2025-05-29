@@ -129,6 +129,14 @@ public:
 	static const FString GET_REWARD;
 
 	///<summary>
+	///FString quest id, int task array pos
+	///</summary>
+	static const FString UPDATE_UI_TASK;
+	
+	///<summary>
+	///Used to hide the quest task in ui
+	///</summary>
+	static const FString HIDE_UI_TASK;
 	///int enum id
 	///</summary>
 	static const FString CALL_NOTIFY;

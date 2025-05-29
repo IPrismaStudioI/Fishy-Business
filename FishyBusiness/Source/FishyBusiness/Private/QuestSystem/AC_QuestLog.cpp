@@ -54,6 +54,8 @@ void UAC_QuestLog::AddQuest(FString questID)
 	{
 		xQuests.Add(questID, FPlayerQuest(gamemode->xQuestDataManager->GetQuestModuleListFromDT(questID)));
 		QuestAdded();
+
+		SetActiveQuest(questID);
 		
 		for (int i = 0; i < xQuests[questID].xModules.Num(); i++)
 		{
@@ -166,6 +168,7 @@ void UAC_QuestLog::CreateAdvanceNotify(int moduleIndex, FString questID)
 void UAC_QuestLog::CheckAdvanceModule(FString questID)
 {
 	xQuests[questID].iCurrentModule++;
+	UpdateUIQuest();
 	TaskCompleted();
 	CheckQuestStatus(questID);
 	if (xQuests[questID].iCurrentModule != xQuests[questID].xModules.Num())
@@ -181,10 +184,18 @@ void UAC_QuestLog::CheckQuestStatus(FString questID)
 	{
 		QuestCompleted();
 		xQuests[questID].eStatus = EQuestStatus::E_COMPLETED_QUEST;
-		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-		gamemode->xQuestUnlockStorageManager->_sCompletedQuestList.Add(questID);
+		_sActiveQuest.Empty();
+
+		TArray<FString> questIDs;
+		xQuests.GenerateKeyArray(questIDs);
+		if (_iQuestCount + 1 > questIDs.Num())
+		{
+			FString newActive = questIDs[_iQuestCount + 1];
+			SetActiveQuest(newActive);
+		}
 	}
 }
+
 
 #pragma endregion
 
@@ -219,4 +230,34 @@ void UAC_QuestLog::AdvanceCollectEvent(EventParameters params)
 
 #pragma endregion
 
+void UAC_QuestLog::SetActiveQuest(FString questID)
+{
+	if (_sActiveQuest.IsEmpty())
+	{
+		_iQuestCount += 1;
+		_sActiveQuest = questID;
+		UpdateUIQuest();
+	}
+}
+
+void UAC_QuestLog::UpdateUIQuest()
+{
+	if(xQuests[_sActiveQuest].iCurrentModule <= xQuests[_sActiveQuest].xModules.Num())
+	{
+		EventParameters eventParameters;
+		eventParameters.Add(UParameterWrapper::CreateParameter<FString>(_sActiveQuest));
+		eventParameters.Add(UParameterWrapper::CreateParameter<int>(xQuests[_sActiveQuest].iCurrentModule));
+
+		AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+
+		if(xQuests[_sActiveQuest].iCurrentModule == xQuests[_sActiveQuest].xModules.Num())
+		{
+			gamemode->xQuestEventBus->TriggerEvent(EventListQuest::HIDE_UI_TASK, eventParameters);
+		}
+		else
+		{
+			gamemode->xQuestEventBus->TriggerEvent(EventListQuest::UPDATE_UI_TASK, eventParameters);
+		}
+	}
+}
 
