@@ -15,6 +15,9 @@ class FISHYBUSINESS_API ACameraChanger : public AActor
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USphereComponent* xSphereTrigger;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera Zoom")
+	float fOldCameraSize;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Camera Zoom")
 	float fNewCameraSize;
@@ -41,7 +44,6 @@ protected:
 	
 private:
 
-	float _fOldCameraSize;
 	FVector _vOldSpringarmPos;
 	
 	UFUNCTION()

@@ -41,4 +41,7 @@ public:
 	
 	void ShuffleSpots(AFishingSpot* depletedSpot);
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnShuffleSpots();
+
 };

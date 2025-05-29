@@ -60,7 +60,6 @@ void AFishingGenerator::InitialGeneration()
 
 void AFishingGenerator::ShuffleSpots(AFishingSpot* depletedSpot)
 {
-
 	int randomInt;
 	
 	do
@@ -72,6 +71,7 @@ void AFishingGenerator::ShuffleSpots(AFishingSpot* depletedSpot)
 	if (xFishingSpots[randomInt] != depletedSpot)
 	{
 		depletedSpot->ToggleActive(false);
+		OnShuffleSpots();
 	}
 
 	xFishingSpots[randomInt]->ToggleActive(true);
