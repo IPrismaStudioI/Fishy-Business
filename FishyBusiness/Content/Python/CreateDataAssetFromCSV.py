@@ -87,18 +87,19 @@ def create_data_assets_from_csv(csv_file, asset_class, package_path):
                     print(str(df.iloc[startDialoguePtr].iloc[indexColumnAnswer]).strip())
                     print(str(df.iloc[startDialoguePtr].iloc[indexColumnidChoice]).strip())
                     
-                    answer = str(df.iloc[startDialoguePtr].iloc[indexColumnAnswer]).strip()
-                    idChoice = str(df.iloc[startDialoguePtr].iloc[indexColumnidChoice]).strip()
-                
-                    indexColumnAnswer = indexColumnAnswer + 2
-                    indexColumnidChoice = indexColumnidChoice + 2
+                    if str(df.iloc[startDialoguePtr].iloc[indexColumnAnswer]).strip() == 'nan':
+                        otherColumn = False
+                        break
+                    else:
+                        answer = str(df.iloc[startDialoguePtr].iloc[indexColumnAnswer]).strip()
+                        idChoice = str(df.iloc[startDialoguePtr].iloc[indexColumnidChoice]).strip()
                     
-                    asset.dialogue.s_dialogue_answers.append(answer)
-                    asset.dialogue.s_dialogue_id_choices.append(idChoice)
-    
-                    print(answer)
-                    print(idChoice)
-    
+                        indexColumnAnswer = indexColumnAnswer + 2
+                        indexColumnidChoice = indexColumnidChoice + 2
+                        
+                        asset.dialogue.s_dialogue_answers.append(answer)
+                        asset.dialogue.s_dialogue_id_choices.append(idChoice)
+
                 except Exception as e:
                     print("error: " + str(e))
                     otherColumn = False
