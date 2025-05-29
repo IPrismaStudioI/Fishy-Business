@@ -78,13 +78,10 @@ void UPlayerCameraController::ResizeCamera(float nextValue, float speed)
 
 void UPlayerCameraController::RelocateCamera(FVector nextValue, float speed)
 {
-	if (!_bIsMoving)
-	{
-		_vRelocateStartPosition = xSpringArm->SocketOffset;
-		_vRelocateTargetPosition = nextValue;
-		_fRelocateCurrentLerpTime = 0.0f;
-		_fRelocateLerpDuration = speed;
-		_bRelocateIsLerping = true;
-	}
+	_vRelocateStartPosition = xSpringArm->SocketOffset;
+	_vRelocateTargetPosition = nextValue;
+	_fRelocateCurrentLerpTime = 0.0f;
+	_fRelocateLerpDuration = speed;
+	_bRelocateIsLerping = true;
 }
 
