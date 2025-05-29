@@ -43,8 +43,10 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	EBiomes eLocation;
-	
-	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* xFishingSpotSprite;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UTexture2D* xFishImage;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
