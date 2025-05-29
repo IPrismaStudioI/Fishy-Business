@@ -25,6 +25,17 @@ void UButtonDialogueTriggerAdvance::AdvanceQuest()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_INTERACT, eventParameters); //check QuestLog.h/cpp
+
+	Denotify();
+}
+
+void UButtonDialogueTriggerAdvance::Denotify()
+{
+	EventParameters eventParameters;
+	int intName = static_cast<int>(_eName); 
+	eventParameters.Add(UParameterWrapper::CreateParameter<int>(intName));
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::CALL_DENOTIFY, eventParameters);
 }
 
 void UButtonDialogueTriggerAdvance::CheckIfVisible()

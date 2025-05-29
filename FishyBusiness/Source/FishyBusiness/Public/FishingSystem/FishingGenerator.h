@@ -18,7 +18,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	TArray<FString> xAvailableFishIDs;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<AFishingSpot*> xFishingSpots;
 
 	UPROPERTY(EditAnywhere)
@@ -40,5 +40,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 	void ShuffleSpots(AFishingSpot* depletedSpot);
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnShuffleSpots();
 
 };

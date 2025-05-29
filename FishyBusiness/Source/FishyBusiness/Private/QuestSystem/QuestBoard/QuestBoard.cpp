@@ -21,7 +21,7 @@ void UQuestBoard::BeginPlay()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	UEventBus* eventBus = gamemode->xVillageEventBus;
 	UEventBus* eventBusQuest = gamemode->xQuestEventBus;
-	UEventWrapper::RegisterEvent(eventBus, EventListVillage::SHOW_LIGHTHOUSE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FillQuestBulletins(Params); }));
+	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::SHOW_QUEST_BOARD, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FillQuestBulletins(Params); }));
 	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::UI_ADD_QUEST, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AddQuest(Params); }));
 	
 	UUserWidget* questBoardUI = CreateWidget(GetWorld(), _xQuestBoardUI);

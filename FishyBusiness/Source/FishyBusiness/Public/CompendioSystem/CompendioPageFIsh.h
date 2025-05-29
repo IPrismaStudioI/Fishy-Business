@@ -6,6 +6,7 @@
 #include "CompendioSystem/CompendioPageBase.h"
 #include "DataSystem/FishData/Fish.h"
 #include "Components/RichTextBlock.h"
+#include "DIalogueSystem/DialogueTriggers/ButtonDialogueTriggerCatalogue.h"
 #include "CompendioPageFIsh.generated.h"
 
 /**
@@ -25,10 +26,14 @@ private:
 	URichTextBlock* _xFishSName;
 	UPROPERTY(meta = (BindWidget))
 	URichTextBlock* _xLocation;
+	UPROPERTY(meta = (BindWidget))
+	UButtonDialogueTriggerCatalogue* _xLilaInfoBtn;
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString sFishID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString sLilaInfoID;
 
 public:
 	virtual void NativeConstruct() override;

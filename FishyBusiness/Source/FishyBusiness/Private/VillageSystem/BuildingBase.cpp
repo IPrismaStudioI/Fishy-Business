@@ -9,8 +9,16 @@ ABuildingBase::ABuildingBase()
 {
 	xOnHover = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("OnHover"));
 	xOnHover->SetupAttachment(RootComponent);
+	xAdvanceNotifySprite = CreateDefaultSubobject<UPaperSpriteComponent>(TEXT("AdvanceNotifySprite"));
+	xAdvanceNotifySprite->SetupAttachment(RootComponent);
 	xRestoreComponent = CreateDefaultSubobject<URestoreComponent>("Restore Component");
 	this->AddInstanceComponent(xRestoreComponent);
+}
+
+void ABuildingBase::Notify(bool enable)
+{
+	xAdvanceNotifySprite->SetVisibility(enable);
+	xAdvanceNotifySprite->SetHiddenInGame(!enable);
 }
 
 void ABuildingBase::BeginPlay()
@@ -19,5 +27,6 @@ void ABuildingBase::BeginPlay()
 
 	UBuildingWidgetBase* buildingUI = CreateWidget<UBuildingWidgetBase>(GetWorld(), _xBuildingUI);
 	buildingUI->AddToViewport(0);
+	xAdvanceNotifySprite->SetVisibility(false);
 }
 

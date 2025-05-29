@@ -90,9 +90,14 @@ void APlayerCharacter::SetMovable(bool option)
 	_bIsMovable = option;
 }
 
+void APlayerCharacter::SetCompendioMovable(bool option)
+{
+	_bIsCompendioMovable = option;
+}
+
 void APlayerCharacter::CheckMoving()
 {
-	if (_bIsMovable)
+	if (_bIsMovable || _bIsCompendioMovable)
 	{
 		if (GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::W)
 			|| GetWorld()->GetFirstPlayerController()->IsInputKeyDown(EKeys::S)
@@ -107,14 +112,14 @@ void APlayerCharacter::CheckMoving()
 
 void APlayerCharacter::MoveForward(float inputVector)
 {
-	if (!_bIsMovable) return;
+	if (!_bIsMovable || !_bIsCompendioMovable) return;
 	FVector ForwardDirection = GetActorForwardVector();
 	AddMovementInput(ForwardDirection, inputVector);
 }
 
 void APlayerCharacter::MoveRight(float inputVector)
 {
-	if (!_bIsMovable) return;
+	if (!_bIsMovable || !_bIsCompendioMovable) return;
 	FVector RightDirection = GetActorRightVector();
 	AddMovementInput(RightDirection, inputVector * 0.66f);
 }

@@ -61,6 +61,11 @@ public:
 	/// <summary>
 	/// EBuildingStatus new status
 	/// </summary>
+	static const FString ESC_VILLAGE;
+
+	/// <summary>
+	/// EBuildingStatus new status
+	/// </summary>
 	static const FString RESTORE_CARPENTRY;
 	/// <summary>
 	/// EBuildingStatus new status
@@ -122,6 +127,24 @@ public:
 	///FString id
 	///</summary>
 	static const FString GET_REWARD;
+
+	///<summary>
+	///FString quest id, int task array pos
+	///</summary>
+	static const FString UPDATE_UI_TASK;
+	
+	///<summary>
+	///Used to hide the quest task in ui
+	///</summary>
+	static const FString HIDE_UI_TASK;
+	///int enum id
+	///</summary>
+	static const FString CALL_NOTIFY;
+
+	///<summary>
+	///int enum id
+	///</summary>
+	static const FString CALL_DENOTIFY;
 };
 
 class FISHYBUSINESS_API EventListCompendio
@@ -129,5 +152,8 @@ class FISHYBUSINESS_API EventListCompendio
 public:
 	static const FString CREATE_PAGE;
 	static const FString OPEN_CLOSE_COMPENDIO;
+	static const FString CLOSE_COMPENDIO;
 	static const FString CATALOGUE_FISH;
+	static const FString NEXT_PAGE;
+	static const FString PREV_PAGE;
 };

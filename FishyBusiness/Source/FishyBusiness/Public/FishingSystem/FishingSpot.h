@@ -33,7 +33,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class USphereComponent* xSphereTrigger;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FString> xFishes;
 
 	UPROPERTY(EditAnywhere)
@@ -52,10 +52,11 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
+	float _fOldCameraSize;
+	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
 	float _fNewCameraSize;
 	UPROPERTY(EditAnywhere, Category = "Camera Zoom")
 	float _fLerpSpeed;
-	float _fOldCameraSize;
 	
 	
 protected:
@@ -93,6 +94,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void InteractFishingSpot();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void OnSpotActivate();
 
 private:
 	void OnInteractFishing();

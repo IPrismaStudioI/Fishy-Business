@@ -35,4 +35,7 @@ public:
 	///Checks if the associated quest current module is the same as _iModuleIndex, if it is, the button will be visible, if not it will be collapsed
 	///</summary>
 	void CheckIfVisible() override;
+
+private:
+	void Denotify();
 };

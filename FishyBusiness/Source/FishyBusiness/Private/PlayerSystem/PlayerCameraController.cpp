@@ -53,7 +53,7 @@ void UPlayerCameraController::TickComponent(float DeltaTime, ELevelTick TickType
 
 		if (beta >= 1.f)
 		{
-			_bZoomIsLerping = false;
+			_bRelocateIsLerping = false;
 		}
 	}
 }

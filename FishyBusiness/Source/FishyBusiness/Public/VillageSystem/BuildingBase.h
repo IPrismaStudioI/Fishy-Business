@@ -21,6 +21,8 @@ class FISHYBUSINESS_API ABuildingBase : public ALightChangableBase
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UPaperSpriteComponent* xOnHover;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperSpriteComponent* xAdvanceNotifySprite;
 	UPROPERTY(EditAnywhere)
 	URestoreComponent* xRestoreComponent; 
 	UPROPERTY(EditAnywhere) 
@@ -31,6 +33,8 @@ protected:
 public:	
 	// Sets default values for this actor's properties
 	ABuildingBase();
+
+	void Notify(bool enable);
 	
 protected:
 	// Called when the game starts or when spawned

@@ -16,8 +16,13 @@ UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class FISHYBUSINESS_API UAC_QuestLog : public UActorComponent
 {
 	GENERATED_BODY()
+
+private:
+	FString _sActiveQuest;
+	int _iQuestCount = -1;
+	
 public:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<FString, FPlayerQuest> xQuests;
 	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	// UDataTable* xQuestDT;
@@ -62,15 +67,21 @@ public:
 	void AdvanceCollectEvent(EventParameters params);
 
 private:
+	void CreateAdvanceNotify(int moduleIndex, FString questID);
+	
 	/// <summary>
 	/// augment the quest current module by 1 and calls CheckQuestStatus()
 	/// </summary>
 	void CheckAdvanceModule(FString questID);
-
+	
 	/// <summary>
 	/// checks if the quest is completed
 	/// </summary>
 	void CheckQuestStatus(FString questID);
+
+	void SetActiveQuest(FString questID);
+
+	void UpdateUIQuest();
 
 #pragma region Events blueprint
 

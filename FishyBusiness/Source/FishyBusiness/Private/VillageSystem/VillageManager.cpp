@@ -40,7 +40,10 @@ void AVillageManager::BeginPlay()
 
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	UEventBus* eventBus = gamemode->xVillageEventBus;
+	UEventBus* eventBus2 = gamemode->xQuestEventBus;
 	UEventWrapper::RegisterEvent(eventBus, EventListVillage::HIDE_VILLAGE_BASE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FreePlayer(Params); }));
+	UEventWrapper::RegisterEvent(eventBus2, EventListQuest::CALL_NOTIFY, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceNotify(Params); }));
+	UEventWrapper::RegisterEvent(eventBus2, EventListQuest::CALL_DENOTIFY, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceDenotify(Params); }));
 	
 	UVillageUI* villageUI = CreateWidget<UVillageUI>(GetWorld(), VillageUI);
 	villageUI->AddToViewport(0);
@@ -50,6 +53,17 @@ void AVillageManager::BeginPlay()
 	// ArriveTimeline->AddInterpFloat(fCurve, tickCallback, FName{ TEXT("Floaty") });
 	// ArriveTimeline->SetTimelineFinishedFunc(finishedCallback);
 	// ArriveTimeline->SetTimelineLength(ArriveTimeLineLenght);
+
+	APlayerController* playerController = GetWorld()->GetFirstPlayerController();
+	if (playerController)
+	{
+		EnableInput(playerController);
+
+		if (InputComponent)
+		{
+			//InputComponent->BindAction("CloseVillage", IE_Pressed, this, &AVillageManager::ExitVillage);
+		}
+	}
 }
 
 // Called every frame
@@ -72,8 +86,30 @@ void AVillageManager::Tick(float DeltaTime)
 	}
 }
 
+void AVillageManager::AdvanceNotify(EventParameters params)
+{
+	EBuildings building = static_cast<EBuildings>(params[0]->Getter<int>());
+
+	XBuildingsMap[building]->Notify(true);
+}
+
+void AVillageManager::AdvanceDenotify(EventParameters params)
+{
+	EBuildings building = static_cast<EBuildings>(params[0]->Getter<int>());
+
+	XBuildingsMap[building]->Notify(false);
+}
+
+void AVillageManager::ExitVillage()
+{
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ESC_VILLAGE, eventParameters);
+}
+
 void AVillageManager::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                     UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	player = Cast<APlayerCharacter>(OtherActor);
 	_xInitialPosition = player->GetActorLocation();
@@ -98,7 +134,6 @@ void AVillageManager::ApproachVillage()
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	gamemode->SetBIsMainOverlayVisible(true);
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_VILLAGE_BASE, eventParameters);
 	player->bIsMoving = false;
 	UE_LOG(LogTemp, Warning, TEXT("ApproachVillage!"));
@@ -106,8 +141,11 @@ void AVillageManager::ApproachVillage()
 
 void AVillageManager::FreePlayer(EventParameters parameters)
 {
+	if (!player) return;
 	OnExitVillage();
 	player->SetMovable(true);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	gamemode->SetBIsMainOverlayVisible(false);
+
+	player = nullptr;
 }

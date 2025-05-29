@@ -17,7 +17,7 @@ class FISHYBUSINESS_API UButtonDialogueTriggerCatalogue : public UButtonDialogue
 private:
 	UPROPERTY(EditAnywhere)
 	FString _sFishID;
-	
+
 public:
 	UButtonDialogueTriggerCatalogue();
 
@@ -25,4 +25,8 @@ public:
 	///Checks if the associated fish is catalogued, if it is, the button will be visible, if not it will be collapsed
 	///</summary>
 	void CheckIfVisible();
+	
+private:
+	UFUNCTION()
+	void SetMainOverlay();
 };
