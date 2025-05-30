@@ -41,6 +41,8 @@ const FString EventListQuest::CALL_NOTIFY = TEXT("CALL_NOTIFY");
 const FString EventListQuest::CALL_DENOTIFY = TEXT("CALL_DENOTIFY");
 const FString EventListQuest::UPDATE_UI_TASK = TEXT("UPDATE_UI_TASK");
 const FString EventListQuest::HIDE_UI_TASK = TEXT("HIDE_UI_TASK");
+const FString EventListQuest::FILL_QUEST_BOARD = TEXT("FILL_QUEST_BOARD");
+const FString EventListQuest::REMOVE_QUEST_FROM_BOARD = TEXT("REMOVE_QUEST_FROM_BOARD");
 
 const FString EventListCompendio::CREATE_PAGE = TEXT("CREATE_PAGE");
 const FString EventListCompendio::OPEN_CLOSE_COMPENDIO = TEXT("OPEN_CLOSE_COMPENDIO");

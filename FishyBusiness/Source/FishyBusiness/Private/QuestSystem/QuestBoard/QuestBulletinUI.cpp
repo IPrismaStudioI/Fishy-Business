@@ -23,6 +23,11 @@ void UQuestBulletinUI::CheckCompleted()
 		ApplyReward();
 }
 
+void UQuestBulletinUI::EnableBulletin(bool value)
+{
+	_xBulletinBtn->SetIsEnabled(value);
+}
+
 void UQuestBulletinUI::OnClick()
 {
 	CheckCompleted();
@@ -43,7 +48,12 @@ void UQuestBulletinUI::ApplyReward()
 	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(_sQuestID));
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
+	if (gamemode->xQuestDataManager->GetQuestRewardTypeFromDT(_sQuestID) != EQuestRewardType::NEW_QUEST_REWARD)
+	{
+		EnableBulletin(false);
+	}
+
+	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::REMOVE_QUEST_FROM_BOARD, eventParameters);
 	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::GET_REWARD, eventParameters);
 
-	_xBulletinBtn->SetIsEnabled(false);
 }

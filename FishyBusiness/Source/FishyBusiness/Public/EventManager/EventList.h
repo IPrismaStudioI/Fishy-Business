@@ -124,7 +124,7 @@ public:
 	static const FString ADVANCE_COLLECT;
 
 	///<summary>
-	///FString id
+	///FString id quest
 	///</summary>
 	static const FString GET_REWARD;
 
@@ -137,6 +137,8 @@ public:
 	///Used to hide the quest task in ui
 	///</summary>
 	static const FString HIDE_UI_TASK;
+	
+	///<summary>
 	///int enum id
 	///</summary>
 	static const FString CALL_NOTIFY;
@@ -145,6 +147,16 @@ public:
 	///int enum id
 	///</summary>
 	static const FString CALL_DENOTIFY;
+
+	///<summary>
+	///no params
+	///</summary>
+	static const FString FILL_QUEST_BOARD;
+
+	///<summary>
+	///string quest id
+	///</summary>
+	static const FString REMOVE_QUEST_FROM_BOARD;
 };
 
 class FISHYBUSINESS_API EventListCompendio

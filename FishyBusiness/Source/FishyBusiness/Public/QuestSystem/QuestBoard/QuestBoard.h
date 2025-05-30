@@ -34,6 +34,8 @@ private:
 	TSubclassOf<UQuestBoardUI> _xQuestBoardUI;
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UQuestBulletinFocusedUI> _xQuestBulletinFocusedUI;
+	UPROPERTY(EditAnywhere, Category = "UI")
+	UTexture2D* _xEmptyIconBulletin;
 
 	UPROPERTY() 
 	TMap<UQuestBulletinUI*, FQuestUIElement> _mQuestUIElements;
@@ -41,6 +43,7 @@ private:
 private:	
 	void SetupQuestUIElements();
 	int FindQuestID(FString questID);
+	bool FindQuestActive(FString questID);
 	
 protected:
 	// Called when the game starts
@@ -54,7 +57,8 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void FillQuestBulletins(EventParameters parameters);
+	void ActiveFillQuestBulletins(EventParameters parameters);
 	void BulletinCheck();
 	void AddQuest(EventParameters parameters);
+	void RemoveQuestFromBoard(EventParameters parameters);
 };
-
