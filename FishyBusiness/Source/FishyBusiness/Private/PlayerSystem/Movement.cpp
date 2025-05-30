@@ -85,8 +85,8 @@ void UMovement::CheckDirection()
 	// _fX = vVelocity.GetSafeNormal().Y;
 	// _fY = vVelocity.GetSafeNormal().X;
 	
-	UE_LOG(LogTemp, Warning, TEXT("X = %f"), _fX);
-	UE_LOG(LogTemp, Warning, TEXT("Y = %f"), _fY);
+	// UE_LOG(LogTemp, Warning, TEXT("X = %f"), _fX);
+	// UE_LOG(LogTemp, Warning, TEXT("Y = %f"), _fY);
 
 	int HashX = static_cast<int>(_fX * 10);
 	int HashY = static_cast<int>(_fY * 10);
