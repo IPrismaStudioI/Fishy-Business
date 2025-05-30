@@ -4,6 +4,8 @@
 #include "QuestSystem/QuestBoard/QuestBoard.h"
 
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "PlayerSystem/PlayerCharacter.h"
 #include "QuestSystem/QuestBoard/QuestBoardUI.h"
 #include "VillageSystem/Widget/CarpenterBuildingWidget.h"
 
@@ -21,7 +23,8 @@ void UQuestBoard::BeginPlay()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	UEventBus* eventBus = gamemode->xVillageEventBus;
 	UEventBus* eventBusQuest = gamemode->xQuestEventBus;
-	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::SHOW_QUEST_BOARD, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FillQuestBulletins(Params); }));
+	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::SHOW_QUEST_BOARD, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ActiveFillQuestBulletins(Params); }));
+	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::FILL_QUEST_BOARD, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FillQuestBulletins(Params); }));
 	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::UI_ADD_QUEST, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AddQuest(Params); }));
 	
 	UUserWidget* questBoardUI = CreateWidget(GetWorld(), _xQuestBoardUI);
@@ -71,9 +74,24 @@ void UQuestBoard::FillQuestBulletins(EventParameters parameters)
 		x[i]->_sQuestID = id;
 		UTexture2D* icon = gamemode->xQuestDataManager->GetQuestIconFromDT(id);
 		x[i]->_xIcon->SetBrushFromTexture(icon);
+
+		if (FindQuestActive(id) == false)
+		{
+			_mQuestUIElements[x[i]].sQuestID = id;
+			_mQuestUIElements[x[i]].bIsActive = false;
+		}
 	}
 
 	BulletinCheck();
+}
+
+void UQuestBoard::ActiveFillQuestBulletins(EventParameters parameters)
+{
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::FILL_QUEST_BOARD, eventParameters);
 }
 
 void UQuestBoard::BulletinCheck()
@@ -98,6 +116,12 @@ void UQuestBoard::BulletinCheck()
 					x[i]->_xBulletinBtn->SetIsEnabled(true);
 				else
 					x[i]->_xBulletinBtn->SetIsEnabled(false);
+			}
+			else
+			{
+				x[i]->_xBulletinBtn->SetIsEnabled(true);
+				x[i]->_xBulletinBtn->InvalidateLayoutAndVolatility();
+				UE_LOG(LogTemp, Warning, TEXT("%hs\n"), x[i]->_xBulletinBtn->GetIsEnabled() ? "true" : "false");
 			}
 		}
 	}
@@ -130,4 +154,18 @@ int UQuestBoard::FindQuestID(FString questID)
 	_mQuestUIElements.GenerateValueArray(v);
 	
 	return v.Find(tmp);
+}
+
+
+bool UQuestBoard::FindQuestActive(FString questID)
+{
+	UAC_QuestLog* log = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0))->xQuestLog;
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
+	if (log->xQuests.Find(questID))
+	{
+		return true;
+	}
+	return false;
 }

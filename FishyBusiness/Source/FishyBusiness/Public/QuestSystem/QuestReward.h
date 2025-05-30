@@ -29,5 +29,6 @@ public:
 
 private:
 	void GetItemReward(UDA_QuestRewardBase* reward);
+	void GetNewQuestReward(UDA_QuestRewardBase* reward);
 	void GetRestorationReward(UDA_QuestRewardBase* reward);
 };

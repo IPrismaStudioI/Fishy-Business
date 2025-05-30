@@ -4,6 +4,7 @@
 #include "QuestSystem/QuestReward.h"
 
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
+#include "QuestSystem/QuestData/Rewards/DA_NewQuestReward.h"
 #include "QuestSystem/QuestData/Rewards/DA_RestorationReward.h"
 
 // Sets default values for this component's properties
@@ -37,12 +38,13 @@ void UQuestReward::GiveReward(EventParameters parameters)
 	
 	switch (type)
 	{
+		case EQuestRewardType::None:
+			break;
 		case EQuestRewardType::ITEM_REWARD:
 			GetItemReward(reward);
 			break;
-		case EQuestRewardType::None:
-			break;
 		case EQuestRewardType::NEW_QUEST_REWARD:
+			GetNewQuestReward(reward);
 			break;
 		case EQuestRewardType::UPGRADE_REWARD:
 			break;
@@ -54,11 +56,24 @@ void UQuestReward::GiveReward(EventParameters parameters)
 			GetRestorationReward(reward);
 			break;
 	}
+	gamemode->xQuestUnlockStorageManager->_sUnlockedQuestList.Remove(id);
+
+	EventParameters eventParameters;
+	eventParameters.Add(nullptr);
+	
+	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::FILL_QUEST_BOARD, eventParameters);
 }
 
 void UQuestReward::GetItemReward(UDA_QuestRewardBase* reward)
 {
 	
+}
+
+void UQuestReward::GetNewQuestReward(UDA_QuestRewardBase* reward)
+{
+	UDA_NewQuestReward* tmp = Cast<UDA_NewQuestReward>(reward);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->xQuestUnlockStorageManager->_sUnlockedQuestList.Add(tmp->sQuestID);
 }
 
 void UQuestReward::GetRestorationReward(UDA_QuestRewardBase* reward)
