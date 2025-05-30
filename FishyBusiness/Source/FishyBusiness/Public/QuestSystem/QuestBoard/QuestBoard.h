@@ -34,6 +34,8 @@ private:
 	TSubclassOf<UQuestBoardUI> _xQuestBoardUI;
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UQuestBulletinFocusedUI> _xQuestBulletinFocusedUI;
+	UPROPERTY(EditAnywhere, Category = "UI")
+	UTexture2D* _xEmptyIconBulletin;
 
 	UPROPERTY() 
 	TMap<UQuestBulletinUI*, FQuestUIElement> _mQuestUIElements;
@@ -58,4 +60,5 @@ public:
 	void ActiveFillQuestBulletins(EventParameters parameters);
 	void BulletinCheck();
 	void AddQuest(EventParameters parameters);
+	void RemoveQuestFromBoard(EventParameters parameters);
 };

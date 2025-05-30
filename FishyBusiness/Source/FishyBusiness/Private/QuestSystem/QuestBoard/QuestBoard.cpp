@@ -26,6 +26,7 @@ void UQuestBoard::BeginPlay()
 	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::SHOW_QUEST_BOARD, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ActiveFillQuestBulletins(Params); }));
 	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::FILL_QUEST_BOARD, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FillQuestBulletins(Params); }));
 	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::UI_ADD_QUEST, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AddQuest(Params); }));
+	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::REMOVE_QUEST_FROM_BOARD, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { RemoveQuestFromBoard(Params); }));
 	
 	UUserWidget* questBoardUI = CreateWidget(GetWorld(), _xQuestBoardUI);
 	questBoardUI->AddToViewport(1);
@@ -143,6 +144,18 @@ void UQuestBoard::AddQuest(EventParameters parameters)
 	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADD_QUEST, eventParameters);
 
 	BulletinCheck();
+}
+
+void UQuestBoard::RemoveQuestFromBoard(EventParameters parameters)
+{
+	FString id = parameters[0]->Getter<FString>();
+	
+	TArray<UQuestBulletinUI*> x;
+	_mQuestUIElements.GenerateKeyArray(x);
+	x[FindQuestID(id)]->_sQuestID = "";
+	x[FindQuestID(id)]->_xIcon->SetBrushFromTexture(_xEmptyIconBulletin);
+	_mQuestUIElements[x[FindQuestID(id)]].bIsActive = true;
+	_mQuestUIElements[x[FindQuestID(id)]].sQuestID = "";
 }
 
 int UQuestBoard::FindQuestID(FString questID)

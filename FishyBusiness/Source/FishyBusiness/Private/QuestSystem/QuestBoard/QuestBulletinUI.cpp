@@ -52,7 +52,8 @@ void UQuestBulletinUI::ApplyReward()
 	{
 		EnableBulletin(false);
 	}
-	
+
+	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::REMOVE_QUEST_FROM_BOARD, eventParameters);
 	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::GET_REWARD, eventParameters);
 
 }

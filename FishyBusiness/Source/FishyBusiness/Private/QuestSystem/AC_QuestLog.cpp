@@ -131,7 +131,7 @@ void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 
 	for (int i = 0; i < questIDs.Num(); i++) //checks if there is a quest with a module that requires the specified item and amount
 	{
-		if (xQuests[questIDs[i]].eStatus != EQuestStatus::E_ACTIVE_QUEST) break;
+		if (xQuests[questIDs[i]].eStatus != EQuestStatus::E_ACTIVE_QUEST) continue;
 		if (UDA_CollectionModule* CollectModule = Cast<UDA_CollectionModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
 			if (CollectModule->xTypeOfItem == item && quantity >= CollectModule->iAmount)
