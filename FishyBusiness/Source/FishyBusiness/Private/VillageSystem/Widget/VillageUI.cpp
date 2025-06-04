@@ -27,8 +27,8 @@ void UVillageUI::onFishShopBtnClicked()
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_FISHSHOP, eventParameters);
+	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ENTER_BUILDING, eventParameters);
 
 	HideWidget();
 }
@@ -38,8 +38,8 @@ void UVillageUI::onLighthouseBtnClicked()
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_LIGHTHOUSE, eventParameters);
+	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ENTER_BUILDING, eventParameters);
 
 	HideWidget();
 }
@@ -49,8 +49,8 @@ void UVillageUI::onWorkshopBtnClicked()
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_WORKSHOP, eventParameters);
+	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ENTER_BUILDING, eventParameters);
 
 	HideWidget();
 }
@@ -60,8 +60,8 @@ void UVillageUI::onArchiveBtnClicked()
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_ARCHIVE, eventParameters);
+	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ENTER_BUILDING, eventParameters);
 
 	HideWidget();
 }
@@ -71,8 +71,8 @@ void UVillageUI::onCarpentryBtnClicked()
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_CARPENTRY, eventParameters);
+	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ENTER_BUILDING, eventParameters);
 
 	HideWidget();
 }

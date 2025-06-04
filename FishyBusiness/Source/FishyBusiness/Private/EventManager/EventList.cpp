@@ -22,6 +22,7 @@ const FString EventListVillage::HIDE_VILLAGE_BASE = TEXT("HIDE_VILLAGE_BASE");
 const FString EventListVillage::SHOW_MENU = TEXT("SHOW_MENU");
 
 const FString EventListVillage::ESC_VILLAGE = TEXT("ESC_VILLAGE");
+const FString EventListVillage::ENTER_BUILDING = TEXT("ENTER_BUILDING");
 
 const FString EventListVillage::RESTORE_ARCHIVE = TEXT("RESTORE_ARCHIVE");
 const FString EventListVillage::RESTORE_FISHSHOP = TEXT("RESTORE_FISHSHOP");

@@ -88,6 +88,8 @@ void UBuildingWidgetBase::ExitBuilding()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_VILLAGE_BASE, eventParameters);
+	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ENTER_BUILDING, eventParameters);
+	
 	gamemode->xDialogueEventBus->TriggerEvent(EventListDialogue::CLOSE_DIALOGUE, eventParameters);
 
 	gamemode->SetBIsMainOverlayVisible(false);

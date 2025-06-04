@@ -41,7 +41,6 @@ void UInputManagerComponent::BeginPlay()
 		input->BindAction(InputActions->NEXT_COMPENDIO_PAGE_INPUT, ETriggerEvent::Started, this, &UInputManagerComponent::CallNextCompendioPage);
 		input->BindAction(InputActions->PREV_COMPENDIO_PAGE_INPUT, ETriggerEvent::Started, this, &UInputManagerComponent::CallPrevCompendioPage);
 		input->BindAction(InputActions->CLOSE_VILLAGE_INPUT, ETriggerEvent::Started, this, &UInputManagerComponent::CallCloseVillage);
-		
 	}
 }
 

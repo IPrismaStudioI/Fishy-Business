@@ -59,9 +59,14 @@ public:
 	static const FString SHOW_MENU;
 
 	/// <summary>
-	/// EBuildingStatus new status
+	/// no params
 	/// </summary>
 	static const FString ESC_VILLAGE;
+	
+	/// <summary>
+	/// no params
+	/// </summary>
+	static const FString ENTER_BUILDING;
 
 	/// <summary>
 	/// EBuildingStatus new status
