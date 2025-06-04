@@ -46,10 +46,10 @@ void UInputManagerComponent::BeginPlay()
 
 void UInputManagerComponent::CallStartFishing()
 {
-	EventParameters eventParameters;
+e	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	gamemode->xVillageEventBus->TriggerEvent(EventListInput::START_FISHING_INPUT, eventParameters);
+	gamemode->xInputEventBus->TriggerEvent(EventListInput::START_FISHING_INPUT, eventParameters);
 }
 
 void UInputManagerComponent::CallOpenCompendio()

@@ -98,6 +98,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void OnSpotActivate();
 
+	void InteractFishingEvent(EventParameters params);
+	
 private:
 	void OnInteractFishing();
 };

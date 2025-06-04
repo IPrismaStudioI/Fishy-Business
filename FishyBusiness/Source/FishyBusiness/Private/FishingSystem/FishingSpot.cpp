@@ -28,6 +28,10 @@ void AFishingSpot::BeginPlay()
 	Super::BeginPlay();
 	
 	_iCurrentFishes = iTotalFishes;
+
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	UEventBus* eventBusInput = gamemode->xInputEventBus;
+	UEventWrapper::RegisterEvent(eventBusInput, EventListInput::START_FISHING_INPUT, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { InteractFishingEvent(Params); }));
 }
 
 // Called every frame
@@ -107,11 +111,11 @@ void AFishingSpot::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 		xPlayerCharacter = Player;
 		_bCanCreateMinigame = true;
 
-		EnableInput(Cast<APlayerController>(xPlayerCharacter->GetController()));
-		if (InputComponent)
-		{
-			InputComponent->BindAction("StartFishing", IE_Pressed, this, &AFishingSpot::OnInteractFishing);
-		}
+		// EnableInput(Cast<APlayerController>(xPlayerCharacter->GetController()));
+		// if (InputComponent)
+		// {
+		// 	InputComponent->BindAction("StartFishing", IE_Pressed, this, &AFishingSpot::OnInteractFishing);
+		// }
 	}
 }
 
@@ -124,34 +128,37 @@ void AFishingSpot::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor
 	}
 }
 
+void AFishingSpot::InteractFishingEvent(EventParameters params)
+{
+	OnInteractFishing();
+}
 
 void AFishingSpot::OnInteractFishing()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	if (gamemode->GetIsMainOverlayVisible()) return;
-	if (_bCanCreateMinigame)
-	{
-		_bCanCreateMinigame = false;
-		
-		xPlayerCharacter->SetMovable(false);
-		
-		OnInteractFishingSpot();
-		
-		xPlayerCharacter->xCameraController->ResizeCamera(_fNewCameraSize, _fLerpSpeed);
+	if (_bCanCreateMinigame == false) return;
 	
+	_bCanCreateMinigame = false;
 	
-		ActiveWidget.Add(CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame));
-		
-		ActiveWidget[0]->sFishID = xFishes[_iCurrentFishes -1];
-		ActiveWidget[0]->xFishSpot = this;
+	xPlayerCharacter->SetMovable(false);
+	
+	OnInteractFishingSpot();
+	
+	xPlayerCharacter->xCameraController->ResizeCamera(_fNewCameraSize, _fLerpSpeed);
 
-		gamemode->SetBIsMainOverlayVisible(true);
+
+	ActiveWidget.Add(CreateWidget<UFishingMinigame>(GetWorld(), xFishingMinigame));
 	
-		if (ActiveWidget[0])
-		{
-			ActiveWidget[0]->AddToViewport();
-			_bCanCreateMinigame = false;
-		}
+	ActiveWidget[0]->sFishID = xFishes[_iCurrentFishes -1];
+	ActiveWidget[0]->xFishSpot = this;
+
+	gamemode->SetBIsMainOverlayVisible(true);
+
+	if (ActiveWidget[0])
+	{
+		ActiveWidget[0]->AddToViewport();
+		_bCanCreateMinigame = false;
 	}
 }
 
