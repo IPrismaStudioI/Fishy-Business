@@ -9,6 +9,7 @@
 #include "DIalogueSystem/DA_Dialogue.h"
 #include "EventManager/ObserverManager.h"
 #include "GameFramework/GameModeBase.h"
+#include "InputManager/InputManagerComponent.h"
 #include "QuestSystem/E_QuestStatus.h"
 #include "QuestSystem/QuestData/QuestRow.h"
 #include "QuestSystem/QuestDataManager.h"
@@ -33,6 +34,8 @@ public:
 	UQuestUnlockStorageManager* xQuestUnlockStorageManager;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UCatalogueFishComponent* xCatalogueFishComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UInputManagerComponent* xInputManagerComponent;
 	
 	UPROPERTY(VisibleAnywhere)
 	UEventBus* xDialogueEventBus;
@@ -42,6 +45,8 @@ public:
 	UEventBus* xQuestEventBus;
 	UPROPERTY(VisibleAnywhere)
 	UEventBus* xCompendioEventBus;
+	UPROPERTY(VisibleAnywhere)
+	UEventBus* xInputEventBus;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	UDataTable* xDataTableDialogues;

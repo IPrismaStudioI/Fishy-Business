@@ -22,6 +22,8 @@ AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 	this->AddInstanceComponent(xQuestUnlockStorageManager);
 	xCatalogueFishComponent = CreateDefaultSubobject<UCatalogueFishComponent>("Catalogue Fish Component");
 	this->AddInstanceComponent(xCatalogueFishComponent);
+	xInputManagerComponent = CreateDefaultSubobject<UInputManagerComponent>("Input Manager Component");
+	this->AddInstanceComponent(xInputManagerComponent);
 	
 	xDialogueEventBus = CreateDefaultSubobject<UEventBus>("Dialogue Bus");
 	this->AddInstanceComponent(xDialogueEventBus);
@@ -31,6 +33,8 @@ AFishyBusinessGameModeBase::AFishyBusinessGameModeBase()
 	this->AddInstanceComponent(xCompendioEventBus);
 	xQuestEventBus = CreateDefaultSubobject<UEventBus>("Quest Bus");
 	this->AddInstanceComponent(xQuestEventBus);
+	xInputEventBus = CreateDefaultSubobject<UEventBus>("Input Bus");
+	this->AddInstanceComponent(xInputEventBus);
 
 	DefaultPawnClass = APlayerCharacter::StaticClass();
 }

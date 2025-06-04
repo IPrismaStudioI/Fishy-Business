@@ -50,3 +50,14 @@ const FString EventListCompendio::CLOSE_COMPENDIO = TEXT("CLOSE_COMPENDIO");
 const FString EventListCompendio::CATALOGUE_FISH = TEXT("CATALOGUE_FISH");
 const FString EventListCompendio::NEXT_PAGE = TEXT("NEXT_PAGE");
 const FString EventListCompendio::PREV_PAGE = TEXT("PREV_PAGE");
+
+const FString EventListInput::START_FISHING_INPUT = TEXT("START_FISHING_INPUT");
+const FString EventListInput::OPEN_COMPENDIO_INPUT = TEXT("OPEN_COMPENDIO_INPUT");
+const FString EventListInput::CLOSE_COMPENDIO_INPUT = TEXT("CLOSE_COMPENDIO_INPUT");
+const FString EventListInput::NEXT_COMPENDIO_PAGE_INPUT = TEXT("NEXT_COMPENDIO_PAGE_INPUT");
+const FString EventListInput::PREV_COMPENDIO_PAGE_INPUT = TEXT("PREV_COMPENDIO_PAGE_INPUT");
+const FString EventListInput::CLOSE_VILLAGE_INPUT = TEXT("CLOSE_VILLAGE_INPUT");
+const FString EventListInput::MOVE_FORWARD_INPUT = TEXT("MOVE_FORWARD_INPUT");
+const FString EventListInput::MOVE_RIGHT_INPUT = TEXT("MOVE_RIGHT_INPUT");
+
+

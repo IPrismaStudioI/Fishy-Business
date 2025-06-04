@@ -169,3 +169,16 @@ public:
 	static const FString NEXT_PAGE;
 	static const FString PREV_PAGE;
 };
+
+class FISHYBUSINESS_API EventListInput
+{
+public:
+	static const FString START_FISHING_INPUT;
+	static const FString OPEN_COMPENDIO_INPUT;
+	static const FString CLOSE_COMPENDIO_INPUT;
+	static const FString NEXT_COMPENDIO_PAGE_INPUT;
+	static const FString PREV_COMPENDIO_PAGE_INPUT;
+	static const FString CLOSE_VILLAGE_INPUT;
+	static const FString MOVE_FORWARD_INPUT;
+	static const FString MOVE_RIGHT_INPUT;
+};

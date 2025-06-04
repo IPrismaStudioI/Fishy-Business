@@ -33,33 +33,45 @@ void ACompendioManager::BeginPlay()
 	CreateCatalogue(Cast<UMainCompendio>(mainCompendio)->xPageList);
 	_iPageNum = Cast<UMainCompendio>(mainCompendio)->xPageList.Num();
 	
-	if (playerController)
-	{
-		EnableInput(playerController);
-
-		if (InputComponent)
-		{
-			InputComponent->BindAction("OpenCompendio", IE_Pressed, this, &ACompendioManager::OpenCompendio);
-			InputComponent->BindAction("CloseCompendio", IE_Pressed, this, &ACompendioManager::CloseCompendio);
-			InputComponent->BindAction("NextCompendioPage", IE_Pressed, this, &ACompendioManager::GoToNextPage);
-			InputComponent->BindAction("PrevCompendioPage", IE_Pressed, this, &ACompendioManager::GoToPrevPage);
-		}
-	}
+	// if (playerController)
+	// {
+	// 	EnableInput(playerController);
+	//
+	// 	if (InputComponent)
+	// 	{
+	// 		// InputComponent->BindAction("OpenCompendio", IE_Pressed, this, &ACompendioManager::OpenCompendio);
+	// 		// InputComponent->BindAction("CloseCompendio", IE_Pressed, this, &ACompendioManager::CloseCompendio);
+	// 		// InputComponent->BindAction("NextCompendioPage", IE_Pressed, this, &ACompendioManager::GoToNextPage);
+	// 		// InputComponent->BindAction("PrevCompendioPage", IE_Pressed, this, &ACompendioManager::GoToPrevPage);
+	// 	}
+	// }
 
 	// Registering functions to EventManager
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
 	UEventBus* EventManager = gamemode->xCompendioEventBus;
+	UEventBus* EventManagerInput = gamemode->xInputEventBus;
 	
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::CATALOGUE_FISH, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { CatalogueFish(Params) ;}));
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::NEXT_PAGE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { GoToNextPageEvent(Params) ;}));
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::PREV_PAGE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { GoToPrevPageEvent(Params) ;}));
+
+	UEventWrapper::RegisterEvent(EventManagerInput, EventListInput::NEXT_COMPENDIO_PAGE_INPUT, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { GoToNextPageEvent(Params) ;}));
+	UEventWrapper::RegisterEvent(EventManagerInput, EventListInput::PREV_COMPENDIO_PAGE_INPUT, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { GoToPrevPageEvent(Params) ;}));
+	UEventWrapper::RegisterEvent(EventManagerInput, EventListInput::OPEN_COMPENDIO_INPUT, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { OpenCompendioEvent(Params) ;}));
+	UEventWrapper::RegisterEvent(EventManagerInput, EventListInput::CLOSE_COMPENDIO_INPUT, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { CloseCompendioEvent(Params) ;}));
+
 }
 
 // Called every frame 
 void ACompendioManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void ACompendioManager::OpenCompendioEvent(EventParameters parameters)
+{
+	OpenCompendio();
 }
 
 void ACompendioManager::OpenCompendio()
@@ -94,6 +106,11 @@ void ACompendioManager::OpenCompendio()
 	}
 	
 	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::OPEN_CLOSE_COMPENDIO, eventParameters);
+}
+
+void ACompendioManager::CloseCompendioEvent(EventParameters parameters)
+{
+	CloseCompendio();
 }
 
 void ACompendioManager::CloseCompendio()
