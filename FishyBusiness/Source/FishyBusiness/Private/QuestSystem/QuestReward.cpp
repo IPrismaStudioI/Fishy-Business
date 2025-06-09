@@ -33,18 +33,22 @@ void UQuestReward::GiveReward(EventParameters parameters)
 {
 	FString id = parameters[0]->Getter<FString>();
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	UDA_QuestRewardBase* reward = gamemode->xQuestDataManager->GetQuestRewardFromDT(id);
-	EQuestRewardType type = gamemode->xQuestDataManager->GetQuestRewardTypeFromDT(id);
-	
-	switch (type)
+	TMap<EQuestRewardType, UDA_QuestRewardBase*> reward = gamemode->xQuestDataManager->GetQuestRewardFromDT(id);
+
+	TArray<EQuestRewardType> rewardTypes;
+	reward.GenerateKeyArray(rewardTypes);
+
+	for (int i = 0; i < rewardTypes.Num(); i++)
 	{
+		switch (rewardTypes[i])
+		{
 		case EQuestRewardType::None:
 			break;
 		case EQuestRewardType::ITEM_REWARD:
-			GetItemReward(reward);
+			GetItemReward(reward[rewardTypes[i]]);
 			break;
 		case EQuestRewardType::NEW_QUEST_REWARD:
-			GetNewQuestReward(reward);
+			GetNewQuestReward(reward[rewardTypes[i]]);
 			break;
 		case EQuestRewardType::UPGRADE_REWARD:
 			break;
@@ -53,15 +57,18 @@ void UQuestReward::GiveReward(EventParameters parameters)
 		case EQuestRewardType::DIALOGUE_REWARD:
 			break;
 		case EQuestRewardType::RESTORATION_REWARD:
-			GetRestorationReward(reward);
+			GetRestorationReward(reward[rewardTypes[i]]);
 			break;
-	}
-	gamemode->xQuestUnlockStorageManager->_sUnlockedQuestList.Remove(id);
+		}
+		gamemode->xQuestUnlockStorageManager->_sUnlockedQuestList.Remove(id);
 
-	EventParameters eventParameters;
-	eventParameters.Add(nullptr);
+		EventParameters eventParameters;
+		eventParameters.Add(nullptr);
 	
-	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::FILL_QUEST_BOARD, eventParameters);
+		gamemode->xQuestEventBus->TriggerEvent(EventListQuest::FILL_QUEST_BOARD, eventParameters);
+	}
+	
+	
 }
 
 void UQuestReward::GetItemReward(UDA_QuestRewardBase* reward)

@@ -75,14 +75,14 @@ TArray<UDA_QuestModuleBase*> UQuestDataManager::GetQuestModuleListFromDT(FString
 	return row->xModuleList;
 }
 
-UDA_QuestRewardBase* UQuestDataManager::GetQuestRewardFromDT(FString id)
+TMap<EQuestRewardType, UDA_QuestRewardBase*> UQuestDataManager::GetQuestRewardFromDT(FString id)
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	FQuestRow* row = gamemode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
 	if (!row)
 	{
 		UE_LOG(LogCore, Error, TEXT("Quest row not found"));
-		return nullptr;
+		return {};
 	}
 	return row->xReward;
 }
