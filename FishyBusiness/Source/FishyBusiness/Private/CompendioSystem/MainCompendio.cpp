@@ -17,6 +17,9 @@ void UMainCompendio::NativeConstruct()
 
 	_xNextBtn->OnClicked.AddDynamic(this, &UMainCompendio::OnNextClick);
 	_xPrevBtn->OnClicked.AddDynamic(this, &UMainCompendio::OnPrevClick);
+	_xUpgradePageBtn->OnClicked.AddDynamic(this, &UMainCompendio::OnUpgradeClick);
+	_xFishPageBtn->OnClicked.AddDynamic(this, &UMainCompendio::OnFishClick);
+	_xQuestPageBtn->OnClicked.AddDynamic(this, &UMainCompendio::OnQuestClick);
 	
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::OPEN_CLOSE_COMPENDIO, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { ShowMainCompendio(Params) ;}));
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::CLOSE_COMPENDIO, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { HideMainCompendio(Params) ;}));
@@ -37,6 +40,30 @@ void UMainCompendio::OnPrevClick()
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::PREV_PAGE, eventParameters);
+}
+
+void UMainCompendio::OnUpgradeClick()
+{
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	EventParameters eventParameters;
+	eventParameters.Add(UParameterWrapper::CreateParameter<int>(iUpgradePageIndex));
+	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::THIS_PAGE, eventParameters);
+}
+
+void UMainCompendio::OnFishClick()
+{
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	EventParameters eventParameters;;
+	eventParameters.Add(UParameterWrapper::CreateParameter<int>(iFishPageIndex));
+	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::THIS_PAGE, eventParameters);
+}
+
+void UMainCompendio::OnQuestClick()
+{
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	EventParameters eventParameters;;
+	eventParameters.Add(UParameterWrapper::CreateParameter<int>(iQuestPageIndex));
+	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::THIS_PAGE, eventParameters);
 }
 
 void UMainCompendio::ShowMainCompendio(EventParameters parameters)

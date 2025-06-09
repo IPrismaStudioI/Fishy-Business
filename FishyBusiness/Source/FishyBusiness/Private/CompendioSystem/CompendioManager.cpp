@@ -54,6 +54,7 @@ void ACompendioManager::BeginPlay()
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::CATALOGUE_FISH, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { CatalogueFish(Params) ;}));
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::NEXT_PAGE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { GoToNextPageEvent(Params) ;}));
 	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::PREV_PAGE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { GoToPrevPageEvent(Params) ;}));
+	UEventWrapper::RegisterEvent(EventManager, EventListCompendio::THIS_PAGE, MakeShared<TFunction<void(const EventParameters&)>>( [this] (const EventParameters& Params) { GoToThisPage(Params) ;}));
 }
 
 // Called every frame 
@@ -109,6 +110,15 @@ void ACompendioManager::CloseCompendio()
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
 	gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CLOSE_COMPENDIO, eventParameters);
+}
+
+void ACompendioManager::GoToThisPage(EventParameters parameters)
+{
+	int page = parameters[0]->Getter<int>();
+
+	_iActualPageIndex = page + 1;
+	
+	CallCreatePage(_iActualPageIndex, page);
 }
 
 void ACompendioManager::GoToNextPageEvent(EventParameters parameters)

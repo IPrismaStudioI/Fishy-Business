@@ -168,4 +168,5 @@ public:
 	static const FString CATALOGUE_FISH;
 	static const FString NEXT_PAGE;
 	static const FString PREV_PAGE;
+	static const FString THIS_PAGE;
 };
