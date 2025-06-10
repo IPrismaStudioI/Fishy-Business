@@ -15,6 +15,9 @@ UCLASS()
 class FISHYBUSINESS_API UVillageUI : public UUserWidget
 {
 	GENERATED_BODY()
+
+private:
+	bool _bIsInBuilding;
 	
 public:
 	UPROPERTY(meta = (BindWidget), BlueprintReadWrite)
@@ -38,6 +41,7 @@ public:
 private:
 	void ShowWidget(EventParameters parameters);
 	void HideWidget();
+	void SetIsInBuilding();
 
 public:
 	UFUNCTION(BlueprintCallable)

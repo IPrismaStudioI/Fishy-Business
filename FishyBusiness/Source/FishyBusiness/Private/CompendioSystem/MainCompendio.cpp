@@ -41,13 +41,18 @@ void UMainCompendio::OnPrevClick()
 
 void UMainCompendio::ShowMainCompendio(EventParameters parameters)
 {
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	
 	if (_xCanvasPanel->GetVisibility() == ESlateVisibility::Visible)
 	{
 		_xCanvasPanel->SetVisibility(ESlateVisibility::Hidden);
+		gamemode->_xActiveWidgets.Remove(this);
 		RemovePage();
 	}
 	else
 	{
+		gamemode->_xActiveWidgets.Add(this);
+		
 		_xCanvasPanel->SetVisibility(ESlateVisibility::Visible);
 		int firstPage = parameters[0]->Getter<int>();
 		int secondPage = parameters[1]->Getter<int>();

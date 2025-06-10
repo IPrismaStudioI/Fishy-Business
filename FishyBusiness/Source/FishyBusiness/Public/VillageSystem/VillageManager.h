@@ -19,7 +19,7 @@ class FISHYBUSINESS_API AVillageManager : public AActor
 
 private:
 	APlayerCharacter* player;
-	bool _bIsInBuilding;
+	
 	
 #pragma region move player
 	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
@@ -87,8 +87,6 @@ public:
 	void AdvanceNotify(EventParameters params);
 	void AdvanceDenotify(EventParameters params);
 
-	void EnterBuildingEvent(EventParameters params);
-	void ExitVillageEvent(EventParameters params);
 	UFUNCTION()
 	void ExitVillage();
 	UFUNCTION()

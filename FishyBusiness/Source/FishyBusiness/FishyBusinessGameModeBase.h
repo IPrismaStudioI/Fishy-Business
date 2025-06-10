@@ -59,6 +59,9 @@ public:
 	TMap<EBiomes, FString> eBiomesNames;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enumerators")
 	TMap<EQuestStatus, FString> eQuestStatusString;
+
+	
+	TArray<UUserWidget*> _xActiveWidgets;
 	
 public:
 	AFishyBusinessGameModeBase();

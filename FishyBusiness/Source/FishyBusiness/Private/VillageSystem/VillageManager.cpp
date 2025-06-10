@@ -41,14 +41,10 @@ void AVillageManager::BeginPlay()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	UEventBus* eventBus = gamemode->xVillageEventBus;
 	UEventWrapper::RegisterEvent(eventBus, EventListVillage::HIDE_VILLAGE_BASE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { FreePlayer(Params); }));
-	UEventWrapper::RegisterEvent(eventBus, EventListVillage::ENTER_BUILDING, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { EnterBuildingEvent(Params); }));
 
 	UEventBus* eventBusQuest = gamemode->xQuestEventBus;
 	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::CALL_NOTIFY, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceNotify(Params); }));
 	UEventWrapper::RegisterEvent(eventBusQuest, EventListQuest::CALL_DENOTIFY, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceDenotify(Params); }));
-
-	UEventBus* eventBusInput = gamemode->xInputEventBus;
-	UEventWrapper::RegisterEvent(eventBusInput, EventListInput::CLOSE_VILLAGE_INPUT, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ExitVillageEvent(Params); }));
 	
 	UVillageUI* villageUI = CreateWidget<UVillageUI>(GetWorld(), VillageUI);
 	villageUI->AddToViewport(0);
@@ -105,17 +101,6 @@ void AVillageManager::AdvanceDenotify(EventParameters params)
 	XBuildingsMap[building]->Notify(false);
 }
 
-void AVillageManager::EnterBuildingEvent(EventParameters params)
-{
-	_bIsInBuilding = !_bIsInBuilding;
-}
-
-void AVillageManager::ExitVillageEvent(EventParameters params)
-{
-	if (_bIsInBuilding) return;
-	ExitVillage();
-}
-
 void AVillageManager::ExitVillage()
 {
 	EventParameters eventParameters;
@@ -153,6 +138,8 @@ void AVillageManager::ApproachVillage()
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_VILLAGE_BASE, eventParameters);
 	player->bIsMoving = false;
 	UE_LOG(LogTemp, Warning, TEXT("ApproachVillage!"));
+
+	
 }
 
 void AVillageManager::FreePlayer(EventParameters parameters)

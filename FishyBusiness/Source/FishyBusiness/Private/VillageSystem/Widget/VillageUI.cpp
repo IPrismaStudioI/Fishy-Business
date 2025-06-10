@@ -19,7 +19,9 @@ void UVillageUI::NativeConstruct()
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	UEventBus* eventBus = gamemode->xVillageEventBus;
 	UEventWrapper::RegisterEvent(eventBus, EventListVillage::SHOW_VILLAGE_BASE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ShowWidget(Params); }));
-	UEventWrapper::RegisterEvent(eventBus, EventListVillage::ESC_VILLAGE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ExitWidgetEvent(Params); }));
+
+	UEventBus* eventBusInput = gamemode->xInputEventBus;
+	UEventWrapper::RegisterEvent(eventBusInput, EventListInput::CLOSE_VILLAGE_INPUT, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { ExitWidgetEvent(Params); }));
 }
 
 void UVillageUI::onFishShopBtnClicked()
@@ -28,8 +30,8 @@ void UVillageUI::onFishShopBtnClicked()
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_FISHSHOP, eventParameters);
-	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ENTER_BUILDING, eventParameters);
-
+	SetIsInBuilding();
+	
 	HideWidget();
 }
 
@@ -39,7 +41,7 @@ void UVillageUI::onLighthouseBtnClicked()
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_LIGHTHOUSE, eventParameters);
-	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ENTER_BUILDING, eventParameters);
+	SetIsInBuilding();
 
 	HideWidget();
 }
@@ -50,7 +52,7 @@ void UVillageUI::onWorkshopBtnClicked()
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_WORKSHOP, eventParameters);
-	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ENTER_BUILDING, eventParameters);
+	SetIsInBuilding();
 
 	HideWidget();
 }
@@ -61,7 +63,7 @@ void UVillageUI::onArchiveBtnClicked()
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_ARCHIVE, eventParameters);
-	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ENTER_BUILDING, eventParameters);
+	SetIsInBuilding();
 
 	HideWidget();
 }
@@ -72,24 +74,37 @@ void UVillageUI::onCarpentryBtnClicked()
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::SHOW_CARPENTRY, eventParameters);
-	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::ENTER_BUILDING, eventParameters);
-
+	SetIsInBuilding();
+	
 	HideWidget();
 }
 
 void UVillageUI::ShowWidget(EventParameters parameters)
 {
+	if (_bIsInBuilding == true)
+		_bIsInBuilding = false;
+	
 	_xCanvas->SetVisibility(ESlateVisibility::Visible);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->_xActiveWidgets.Add(this);
 	OnVisible();
 }
 
 void UVillageUI::ExitWidget()
 {
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	if (_bIsInBuilding) return;
+	if (!gamemode->_xActiveWidgets.IsEmpty())
+	{
+		if (gamemode->_xActiveWidgets.Last() != this) return;
+	}
+	
+	
 	EventParameters eventParameters;
 	eventParameters.Add(nullptr);
-	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	gamemode->xVillageEventBus->TriggerEvent(EventListVillage::HIDE_VILLAGE_BASE, eventParameters);
 
+	gamemode->_xActiveWidgets.Remove(this);
 	_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
 }
 
@@ -101,4 +116,11 @@ void UVillageUI::ExitWidgetEvent(EventParameters parameters)
 void UVillageUI::HideWidget()
 {
 	_xCanvas->SetVisibility(ESlateVisibility::Collapsed);
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->_xActiveWidgets.Remove(this);
+}
+
+void UVillageUI::SetIsInBuilding()
+{
+	_bIsInBuilding = !_bIsInBuilding;
 }

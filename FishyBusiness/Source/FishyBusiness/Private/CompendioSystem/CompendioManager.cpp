@@ -27,7 +27,7 @@ void ACompendioManager::BeginPlay()
 	
 	APlayerController* playerController = GetWorld()->GetFirstPlayerController();
 
-	UUserWidget* mainCompendio = CreateWidget(GetWorld(), _xMainCompendio);
+	mainCompendio = CreateWidget(GetWorld(), _xMainCompendio);
 	mainCompendio->AddToViewport(2);
 
 	CreateCatalogue(Cast<UMainCompendio>(mainCompendio)->xPageList);
@@ -117,8 +117,13 @@ void ACompendioManager::CloseCompendio()
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	if (gamemode->GetIsMainOverlayVisible() == true && _bIsOpen == false) return;
-
+	if (!gamemode->_xActiveWidgets.IsEmpty())
+	{
+		if (gamemode->_xActiveWidgets.Last() != mainCompendio) return;
+	}
+	
 	_bIsOpen = false;
+	gamemode->_xActiveWidgets.Remove(mainCompendio);
 
 	Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0))->SetCompendioMovable(!_bIsOpen);
 	gamemode->SetBIsMainOverlayVisible(_bIsOpen);

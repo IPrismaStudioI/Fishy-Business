@@ -19,6 +19,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UMainCompendio> _xMainCompendio;
 	
+	UUserWidget* mainCompendio;
+	
 	UPROPERTY()
 	int _iPageNum;
 
