@@ -4,6 +4,7 @@
 #include "PlayerSystem/PlayerCharacter.h"
 
 #include "Camera/CameraComponent.h"
+#include "FishyBusiness/FishyBusinessGameModeBase.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "PlayerSystem/MaterialInventory.h"
@@ -12,6 +13,7 @@
 #include "PlayerSystem/UniqueInventory.h"
 #include "PlayerSystem/Wallet.h"
 
+class AFishyBusinessGameModeBase;
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
@@ -63,6 +65,11 @@ void APlayerCharacter::BeginPlay()
 	xMovement->xEngine = xEngine->GetFlipbook();
 	xMovement->fMaxSpeed = _xCharacterMovementComponent->MaxWalkSpeed;
 	
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	UEventBus* eventBusInput = gamemode->xInputEventBus;
+	UEventWrapper::RegisterEvent(eventBusInput, EventListInput::MOVE_FORWARD_INPUT, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { MoveForwardEvent(Params); }));
+	UEventWrapper::RegisterEvent(eventBusInput, EventListInput::MOVE_RIGHT_INPUT, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { MoveRightEvent(Params); }));
+
 }
 
 // Called every frame
@@ -81,8 +88,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAxis("MoveForward", this, &APlayerCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
+	// PlayerInputComponent->BindAxis("MoveForward", this, &APlayerCharacter::MoveForward);
+	// PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
 }
 
 void APlayerCharacter::SetMovable(bool option)
@@ -110,11 +117,21 @@ void APlayerCharacter::CheckMoving()
 	}
 }
 
+void APlayerCharacter::MoveForwardEvent(EventParameters params)
+{
+	MoveForward(params[0]->Getter<float>());
+}
+
 void APlayerCharacter::MoveForward(float inputVector)
 {
 	if (!_bIsMovable || !_bIsCompendioMovable) return;
 	FVector ForwardDirection = GetActorForwardVector();
 	AddMovementInput(ForwardDirection, inputVector);
+}
+
+void APlayerCharacter::MoveRightEvent(EventParameters params)
+{
+	MoveRight(params[0]->Getter<float>());
 }
 
 void APlayerCharacter::MoveRight(float inputVector)

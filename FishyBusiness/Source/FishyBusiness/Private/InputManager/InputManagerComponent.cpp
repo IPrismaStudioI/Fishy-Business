@@ -41,6 +41,8 @@ void UInputManagerComponent::BeginPlay()
 		input->BindAction(InputActions->NEXT_COMPENDIO_PAGE_INPUT, ETriggerEvent::Started, this, &UInputManagerComponent::CallNextCompendioPage);
 		input->BindAction(InputActions->PREV_COMPENDIO_PAGE_INPUT, ETriggerEvent::Started, this, &UInputManagerComponent::CallPrevCompendioPage);
 		input->BindAction(InputActions->CLOSE_VILLAGE_INPUT, ETriggerEvent::Started, this, &UInputManagerComponent::CallCloseVillage);
+		input->BindAction(InputActions->MOVE_FORWARD_INPUT, ETriggerEvent::Triggered, this, &UInputManagerComponent::CallMoveForward);
+		input->BindAction(InputActions->MOVE_RIGHT_INPUT, ETriggerEvent::Triggered, this, &UInputManagerComponent::CallMoveRight);
 	}
 }
 
@@ -90,4 +92,24 @@ void UInputManagerComponent::CallCloseVillage()
 	eventParameters.Add(nullptr);
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	gamemode->xInputEventBus->TriggerEvent(EventListInput::CLOSE_VILLAGE_INPUT, eventParameters);
+}
+
+void UInputManagerComponent::CallMoveForward(const FInputActionInstance& Instance)
+{
+	float FloatValue = Instance.GetValue().Get<float>();
+	
+	EventParameters eventParameters;
+	eventParameters.Add(UParameterWrapper::CreateParameter<float>(FloatValue));
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->xInputEventBus->TriggerEvent(EventListInput::MOVE_FORWARD_INPUT, eventParameters);
+}
+
+void UInputManagerComponent::CallMoveRight(const FInputActionInstance& Instance)
+{
+	float FloatValue = Instance.GetValue().Get<float>();
+	
+	EventParameters eventParameters;
+	eventParameters.Add(UParameterWrapper::CreateParameter<float>(FloatValue));
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	gamemode->xInputEventBus->TriggerEvent(EventListInput::MOVE_RIGHT_INPUT, eventParameters);
 }

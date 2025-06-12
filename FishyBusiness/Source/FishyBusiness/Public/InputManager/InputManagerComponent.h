@@ -39,4 +39,6 @@ private:
 	void CallNextCompendioPage();
 	void CallPrevCompendioPage();
 	void CallCloseVillage();
+	void CallMoveForward(const FInputActionInstance& Instance);
+	void CallMoveRight(const FInputActionInstance& Instance);
 };

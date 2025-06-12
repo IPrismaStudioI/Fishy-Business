@@ -87,6 +87,9 @@ public:
 	void SetMovable(bool option);
 	UFUNCTION(BlueprintCallable)
 	void SetCompendioMovable(bool option);
+
+	void MoveForwardEvent(EventParameters params);
+	void MoveRightEvent(EventParameters params);
 	
 private:	
 	/// <summary>moves the character on forward axis </summary>
