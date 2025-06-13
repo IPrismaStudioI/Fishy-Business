@@ -60,7 +60,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enumerators")
 	TMap<EQuestStatus, FString> eQuestStatusString;
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<UUserWidget*> _xActiveWidgets;
 	
 public:
