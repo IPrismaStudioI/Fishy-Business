@@ -21,4 +21,7 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	int iAmount;
+
+	UPROPERTY(EditAnywhere)
+	TMap<FString, int> xFishMap;
 };
