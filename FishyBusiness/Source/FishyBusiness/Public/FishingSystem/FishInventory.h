@@ -30,7 +30,6 @@ public:
 	void AddFish(FString fishID);
 	void RemoveFish(FString fishID);
 	
-private:
 	TMap<FString, FFishBunch> _mFishes;
 
 };

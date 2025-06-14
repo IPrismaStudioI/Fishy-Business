@@ -9,6 +9,7 @@
 #include "EventManager/EventWrapper.h"
 #include "QuestData/Enums/E_QuestZones.h"
 #include "Enums/ENpcNames.h"
+#include "FishingSystem/FFishBunch.h"
 #include "AC_QuestLog.generated.h"
 
 
@@ -58,7 +59,7 @@ public:
 	/// <summary>
 	///	gets the item and checks if there is a quest module that requires that item, if there is and the amount passed is >= of the required amount it advances that quest by 1 position
 	/// </summary>
-	void AdvanceCollectModule(UBaseItem* item, int quantity);
+	void AdvanceCollectModule(UBaseItem* item, int quantity, TMap<FString, FFishBunch> map);
 
 	void AddQuestEvent(EventParameters params);
 	
@@ -82,6 +83,8 @@ private:
 	void SetActiveQuest(FString questID);
 
 	void UpdateUIQuest();
+
+	bool CheckSameTMap(const TMap<FString, FFishBunch>& MapA, const TMap<FString, int>& MapB);
 
 #pragma region Events blueprint
 

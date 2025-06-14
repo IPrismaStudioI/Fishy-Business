@@ -5,6 +5,8 @@
 
 #include "FishingSystem/FishingGenerator.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "PlayerSystem/PlayerCharacter.h"
 #include "QuestSystem/QuestData/QuestRow.h"
 #include "QuestSystem/QuestData/Modules/DA_CollectionModule.h"
 #include "QuestSystem/QuestData/Modules/DA_ExplorationModule.h"
@@ -124,7 +126,7 @@ void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID, int
 	}
 }
 
-void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
+void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity, TMap<FString, FFishBunch> map)
 {
 	TArray<FString> questIDs;
 	xQuests.GenerateKeyArray(questIDs);//generate array of quest ids from xQuests
@@ -134,15 +136,20 @@ void UAC_QuestLog::AdvanceCollectModule(UBaseItem* item, int quantity)
 		if (xQuests[questIDs[i]].eStatus != EQuestStatus::E_ACTIVE_QUEST) continue;
 		if (UDA_CollectionModule* CollectModule = Cast<UDA_CollectionModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
-			if (CollectModule->xTypeOfItem == item && quantity >= CollectModule->iAmount)
+			if (CheckSameTMap(map, CollectModule->xFishMap))
 			{
 				CheckAdvanceModule(questIDs[i]);
-				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
+				//xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
 			}
-			if (CollectModule->xTypeOfItem == item)
-			{
-				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
-			}
+			// if (CollectModule->xTypeOfItem == item && quantity >= CollectModule->iAmount)
+			// {
+			// 	CheckAdvanceModule(questIDs[i]);
+			// 	xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
+			// }
+			// if (CollectModule->xTypeOfItem == item)
+			// {
+			// 	xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
+			// }
 		}
 	}
 }
@@ -228,7 +235,9 @@ void UAC_QuestLog::AdvanceCollectEvent(EventParameters params)
 	int quantity = params[1]->Getter<int>();
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	UBaseItem* item = gamemode->GetFishFromDT(itemID);
-	AdvanceCollectModule(item, quantity);
+	APlayerCharacter* playerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	TMap<FString, FFishBunch> map = playerCharacter->xFishInventory->_mFishes;
+	AdvanceCollectModule(item, quantity, map);
 }
 
 
@@ -265,3 +274,27 @@ void UAC_QuestLog::UpdateUIQuest()
 	}
 }
 
+bool UAC_QuestLog::CheckSameTMap(const TMap<FString, FFishBunch>& MapA, const TMap<FString, int>& MapB)
+{
+	if (MapA.Num() != MapB.Num())
+	{
+		return false;
+	}
+
+	for (const TPair<FString, FFishBunch>& PairA : MapA)
+	{
+		const FString& Key = PairA.Key;
+
+		if (!MapB.Contains(Key))
+		{
+			return false;
+		}
+
+		if (PairA.Value.aFishInfos.Num() != MapB[Key])
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
