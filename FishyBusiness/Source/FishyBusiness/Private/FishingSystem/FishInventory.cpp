@@ -49,26 +49,31 @@ void UFishInventory::AddFish(FFishData fishData)
 	{
 		_mFishes[fishData.sFishID].aFishInfos.Add(newFishInfo);
 
+		if (MFishRecords[fishData.sFishID].fFishSize < fishData.fFishSize)
+		{
+			MFishRecords[fishData.sFishID].fFishSize = fishData.fFishSize;
+			MFishRecords[fishData.sFishID].fFishPrice = fishData.fFishPrice;
+		}
+		
 		EventParameters eventParameters;
-
-		eventParameters.Add(UParameterWrapper::CreateParameter<FString>(fishData.sFishID));
-	
 		int amount = _mFishes[fishData.sFishID].aFishInfos.Num();
+		eventParameters.Add(UParameterWrapper::CreateParameter<FString>(fishData.sFishID));
 		eventParameters.Add(UParameterWrapper::CreateParameter<int>(amount));
-	
 		gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_COLLECT, eventParameters);
+		
 		return;
 	}
 	_mFishes.Add(fishData.sFishID);
+	MFishRecords.Add(fishData.sFishID);
+	
 	_mFishes[fishData.sFishID].aFishInfos.Add(newFishInfo);
+	MFishRecords[fishData.sFishID].fFishSize = fishData.fFishSize;
+	MFishRecords[fishData.sFishID].fFishPrice = fishData.fFishPrice;
 
 	EventParameters eventParameters;
-
-	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(fishData.sFishID));
-	
 	int amount = _mFishes[fishData.sFishID].aFishInfos.Num();
+	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(fishData.sFishID));
 	eventParameters.Add(UParameterWrapper::CreateParameter<int>(amount));
-	
 	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_COLLECT, eventParameters);
 	
 }

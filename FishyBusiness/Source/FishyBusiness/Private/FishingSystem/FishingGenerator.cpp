@@ -2,7 +2,8 @@
 
 
 #include "FishingSystem/FishingGenerator.h"
-
+#include "Math/RandomStream.h"
+#include "Misc/DateTime.h"
 #include "FishingSystem/FishingSpot.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
 
@@ -42,8 +43,16 @@ float AFishingGenerator::AllocateSize(FString fishID)
 
 	float corrector = fish->fSizeCorrector * 0.1;
 	float rarityCorrector = corrector * static_cast<int>(fish->eRarity);
-	float rnd = FMath::RandRange(-50.0, 50.0);
-	float x = rarityCorrector * FMath::Pow( rnd, 1/3) + 1;
+
+	//const int32 Seed= FDateTime::GetMillisecond();
+	//const FRandomStream RandomStream(Seed);
+	//const float Min = -50;
+	//const float Max = 50;
+	//const float rnd = RandomStream.RandRange(Min,Max);
+	
+	float rnd = FMath::FRandRange(0.0, 100.0);
+
+	float x = rarityCorrector * FMath::Pow( rnd, (1.0f/3.0f)) + 1;
 	
 	return x * fish->fBaseSize;
 }
@@ -69,7 +78,7 @@ FFishData AFishingGenerator::CreateNewFish()
 	float size = AllocateSize(id);
 	float price = AllocatePrice(id, size);
 	
-	return FFishData(id, size, price);
+	return FFishData(id, price, size);
 }
 
 void AFishingGenerator::InitialGeneration()

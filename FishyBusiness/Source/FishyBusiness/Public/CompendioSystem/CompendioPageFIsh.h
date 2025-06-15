@@ -25,6 +25,8 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	URichTextBlock* _xFishSName;
 	UPROPERTY(meta = (BindWidget))
+	URichTextBlock* _xRecordSize;
+	UPROPERTY(meta = (BindWidget))
 	URichTextBlock* _xLocation;
 	UPROPERTY(meta = (BindWidget))
 	UButtonDialogueTriggerCatalogue* _xLilaInfoBtn;

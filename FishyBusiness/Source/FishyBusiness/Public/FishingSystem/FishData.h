@@ -30,3 +30,23 @@ struct FISHYBUSINESS_API FFishData
 		  fFishSize(FFishSize)
 	{	}
 };
+
+USTRUCT(BlueprintType)
+struct FISHYBUSINESS_API FFishDataRecord
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite)
+	float fFishPrice;
+	UPROPERTY(BlueprintReadWrite)
+	float fFishSize;
+
+	FFishDataRecord()
+		:fFishPrice(0.0f), fFishSize(0.0f)
+	{}
+	
+	FFishDataRecord(float FFishPrice, float FFishSize)
+		: fFishPrice(FFishPrice),
+		  fFishSize(FFishSize)
+	{	}
+};

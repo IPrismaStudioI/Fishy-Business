@@ -33,4 +33,6 @@ public:
 private:
 	TMap<FString, FFishBunch> _mFishes;
 
+public:
+	TMap<FString, FFishDataRecord> MFishRecords;
 };

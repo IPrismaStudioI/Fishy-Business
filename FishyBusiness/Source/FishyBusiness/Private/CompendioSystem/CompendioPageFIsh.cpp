@@ -3,6 +3,8 @@
 
 #include "CompendioSystem/CompendioPageFIsh.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "PlayerSystem/PlayerCharacter.h"
 
 void UCompendioPageFIsh::NativeConstruct()
 {
@@ -34,6 +36,13 @@ void UCompendioPageFIsh::FillInformations(bool isCatalogued)
 			_xFishDescription->SetText(FText::FromString(desc));
 			FString loc = "<Compendium>" + gamemode->eBiomesNames[fish->eLocation] + "</>";
 			_xLocation->SetText(FText::FromString(loc));
+
+			APlayerCharacter* p = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0));
+			FFishDataRecord x = p->xFishInventory->MFishRecords[sFishID];
+
+			FString size = "<Compendium>" + FString::SanitizeFloat(x.fFishSize) + "kg </>";
+			_xRecordSize->SetText(FText::FromString(size));
+			
 			_xLilaInfoBtn->SetVisibility(ESlateVisibility::Visible);
 		}
 		else
