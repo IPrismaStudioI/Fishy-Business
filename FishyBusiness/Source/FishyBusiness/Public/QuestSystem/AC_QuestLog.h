@@ -59,7 +59,9 @@ public:
 	/// <summary>
 	///	gets the item and checks if there is a quest module that requires that item, if there is and the amount passed is >= of the required amount it advances that quest by 1 position
 	/// </summary>
-	void AdvanceCollectModule(UBaseItem* item, int quantity, TMap<FString, FFishBunch> map);
+	void AdvanceFishCollectModule(TMap<FString, FFishBunch> map);
+
+	void AdvanceItemCollectModule(UBaseItem* item, int quantity);
 
 	void AddQuestEvent(EventParameters params);
 	
