@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "FFishBunch.h"
+#include "FishData.h"
 #include "Components/ActorComponent.h"
-#include "DataSystem/FishData/Fish.h"
 #include "FishInventory.generated.h"
 
 
@@ -27,7 +27,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable)
-	void AddFish(FString fishID);
+	void AddFish(FFishData fishData);
 	void RemoveFish(FString fishID);
 	
 private:

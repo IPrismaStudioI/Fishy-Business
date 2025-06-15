@@ -6,7 +6,6 @@
 #include "MaterialInventory.h"
 #include "Movement.h"
 #include "PaperFlipbookComponent.h"
-#include "FishingSystem/FishingMinigame.h"
 #include "FishingSystem/FishInventory.h"
 #include "PlayerCameraController.h"
 #include "UniqueInventory.h"

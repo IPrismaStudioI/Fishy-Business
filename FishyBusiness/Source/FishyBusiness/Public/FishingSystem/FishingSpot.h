@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FishingGenerator.h"
 #include "FishingMinigame.h"
 #include "FishingReward.h"
-#include "DataSystem/FishData/Fish.h"
 #include "GameFramework/Actor.h"
-#include "FishingSystem/FishingGenerator.h"
-#include "PlayerSystem/PlayerCharacter.h"
 #include "FishingSpot.generated.h"
+
+class APlayerCharacter;
 
 UCLASS()
 class FISHYBUSINESS_API AFishingSpot : public AActor
@@ -21,32 +21,28 @@ private:
 	UPROPERTY()
 	bool _bCanCreateMinigame = false;
 	bool _bHasPlayerInteracted = false;
+	
 	APlayerCharacter* xPlayerCharacter;
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FFishData> xFishes;
+	
 	UPROPERTY(BlueprintReadWrite)
 	TArray<UFishingMinigame*> ActiveWidget;
-
 	UPROPERTY(BlueprintReadWrite)
 	UFishingReward* xRewardWidget;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class USphereComponent* xSphereTrigger;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FString> xFishes;
-
 	UPROPERTY(EditAnywhere)
 	int iTotalFishes;
-
 	bool bIsActive = false;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UFishingMinigame> xFishingMinigame;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UFishingReward> xFishingReward;
-
 	UPROPERTY()
 	AFishingGenerator* xFishingGenerator;
 

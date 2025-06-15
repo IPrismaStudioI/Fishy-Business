@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FishData.h"
 #include "DataSystem/FishData/Fish.h"
 #include "GameFramework/Actor.h"
 #include "FishingGenerator.generated.h"
@@ -26,7 +27,12 @@ public:
 
 private:
 	void InitialGeneration();
+
 	FString AllocateFish();
+	float AllocateSize(FString fishID);
+	float AllocatePrice(FString fishID, float fishSize);
+	
+	FFishData CreateNewFish();
 	
 protected:
 	// Called when the game starts or when spawned

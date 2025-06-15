@@ -4,7 +4,9 @@
 #include "FishingSystem/FishingGenerator.h"
 
 #include "FishingSystem/FishingSpot.h"
+#include "FishyBusiness/FishyBusinessGameModeBase.h"
 
+class AFishyBusinessGameModeBase;
 // Sets default values
 AFishingGenerator::AFishingGenerator()
 {
@@ -33,6 +35,43 @@ FString AFishingGenerator::AllocateFish()
 	return xAvailableFishIDs[randomInt];
 }
 
+float AFishingGenerator::AllocateSize(FString fishID)
+{
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	UFish* fish = gamemode->GetFishFromDT(fishID);
+
+	float corrector = fish->fSizeCorrector * 0.1;
+	float rarityCorrector = corrector * static_cast<int>(fish->eRarity);
+	float rnd = FMath::RandRange(-50.0, 50.0);
+	float x = rarityCorrector * FMath::Pow( rnd, 1/3) + 1;
+	
+	return x * fish->fBaseSize;
+}
+
+float AFishingGenerator::AllocatePrice(FString fishID, float fishSize)
+{
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+	UFish* fish = gamemode->GetFishFromDT(fishID);
+	
+	float base = (fishSize - fish->fBaseSize) / fish->fBaseSize;
+	float pow = FMath::Pow(base, 3.0);
+
+	float correctorBase = pow * 4.0 * fish->fPriceCorrector * 0.4;
+	float correctorexp = 1/3;
+	float correctorPow = FMath::Pow(correctorBase, correctorexp);
+	
+	return (correctorPow + 1.0) * fish->fBasePrice;
+}
+
+FFishData AFishingGenerator::CreateNewFish()
+{
+	FString id = AllocateFish();
+	float size = AllocateSize(id);
+	float price = AllocatePrice(id, size);
+	
+	return FFishData(id, size, price);
+}
+
 void AFishingGenerator::InitialGeneration()
 {
 	for (int i = 0; i < xFishingSpots.Num(); i++)
@@ -41,7 +80,7 @@ void AFishingGenerator::InitialGeneration()
 		int total = xFishingSpots[i]->iTotalFishes;
 		for (int j = 0; j < total; j++)
 		{
-			xFishingSpots[i]->xFishes.Add(AllocateFish());
+			xFishingSpots[i]->xFishes.Add(CreateNewFish());
 		}
 		xFishingSpots[i]->xFishingGenerator = this;
 		xFishingSpots[i]->ToggleActive(false);
@@ -79,7 +118,7 @@ void AFishingGenerator::ShuffleSpots(AFishingSpot* depletedSpot)
 	int randInt = FMath::RandRange(1, xFishingSpots[randomInt]->iTotalFishes);
 	for (int j = 0; j < randInt; j++)
 	{
-		xFishingSpots[randomInt]->xFishes[j] = AllocateFish();
+		xFishingSpots[randomInt]->xFishes[j] = CreateNewFish();
 	}
 }
 

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FishData.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Border.h"
 #include "Components/CanvasPanel.h"
@@ -21,7 +22,7 @@ class FISHYBUSINESS_API UFishingMinigame : public UUserWidget
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString sFishID;
+	FFishData sFishID;
 
 	UPROPERTY(BlueprintReadWrite)
 	UFish* xFish;

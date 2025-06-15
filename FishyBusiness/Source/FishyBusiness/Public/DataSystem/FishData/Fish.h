@@ -27,6 +27,7 @@ public:
 	float fBasePrice;
 	UPROPERTY(EditAnywhere)
 	float fPriceCorrector;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ERarity eRarity;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

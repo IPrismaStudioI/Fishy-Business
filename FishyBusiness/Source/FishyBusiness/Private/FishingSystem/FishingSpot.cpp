@@ -58,7 +58,7 @@ void AFishingSpot::FinishedMinigame(bool hasWon)
 		xPlayerCharacter->xFishInventory->AddFish(xFishes[_iCurrentFishes -1]);
 		
 		EventParameters eventParameters;
-		eventParameters.Add(UParameterWrapper::CreateParameter<FString>(xFishes[_iCurrentFishes -1]));
+		eventParameters.Add(UParameterWrapper::CreateParameter<FString>(xFishes[_iCurrentFishes -1].sFishID));
 		gamemode->xCompendioEventBus->TriggerEvent(EventListCompendio::CATALOGUE_FISH, eventParameters);
 	}
 	

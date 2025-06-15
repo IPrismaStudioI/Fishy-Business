@@ -3,10 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FishData.h"
 #include "Blueprint/UserWidget.h"
 #include "DataSystem/FishData/Fish.h"
 #include "FishingReward.generated.h"
 
+class AFishingSpot;
 /**
  * 
  */
@@ -17,7 +19,7 @@ class FISHYBUSINESS_API UFishingReward : public UUserWidget
 
 public:
 	UPROPERTY(BlueprintReadWrite)
-	FString sFishID;
+	FFishData sFishID;
 	UPROPERTY(BlueprintReadWrite)
 	UFish* xFish;
 	UPROPERTY(BlueprintReadWrite)
