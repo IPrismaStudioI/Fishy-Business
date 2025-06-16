@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 #include "DataSystem/ItemData/BaseItem.h"
 #include "QuestSystem/QuestData/Modules/DA_QuestModuleBase.h"
-#include "DA_FishCollectionModule.generated.h"
+#include "DA_ItemCollectModule.generated.h"
 
 /**
  * 

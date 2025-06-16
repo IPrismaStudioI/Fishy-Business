@@ -5,6 +5,7 @@
 
 #include "DataTables/DialogueRow.h"
 #include "DataTables/FishRow.h"
+#include "DataTables/ItemRow.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerSystem/PlayerCharacter.h"
 #include "QuestSystem/QuestDataManager.h"
@@ -80,6 +81,17 @@ UFish* AFishyBusinessGameModeBase::GetFishFromDT(FString id)
 		return nullptr;
 	}
 	return row->xFish;
+}
+
+UBaseItem* AFishyBusinessGameModeBase::GetItemFromDT(FString id)
+{
+	FItemRow* row = xDataTableItems->FindRow<FItemRow>(FName(id), "");
+	if (!row)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Item Row not fund"));
+		return nullptr;
+	}
+	return row->xItem;
 }
 
 TArray<UDA_QuestModuleBase*> AFishyBusinessGameModeBase::GetQuestFromDT(FString id)

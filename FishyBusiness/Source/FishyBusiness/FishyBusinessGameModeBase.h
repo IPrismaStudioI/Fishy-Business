@@ -49,6 +49,8 @@ public:
 	UDataTable* xDataTableFishes;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
 	UDataTable* xDataTableQuest;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DataTables")
+	UDataTable* xDataTableItems;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enumerators")
 	TMap<EBiomes, FString> eBiomesNames;
@@ -90,6 +92,9 @@ public:
 	/// </summary>
 	UFUNCTION(BlueprintCallable)
 	UFish* GetFishFromDT(FString id);
+
+	UFUNCTION(BlueprintCallable)
+	UBaseItem* GetItemFromDT(FString id);
 
 	UFUNCTION(BlueprintCallable)
 	TArray<UDA_QuestModuleBase*> GetQuestFromDT(FString id);

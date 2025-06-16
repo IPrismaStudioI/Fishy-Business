@@ -3,6 +3,8 @@
 
 #include "PlayerSystem/MaterialInventory.h"
 
+#include "FishyBusiness/FishyBusinessGameModeBase.h"
+
 // Sets default values for this component's properties
 UMaterialInventory::UMaterialInventory()
 {
@@ -30,5 +32,42 @@ void UMaterialInventory::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UMaterialInventory::AddItem(FString itemID, int amount)
+{
+	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
+
+	UBaseItem* item = gamemode->GetItemFromDT(itemID);
+
+	if (item == nullptr) return;
+
+	if (xItemMap.Contains(itemID))
+	{
+		xItemMap[itemID] += amount;
+
+		EventParameters eventParameters;
+
+		eventParameters.Add(UParameterWrapper::CreateParameter<FString>(itemID));
+
+		int totalAmount = xItemMap[itemID];
+		eventParameters.Add(UParameterWrapper::CreateParameter<int>(totalAmount));
+
+		//gamemode->xQuestEventBus->TriggerEvent(EventlistQuest::ADVANCE_ITEM_COLLECT, eventParameters);
+
+		return;
+	}
+
+	xItemMap.Add(itemID);
+	xItemMap[itemID] += amount;
+
+	EventParameters eventParameters;
+
+	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(itemID));
+
+	int totalAmount = xItemMap[itemID];
+	eventParameters.Add(UParameterWrapper::CreateParameter<int>(totalAmount));
+
+	//gamemode->xQuestEventBus->TriggerEvent(EventlistQuest::ADVANCE_ITEM_COLLECT, eventParameters);
 }
 
