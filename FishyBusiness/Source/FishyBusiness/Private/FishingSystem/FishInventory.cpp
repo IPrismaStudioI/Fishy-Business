@@ -55,7 +55,7 @@ void UFishInventory::AddFish(FString fishID)
 		int amount = _mFishes[fishID].aFishInfos.Num();
 		eventParameters.Add(UParameterWrapper::CreateParameter<int>(amount));
 	
-		gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_COLLECT, eventParameters);
+		gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_FISH_COLLECT, eventParameters);
 		return;
 	}
 	_mFishes.Add(fishID);
@@ -68,7 +68,7 @@ void UFishInventory::AddFish(FString fishID)
 	int amount = _mFishes[fishID].aFishInfos.Num();
 	eventParameters.Add(UParameterWrapper::CreateParameter<int>(amount));
 	
-	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_COLLECT, eventParameters);
+	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_FISH_COLLECT, eventParameters);
 	
 }
 

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "DataSystem/ItemData/BaseItem.h"
+#include "EventManager/EventWrapper.h"
 #include "GameFramework/Actor.h"
 #include "ItemObject.generated.h"
 
@@ -20,20 +21,30 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+	APlayerCharacter* xPlayerCharacter;
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USphereComponent* xSphereTrigger;
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	UBaseItem* xItem;
+	FString sItemID;
 
 	UPROPERTY(EditAnywhere)
 	int iItemAmount;
+	
+	void OnInteractEvent(EventParameters params);
 
-	// UFUNCTION()
-	// void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
-	// 					UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, 
-	// 					bool bFromSweep, const FHitResult& SweepResult);
-	//
-	//
+	void OnInteract();
+
+	UFUNCTION()
+	void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
+						UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, 
+						bool bFromSweep, const FHitResult& SweepResult);
+	
+	
 };

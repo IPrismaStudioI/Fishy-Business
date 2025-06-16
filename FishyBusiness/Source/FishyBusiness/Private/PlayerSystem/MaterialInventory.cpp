@@ -53,7 +53,7 @@ void UMaterialInventory::AddItem(FString itemID, int amount)
 		int totalAmount = xItemMap[itemID];
 		eventParameters.Add(UParameterWrapper::CreateParameter<int>(totalAmount));
 
-		//gamemode->xQuestEventBus->TriggerEvent(EventlistQuest::ADVANCE_ITEM_COLLECT, eventParameters);
+		gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_ITEM_COLLECT, eventParameters);
 
 		return;
 	}
@@ -68,6 +68,6 @@ void UMaterialInventory::AddItem(FString itemID, int amount)
 	int totalAmount = xItemMap[itemID];
 	eventParameters.Add(UParameterWrapper::CreateParameter<int>(totalAmount));
 
-	//gamemode->xQuestEventBus->TriggerEvent(EventlistQuest::ADVANCE_ITEM_COLLECT, eventParameters);
+	gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_ITEM_COLLECT, eventParameters);
 }
 

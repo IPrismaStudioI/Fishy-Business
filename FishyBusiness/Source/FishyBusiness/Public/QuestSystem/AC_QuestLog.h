@@ -67,7 +67,8 @@ public:
 	
 	void AdvanceExploreEvent(EventParameters params);
 	void AdvanceInteractEvent(EventParameters params);
-	void AdvanceCollectEvent(EventParameters params);
+	void AdvanceFishCollectEvent(EventParameters params);
+	void AdvanceItemCollectEvent(EventParameters params);
 
 private:
 	void CreateAdvanceNotify(int moduleIndex, FString questID);
