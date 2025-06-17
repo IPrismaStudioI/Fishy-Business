@@ -3,6 +3,12 @@
 
 #include "VillageSystem/ShopBuilding.h"
 
+AShopBuilding::AShopBuilding()
+{
+	_xSellComponent = CreateDefaultSubobject<USellComponent>("Sell Component");
+	this->AddInstanceComponent(_xSellComponent); 
+}
+
 void AShopBuilding::BeginPlay()
 {
 	Super::BeginPlay();
