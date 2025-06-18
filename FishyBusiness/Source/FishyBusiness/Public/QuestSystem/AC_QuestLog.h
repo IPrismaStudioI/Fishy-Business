@@ -61,7 +61,7 @@ public:
 	/// </summary>
 	void AdvanceFishCollectModule(TMap<FString, FFishBunch> map);
 
-	void AdvanceItemCollectModule(UBaseItem* item, int quantity);
+	void AdvanceItemCollectModule(FString item, int quantity);
 
 	void AddQuestEvent(EventParameters params);
 	

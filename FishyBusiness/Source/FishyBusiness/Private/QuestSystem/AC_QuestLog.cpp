@@ -156,7 +156,7 @@ void UAC_QuestLog::AdvanceFishCollectModule(TMap<FString, FFishBunch> map)
 	}
 }
 
-void UAC_QuestLog::AdvanceItemCollectModule(UBaseItem* item, int quantity)
+void UAC_QuestLog::AdvanceItemCollectModule(FString item, int quantity)
 {
 	TArray<FString> questIDs;
 	xQuests.GenerateKeyArray(questIDs);//generate array of quest ids from xQuests
@@ -166,12 +166,12 @@ void UAC_QuestLog::AdvanceItemCollectModule(UBaseItem* item, int quantity)
 		if (xQuests[questIDs[i]].eStatus != EQuestStatus::E_ACTIVE_QUEST) continue;
 		if (UDA_ItemCollectModule* CollectModule = Cast<UDA_ItemCollectModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
-			if (CollectModule->xTypeOfItem == item && quantity >= CollectModule->iAmount)
+			if (CollectModule->sItemID == item && quantity >= CollectModule->iAmount)
 			{
 				CheckAdvanceModule(questIDs[i]);
 				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
 			}
-			if (CollectModule->xTypeOfItem == item)
+			if (CollectModule->sItemID == item)
 			{
 				xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
 			}
@@ -272,7 +272,7 @@ void UAC_QuestLog::AdvanceItemCollectEvent(EventParameters params)
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	UBaseItem* item = gamemode->GetItemFromDT(itemID);
 
-	AdvanceItemCollectModule(item, quantity);
+	AdvanceItemCollectModule(itemID, quantity);
 }
 
 

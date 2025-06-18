@@ -16,7 +16,7 @@ class FISHYBUSINESS_API UDA_ItemCollectModule : public UDA_QuestModuleBase
 
 public:	
 	UPROPERTY(EditAnywhere)
-	UBaseItem* xTypeOfItem;
+	FString sItemID;
 	
 	UPROPERTY(EditAnywhere)
 	int iAmount;
