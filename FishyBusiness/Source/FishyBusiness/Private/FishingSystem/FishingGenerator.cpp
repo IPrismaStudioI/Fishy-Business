@@ -50,11 +50,21 @@ float AFishingGenerator::AllocateSize(FString fishID)
 	//const float Max = 50;
 	//const float rnd = RandomStream.RandRange(Min,Max);
 	
-	float rnd = FMath::FRandRange(0.0, 100.0);
+	//Box-Muller transformation for gaussian distribution: calcoliamo il valore del peso da una distribuzione gaussiana
+	//utilizzando una box-muller transformation, che genera
+	//una distribuzione uniforme e poi la mappa in gaussiana con l'aiuto del seno.
+	//Documentazione di riferimento: https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform e https://stackoverflow.com/questions/218060/random-gaussian-variables
 
-	float x = rarityCorrector * FMath::Pow( rnd, (1.0f/3.0f)) + 1;
-	
-	return x * fish->fBaseSize;
+	float u1 = 1.0 - FMath::FRandRange(0.0, 1.0);
+	float u2 = 1.0 - FMath::FRandRange(0.0, 1.0);
+	float randStdNormal = FMath::Sqrt(-2.0 * FMath::LogX(10, u1)) * FMath::Sin(2.0 * PI * u2);
+	float randNormal = fish->fBaseSize + 4 * rarityCorrector * randStdNormal;
+
+	UE_LOG(LogTemp, Error , TEXT("Generated fish: %s"), *fish->sFishName);
+	UE_LOG(LogTemp, Error , TEXT("Generated: %f"), randNormal);
+
+
+	return randNormal;
 }
 
 float AFishingGenerator::AllocatePrice(FString fishID, float fishSize)
