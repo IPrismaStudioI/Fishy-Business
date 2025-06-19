@@ -8,7 +8,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "PlayerSystem/PlayerCharacter.h"
 #include "QuestSystem/QuestData/QuestRow.h"
-#include "QuestSystem/QuestData/Modules/DA_FishCollectionModule.h"
+#include "QuestSystem/QuestData/Modules/DA_CollectionModule.h"
 #include "QuestSystem/QuestData/Modules/DA_ExplorationModule.h"
 #include "QuestSystem/QuestData/Modules/DA_InteractionModule.h"
 #include "QuestSystem/QuestData/Modules/DA_ItemCollectModule.h"
@@ -65,9 +65,9 @@ void UAC_QuestLog::AddQuest(FString questID)
 		{
 			UDA_QuestModuleBase* x = xQuests[questID].xModules[i];
 			
-		    if (UDA_FishCollectionModule* tmp = Cast<UDA_FishCollectionModule>(x))
+		    if (UDA_CollectionModule* tmp = Cast<UDA_CollectionModule>(x))
 		    {
-		   		xQuests[questID].iTotalAmountModules.Add(1);// changed from ->  Cast<UDA_FishCollectionModule>(tmp)->iAmount
+		   		xQuests[questID].iTotalAmountModules.Add(1);// changed from ->  Cast<UDA_CollectionModule>(tmp)->iAmount
 		   		xQuests[questID].iCurrentAmountModules.Add(0);
 		    }
 			
@@ -128,30 +128,22 @@ void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID, int
 	}
 }
 
-void UAC_QuestLog::AdvanceFishCollectModule(TMap<FString, FFishBunch> map)
+void UAC_QuestLog::AdvanceFishCollectModule(APlayerCharacter* player)
 {
+	//!!ADD CHECKING BOTH FOR FISH INVENTORY AND ITEM INVENTORY THROUGH 'EItemType'!!
 	TArray<FString> questIDs;
 	xQuests.GenerateKeyArray(questIDs);//generate array of quest ids from xQuests
 
 	for (int i = 0; i < questIDs.Num(); i++) //checks if there is a quest with a module that requires the specified item and amount
 	{
 		if (xQuests[questIDs[i]].eStatus != EQuestStatus::E_ACTIVE_QUEST) continue;
-		if (UDA_FishCollectionModule* CollectModule = Cast<UDA_FishCollectionModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
+		if (UDA_CollectionModule* CollectModule = Cast<UDA_CollectionModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
-			if (CheckSameTMap(map, CollectModule->xFishMap))
+			if (CheckSameTMap(map, CollectModule->xItems))
 			{
 				CheckAdvanceModule(questIDs[i]);
 				//xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
 			}
-			// if (CollectModule->xTypeOfItem == item && quantity >= CollectModule->iAmount)
-			// {
-			// 	CheckAdvanceModule(questIDs[i]);
-			// 	xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
-			// }
-			// if (CollectModule->xTypeOfItem == item)
-			// {
-			// 	xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
-			// }
 		}
 	}
 }
@@ -261,8 +253,8 @@ void UAC_QuestLog::AdvanceFishCollectEvent(EventParameters params)
 	// AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	// UBaseItem* item = gamemode->GetFishFromDT(itemID);
 	APlayerCharacter* playerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-	TMap<FString, FFishBunch> map = playerCharacter->xFishInventory->_mFishes;
-	AdvanceFishCollectModule(map);
+	//TMap<FString, FFishBunch> map = playerCharacter->xFishInventory->_mFishes;
+	AdvanceFishCollectModule(playerCharacter);
 }
 
 void UAC_QuestLog::AdvanceItemCollectEvent(EventParameters params)

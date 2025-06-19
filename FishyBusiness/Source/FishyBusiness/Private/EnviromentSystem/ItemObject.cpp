@@ -3,6 +3,7 @@
 
 #include "EnviromentSystem/ItemObject.h"
 
+#include "AnalyticsEventAttribute.h"
 #include "Components/SphereComponent.h"
 #include "FishyBusiness/FishyBusinessGameModeBase.h"
 #include "PlayerSystem/PlayerCharacter.h"
@@ -42,9 +43,18 @@ void AItemObject::OnInteractEvent(EventParameters params)
 
 void AItemObject::OnInteract()
 {
-	if (sItemID != "")
+	if (!xItems.IsEmpty())
 	{
-		xPlayerCharacter->xMaterialInventory->AddItem(sItemID, iItemAmount);
+		TArray<FString> itemIDs;
+		xItems.GenerateKeyArray(itemIDs);
+		
+		for (int i = 0; i < xItems.Num(); i++)
+		{
+			FString itemID = itemIDs[i];
+			xPlayerCharacter->xMaterialInventory->AddItem(itemID, xItems[itemID]);
+			i++;
+		}
+		//xPlayerCharacter->xMaterialInventory->AddItem(sItemID, iItemAmount);
 	}
 }
 

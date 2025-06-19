@@ -94,6 +94,18 @@ UBaseItem* AFishyBusinessGameModeBase::GetItemFromDT(FString id)
 	return row->xItem;
 }
 
+UBaseItem* AFishyBusinessGameModeBase::GetItemOrFishFromDT(FString id, EItemType itemType)
+{
+	switch (itemType)
+	{
+		case EItemType::E_BASE_ITEM:
+			return GetItemFromDT(id);
+		
+		case EItemType::E_FISH_ITEM:
+			return GetFishFromDT(id);
+	}
+}
+
 TArray<UDA_QuestModuleBase*> AFishyBusinessGameModeBase::GetQuestFromDT(FString id)
 {
 	FQuestRow* row = xDataTableQuest->FindRow<FQuestRow>(FName(id), "");

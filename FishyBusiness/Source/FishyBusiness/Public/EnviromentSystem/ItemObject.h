@@ -31,11 +31,14 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere)
-	FString sItemID;
+	// UPROPERTY(EditAnywhere)
+	// FString sItemID;
+	//
+	// UPROPERTY(EditAnywhere)
+	// int iItemAmount;
 
 	UPROPERTY(EditAnywhere)
-	int iItemAmount;
+	TMap<FString, int> xItems;
 	
 	void OnInteractEvent(EventParameters params);
 

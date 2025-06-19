@@ -7,6 +7,7 @@
 #include "CompendioSystem/CatalogueFishComponent.h"
 #include "DataSystem/FishData/Fish.h"
 #include "DIalogueSystem/DA_Dialogue.h"
+#include "Enums/EItemType.h"
 #include "EventManager/ObserverManager.h"
 #include "GameFramework/GameModeBase.h"
 #include "QuestSystem/E_QuestStatus.h"
@@ -95,6 +96,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	UBaseItem* GetItemFromDT(FString id);
+
+	UFUNCTION(BlueprintCallable)
+	UBaseItem* GetItemOrFishFromDT(FString id, EItemType itemType);
 
 	UFUNCTION(BlueprintCallable)
 	TArray<UDA_QuestModuleBase*> GetQuestFromDT(FString id);
