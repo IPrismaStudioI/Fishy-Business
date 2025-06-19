@@ -139,11 +139,40 @@ void UAC_QuestLog::AdvanceFishCollectModule(APlayerCharacter* player)
 		if (xQuests[questIDs[i]].eStatus != EQuestStatus::E_ACTIVE_QUEST) continue;
 		if (UDA_CollectionModule* CollectModule = Cast<UDA_CollectionModule>(xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule])/*xQuests[questIDs[i]].xModules[xQuests[questIDs[i]].iCurrentModule]->eModuleType == EPlayerModuleType::E_EXPLORE_MODULE*/)
 		{
-			if (CheckSameTMap(map, CollectModule->xItems))
+			TArray<FString> itemIDs;
+			CollectModule->xItems.GenerateKeyArray(itemIDs);
+			
+			for (int j = 0; j < itemIDs.Num(); j++)
 			{
-				CheckAdvanceModule(questIDs[i]);
-				//xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
+				FString currentID = itemIDs[j];
+				switch (CollectModule->xItems[currentID].eItemType)
+				{
+					case EItemType::E_BASE_ITEM:
+						if (player->xMaterialInventory->xItemMap.Contains(currentID))
+						{
+							if (player->xMaterialInventory->xItemMap[currentID] < CollectModule->xItems[currentID].iAmount)
+							{
+								return;
+							}
+							break;
+						}
+						
+					case EItemType::E_FISH_ITEM:
+						if (player->xFishInventory->_mFishes.Contains(currentID))
+						{
+							if (player->xFishInventory->_mFishes[currentID].aFishInfos.Num() < CollectModule->xItems[currentID].iAmount)
+							{
+								return;
+							}
+							break;
+						}
+				}
 			}
+			// if (CheckSameTMap(map, CollectModule->xItems))
+			// {
+			// 	CheckAdvanceModule(questIDs[i]);
+			// 	//xQuests[questIDs[i]].iCurrentAmountModules[xQuests[questIDs[i]].iCurrentModule - 1] = quantity;
+			// }
 		}
 	}
 }
