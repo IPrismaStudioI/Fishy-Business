@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EncodableAsset" id="{a3e7debd-1335-4b14-98db-d203f2de570d}">
+		<property name="assetPath">
+			<value>UI/hover/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{681caa4e-8d56-41dc-843e-3ed544368314}</destination>
+		</relationship>
+	</object>
+</objects>
