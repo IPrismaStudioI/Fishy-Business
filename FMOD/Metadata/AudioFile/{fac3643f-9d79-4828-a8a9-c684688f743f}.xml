@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{fac3643f-9d79-4828-a8a9-c684688f743f}">
+		<property name="assetPath">
+			<value>Interaction Bits Marlo/SFX_Marlo-001.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.1392500000000001</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{681caa4e-8d56-41dc-843e-3ed544368314}</destination>
+		</relationship>
+	</object>
+</objects>

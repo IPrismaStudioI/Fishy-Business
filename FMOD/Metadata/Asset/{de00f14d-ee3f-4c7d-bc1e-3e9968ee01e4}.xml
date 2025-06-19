@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EncodableAsset" id="{de00f14d-ee3f-4c7d-bc1e-3e9968ee01e4}">
+		<property name="assetPath">
+			<value>Interaction Bits Yvara/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{681caa4e-8d56-41dc-843e-3ed544368314}</destination>
+		</relationship>
+	</object>
+</objects>

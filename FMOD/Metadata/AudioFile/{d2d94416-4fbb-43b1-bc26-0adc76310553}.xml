@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{d2d94416-4fbb-43b1-bc26-0adc76310553}">
+		<property name="assetPath">
+			<value>Interaction Bits Yvara/SFX_Yvara-004.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.0818541666666666</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{681caa4e-8d56-41dc-843e-3ed544368314}</destination>
+		</relationship>
+	</object>
+</objects>
