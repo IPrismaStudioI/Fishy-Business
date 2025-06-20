@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{f06855e3-0f47-4879-a4a2-62d970a678db}">
 		<property name="assetPath">
-			<value>SFX_Docking.wav</value>
+			<value>TownQuestComp/SFX_Docking.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

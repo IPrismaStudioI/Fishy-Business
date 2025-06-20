@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{121ffe18-4e6d-45e1-9d67-0d610d6dca95}">
 		<property name="assetPath">
-			<value>SFX_LilaCallOut.wav</value>
+			<value>UI/SFX_LilaCallOut.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

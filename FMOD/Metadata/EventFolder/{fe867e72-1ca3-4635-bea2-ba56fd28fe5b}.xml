@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EventFolder" id="{fe867e72-1ca3-4635-bea2-ba56fd28fe5b}">
+		<property name="name">
+			<value>FOLDER_HoverUI</value>
+		</property>
+		<relationship name="folder">
+			<destination>{f947d76e-ef3e-4bfc-a921-0c7b558eb661}</destination>
+		</relationship>
+	</object>
+</objects>
