@@ -104,6 +104,7 @@ UBaseItem* AFishyBusinessGameModeBase::GetItemOrFishFromDT(FString id, EItemType
 		case EItemType::E_FISH_ITEM:
 			return GetFishFromDT(id);
 	}
+	return nullptr;
 }
 
 TArray<UDA_QuestModuleBase*> AFishyBusinessGameModeBase::GetQuestFromDT(FString id)

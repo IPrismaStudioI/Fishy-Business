@@ -36,7 +36,7 @@ void UAC_QuestLog::BeginPlay()
 	UEventWrapper::RegisterEvent(eventManager, EventListQuest::ADD_QUEST, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AddQuestEvent(Params); }));
 	UEventWrapper::RegisterEvent(eventManager, EventListQuest::ADVANCE_EXPLORE, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceExploreEvent(Params); }));
 	UEventWrapper::RegisterEvent(eventManager, EventListQuest::ADVANCE_INTERACT, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceInteractEvent(Params); }));
-	UEventWrapper::RegisterEvent(eventManager, EventListQuest::ADVANCE_FISH_COLLECT, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceFishCollectEvent(Params); }));
+	UEventWrapper::RegisterEvent(eventManager, EventListQuest::ADVANCE_COLLECT, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceFishCollectEvent(Params); }));
 	UEventWrapper::RegisterEvent(eventManager, EventListQuest::ADVANCE_ITEM_COLLECT, MakeShared<TFunction<void(const EventParameters&)>>([this](const EventParameters& Params) { AdvanceItemCollectEvent(Params); }));
 	
 }
@@ -128,8 +128,10 @@ void UAC_QuestLog::AdvanceDialogueModule(ENpcNames npcName, FString questID, int
 	}
 }
 
-void UAC_QuestLog::AdvanceFishCollectModule(APlayerCharacter* player)
+void UAC_QuestLog::AdvanceFishCollectModule()
 {
+	APlayerCharacter* player = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+
 	//!!ADD CHECKING BOTH FOR FISH INVENTORY AND ITEM INVENTORY THROUGH 'EItemType'!!
 	TArray<FString> questIDs;
 	xQuests.GenerateKeyArray(questIDs);//generate array of quest ids from xQuests
@@ -281,9 +283,9 @@ void UAC_QuestLog::AdvanceFishCollectEvent(EventParameters params)
 	// int quantity = params[1]->Getter<int>();
 	// AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	// UBaseItem* item = gamemode->GetFishFromDT(itemID);
-	APlayerCharacter* playerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	//APlayerCharacter* playerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	//TMap<FString, FFishBunch> map = playerCharacter->xFishInventory->_mFishes;
-	AdvanceFishCollectModule(playerCharacter);
+	AdvanceFishCollectModule();
 }
 
 void UAC_QuestLog::AdvanceItemCollectEvent(EventParameters params)

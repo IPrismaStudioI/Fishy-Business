@@ -53,7 +53,7 @@ void UMaterialInventory::AddItem(FString itemID, int amount)
 		int totalAmount = xItemMap[itemID];
 		eventParameters.Add(UParameterWrapper::CreateParameter<int>(totalAmount));
 
-		gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_ITEM_COLLECT, eventParameters);
+		gamemode->xQuestEventBus->TriggerEvent(EventListQuest::ADVANCE_COLLECT, eventParameters);
 
 		UE_LOG(LogTemp, Warning, TEXT("Item ADDED"));
 		return;

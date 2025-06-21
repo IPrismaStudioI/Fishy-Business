@@ -121,7 +121,7 @@ public:
 	/// <summary>
 	/// FString item id, int amount
 	/// </summary>
-	static const FString ADVANCE_FISH_COLLECT;
+	static const FString ADVANCE_COLLECT;
 
 	/// <summary>
 	/// FString item id, int amount
