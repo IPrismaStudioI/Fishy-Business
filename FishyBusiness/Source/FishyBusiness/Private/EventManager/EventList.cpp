@@ -50,3 +50,4 @@ const FString EventListCompendio::CLOSE_COMPENDIO = TEXT("CLOSE_COMPENDIO");
 const FString EventListCompendio::CATALOGUE_FISH = TEXT("CATALOGUE_FISH");
 const FString EventListCompendio::NEXT_PAGE = TEXT("NEXT_PAGE");
 const FString EventListCompendio::PREV_PAGE = TEXT("PREV_PAGE");
+const FString EventListCompendio::THIS_PAGE = TEXT("THIS_PAGE");

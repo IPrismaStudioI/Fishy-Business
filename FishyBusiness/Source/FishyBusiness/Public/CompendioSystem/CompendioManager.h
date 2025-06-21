@@ -41,6 +41,8 @@ public:
 	void OpenCompendio();
 	UFUNCTION(BlueprintCallable)
 	void CloseCompendio();
+
+	void GoToThisPage(EventParameters parameters);
 	
 	void GoToPrevPage();
 	void GoToPrevPageEvent(EventParameters parameters);
