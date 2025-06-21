@@ -28,7 +28,12 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	USceneComponent* xRoot;
-	UPROPERTY(EditAnywhere, Category="ArriveTrigger")
+#pragma endregion move player
+
+public:
+
+#pragma region move player
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="ArriveTrigger")
 	UBoxComponent* Trigger;
 #pragma endregion move player
 
