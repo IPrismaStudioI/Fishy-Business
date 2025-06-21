@@ -48,7 +48,7 @@ void UQuestBulletinUI::ApplyReward()
 	eventParameters.Add(UParameterWrapper::CreateParameter<FString>(_sQuestID));
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
 	
-	if (gamemode->xQuestDataManager->GetQuestRewardTypeFromDT(_sQuestID) != EQuestRewardType::NEW_QUEST_REWARD)
+	if (gamemode->xQuestDataManager->GetQuestRewardFromDT(_sQuestID).Find(EQuestRewardType::NEW_QUEST_REWARD))
 	{
 		EnableBulletin(false);
 	}

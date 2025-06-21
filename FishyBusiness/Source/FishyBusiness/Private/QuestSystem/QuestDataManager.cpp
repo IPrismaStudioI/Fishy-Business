@@ -87,18 +87,6 @@ TMap<EQuestRewardType, UDA_QuestRewardBase*> UQuestDataManager::GetQuestRewardFr
 	return row->xReward;
 }
 
-EQuestRewardType UQuestDataManager::GetQuestRewardTypeFromDT(FString id)
-{
-	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();
-	FQuestRow* row = gamemode->xDataTableQuest->FindRow<FQuestRow>(FName(id), "");
-	if (!row)
-	{
-		UE_LOG(LogCore, Error, TEXT("Quest row not found"));
-		return EQuestRewardType::None;
-	}
-	return row->eRewardType;
-}
-
 UTexture2D* UQuestDataManager::GetQuestIconFromDT(FString id)
 {
 	AFishyBusinessGameModeBase* gamemode = GetWorld()->GetAuthGameMode<AFishyBusinessGameModeBase>();

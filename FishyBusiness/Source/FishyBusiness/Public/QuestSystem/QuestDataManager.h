@@ -42,7 +42,6 @@ public:
 	EQuestUnlockType GetQuestUnlockTypeFromDT(FString id);
 	TArray<UDA_QuestModuleBase*> GetQuestModuleListFromDT(FString id);
 	TMap<EQuestRewardType, UDA_QuestRewardBase*> GetQuestRewardFromDT(FString id);
-	EQuestRewardType GetQuestRewardTypeFromDT(FString id);
 	UTexture2D* GetQuestIconFromDT(FString id);
 	FString GetQuestGiverFromDT(FString id);
 };
