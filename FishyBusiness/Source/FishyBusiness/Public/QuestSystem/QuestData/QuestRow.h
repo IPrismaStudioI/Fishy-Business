@@ -36,10 +36,7 @@ public:
 	TArray<UDA_QuestModuleBase*> xModuleList;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UDA_QuestRewardBase* xReward;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EQuestRewardType eRewardType;
+	TMap<EQuestRewardType, UDA_QuestRewardBase*> xReward;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UTexture2D* xQuestIcon;
